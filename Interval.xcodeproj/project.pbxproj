@@ -1,0 +1,780 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		DEF28CF21CADCDDE00D50DC1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF28CF11CADCDDE00D50DC1 /* AppDelegate.swift */; };
+		DEF28CF41CADCDDE00D50DC1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF28CF31CADCDDE00D50DC1 /* ViewController.swift */; };
+		DEF28CF71CADCDDE00D50DC1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DEF28CF51CADCDDE00D50DC1 /* Main.storyboard */; };
+		DEF28CF91CADCDDE00D50DC1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DEF28CF81CADCDDE00D50DC1 /* Assets.xcassets */; };
+		DEF28CFC1CADCDDE00D50DC1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DEF28CFA1CADCDDE00D50DC1 /* LaunchScreen.storyboard */; };
+		DEF28D071CADCDDE00D50DC1 /* IntervalTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF28D061CADCDDE00D50DC1 /* IntervalTests.swift */; };
+		DEF28D121CADCDDE00D50DC1 /* IntervalUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF28D111CADCDDE00D50DC1 /* IntervalUITests.swift */; };
+		DEF28D171CADCDDE00D50DC1 /* Interval WatchKit App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = DEF28D161CADCDDE00D50DC1 /* Interval WatchKit App.app */; };
+		DEF28D1D1CADCDDE00D50DC1 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DEF28D1B1CADCDDE00D50DC1 /* Interface.storyboard */; };
+		DEF28D1F1CADCDDE00D50DC1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DEF28D1E1CADCDDE00D50DC1 /* Assets.xcassets */; };
+		DEF28D261CADCDDE00D50DC1 /* Interval WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = DEF28D251CADCDDE00D50DC1 /* Interval WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		DEF28D2D1CADCDDE00D50DC1 /* InterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF28D2C1CADCDDE00D50DC1 /* InterfaceController.swift */; };
+		DEF28D2F1CADCDDE00D50DC1 /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF28D2E1CADCDDE00D50DC1 /* ExtensionDelegate.swift */; };
+		DEF28D311CADCDDE00D50DC1 /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF28D301CADCDDE00D50DC1 /* NotificationController.swift */; };
+		DEF28D331CADCDDE00D50DC1 /* GlanceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF28D321CADCDDE00D50DC1 /* GlanceController.swift */; };
+		DEF28D351CADCDDE00D50DC1 /* ComplicationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF28D341CADCDDE00D50DC1 /* ComplicationController.swift */; };
+		DEF28D371CADCDDE00D50DC1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DEF28D361CADCDDE00D50DC1 /* Assets.xcassets */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		DEF28D031CADCDDE00D50DC1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DEF28CE61CADCDDE00D50DC1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DEF28CED1CADCDDE00D50DC1;
+			remoteInfo = Interval;
+		};
+		DEF28D0E1CADCDDE00D50DC1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DEF28CE61CADCDDE00D50DC1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DEF28CED1CADCDDE00D50DC1;
+			remoteInfo = Interval;
+		};
+		DEF28D181CADCDDE00D50DC1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DEF28CE61CADCDDE00D50DC1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DEF28D151CADCDDE00D50DC1;
+			remoteInfo = "Interval WatchKit App";
+		};
+		DEF28D271CADCDDE00D50DC1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DEF28CE61CADCDDE00D50DC1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DEF28D241CADCDDE00D50DC1;
+			remoteInfo = "Interval WatchKit Extension";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		DEF28D3E1CADCDDE00D50DC1 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				DEF28D261CADCDDE00D50DC1 /* Interval WatchKit Extension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DEF28D421CADCDDE00D50DC1 /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+				DEF28D171CADCDDE00D50DC1 /* Interval WatchKit App.app in Embed Watch Content */,
+			);
+			name = "Embed Watch Content";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		DEF28CEE1CADCDDE00D50DC1 /* Interval.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Interval.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DEF28CF11CADCDDE00D50DC1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		DEF28CF31CADCDDE00D50DC1 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		DEF28CF61CADCDDE00D50DC1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		DEF28CF81CADCDDE00D50DC1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		DEF28CFB1CADCDDE00D50DC1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		DEF28CFD1CADCDDE00D50DC1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DEF28D021CADCDDE00D50DC1 /* IntervalTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IntervalTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		DEF28D061CADCDDE00D50DC1 /* IntervalTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntervalTests.swift; sourceTree = "<group>"; };
+		DEF28D081CADCDDE00D50DC1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DEF28D0D1CADCDDE00D50DC1 /* IntervalUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IntervalUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		DEF28D111CADCDDE00D50DC1 /* IntervalUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntervalUITests.swift; sourceTree = "<group>"; };
+		DEF28D131CADCDDE00D50DC1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DEF28D161CADCDDE00D50DC1 /* Interval WatchKit App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Interval WatchKit App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DEF28D1C1CADCDDE00D50DC1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
+		DEF28D1E1CADCDDE00D50DC1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		DEF28D201CADCDDE00D50DC1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DEF28D251CADCDDE00D50DC1 /* Interval WatchKit Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Interval WatchKit Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DEF28D2B1CADCDDE00D50DC1 /* PushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
+		DEF28D2C1CADCDDE00D50DC1 /* InterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceController.swift; sourceTree = "<group>"; };
+		DEF28D2E1CADCDDE00D50DC1 /* ExtensionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionDelegate.swift; sourceTree = "<group>"; };
+		DEF28D301CADCDDE00D50DC1 /* NotificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationController.swift; sourceTree = "<group>"; };
+		DEF28D321CADCDDE00D50DC1 /* GlanceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlanceController.swift; sourceTree = "<group>"; };
+		DEF28D341CADCDDE00D50DC1 /* ComplicationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplicationController.swift; sourceTree = "<group>"; };
+		DEF28D361CADCDDE00D50DC1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		DEF28D381CADCDDE00D50DC1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		DEF28CEB1CADCDDE00D50DC1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DEF28CFF1CADCDDE00D50DC1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DEF28D0A1CADCDDE00D50DC1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DEF28D221CADCDDE00D50DC1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		DEF28CE51CADCDDE00D50DC1 = {
+			isa = PBXGroup;
+			children = (
+				DEF28CF01CADCDDE00D50DC1 /* Interval */,
+				DEF28D051CADCDDE00D50DC1 /* IntervalTests */,
+				DEF28D101CADCDDE00D50DC1 /* IntervalUITests */,
+				DEF28D1A1CADCDDE00D50DC1 /* Interval WatchKit App */,
+				DEF28D291CADCDDE00D50DC1 /* Interval WatchKit Extension */,
+				DEF28CEF1CADCDDE00D50DC1 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		DEF28CEF1CADCDDE00D50DC1 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				DEF28CEE1CADCDDE00D50DC1 /* Interval.app */,
+				DEF28D021CADCDDE00D50DC1 /* IntervalTests.xctest */,
+				DEF28D0D1CADCDDE00D50DC1 /* IntervalUITests.xctest */,
+				DEF28D161CADCDDE00D50DC1 /* Interval WatchKit App.app */,
+				DEF28D251CADCDDE00D50DC1 /* Interval WatchKit Extension.appex */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		DEF28CF01CADCDDE00D50DC1 /* Interval */ = {
+			isa = PBXGroup;
+			children = (
+				DEF28CF11CADCDDE00D50DC1 /* AppDelegate.swift */,
+				DEF28CF31CADCDDE00D50DC1 /* ViewController.swift */,
+				DEF28CF51CADCDDE00D50DC1 /* Main.storyboard */,
+				DEF28CF81CADCDDE00D50DC1 /* Assets.xcassets */,
+				DEF28CFA1CADCDDE00D50DC1 /* LaunchScreen.storyboard */,
+				DEF28CFD1CADCDDE00D50DC1 /* Info.plist */,
+			);
+			path = Interval;
+			sourceTree = "<group>";
+		};
+		DEF28D051CADCDDE00D50DC1 /* IntervalTests */ = {
+			isa = PBXGroup;
+			children = (
+				DEF28D061CADCDDE00D50DC1 /* IntervalTests.swift */,
+				DEF28D081CADCDDE00D50DC1 /* Info.plist */,
+			);
+			path = IntervalTests;
+			sourceTree = "<group>";
+		};
+		DEF28D101CADCDDE00D50DC1 /* IntervalUITests */ = {
+			isa = PBXGroup;
+			children = (
+				DEF28D111CADCDDE00D50DC1 /* IntervalUITests.swift */,
+				DEF28D131CADCDDE00D50DC1 /* Info.plist */,
+			);
+			path = IntervalUITests;
+			sourceTree = "<group>";
+		};
+		DEF28D1A1CADCDDE00D50DC1 /* Interval WatchKit App */ = {
+			isa = PBXGroup;
+			children = (
+				DEF28D1B1CADCDDE00D50DC1 /* Interface.storyboard */,
+				DEF28D1E1CADCDDE00D50DC1 /* Assets.xcassets */,
+				DEF28D201CADCDDE00D50DC1 /* Info.plist */,
+			);
+			path = "Interval WatchKit App";
+			sourceTree = "<group>";
+		};
+		DEF28D291CADCDDE00D50DC1 /* Interval WatchKit Extension */ = {
+			isa = PBXGroup;
+			children = (
+				DEF28D2C1CADCDDE00D50DC1 /* InterfaceController.swift */,
+				DEF28D2E1CADCDDE00D50DC1 /* ExtensionDelegate.swift */,
+				DEF28D301CADCDDE00D50DC1 /* NotificationController.swift */,
+				DEF28D321CADCDDE00D50DC1 /* GlanceController.swift */,
+				DEF28D341CADCDDE00D50DC1 /* ComplicationController.swift */,
+				DEF28D361CADCDDE00D50DC1 /* Assets.xcassets */,
+				DEF28D381CADCDDE00D50DC1 /* Info.plist */,
+				DEF28D2A1CADCDDE00D50DC1 /* Supporting Files */,
+			);
+			path = "Interval WatchKit Extension";
+			sourceTree = "<group>";
+		};
+		DEF28D2A1CADCDDE00D50DC1 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				DEF28D2B1CADCDDE00D50DC1 /* PushNotificationPayload.apns */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		DEF28CED1CADCDDE00D50DC1 /* Interval */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DEF28D431CADCDDE00D50DC1 /* Build configuration list for PBXNativeTarget "Interval" */;
+			buildPhases = (
+				DEF28CEA1CADCDDE00D50DC1 /* Sources */,
+				DEF28CEB1CADCDDE00D50DC1 /* Frameworks */,
+				DEF28CEC1CADCDDE00D50DC1 /* Resources */,
+				DEF28D421CADCDDE00D50DC1 /* Embed Watch Content */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DEF28D191CADCDDE00D50DC1 /* PBXTargetDependency */,
+			);
+			name = Interval;
+			productName = Interval;
+			productReference = DEF28CEE1CADCDDE00D50DC1 /* Interval.app */;
+			productType = "com.apple.product-type.application";
+		};
+		DEF28D011CADCDDE00D50DC1 /* IntervalTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DEF28D461CADCDDE00D50DC1 /* Build configuration list for PBXNativeTarget "IntervalTests" */;
+			buildPhases = (
+				DEF28CFE1CADCDDE00D50DC1 /* Sources */,
+				DEF28CFF1CADCDDE00D50DC1 /* Frameworks */,
+				DEF28D001CADCDDE00D50DC1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DEF28D041CADCDDE00D50DC1 /* PBXTargetDependency */,
+			);
+			name = IntervalTests;
+			productName = IntervalTests;
+			productReference = DEF28D021CADCDDE00D50DC1 /* IntervalTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		DEF28D0C1CADCDDE00D50DC1 /* IntervalUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DEF28D491CADCDDE00D50DC1 /* Build configuration list for PBXNativeTarget "IntervalUITests" */;
+			buildPhases = (
+				DEF28D091CADCDDE00D50DC1 /* Sources */,
+				DEF28D0A1CADCDDE00D50DC1 /* Frameworks */,
+				DEF28D0B1CADCDDE00D50DC1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DEF28D0F1CADCDDE00D50DC1 /* PBXTargetDependency */,
+			);
+			name = IntervalUITests;
+			productName = IntervalUITests;
+			productReference = DEF28D0D1CADCDDE00D50DC1 /* IntervalUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+		DEF28D151CADCDDE00D50DC1 /* Interval WatchKit App */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DEF28D3F1CADCDDE00D50DC1 /* Build configuration list for PBXNativeTarget "Interval WatchKit App" */;
+			buildPhases = (
+				DEF28D141CADCDDE00D50DC1 /* Resources */,
+				DEF28D3E1CADCDDE00D50DC1 /* Embed App Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DEF28D281CADCDDE00D50DC1 /* PBXTargetDependency */,
+			);
+			name = "Interval WatchKit App";
+			productName = "Interval WatchKit App";
+			productReference = DEF28D161CADCDDE00D50DC1 /* Interval WatchKit App.app */;
+			productType = "com.apple.product-type.application.watchapp2";
+		};
+		DEF28D241CADCDDE00D50DC1 /* Interval WatchKit Extension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DEF28D3B1CADCDDE00D50DC1 /* Build configuration list for PBXNativeTarget "Interval WatchKit Extension" */;
+			buildPhases = (
+				DEF28D211CADCDDE00D50DC1 /* Sources */,
+				DEF28D221CADCDDE00D50DC1 /* Frameworks */,
+				DEF28D231CADCDDE00D50DC1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Interval WatchKit Extension";
+			productName = "Interval WatchKit Extension";
+			productReference = DEF28D251CADCDDE00D50DC1 /* Interval WatchKit Extension.appex */;
+			productType = "com.apple.product-type.watchkit2-extension";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		DEF28CE61CADCDDE00D50DC1 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0730;
+				LastUpgradeCheck = 0730;
+				ORGANIZATIONNAME = "Wes Moore";
+				TargetAttributes = {
+					DEF28CED1CADCDDE00D50DC1 = {
+						CreatedOnToolsVersion = 7.3;
+					};
+					DEF28D011CADCDDE00D50DC1 = {
+						CreatedOnToolsVersion = 7.3;
+						TestTargetID = DEF28CED1CADCDDE00D50DC1;
+					};
+					DEF28D0C1CADCDDE00D50DC1 = {
+						CreatedOnToolsVersion = 7.3;
+						TestTargetID = DEF28CED1CADCDDE00D50DC1;
+					};
+					DEF28D151CADCDDE00D50DC1 = {
+						CreatedOnToolsVersion = 7.3;
+					};
+					DEF28D241CADCDDE00D50DC1 = {
+						CreatedOnToolsVersion = 7.3;
+					};
+				};
+			};
+			buildConfigurationList = DEF28CE91CADCDDE00D50DC1 /* Build configuration list for PBXProject "Interval" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = DEF28CE51CADCDDE00D50DC1;
+			productRefGroup = DEF28CEF1CADCDDE00D50DC1 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				DEF28CED1CADCDDE00D50DC1 /* Interval */,
+				DEF28D011CADCDDE00D50DC1 /* IntervalTests */,
+				DEF28D0C1CADCDDE00D50DC1 /* IntervalUITests */,
+				DEF28D151CADCDDE00D50DC1 /* Interval WatchKit App */,
+				DEF28D241CADCDDE00D50DC1 /* Interval WatchKit Extension */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		DEF28CEC1CADCDDE00D50DC1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DEF28CFC1CADCDDE00D50DC1 /* LaunchScreen.storyboard in Resources */,
+				DEF28CF91CADCDDE00D50DC1 /* Assets.xcassets in Resources */,
+				DEF28CF71CADCDDE00D50DC1 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DEF28D001CADCDDE00D50DC1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DEF28D0B1CADCDDE00D50DC1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DEF28D141CADCDDE00D50DC1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DEF28D1F1CADCDDE00D50DC1 /* Assets.xcassets in Resources */,
+				DEF28D1D1CADCDDE00D50DC1 /* Interface.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DEF28D231CADCDDE00D50DC1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DEF28D371CADCDDE00D50DC1 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		DEF28CEA1CADCDDE00D50DC1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DEF28CF41CADCDDE00D50DC1 /* ViewController.swift in Sources */,
+				DEF28CF21CADCDDE00D50DC1 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DEF28CFE1CADCDDE00D50DC1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DEF28D071CADCDDE00D50DC1 /* IntervalTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DEF28D091CADCDDE00D50DC1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DEF28D121CADCDDE00D50DC1 /* IntervalUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DEF28D211CADCDDE00D50DC1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DEF28D311CADCDDE00D50DC1 /* NotificationController.swift in Sources */,
+				DEF28D2F1CADCDDE00D50DC1 /* ExtensionDelegate.swift in Sources */,
+				DEF28D351CADCDDE00D50DC1 /* ComplicationController.swift in Sources */,
+				DEF28D2D1CADCDDE00D50DC1 /* InterfaceController.swift in Sources */,
+				DEF28D331CADCDDE00D50DC1 /* GlanceController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		DEF28D041CADCDDE00D50DC1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DEF28CED1CADCDDE00D50DC1 /* Interval */;
+			targetProxy = DEF28D031CADCDDE00D50DC1 /* PBXContainerItemProxy */;
+		};
+		DEF28D0F1CADCDDE00D50DC1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DEF28CED1CADCDDE00D50DC1 /* Interval */;
+			targetProxy = DEF28D0E1CADCDDE00D50DC1 /* PBXContainerItemProxy */;
+		};
+		DEF28D191CADCDDE00D50DC1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DEF28D151CADCDDE00D50DC1 /* Interval WatchKit App */;
+			targetProxy = DEF28D181CADCDDE00D50DC1 /* PBXContainerItemProxy */;
+		};
+		DEF28D281CADCDDE00D50DC1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DEF28D241CADCDDE00D50DC1 /* Interval WatchKit Extension */;
+			targetProxy = DEF28D271CADCDDE00D50DC1 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		DEF28CF51CADCDDE00D50DC1 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DEF28CF61CADCDDE00D50DC1 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		DEF28CFA1CADCDDE00D50DC1 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DEF28CFB1CADCDDE00D50DC1 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		DEF28D1B1CADCDDE00D50DC1 /* Interface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DEF28D1C1CADCDDE00D50DC1 /* Base */,
+			);
+			name = Interface.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		DEF28D391CADCDDE00D50DC1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		DEF28D3A1CADCDDE00D50DC1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		DEF28D3C1CADCDDE00D50DC1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
+				INFOPLIST_FILE = "Interval WatchKit Extension/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.WesMoore.Interval.watchkitapp.watchkitextension;
+				PRODUCT_NAME = "${TARGET_NAME}";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 2.2;
+			};
+			name = Debug;
+		};
+		DEF28D3D1CADCDDE00D50DC1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
+				INFOPLIST_FILE = "Interval WatchKit Extension/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.WesMoore.Interval.watchkitapp.watchkitextension;
+				PRODUCT_NAME = "${TARGET_NAME}";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 2.2;
+			};
+			name = Release;
+		};
+		DEF28D401CADCDDE00D50DC1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				IBSC_MODULE = Interval_WatchKit_Extension;
+				INFOPLIST_FILE = "Interval WatchKit App/Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = com.WesMoore.Interval.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 2.2;
+			};
+			name = Debug;
+		};
+		DEF28D411CADCDDE00D50DC1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				IBSC_MODULE = Interval_WatchKit_Extension;
+				INFOPLIST_FILE = "Interval WatchKit App/Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = com.WesMoore.Interval.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 2.2;
+			};
+			name = Release;
+		};
+		DEF28D441CADCDDE00D50DC1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = Interval/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.WesMoore.Interval;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		DEF28D451CADCDDE00D50DC1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = Interval/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.WesMoore.Interval;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		DEF28D471CADCDDE00D50DC1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = IntervalTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.WesMoore.IntervalTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Interval.app/Interval";
+			};
+			name = Debug;
+		};
+		DEF28D481CADCDDE00D50DC1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = IntervalTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.WesMoore.IntervalTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Interval.app/Interval";
+			};
+			name = Release;
+		};
+		DEF28D4A1CADCDDE00D50DC1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = IntervalUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.WesMoore.IntervalUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = Interval;
+			};
+			name = Debug;
+		};
+		DEF28D4B1CADCDDE00D50DC1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = IntervalUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.WesMoore.IntervalUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = Interval;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		DEF28CE91CADCDDE00D50DC1 /* Build configuration list for PBXProject "Interval" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DEF28D391CADCDDE00D50DC1 /* Debug */,
+				DEF28D3A1CADCDDE00D50DC1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DEF28D3B1CADCDDE00D50DC1 /* Build configuration list for PBXNativeTarget "Interval WatchKit Extension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DEF28D3C1CADCDDE00D50DC1 /* Debug */,
+				DEF28D3D1CADCDDE00D50DC1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		DEF28D3F1CADCDDE00D50DC1 /* Build configuration list for PBXNativeTarget "Interval WatchKit App" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DEF28D401CADCDDE00D50DC1 /* Debug */,
+				DEF28D411CADCDDE00D50DC1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		DEF28D431CADCDDE00D50DC1 /* Build configuration list for PBXNativeTarget "Interval" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DEF28D441CADCDDE00D50DC1 /* Debug */,
+				DEF28D451CADCDDE00D50DC1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		DEF28D461CADCDDE00D50DC1 /* Build configuration list for PBXNativeTarget "IntervalTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DEF28D471CADCDDE00D50DC1 /* Debug */,
+				DEF28D481CADCDDE00D50DC1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		DEF28D491CADCDDE00D50DC1 /* Build configuration list for PBXNativeTarget "IntervalUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DEF28D4A1CADCDDE00D50DC1 /* Debug */,
+				DEF28D4B1CADCDDE00D50DC1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = DEF28CE61CADCDDE00D50DC1 /* Project object */;
+}
