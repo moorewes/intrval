@@ -7,9 +7,17 @@
 //
 
 import ClockKit
-
+import WatchKit
+import WatchConnectivity
 
 class ComplicationController: NSObject, CLKComplicationDataSource {
+    
+    var data: (NSDate, NSCalendarUnit)?
+//    func measureIntervalWithUnit(unit: NSCalendarUnit) -> String {
+//        //let interval = DataMan
+//        //let interval = NSCalendar.currentCalendar().component(unit, fromDate: date)
+//        //return "\(interval)"
+//    }
     
     // MARK: - Timeline Configuration
     
@@ -31,9 +39,42 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
     
     // MARK: - Timeline Population
     
+    
     func getCurrentTimelineEntryForComplication(complication: CLKComplication, withHandler handler: ((CLKComplicationTimelineEntry?) -> Void)) {
-        // Call the handler with the current timeline entry
-        handler(nil)
+        print("get current timeline entry")
+        guard let date = NSUserDefaults.standardUserDefaults().valueForKey(Keys.UD.referenceDate) as? NSDate,
+            let unitRaw = NSUserDefaults.standardUserDefaults().valueForKey(Keys.UD.intervalUnit) as? UInt else {
+                print("no values in userDefaults")
+                return
+        }
+        let unit = NSCalendarUnit(rawValue: unitRaw)
+        let interval = NSCalendar.currentCalendar().components(unit, fromDate: date, toDate: NSDate(), options: NSCalendarOptions()).valueForComponent(unit)
+        let digitCount = "\(interval)".characters.count
+        switch complication.family {
+        case .ModularSmall:
+            if digitCount < 4 {
+                let template = CLKComplicationTemplateModularSmallSimpleText()
+                template.textProvider = CLKRelativeDateTextProvider(date: date, style: .Natural, units: unit)
+                let entry = CLKComplicationTimelineEntry(date: NSDate(), complicationTemplate: template)
+                handler(entry)
+            } else {
+                let template = CLKComplicationTemplateModularSmallStackText()
+                template.line1TextProvider = CLKSimpleTextProvider(text: "\(interval)")
+                template.line2TextProvider = CLKSimpleTextProvider(text: "DAYS")
+                let entry = CLKComplicationTimelineEntry(date: NSDate(), complicationTemplate: template)
+                handler(entry)
+            }
+        case .ModularLarge:
+            return
+        case .CircularSmall:
+            return
+        case .UtilitarianSmall:
+            return
+        case .UtilitarianLarge:
+            return
+            
+        }
+        print("got values from standard defaults")
     }
     
     func getTimelineEntriesForComplication(complication: CLKComplication, beforeDate date: NSDate, limit: Int, withHandler handler: (([CLKComplicationTimelineEntry]?) -> Void)) {
@@ -50,7 +91,8 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
     
     func getNextRequestedUpdateDateWithHandler(handler: (NSDate?) -> Void) {
         // Call the handler with the date when you would next like to be given the opportunity to update your complication content
-        handler(nil);
+        let date = NSDate(timeIntervalSinceNow: 60*60)
+        handler(date);
     }
     
     // MARK: - Placeholder Templates

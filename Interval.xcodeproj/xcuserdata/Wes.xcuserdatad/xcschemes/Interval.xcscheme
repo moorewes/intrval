@@ -48,6 +48,16 @@
                ReferencedContainer = "container:Interval.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "DE23178B1CAF17D1007D605C"
+               BuildableName = "IntervalDataManagerTests.xctest"
+               BlueprintName = "IntervalDataManagerTests"
+               ReferencedContainer = "container:Interval.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
