@@ -13,21 +13,22 @@ import WatchConnectivity
 class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionDelegate {
     
     var session: WCSession!
-    var complicationData: (date: NSDate, unit: NSCalendarUnit)?
+    var complicationData: (date: NSDate, unit: NSCalendarUnit, title: String)?
     var complicationController: ComplicationController?
-
     func applicationDidFinishLaunching() {
         // Perform any final initialization of your application.
         print("applicationDidFinishLaunching")
-        if session.reachable {
-            print("sending inital data request to ios")
+        if NSUserDefaults.standardUserDefaults().valueForKey(Keys.UD.referenceDate) as? NSDate == nil && session.reachable {
+            print("sending inital data request to iOS")
             let message: [String:AnyObject] = ["initialLaunch":true]
             session.sendMessage(message, replyHandler: { (info) in
+                print("received reply to initial data request to iOS")
                 self.complicationData = ComplicationDataHelper.dataFromUserInfo(info)
                 }, errorHandler: { (error) in
                     print(error.localizedDescription)
             })
         }
+        
     }
 
     func applicationDidBecomeActive() {
@@ -49,21 +50,12 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionDelegate {
             session.activateSession()
             print("WCSession activated watchOS")
         }
-        let defaults = NSUserDefaults(suiteName: Keys.UD.appGroup)
-        guard let date = defaults?.valueForKey(Keys.UD.referenceDate) as? NSDate,
-        let unitRaw = defaults?.valueForKey(Keys.UD.intervalUnit) as? UInt else {
-            print("unable to load app group data")
-            if let date = NSUserDefaults.standardUserDefaults().valueForKey(Keys.UD.referenceDate) as? NSDate,
-                let unit = NSUserDefaults.standardUserDefaults().valueForKey(Keys.UD.intervalUnit) as? UInt {
-                complicationData = (date, NSCalendarUnit(rawValue: unit))
-            }
-            return
+        if let date = NSUserDefaults.standardUserDefaults().valueForKey(Keys.UD.referenceDate) as? NSDate,
+            let unit = NSUserDefaults.standardUserDefaults().valueForKey(Keys.UD.intervalUnit) as? UInt,
+            let title = NSUserDefaults.standardUserDefaults().valueForKey(Keys.UD.description) as? String {
+            complicationData = (date, NSCalendarUnit(rawValue: unit), title)
         }
-        complicationData = (date, NSCalendarUnit(rawValue: unitRaw))
-        print("loaded app group data")
-        
-        
-        
+        return
     }
     
     // MARK: WCSessionDelegate
@@ -73,7 +65,7 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionDelegate {
         complicationData = ComplicationDataHelper.dataFromUserInfo(userInfo)
         NSUserDefaults.standardUserDefaults().setValue(complicationData!.date, forKey: Keys.UD.referenceDate)
         NSUserDefaults.standardUserDefaults().setValue(complicationData!.unit.rawValue, forKey: Keys.UD.intervalUnit)
-        //guard let _ = complicationController else { return }
+        NSUserDefaults.standardUserDefaults().setValue(complicationData!.title, forKey: Keys.UD.description)
         let server = CLKComplicationServer.sharedInstance()
         server.activeComplications?.forEach { server.reloadTimelineForComplication($0) }
     }

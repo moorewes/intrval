@@ -13,10 +13,8 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
     @IBOutlet weak var intervalLabel: UILabel!
     @IBOutlet weak var mainScrollView: UIScrollView!
     @IBOutlet weak var mainScrollContentView: UIView!
-    @IBOutlet weak var settingsLabel: UILabel!
     @IBOutlet weak var confirmDateButton: UIButton!
     @IBOutlet weak var discardDateButton: UIButton!
-    @IBOutlet weak var loadingView: ArrowLoadingView!
     @IBOutlet weak var unitButton: UIButton!
     @IBOutlet weak var descriptionLabel: UITextField!
     
@@ -24,7 +22,6 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
     @IBOutlet weak var intervalTopSpace: NSLayoutConstraint!
     @IBOutlet weak var intervalHeight: NSLayoutConstraint!
     @IBOutlet weak var dateHeight: NSLayoutConstraint!
-    @IBOutlet weak var loadingViewHeight: NSLayoutConstraint!
     @IBOutlet weak var includeTimeTopSpace: NSLayoutConstraint!
     @IBOutlet weak var monthField: UITextField!
     @IBOutlet weak var dayField: UITextField!
@@ -36,13 +33,13 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
     @IBOutlet weak var timeContainer: UIView!
     @IBOutlet weak var includeTimeTextButton: UIButton!
     @IBOutlet weak var includeTimeSymbolButton: UIButton!
-    @IBOutlet weak var badgeButton: CircleButton!
     
     var interval: Interval!
-    var userSettings = UserSettings()
     var session: WCSession?
     var previousScrollOffset: CGPoint?
+    var isEditingDate = false
     var intervalTextHeight: CGFloat = 100
+    var keyboardHeight: CGFloat = 0
     var includeTime = false
     let meridiemAM = "AM"
     let meridiemPM = "PM"
@@ -52,7 +49,7 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
     var notificationFrequency: NotificationFrequency {
         return .VeryHigh
     }
-    
+    var intervalLabelShrinkageForSmallDevice: CGFloat { return view.bounds.height <= 480 ? -45 : 0 }
     @IBAction func changeIntervalDigitFormat() {
         interval.cycleDigitFormat()
         updateUI()
@@ -63,11 +60,23 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
         updateUI()
         saveData()
     }
-    @IBAction func toggleBadge(sender: CircleButton) {
-        
-    }
     @IBAction func requestShowHideTime() {
         showHideTime(!includeTime)
+        UIView.animateWithDuration(0.3,
+            delay: 0,
+            usingSpringWithDamping: 0.9,
+            initialSpringVelocity: 0,
+            options: .CurveEaseIn,
+            animations: {
+                self.view.layoutIfNeeded()
+            },
+            completion: { _ in
+                self.ensureViewIsVisible(self.dateRow)
+                if self.includeTime {
+                    self.hourField.becomeFirstResponder()
+                }
+            }
+        )
     }
     func showHideTime(include: Bool) {
         includeTime = include
@@ -89,16 +98,7 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
         
         timeContainer.hidden = !includeTime
         includeTimeTopSpace.constant = constant
-        UIView.animateWithDuration(0.3,
-            delay: 0,
-            usingSpringWithDamping: 0.9,
-            initialSpringVelocity: 0,
-            options: .CurveEaseIn,
-            animations: {
-                self.view.layoutIfNeeded()
-            },
-            completion: nil
-        )
+        
     }
     @IBAction func confirmDateChange() {
         guard let date = dateFromUI() else {
@@ -107,7 +107,7 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
         exitEditDate()
         interval.includeTime = includeTime
         interval.date = date
-        //editDate()
+        print(date.localeDescription)
         updateUI()
         saveData()
     }
@@ -123,6 +123,9 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
         default: text = "ER"
         }
         sender.setTitle(text, forState: .Normal)
+        if !isEditingDate {
+            saveData()
+        }
     }
     @IBAction func cancelEditDate(sender: UIButton) {
         exitEditDate()
@@ -219,18 +222,18 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
         } else {
             print("session is nil")
         }
-        if notificationsEnabled {
-            let notificationsHelper = NotableNotificationsHelper(interval: interval, frequency: notificationFrequency)
-            let notifications = notificationsHelper.getNotableNotificationsForInterval(interval, frequency: notificationFrequency)
-            print(notifications.first!.fireDate.localeDescription)
-        }
+//        if notificationsEnabled {
+//            let notificationsHelper = NotableNotificationsHelper(interval: interval, frequency: notificationFrequency)
+//            let notifications = notificationsHelper.getNotableNotificationsForInterval(interval, frequency: notificationFrequency)
+//            print(notifications.first!.fireDate.localeDescription)
+//        }
     }
     func sendDataToWatch() {
         guard session?.activationState == .Activated else {
             changeIntervalDigitFormat()
             return
         }
-        let userInfo = ComplicationDataHelper.createUserInfo(interval.date, unit: interval.unit)
+        let userInfo = ComplicationDataHelper.createUserInfo(interval.date, unit: interval.unit, title: interval.description)
         WCSession.defaultSession().transferCurrentComplicationUserInfo(userInfo)
         print("sent message to watch")
         
@@ -246,17 +249,9 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
         } else {
             interval = Interval(date: NSDate(), unit: .Day, format: .Standard, includeTime: false, description: descriptionLabel.text!)
         }
-        loadingViewHeight.constant = 0
+        intervalHeight.constant += intervalLabelShrinkageForSmallDevice
         updateUI()
-    }
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-        loadingViewHeight.constant = -view.bounds.height
-        UIView.animateWithDuration(2.0, delay: 0, usingSpringWithDamping: 0.85, initialSpringVelocity: 1, options: .CurveEaseIn, animations: {
-            self.view.layoutIfNeeded()
-            }) { _ in
-                self.loadingView.hidden = false
-        }
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(updateKeyboardHeight(_:)), name: UIKeyboardWillChangeFrameNotification, object: nil)
     }
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -271,30 +266,52 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
     func session(session: WCSession, didReceiveMessage message: [String : AnyObject], replyHandler: ([String : AnyObject]) -> Void) {
         print("received message")
         if let _ = message["initialLaunch"] as? Bool {
-            let reply = ComplicationDataHelper.createUserInfo(interval.date, unit: interval.unit)
+            let reply = ComplicationDataHelper.createUserInfo(interval.date, unit: interval.unit, title: interval.description)
             print("sent message back")
             replyHandler(reply)
         }
     }
     // MARK: UITextFieldDelegate
-    
+    func updateKeyboardHeight(notification: NSNotification){
+        if let userInfo = notification.userInfo {
+            if let keyboardSize = (userInfo[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.CGRectValue() {
+                keyboardHeight = keyboardSize.height
+                if isEditingDate {
+                    ensureViewIsVisible(dateRow)
+                }
+            }
+        }
+    }
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         textField.backgroundColor = UIColor.clearColor()
+        if let offset = previousScrollOffset {
+            mainScrollView.setContentOffset(offset, animated: true)
+        }
         return true
     }
     func textFieldShouldEndEditing(textField: UITextField) -> Bool {
         textField.backgroundColor = UIColor.clearColor()
+        isEditingDate = false
+        mainScrollView.scrollEnabled = true
         return true
     }
     func textFieldDidBeginEditing(textField: UITextField) {
-        //Ensure can see field
-        let minOffsetY = dateRow.frame.maxY + view.bounds.height/3 - view.bounds.height
-        if mainScrollView.contentOffset.y < minOffsetY {
-            previousScrollOffset = mainScrollView.contentOffset
-            let offset = CGPointMake(0, minOffsetY)
-            mainScrollView.setContentOffset(offset, animated: true)
+        isEditingDate = true
+        mainScrollView.scrollEnabled = false
+        switch includeTime {
+        case true: includeTimeTopSpace.constant = timeContainer.frame.height
+        case false: includeTimeTopSpace.constant = 0
         }
+        view.layoutIfNeeded()
+        //Ensure can see field
+        ensureViewIsVisible(dateRow)
+//        let minOffsetY = dateRow.frame.maxY + view.bounds.height/3 - view.bounds.height
+//        if mainScrollView.contentOffset.y < minOffsetY {
+//            previousScrollOffset = mainScrollView.contentOffset
+//            let offset = CGPointMake(0, minOffsetY)
+//            mainScrollView.setContentOffset(offset, animated: true)
+//        }
         //Set background color if needed
         switch textField {
         case hourField, minuteField, yearField, dayField, monthField:
@@ -305,7 +322,6 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
         
     }
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
-        print("SHOULD CHANGE")
         // in case just started editing
         if textField.textColor == UIColor.lightGrayColor() {
             textField.text = ""
@@ -337,7 +353,6 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
         return true
     }
     @IBAction func textFieldDidChange(sender: UITextField) {
-        print("didChange")
         // Check if over max character length, return if not setting date
         var withinCharLimit = true
         switch sender {
@@ -434,16 +449,26 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
         }
         nextField.becomeFirstResponder()
     }
+    func ensureViewIsVisible(visibleView: UIView) {
+        let minOffsetY = visibleView.frame.maxY + keyboardHeight - view.bounds.height
+        if mainScrollView.contentOffset.y < minOffsetY {
+            if previousScrollOffset == nil {
+                previousScrollOffset = mainScrollView.contentOffset
+            }
+            let offset = CGPointMake(0, minOffsetY)
+            mainScrollView.setContentOffset(offset, animated: true)
+        }
+    }
 }
 extension ViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(scrollView: UIScrollView) {
         //let range: CGFloat = view.bounds.height/2.5
-        let range = view.bounds.height/2 - intervalTextHeight + 10
-        let offset = min(range, scrollView.contentOffset.y)
-        intervalHeight.constant = -offset
-        intervalTopSpace.constant = 25 + min(range, offset)
+        let max = view.bounds.height/2 - intervalTextHeight + 10
+        let offset = min(max, scrollView.contentOffset.y)
+        intervalHeight.constant = -offset + intervalLabelShrinkageForSmallDevice
+        intervalTopSpace.constant = 25 + min(max, offset)
         view.layoutIfNeeded()
-        
     }
+    
 }
 

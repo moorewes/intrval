@@ -11,8 +11,7 @@
 		DE1ACB1A1CC8177E00F946E9 /* NotableIntervals.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE1ACB191CC8177E00F946E9 /* NotableIntervals.swift */; };
 		DE24AE4F1CB07F33009753D2 /* ComplicationDataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE24AE4E1CB07F33009753D2 /* ComplicationDataHelper.swift */; };
 		DE24AE501CB083C4009753D2 /* ComplicationDataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE24AE4E1CB07F33009753D2 /* ComplicationDataHelper.swift */; };
-		DE24B5711CCB2F7B00E61E9D /* CircleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE24B5701CCB2F7B00E61E9D /* CircleButton.swift */; };
-		DE24B5731CCB30DD00E61E9D /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE24B5721CCB30DD00E61E9D /* UserSettings.swift */; };
+		DE24B5751CCC12FA00E61E9D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DE24B5741CCC12FA00E61E9D /* LaunchScreen.storyboard */; };
 		DE260B381CC6FA92005A5E77 /* NotificationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE260B371CC6FA92005A5E77 /* NotificationHelper.swift */; };
 		DEEA5EFA1CAF649100F1CBA7 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEEA5EF61CAF649100F1CBA7 /* DataManager.swift */; };
 		DEEA5EFB1CAF649100F1CBA7 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEEA5EF61CAF649100F1CBA7 /* DataManager.swift */; };
@@ -22,7 +21,6 @@
 		DEEA5EFF1CAF649100F1CBA7 /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEEA5EF81CAF649100F1CBA7 /* Keys.swift */; };
 		DEEA5F001CAF649100F1CBA7 /* Roman.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEEA5EF91CAF649100F1CBA7 /* Roman.swift */; };
 		DEEA5F011CAF649100F1CBA7 /* Roman.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEEA5EF91CAF649100F1CBA7 /* Roman.swift */; };
-		DEEDDC861CB3759100F98E2A /* ArrowLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEEDDC851CB3759100F98E2A /* ArrowLoadingView.swift */; };
 		DEF28CF21CADCDDE00D50DC1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF28CF11CADCDDE00D50DC1 /* AppDelegate.swift */; };
 		DEF28CF41CADCDDE00D50DC1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF28CF31CADCDDE00D50DC1 /* ViewController.swift */; };
 		DEF28CF71CADCDDE00D50DC1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DEF28CF51CADCDDE00D50DC1 /* Main.storyboard */; };
@@ -124,14 +122,12 @@
 		DE1ACB191CC8177E00F946E9 /* NotableIntervals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotableIntervals.swift; sourceTree = "<group>"; };
 		DE23177D1CAF163A007D605C /* Interval.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Interval.entitlements; sourceTree = "<group>"; };
 		DE24AE4E1CB07F33009753D2 /* ComplicationDataHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComplicationDataHelper.swift; sourceTree = "<group>"; };
-		DE24B5701CCB2F7B00E61E9D /* CircleButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircleButton.swift; sourceTree = "<group>"; };
-		DE24B5721CCB30DD00E61E9D /* UserSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
+		DE24B5741CCC12FA00E61E9D /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DE260B371CC6FA92005A5E77 /* NotificationHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationHelper.swift; sourceTree = "<group>"; };
 		DEEA5EF61CAF649100F1CBA7 /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		DEEA5EF71CAF649100F1CBA7 /* Interval.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Interval.swift; sourceTree = "<group>"; };
 		DEEA5EF81CAF649100F1CBA7 /* Keys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
 		DEEA5EF91CAF649100F1CBA7 /* Roman.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Roman.swift; sourceTree = "<group>"; };
-		DEEDDC851CB3759100F98E2A /* ArrowLoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrowLoadingView.swift; sourceTree = "<group>"; };
 		DEF28CEE1CADCDDE00D50DC1 /* Interval.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Interval.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DEF28CF11CADCDDE00D50DC1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DEF28CF31CADCDDE00D50DC1 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -244,10 +240,8 @@
 				DE260B371CC6FA92005A5E77 /* NotificationHelper.swift */,
 				DE1ACB191CC8177E00F946E9 /* NotableIntervals.swift */,
 				DE1ACB171CC702CC00F946E9 /* Extensions.swift */,
-				DE24B5721CCB30DD00E61E9D /* UserSettings.swift */,
+				DE24B5741CCC12FA00E61E9D /* LaunchScreen.storyboard */,
 				DEF28CF51CADCDDE00D50DC1 /* Main.storyboard */,
-				DEEDDC851CB3759100F98E2A /* ArrowLoadingView.swift */,
-				DE24B5701CCB2F7B00E61E9D /* CircleButton.swift */,
 				DEF28CF81CADCDDE00D50DC1 /* Assets.xcassets */,
 				DEEA5F021CAF64BA00F1CBA7 /* Shared */,
 				DEEA5F031CAF651800F1CBA7 /* Supporting Files */,
@@ -417,7 +411,7 @@
 						DevelopmentTeam = QMD339GZVQ;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
-								enabled = 1;
+								enabled = 0;
 							};
 							com.apple.Push = {
 								enabled = 1;
@@ -479,6 +473,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DE24B5751CCC12FA00E61E9D /* LaunchScreen.storyboard in Resources */,
 				DEF28CF91CADCDDE00D50DC1 /* Assets.xcassets in Resources */,
 				DEF28CF71CADCDDE00D50DC1 /* Main.storyboard in Resources */,
 			);
@@ -525,14 +520,11 @@
 				DEF28CF41CADCDDE00D50DC1 /* ViewController.swift in Sources */,
 				DE1ACB1A1CC8177E00F946E9 /* NotableIntervals.swift in Sources */,
 				DEEA5F001CAF649100F1CBA7 /* Roman.swift in Sources */,
-				DE24B5711CCB2F7B00E61E9D /* CircleButton.swift in Sources */,
-				DE24B5731CCB30DD00E61E9D /* UserSettings.swift in Sources */,
 				DEEA5EFA1CAF649100F1CBA7 /* DataManager.swift in Sources */,
 				DE260B381CC6FA92005A5E77 /* NotificationHelper.swift in Sources */,
 				DEF28CF21CADCDDE00D50DC1 /* AppDelegate.swift in Sources */,
 				DE1ACB181CC702CC00F946E9 /* Extensions.swift in Sources */,
 				DEEA5EFC1CAF649100F1CBA7 /* Interval.swift in Sources */,
-				DEEDDC861CB3759100F98E2A /* ArrowLoadingView.swift in Sources */,
 				DE24AE4F1CB07F33009753D2 /* ComplicationDataHelper.swift in Sources */,
 				DEEA5EFE1CAF649100F1CBA7 /* Keys.swift in Sources */,
 			);
@@ -770,8 +762,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_ENTITLEMENTS = Interval/Interval.entitlements;
 				INFOPLIST_FILE = Interval/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -784,8 +774,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_ENTITLEMENTS = Interval/Interval.entitlements;
 				INFOPLIST_FILE = Interval/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
