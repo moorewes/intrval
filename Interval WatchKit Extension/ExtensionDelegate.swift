@@ -13,17 +13,24 @@ import WatchConnectivity
 class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionDelegate {
     
     var session: WCSession!
-    var complicationData: (date: NSDate, unit: NSCalendarUnit, title: String)?
+    //var complicationData: (date: NSDate, unit: NSCalendarUnit, title: String)?
     var complicationController: ComplicationController?
+    func updateComplication() {
+        let server = CLKComplicationServer.sharedInstance()
+        server.activeComplications?.forEach { server.reloadTimelineForComplication($0) }
+    }
+    
     func applicationDidFinishLaunching() {
         // Perform any final initialization of your application.
         print("applicationDidFinishLaunching")
+        // If no data, send request to phone for data
         if NSUserDefaults.standardUserDefaults().valueForKey(Keys.UD.referenceDate) as? NSDate == nil && session.reachable {
             print("sending inital data request to iOS")
             let message: [String:AnyObject] = ["initialLaunch":true]
             session.sendMessage(message, replyHandler: { (info) in
                 print("received reply to initial data request to iOS")
-                self.complicationData = ComplicationDataHelper.dataFromUserInfo(info)
+                let pulledData = ComplicationDataHelper.dataFromUserInfo(info)
+                self.saveData(pulledData.title, date: pulledData.date)
                 }, errorHandler: { (error) in
                     print(error.localizedDescription)
             })
@@ -44,30 +51,40 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionDelegate {
     override init() {
         super.init()
         print("init")
+        initializeDefaultsIfNeeded()
         if WCSession.isSupported() {
             session = WCSession.defaultSession()
             session.delegate = self
             session.activateSession()
             print("WCSession activated watchOS")
         }
-        if let date = NSUserDefaults.standardUserDefaults().valueForKey(Keys.UD.referenceDate) as? NSDate,
-            let unit = NSUserDefaults.standardUserDefaults().valueForKey(Keys.UD.intervalUnit) as? UInt,
-            let title = NSUserDefaults.standardUserDefaults().valueForKey(Keys.UD.description) as? String {
-            complicationData = (date, NSCalendarUnit(rawValue: unit), title)
-        }
         return
     }
     
+    func saveData(title: String, date: NSDate) {
+        let defaults = NSUserDefaults.standardUserDefaults()
+        defaults.setValue(title, forKey: Keys.UD.title)
+        defaults.setValue(date, forKey: Keys.UD.referenceDate)
+    }
+    func initializeDefaultsIfNeeded() {
+        let defaults = NSUserDefaults.standardUserDefaults()
+        guard defaults.valueForKey(Keys.UD.intervalUnit) as? UInt == nil else {
+            // Data already exists
+            return
+        }
+        // Note: .Era represents SmartAuto
+        let unit = NSCalendarUnit.Era.rawValue
+        defaults.setValue(unit, forKey: Keys.UD.intervalUnit)
+        defaults.setBool(true, forKey: Keys.UD.showSecondUnit)
+    }
     // MARK: WCSessionDelegate
     
     func session(session: WCSession, didReceiveUserInfo userInfo: [String : AnyObject]) {
         print("received userInfo on watch extension")
-        complicationData = ComplicationDataHelper.dataFromUserInfo(userInfo)
-        NSUserDefaults.standardUserDefaults().setValue(complicationData!.date, forKey: Keys.UD.referenceDate)
-        NSUserDefaults.standardUserDefaults().setValue(complicationData!.unit.rawValue, forKey: Keys.UD.intervalUnit)
-        NSUserDefaults.standardUserDefaults().setValue(complicationData!.title, forKey: Keys.UD.description)
-        let server = CLKComplicationServer.sharedInstance()
-        server.activeComplications?.forEach { server.reloadTimelineForComplication($0) }
+        let pulledData = ComplicationDataHelper.dataFromUserInfo(userInfo)
+        NSUserDefaults.standardUserDefaults().setValue(pulledData.date, forKey: Keys.UD.referenceDate)
+        NSUserDefaults.standardUserDefaults().setValue(pulledData.title, forKey: Keys.UD.title)
+        updateComplication()
     }
     
     

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="10116" systemVersion="15B42" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="AgC-eL-Hgc">
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="10117" systemVersion="15B42" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="AgC-eL-Hgc">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="10032"/>
@@ -8,7 +8,37 @@
         <!--Interface Controller-->
         <scene sceneID="aou-V4-d1y">
             <objects>
-                <controller id="AgC-eL-Hgc" customClass="InterfaceController" customModule="Interval_WatchKit_App" customModuleProvider="target"/>
+                <controller id="AgC-eL-Hgc" customClass="InterfaceController" customModule="Interval_WatchKit_App" customModuleProvider="target">
+                    <items>
+                        <label width="1" alignment="left" text="Complication Settings" textAlignment="center" numberOfLines="0" id="oyL-sN-EsP">
+                            <fontDescription key="font" style="UICTFontTextStyleFootnote"/>
+                        </label>
+                        <label height="10" alignment="left" id="Fp6-AO-B3S" userLabel="Spacer"/>
+                        <label alignment="left" text="Display Unit" textAlignment="left" id="rii-sX-AMV"/>
+                        <picker height="40" alignment="left" focusStyle="sequence" indicatorMode="shownWhileFocused" id="mCP-8R-Uar">
+                            <connections>
+                                <action selector="didSelectFirstUnit:" destination="AgC-eL-Hgc" id="q7c-Rb-UZm"/>
+                            </connections>
+                        </picker>
+                        <label height="10" alignment="left" id="vOi-Pd-Iqa"/>
+                        <switch width="1" alignment="left" value="YES" title="Show 2 Units" id="VzQ-h4-MSz">
+                            <connections>
+                                <action selector="didToggleSecondUnit:" destination="AgC-eL-Hgc" id="x55-BE-BiY"/>
+                            </connections>
+                        </switch>
+                        <label width="1" alignment="left" text="(e.g. 2y 5m, shown in larger complications)" textAlignment="center" numberOfLines="0" id="wr4-Ai-5qi">
+                            <fontDescription key="font" type="system" pointSize="12"/>
+                        </label>
+                        <label alignment="left" text="Troubleshooting:" id="Dp6-hG-WCr"/>
+                        <label alignment="left" text="Ensure date and title have been set on companion iOS App. If necessary, try restarting your watch." numberOfLines="0" id="vaS-Nj-aeQ">
+                            <fontDescription key="font" style="UICTFontTextStyleFootnote"/>
+                        </label>
+                    </items>
+                    <connections>
+                        <outlet property="firstUnitPicker" destination="mCP-8R-Uar" id="kIH-3B-ljG"/>
+                        <outlet property="secondUnitToggle" destination="VzQ-h4-MSz" id="IiN-2n-Npx"/>
+                    </connections>
+                </controller>
             </objects>
             <point key="canvasLocation" x="235" y="347"/>
         </scene>
@@ -17,10 +47,34 @@
             <objects>
                 <glanceController spacing="0.0" id="0uZ-2p-rRc" customClass="GlanceController" customModule="Interval_WatchKit_App" customModuleProvider="target">
                     <items>
-                        <group alignment="left" id="t8f-Gd-c4y"/>
-                        <group alignment="left" id="uCw-4Q-Ouw"/>
+                        <group alignment="left" layout="vertical" id="tgi-8P-tAG">
+                            <items>
+                                <label alignment="right" text="Yosemite" textAlignment="right" minimumScaleFactor="0.40000000000000002" id="M9d-aL-QQq">
+                                    <fontDescription key="font" type="system" pointSize="14"/>
+                                </label>
+                                <label alignment="right" text="time since 01/23/16 08:30am" textAlignment="right" numberOfLines="2" minimumScaleFactor="0.69999999999999996" id="N2p-U7-MUL">
+                                    <color key="textColor" red="0.2239612731" green="1" blue="0.21677931719999999" alpha="1" colorSpace="calibratedRGB"/>
+                                    <fontDescription key="font" type="system" pointSize="11"/>
+                                </label>
+                                <imageView width="1" height="1" alignment="left" hidden="YES" alpha="0.0" id="ulR-gL-Lq8"/>
+                            </items>
+                        </group>
+                        <group alignment="left" id="3fA-57-odf">
+                            <items>
+                                <imageView width="1" height="1" alignment="left" hidden="YES" id="JqV-mR-K1g"/>
+                                <timer width="1" alignment="center" verticalAlignment="center" textAlignment="right" numberOfLines="0" minimumScaleFactor="0.29999999999999999" enabled="YES" format="full" previewedSeconds="3590000007" id="iRz-p0-ghh">
+                                    <fontDescription key="font" type="system" pointSize="16"/>
+                                    <calendarUnit key="units" year="YES" month="YES" day="YES" hour="YES" minute="YES" second="YES" weekOfMonth="YES"/>
+                                </timer>
+                            </items>
+                        </group>
                     </items>
                     <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="14"/>
+                    <connections>
+                        <outlet property="intervalDescriptionLabel" destination="N2p-U7-MUL" id="dZm-fB-jRn"/>
+                        <outlet property="timer" destination="iRz-p0-ghh" id="4rZ-jm-OdB"/>
+                        <outlet property="titleLabel" destination="M9d-aL-QQq" id="gaL-ij-8wI"/>
+                    </connections>
                 </glanceController>
             </objects>
             <point key="canvasLocation" x="235" y="672"/>

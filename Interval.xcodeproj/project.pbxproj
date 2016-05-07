@@ -14,13 +14,9 @@
 		DE24B5751CCC12FA00E61E9D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DE24B5741CCC12FA00E61E9D /* LaunchScreen.storyboard */; };
 		DE260B381CC6FA92005A5E77 /* NotificationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE260B371CC6FA92005A5E77 /* NotificationHelper.swift */; };
 		DEEA5EFA1CAF649100F1CBA7 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEEA5EF61CAF649100F1CBA7 /* DataManager.swift */; };
-		DEEA5EFB1CAF649100F1CBA7 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEEA5EF61CAF649100F1CBA7 /* DataManager.swift */; };
 		DEEA5EFC1CAF649100F1CBA7 /* Interval.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEEA5EF71CAF649100F1CBA7 /* Interval.swift */; };
-		DEEA5EFD1CAF649100F1CBA7 /* Interval.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEEA5EF71CAF649100F1CBA7 /* Interval.swift */; };
 		DEEA5EFE1CAF649100F1CBA7 /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEEA5EF81CAF649100F1CBA7 /* Keys.swift */; };
 		DEEA5EFF1CAF649100F1CBA7 /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEEA5EF81CAF649100F1CBA7 /* Keys.swift */; };
-		DEEA5F001CAF649100F1CBA7 /* Roman.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEEA5EF91CAF649100F1CBA7 /* Roman.swift */; };
-		DEEA5F011CAF649100F1CBA7 /* Roman.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEEA5EF91CAF649100F1CBA7 /* Roman.swift */; };
 		DEF28CF21CADCDDE00D50DC1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF28CF11CADCDDE00D50DC1 /* AppDelegate.swift */; };
 		DEF28CF41CADCDDE00D50DC1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF28CF31CADCDDE00D50DC1 /* ViewController.swift */; };
 		DEF28CF71CADCDDE00D50DC1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DEF28CF51CADCDDE00D50DC1 /* Main.storyboard */; };
@@ -127,7 +123,6 @@
 		DEEA5EF61CAF649100F1CBA7 /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		DEEA5EF71CAF649100F1CBA7 /* Interval.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Interval.swift; sourceTree = "<group>"; };
 		DEEA5EF81CAF649100F1CBA7 /* Keys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
-		DEEA5EF91CAF649100F1CBA7 /* Roman.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Roman.swift; sourceTree = "<group>"; };
 		DEF28CEE1CADCDDE00D50DC1 /* Interval.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Interval.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DEF28CF11CADCDDE00D50DC1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DEF28CF31CADCDDE00D50DC1 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -190,11 +185,8 @@
 		DEEA5F021CAF64BA00F1CBA7 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
-				DEEA5EF61CAF649100F1CBA7 /* DataManager.swift */,
-				DEEA5EF71CAF649100F1CBA7 /* Interval.swift */,
 				DE24AE4E1CB07F33009753D2 /* ComplicationDataHelper.swift */,
 				DEEA5EF81CAF649100F1CBA7 /* Keys.swift */,
-				DEEA5EF91CAF649100F1CBA7 /* Roman.swift */,
 			);
 			name = Shared;
 			sourceTree = "<group>";
@@ -240,6 +232,8 @@
 				DE260B371CC6FA92005A5E77 /* NotificationHelper.swift */,
 				DE1ACB191CC8177E00F946E9 /* NotableIntervals.swift */,
 				DE1ACB171CC702CC00F946E9 /* Extensions.swift */,
+				DEEA5EF61CAF649100F1CBA7 /* DataManager.swift */,
+				DEEA5EF71CAF649100F1CBA7 /* Interval.swift */,
 				DE24B5741CCC12FA00E61E9D /* LaunchScreen.storyboard */,
 				DEF28CF51CADCDDE00D50DC1 /* Main.storyboard */,
 				DEF28CF81CADCDDE00D50DC1 /* Assets.xcassets */,
@@ -519,7 +513,6 @@
 			files = (
 				DEF28CF41CADCDDE00D50DC1 /* ViewController.swift in Sources */,
 				DE1ACB1A1CC8177E00F946E9 /* NotableIntervals.swift in Sources */,
-				DEEA5F001CAF649100F1CBA7 /* Roman.swift in Sources */,
 				DEEA5EFA1CAF649100F1CBA7 /* DataManager.swift in Sources */,
 				DE260B381CC6FA92005A5E77 /* NotificationHelper.swift in Sources */,
 				DEF28CF21CADCDDE00D50DC1 /* AppDelegate.swift in Sources */,
@@ -553,9 +546,6 @@
 				DEF28D311CADCDDE00D50DC1 /* NotificationController.swift in Sources */,
 				DE24AE501CB083C4009753D2 /* ComplicationDataHelper.swift in Sources */,
 				DEEA5EFF1CAF649100F1CBA7 /* Keys.swift in Sources */,
-				DEEA5EFB1CAF649100F1CBA7 /* DataManager.swift in Sources */,
-				DEEA5F011CAF649100F1CBA7 /* Roman.swift in Sources */,
-				DEEA5EFD1CAF649100F1CBA7 /* Interval.swift in Sources */,
 				DEF28D2F1CADCDDE00D50DC1 /* ExtensionDelegate.swift in Sources */,
 				DEF28D351CADCDDE00D50DC1 /* ComplicationController.swift in Sources */,
 				DEF28D2D1CADCDDE00D50DC1 /* InterfaceController.swift in Sources */,

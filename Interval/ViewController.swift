@@ -41,6 +41,7 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
     var intervalTextHeight: CGFloat = 100
     var keyboardHeight: CGFloat = 0
     var includeTime = false
+    var hasSaved = false
     let meridiemAM = "AM"
     let meridiemPM = "PM"
     var notificationsEnabled: Bool {
@@ -50,15 +51,10 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
         return .VeryHigh
     }
     var intervalLabelShrinkageForSmallDevice: CGFloat { return view.bounds.height <= 480 ? -45 : 0 }
-    @IBAction func changeIntervalDigitFormat() {
-        interval.cycleDigitFormat()
-        updateUI()
-        //saveData()
-    }
     @IBAction func didTapUnit() {
         interval.cycleUnit()
         updateUI()
-        saveData()
+        //saveData()
     }
     @IBAction func requestShowHideTime() {
         showHideTime(!includeTime)
@@ -222,18 +218,12 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
         } else {
             print("session is nil")
         }
-//        if notificationsEnabled {
-//            let notificationsHelper = NotableNotificationsHelper(interval: interval, frequency: notificationFrequency)
-//            let notifications = notificationsHelper.getNotableNotificationsForInterval(interval, frequency: notificationFrequency)
-//            print(notifications.first!.fireDate.localeDescription)
-//        }
     }
     func sendDataToWatch() {
         guard session?.activationState == .Activated else {
-            changeIntervalDigitFormat()
             return
         }
-        let userInfo = ComplicationDataHelper.createUserInfo(interval.date, unit: interval.unit, title: interval.description)
+        let userInfo = ComplicationDataHelper.createUserInfo(interval.date, title: interval.description)
         WCSession.defaultSession().transferCurrentComplicationUserInfo(userInfo)
         print("sent message to watch")
         
@@ -247,8 +237,9 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
         if let data = DataManager.retrieveUserData() {
             interval = data
         } else {
-            interval = Interval(date: NSDate(), unit: .Day, format: .Standard, includeTime: false, description: descriptionLabel.text!)
+            interval = Interval(date: NSDate(), unit: .Day, includeTime: false, description: descriptionLabel.text!)
         }
+        hasSaved = NSUserDefaults.standardUserDefaults().boolForKey(Keys.UD.hasSaved)
         intervalHeight.constant += intervalLabelShrinkageForSmallDevice
         updateUI()
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(updateKeyboardHeight(_:)), name: UIKeyboardWillChangeFrameNotification, object: nil)
@@ -265,8 +256,8 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
     }
     func session(session: WCSession, didReceiveMessage message: [String : AnyObject], replyHandler: ([String : AnyObject]) -> Void) {
         print("received message")
-        if let _ = message["initialLaunch"] as? Bool {
-            let reply = ComplicationDataHelper.createUserInfo(interval.date, unit: interval.unit, title: interval.description)
+        if let _ = message["initialLaunch"] as? Bool where hasSaved {
+            let reply = ComplicationDataHelper.createUserInfo(interval.date, title: interval.description)
             print("sent message back")
             replyHandler(reply)
         }

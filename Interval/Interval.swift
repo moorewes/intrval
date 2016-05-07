@@ -8,21 +8,11 @@
 
 import Foundation
 
-public enum DigitFormat: Int {
-    case Standard = 0, Roman
-    public init(rawValue: Int){
-        switch rawValue {
-        case 0: self = .Standard
-        case 1: self = .Roman
-        default: self = .Standard
-        }
-    }
-}
+
 
 public class Interval {
     public var date: NSDate
     public var unit: NSCalendarUnit
-    public var digitFormat: DigitFormat
     public var includeTime: Bool
     public var description: String
     public func measureIntervalToInt(toDate: NSDate? = nil) -> Int {
@@ -33,15 +23,6 @@ public class Interval {
         let interval = NSCalendar.currentCalendar().components(unit, fromDate: date, toDate: tDate, options: NSCalendarOptions())
         let answer = interval.valueForComponent(unit)
         return answer
-    }
-    public func cycleDigitFormat() -> DigitFormat {
-        switch digitFormat {
-        case .Standard:
-            digitFormat = .Roman
-        case .Roman:
-            digitFormat = .Standard
-        }
-        return digitFormat
     }
     public func cycleUnit() {
         switch unit {
@@ -55,18 +36,8 @@ public class Interval {
         }
     }
     public func measureIntervalToString() -> String {
-        var answer: String!
         let interval = abs(measureIntervalToInt())
-        switch digitFormat {
-        case .Standard: answer = "\(interval)"
-        case .Roman:
-            guard interval != 0 else {
-                return "0"
-            }
-            if let roman = String(roman: interval) {
-                answer = roman
-            }
-        }
+        let answer = "\(interval)"
         return answer
     }
     public var dateString: String {
@@ -96,10 +67,9 @@ public class Interval {
         }
         return answer
     }
-    public init(date: NSDate, unit: NSCalendarUnit, format: DigitFormat, includeTime: Bool, description: String){
+    public init(date: NSDate, unit: NSCalendarUnit, includeTime: Bool, description: String){
         self.date = date
         self.unit = unit
-        self.digitFormat = format
         self.includeTime = includeTime
         self.description = description
     }

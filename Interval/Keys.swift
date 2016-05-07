@@ -13,9 +13,10 @@ public struct Keys {
         public static let appGroup = "group.com.wesmoore.interval"
         public static let referenceDate = "referenceDate"
         public static let intervalUnit = "intervalUnit"
-        public static let digitFormat = "digitFormat"
         public static let includeTime = "includeTime"
-        public static let description = "description"
+        public static let title = "title"
         public static let badgeIcon = "badgeIcon"
+        public static let showSecondUnit = "showSecondUnit"
+        public static let hasSaved = "hasSaved"
     }
 }
