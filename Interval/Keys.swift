@@ -14,8 +14,6 @@ public struct Keys {
         public static let intervalUnit = "intervalUnit"
         public static let includeTime = "includeTime"
         public static let title = "title"
-        public static let badgeIcon = "badgeIcon"
-        public static let showSecondUnit = "showSecondUnit"
         public static let hasSaved = "hasSaved"
     }
 }

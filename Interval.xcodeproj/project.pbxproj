@@ -9,12 +9,12 @@
 /* Begin PBXBuildFile section */
 		DE1ACB181CC702CC00F946E9 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE1ACB171CC702CC00F946E9 /* Extensions.swift */; };
 		DE24AE4F1CB07F33009753D2 /* ComplicationDataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE24AE4E1CB07F33009753D2 /* ComplicationDataHelper.swift */; };
-		DE24AE501CB083C4009753D2 /* ComplicationDataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE24AE4E1CB07F33009753D2 /* ComplicationDataHelper.swift */; };
 		DE24B5751CCC12FA00E61E9D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DE24B5741CCC12FA00E61E9D /* LaunchScreen.storyboard */; };
+		DE2685CE1CDE8E8800742BF7 /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2685CD1CDE8E8800742BF7 /* Keys.swift */; };
+		DE2685D01CDE8ED900742BF7 /* ComplicationDataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2685CF1CDE8ED900742BF7 /* ComplicationDataHelper.swift */; };
 		DEEA5EFA1CAF649100F1CBA7 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEEA5EF61CAF649100F1CBA7 /* DataManager.swift */; };
 		DEEA5EFC1CAF649100F1CBA7 /* Interval.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEEA5EF71CAF649100F1CBA7 /* Interval.swift */; };
 		DEEA5EFE1CAF649100F1CBA7 /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEEA5EF81CAF649100F1CBA7 /* Keys.swift */; };
-		DEEA5EFF1CAF649100F1CBA7 /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEEA5EF81CAF649100F1CBA7 /* Keys.swift */; };
 		DEF28CF21CADCDDE00D50DC1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF28CF11CADCDDE00D50DC1 /* AppDelegate.swift */; };
 		DEF28CF41CADCDDE00D50DC1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF28CF31CADCDDE00D50DC1 /* ViewController.swift */; };
 		DEF28CF71CADCDDE00D50DC1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DEF28CF51CADCDDE00D50DC1 /* Main.storyboard */; };
@@ -116,6 +116,8 @@
 		DE23177D1CAF163A007D605C /* Interval.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Interval.entitlements; sourceTree = "<group>"; };
 		DE24AE4E1CB07F33009753D2 /* ComplicationDataHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComplicationDataHelper.swift; sourceTree = "<group>"; };
 		DE24B5741CCC12FA00E61E9D /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		DE2685CD1CDE8E8800742BF7 /* Keys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
+		DE2685CF1CDE8ED900742BF7 /* ComplicationDataHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComplicationDataHelper.swift; sourceTree = "<group>"; };
 		DEEA5EF61CAF649100F1CBA7 /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		DEEA5EF71CAF649100F1CBA7 /* Interval.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Interval.swift; sourceTree = "<group>"; };
 		DEEA5EF81CAF649100F1CBA7 /* Keys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
@@ -136,7 +138,6 @@
 		DEF28D1E1CADCDDE00D50DC1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DEF28D201CADCDDE00D50DC1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DEF28D251CADCDDE00D50DC1 /* Interval WatchKit Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Interval WatchKit Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
-		DEF28D2B1CADCDDE00D50DC1 /* PushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
 		DEF28D2C1CADCDDE00D50DC1 /* InterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceController.swift; sourceTree = "<group>"; };
 		DEF28D2E1CADCDDE00D50DC1 /* ExtensionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionDelegate.swift; sourceTree = "<group>"; };
 		DEF28D301CADCDDE00D50DC1 /* NotificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationController.swift; sourceTree = "<group>"; };
@@ -178,15 +179,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		DEEA5F021CAF64BA00F1CBA7 /* Shared */ = {
-			isa = PBXGroup;
-			children = (
-				DE24AE4E1CB07F33009753D2 /* ComplicationDataHelper.swift */,
-				DEEA5EF81CAF649100F1CBA7 /* Keys.swift */,
-			);
-			name = Shared;
-			sourceTree = "<group>";
-		};
 		DEEA5F031CAF651800F1CBA7 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
@@ -228,10 +220,11 @@
 				DE1ACB171CC702CC00F946E9 /* Extensions.swift */,
 				DEEA5EF61CAF649100F1CBA7 /* DataManager.swift */,
 				DEEA5EF71CAF649100F1CBA7 /* Interval.swift */,
+				DE24AE4E1CB07F33009753D2 /* ComplicationDataHelper.swift */,
+				DEEA5EF81CAF649100F1CBA7 /* Keys.swift */,
 				DE24B5741CCC12FA00E61E9D /* LaunchScreen.storyboard */,
 				DEF28CF51CADCDDE00D50DC1 /* Main.storyboard */,
 				DEF28CF81CADCDDE00D50DC1 /* Assets.xcassets */,
-				DEEA5F021CAF64BA00F1CBA7 /* Shared */,
 				DEEA5F031CAF651800F1CBA7 /* Supporting Files */,
 			);
 			path = Interval;
@@ -272,8 +265,10 @@
 				DE002C881CAF24D300FE65CE /* Interval WatchKit Extension.entitlements */,
 				DEF28D2C1CADCDDE00D50DC1 /* InterfaceController.swift */,
 				DEF28D2E1CADCDDE00D50DC1 /* ExtensionDelegate.swift */,
+				DE2685CF1CDE8ED900742BF7 /* ComplicationDataHelper.swift */,
 				DEF28D301CADCDDE00D50DC1 /* NotificationController.swift */,
 				DEF28D321CADCDDE00D50DC1 /* GlanceController.swift */,
+				DE2685CD1CDE8E8800742BF7 /* Keys.swift */,
 				DEF28D341CADCDDE00D50DC1 /* ComplicationController.swift */,
 				DEF28D361CADCDDE00D50DC1 /* Assets.xcassets */,
 				DEF28D381CADCDDE00D50DC1 /* Info.plist */,
@@ -285,7 +280,6 @@
 		DEF28D2A1CADCDDE00D50DC1 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				DEF28D2B1CADCDDE00D50DC1 /* PushNotificationPayload.apns */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -536,8 +530,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				DEF28D311CADCDDE00D50DC1 /* NotificationController.swift in Sources */,
-				DE24AE501CB083C4009753D2 /* ComplicationDataHelper.swift in Sources */,
-				DEEA5EFF1CAF649100F1CBA7 /* Keys.swift in Sources */,
+				DE2685CE1CDE8E8800742BF7 /* Keys.swift in Sources */,
+				DE2685D01CDE8ED900742BF7 /* ComplicationDataHelper.swift in Sources */,
 				DEF28D2F1CADCDDE00D50DC1 /* ExtensionDelegate.swift in Sources */,
 				DEF28D351CADCDDE00D50DC1 /* ComplicationController.swift in Sources */,
 				DEF28D2D1CADCDDE00D50DC1 /* InterfaceController.swift in Sources */,
