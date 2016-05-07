@@ -44,12 +44,6 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
     var hasSaved = false
     let meridiemAM = "AM"
     let meridiemPM = "PM"
-    var notificationsEnabled: Bool {
-        return true
-    }
-    var notificationFrequency: NotificationFrequency {
-        return .VeryHigh
-    }
     var intervalLabelShrinkageForSmallDevice: CGFloat { return view.bounds.height <= 480 ? -45 : 0 }
     @IBAction func didTapUnit() {
         interval.cycleUnit()
@@ -103,13 +97,13 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
         exitEditDate()
         interval.includeTime = includeTime
         interval.date = date
-        print(date.localeDescription)
+        // print(date.localeDescription)
         updateUI()
         saveData()
     }
     @IBAction func toggleMeridiem(sender: UIButton) {
         guard let currentMeridiem = sender.titleLabel?.text else {
-            print("meridiem title label nil")
+            // print("meridiem title label nil")
             return
         }
         var text: String!
@@ -216,21 +210,22 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
         if let _ = session {
             sendDataToWatch()
         } else {
-            print("session is nil")
+            // print("session is nil")
         }
     }
     func sendDataToWatch() {
-        guard session?.activationState == .Activated else {
-            return
+        if #available(iOS 9.3, *) {
+            guard session?.activationState == .Activated else {
+                return
+            }
         }
         let userInfo = ComplicationDataHelper.createUserInfo(interval.date, title: interval.description)
         WCSession.defaultSession().transferCurrentComplicationUserInfo(userInfo)
-        print("sent message to watch")
+        // print("sent message to watch")
         
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        //discardDateSymbolButton.transform = CGAffineTransformMakeRotation(CGFloat(M_PI))
         let placeholder = NSAttributedString(string:"ADD TITLE",
                                              attributes:[NSForegroundColorAttributeName: UIColor(white: 1.0, alpha: 0.6)])
         descriptionLabel.attributedPlaceholder = placeholder
@@ -250,15 +245,15 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
             session = WCSession.defaultSession()
             session?.delegate = self
             session?.activateSession()
-            print("WCSession activated iOS")
-            print("outstanding transfer count: \(WCSession.defaultSession().outstandingFileTransfers.count)")
+            // print("WCSession activated iOS")
+            // print("outstanding transfer count: \(WCSession.defaultSession().outstandingFileTransfers.count)")
         }
     }
     func session(session: WCSession, didReceiveMessage message: [String : AnyObject], replyHandler: ([String : AnyObject]) -> Void) {
-        print("received message")
+        // print("received message")
         if let _ = message["initialLaunch"] as? Bool where hasSaved {
             let reply = ComplicationDataHelper.createUserInfo(interval.date, title: interval.description)
-            print("sent message back")
+            // print("sent message back")
             replyHandler(reply)
         }
     }

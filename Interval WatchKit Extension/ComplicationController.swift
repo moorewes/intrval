@@ -39,11 +39,11 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
     func getCurrentTimelineEntryForComplication(complication: CLKComplication, withHandler handler: ((CLKComplicationTimelineEntry?) -> Void)) {
         
         // Ensure data exists & retrieve data
-        print("getting current entry")
+        // print("getting current entry")
         guard let date = NSUserDefaults.standardUserDefaults().valueForKey(Keys.UD.referenceDate) as? NSDate,
             let unitRaw = NSUserDefaults.standardUserDefaults().valueForKey(Keys.UD.intervalUnit) as? UInt,
         let titleText = NSUserDefaults.standardUserDefaults().valueForKey(Keys.UD.title) as? String else {
-            print("no values in userDefaults")
+            // print("no values in userDefaults")
             func returnWithTemplate(template: CLKComplicationTemplate) {
                 let entry = CLKComplicationTimelineEntry(date: NSDate(), complicationTemplate: template)
                 handler(entry)
@@ -180,7 +180,7 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
     
     // MARK: Helper Functions
     func smartAutoUnit(fromDate date: NSDate) -> NSCalendarUnit {
-        print("getting smart auto unit")
+        // print("getting smart auto unit")
         let yearInterval = intervalForUnit(.Year, fromDate: date)
         guard yearInterval < 1 else {
             return .Year

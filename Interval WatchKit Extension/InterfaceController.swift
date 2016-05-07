@@ -38,7 +38,7 @@ class InterfaceController: WKInterfaceController {
         return [autoItem, yearItem, monthItem, dayItem, hourItem, minuteItem]
     }
     @IBAction func didSelectFirstUnit(value: Int) {
-        print("selected first: ", value)
+        // print("selected first: ", value)
         saveFirstUnitData(value)
         // Auto enable 2 units for smart auto
         if value == 0 {
@@ -50,7 +50,7 @@ class InterfaceController: WKInterfaceController {
         saveSecondUnitData(value)
     }
     func updateUI() {
-        print("updateUI()")
+        // print("updateUI()")
         if let firstUnitRaw = NSUserDefaults.standardUserDefaults().valueForKey(Keys.UD.intervalUnit) as? UInt {
             // Set First Unit
             // Note: .Era is used for Smart Auto
@@ -88,25 +88,25 @@ class InterfaceController: WKInterfaceController {
         let unitRaw = unit.rawValue
         NSUserDefaults.standardUserDefaults().setValue(unitRaw, forKey: Keys.UD.intervalUnit)
         setTimerToUpdateComplication()
-        print("saved first unit: ", unit)
+        // print("saved first unit: ", unit)
     }
     func saveSecondUnitData(include: Bool) {
         NSUserDefaults.standardUserDefaults().setBool(include, forKey: Keys.UD.showSecondUnit)
         setTimerToUpdateComplication()
-        print("saved second unit: ", include)
+        // print("saved second unit: ", include)
     }
     func setTimerToUpdateComplication() {
         if let t = timer {
-            print("timer exists")
+            // print("timer exists")
             t.fireDate = NSDate(timeIntervalSinceNow: 5)
         } else {
-            print("timer doesn't exist")
+            // print("timer doesn't exist")
             timer = NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: #selector(updateComplication), userInfo: nil, repeats: false)
         }
     }
     func updateComplication() {
         timer = nil
-        print("updateComplication")
+        // print("updateComplication")
         if let delegate = WKExtension.sharedExtension().delegate as? ExtensionDelegate {
             delegate.updateComplication()
         }

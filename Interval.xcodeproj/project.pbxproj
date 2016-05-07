@@ -8,11 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		DE1ACB181CC702CC00F946E9 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE1ACB171CC702CC00F946E9 /* Extensions.swift */; };
-		DE1ACB1A1CC8177E00F946E9 /* NotableIntervals.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE1ACB191CC8177E00F946E9 /* NotableIntervals.swift */; };
 		DE24AE4F1CB07F33009753D2 /* ComplicationDataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE24AE4E1CB07F33009753D2 /* ComplicationDataHelper.swift */; };
 		DE24AE501CB083C4009753D2 /* ComplicationDataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE24AE4E1CB07F33009753D2 /* ComplicationDataHelper.swift */; };
 		DE24B5751CCC12FA00E61E9D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DE24B5741CCC12FA00E61E9D /* LaunchScreen.storyboard */; };
-		DE260B381CC6FA92005A5E77 /* NotificationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE260B371CC6FA92005A5E77 /* NotificationHelper.swift */; };
 		DEEA5EFA1CAF649100F1CBA7 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEEA5EF61CAF649100F1CBA7 /* DataManager.swift */; };
 		DEEA5EFC1CAF649100F1CBA7 /* Interval.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEEA5EF71CAF649100F1CBA7 /* Interval.swift */; };
 		DEEA5EFE1CAF649100F1CBA7 /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEEA5EF81CAF649100F1CBA7 /* Keys.swift */; };
@@ -115,11 +113,9 @@
 		DE002C881CAF24D300FE65CE /* Interval WatchKit Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Interval WatchKit Extension.entitlements"; sourceTree = "<group>"; };
 		DE002C891CAF254100FE65CE /* Interval WatchKit App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Interval WatchKit App.entitlements"; sourceTree = "<group>"; };
 		DE1ACB171CC702CC00F946E9 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
-		DE1ACB191CC8177E00F946E9 /* NotableIntervals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotableIntervals.swift; sourceTree = "<group>"; };
 		DE23177D1CAF163A007D605C /* Interval.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Interval.entitlements; sourceTree = "<group>"; };
 		DE24AE4E1CB07F33009753D2 /* ComplicationDataHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComplicationDataHelper.swift; sourceTree = "<group>"; };
 		DE24B5741CCC12FA00E61E9D /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
-		DE260B371CC6FA92005A5E77 /* NotificationHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationHelper.swift; sourceTree = "<group>"; };
 		DEEA5EF61CAF649100F1CBA7 /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		DEEA5EF71CAF649100F1CBA7 /* Interval.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Interval.swift; sourceTree = "<group>"; };
 		DEEA5EF81CAF649100F1CBA7 /* Keys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
@@ -229,8 +225,6 @@
 			children = (
 				DEF28CF11CADCDDE00D50DC1 /* AppDelegate.swift */,
 				DEF28CF31CADCDDE00D50DC1 /* ViewController.swift */,
-				DE260B371CC6FA92005A5E77 /* NotificationHelper.swift */,
-				DE1ACB191CC8177E00F946E9 /* NotableIntervals.swift */,
 				DE1ACB171CC702CC00F946E9 /* Extensions.swift */,
 				DEEA5EF61CAF649100F1CBA7 /* DataManager.swift */,
 				DEEA5EF71CAF649100F1CBA7 /* Interval.swift */,
@@ -408,7 +402,7 @@
 								enabled = 0;
 							};
 							com.apple.Push = {
-								enabled = 1;
+								enabled = 0;
 							};
 						};
 					};
@@ -512,9 +506,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DEF28CF41CADCDDE00D50DC1 /* ViewController.swift in Sources */,
-				DE1ACB1A1CC8177E00F946E9 /* NotableIntervals.swift in Sources */,
 				DEEA5EFA1CAF649100F1CBA7 /* DataManager.swift in Sources */,
-				DE260B381CC6FA92005A5E77 /* NotificationHelper.swift in Sources */,
 				DEF28CF21CADCDDE00D50DC1 /* AppDelegate.swift in Sources */,
 				DE1ACB181CC702CC00F946E9 /* Extensions.swift in Sources */,
 				DEEA5EFC1CAF649100F1CBA7 /* Interval.swift in Sources */,
@@ -753,10 +745,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Interval/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.WesMoore.Interval;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -765,10 +758,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Interval/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.WesMoore.Interval;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

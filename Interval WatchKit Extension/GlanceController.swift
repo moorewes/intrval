@@ -49,14 +49,14 @@ class GlanceController: WKInterfaceController {
     }
     override func awakeWithContext(context: AnyObject?) {
         super.awakeWithContext(context)
-        print("awakeWithContext")
+        // print("awakeWithContext")
         updateUI()
     }
 
     override func willActivate() {
         // This method is called when watch view controller is about to be visible to user
         super.willActivate()
-        print("willActivate")
+        // print("willActivate")
         updateUI()
     }
 

@@ -30,7 +30,8 @@
                             <fontDescription key="font" type="system" pointSize="12"/>
                         </label>
                         <label alignment="left" text="Troubleshooting:" id="Dp6-hG-WCr"/>
-                        <label alignment="left" text="Ensure date and title have been set on companion iOS App. If necessary, try restarting your watch." numberOfLines="0" id="vaS-Nj-aeQ">
+                        <label alignment="left" numberOfLines="0" id="vaS-Nj-aeQ">
+                            <string key="text">Ensure date and title have been set on companion iOS App. Transfers may take longer with low watch battery. If issues persist, restart your watch.</string>
                             <fontDescription key="font" style="UICTFontTextStyleFootnote"/>
                         </label>
                     </items>
