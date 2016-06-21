@@ -36,6 +36,7 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
     
     var interval: Interval!
     var session: WCSession?
+    var timer: NSTimer!
     var previousScrollOffset: CGPoint?
     var isEditingDate = false
     var intervalTextHeight: CGFloat = 100
@@ -95,9 +96,11 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
             return
         }
         exitEditDate()
+        if let text = descriptionLabel.text {
+            interval.description = text
+        }
         interval.includeTime = includeTime
         interval.date = date
-        // print(date.localeDescription)
         updateUI()
         saveData()
     }
@@ -120,6 +123,11 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
     @IBAction func cancelEditDate(sender: UIButton) {
         exitEditDate()
         updateUI()
+    }
+    @IBAction func rateApp() {
+        if let url = NSURL(string: "itms-apps://itunes.apple.com/us/app/app-name/id1111883763") {
+            UIApplication.sharedApplication().openURL(url)
+        }
     }
     func exitEditDate() {
         resignDateTextFields()
@@ -194,6 +202,9 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
         }
         showHideTime(includeTime)
     }
+    func refreshInterval() {
+        intervalLabel.text = interval.measureIntervalToString()
+    }
     func updateUI() {
         intervalLabel.text = interval.measureIntervalToString()
         var unitString = interval.unitString + " "
@@ -238,6 +249,7 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
         intervalHeight.constant += intervalLabelShrinkageForSmallDevice
         updateUI()
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(updateKeyboardHeight(_:)), name: UIKeyboardWillChangeFrameNotification, object: nil)
+        timer = NSTimer.scheduledTimerWithTimeInterval(60, target: self, selector: #selector(refreshInterval), userInfo: nil, repeats: true)
     }
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -415,6 +427,9 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
     @IBAction func changedDescription(sender: UITextField) {
         guard let text = sender.text else { return }
         interval.description = text
+        if confirmDateButton.hidden == false {
+            confirmDateChange()
+        }
         saveData()
     }
     func resignDateTextFields() {
@@ -423,6 +438,7 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
         yearField.resignFirstResponder()
         minuteField.resignFirstResponder()
         hourField.resignFirstResponder()
+        descriptionLabel.resignFirstResponder()
     }
     func advanceCursorFrom(startingField: UITextField){
         var nextField: UITextField!

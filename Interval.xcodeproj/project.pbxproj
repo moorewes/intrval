@@ -12,6 +12,7 @@
 		DE24B5751CCC12FA00E61E9D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DE24B5741CCC12FA00E61E9D /* LaunchScreen.storyboard */; };
 		DE2685CE1CDE8E8800742BF7 /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2685CD1CDE8E8800742BF7 /* Keys.swift */; };
 		DE2685D01CDE8ED900742BF7 /* ComplicationDataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2685CF1CDE8ED900742BF7 /* ComplicationDataHelper.swift */; };
+		DEE7B5791CE67D03001A9B12 /* HelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE7B5781CE67D03001A9B12 /* HelpViewController.swift */; };
 		DEEA5EFA1CAF649100F1CBA7 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEEA5EF61CAF649100F1CBA7 /* DataManager.swift */; };
 		DEEA5EFC1CAF649100F1CBA7 /* Interval.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEEA5EF71CAF649100F1CBA7 /* Interval.swift */; };
 		DEEA5EFE1CAF649100F1CBA7 /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEEA5EF81CAF649100F1CBA7 /* Keys.swift */; };
@@ -118,6 +119,7 @@
 		DE24B5741CCC12FA00E61E9D /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DE2685CD1CDE8E8800742BF7 /* Keys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
 		DE2685CF1CDE8ED900742BF7 /* ComplicationDataHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComplicationDataHelper.swift; sourceTree = "<group>"; };
+		DEE7B5781CE67D03001A9B12 /* HelpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelpViewController.swift; sourceTree = "<group>"; };
 		DEEA5EF61CAF649100F1CBA7 /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		DEEA5EF71CAF649100F1CBA7 /* Interval.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Interval.swift; sourceTree = "<group>"; };
 		DEEA5EF81CAF649100F1CBA7 /* Keys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
@@ -223,6 +225,7 @@
 				DE24AE4E1CB07F33009753D2 /* ComplicationDataHelper.swift */,
 				DEEA5EF81CAF649100F1CBA7 /* Keys.swift */,
 				DE24B5741CCC12FA00E61E9D /* LaunchScreen.storyboard */,
+				DEE7B5781CE67D03001A9B12 /* HelpViewController.swift */,
 				DEF28CF51CADCDDE00D50DC1 /* Main.storyboard */,
 				DEF28CF81CADCDDE00D50DC1 /* Assets.xcassets */,
 				DEEA5F031CAF651800F1CBA7 /* Supporting Files */,
@@ -502,6 +505,7 @@
 				DEF28CF41CADCDDE00D50DC1 /* ViewController.swift in Sources */,
 				DEEA5EFA1CAF649100F1CBA7 /* DataManager.swift in Sources */,
 				DEF28CF21CADCDDE00D50DC1 /* AppDelegate.swift in Sources */,
+				DEE7B5791CE67D03001A9B12 /* HelpViewController.swift in Sources */,
 				DE1ACB181CC702CC00F946E9 /* Extensions.swift in Sources */,
 				DEEA5EFC1CAF649100F1CBA7 /* Interval.swift in Sources */,
 				DE24AE4F1CB07F33009753D2 /* ComplicationDataHelper.swift in Sources */,
@@ -622,7 +626,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -661,7 +665,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -738,6 +742,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = Interval/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -751,6 +756,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = Interval/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

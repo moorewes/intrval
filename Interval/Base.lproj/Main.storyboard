@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
@@ -25,11 +24,31 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZzD-P1-I7W" userLabel="ContentView">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                         <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t6e-T7-tuT">
+                                                <rect key="frame" x="20" y="20" width="30" height="36"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                <state key="normal" title="?">
+                                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                </state>
+                                                <connections>
+                                                    <segue destination="bnr-Vs-h8F" kind="show" id="yQu-lq-cl4"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MLp-T3-yBh" userLabel="Rate">
+                                                <rect key="frame" x="285" y="282" width="30" height="36"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                <state key="normal" title="Rate">
+                                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="rateApp" destination="BYZ-38-t0r" eventType="touchUpInside" id="mjl-zY-M82"/>
+                                                </connections>
+                                            </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="30" textAlignment="center" lineBreakMode="characterWrap" baselineAdjustment="alignBaselines" minimumScaleFactor="0.050000000000000003" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="U2e-Qn-tA5">
                                                 <rect key="frame" x="25" y="25" width="550" height="300"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="84"/>
-                                                <color key="textColor" red="0.2239612731" green="1" blue="0.21677931719999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                <fontDescription key="fontDescription" name="IowanOldStyle-Roman" family="Iowan Old Style" pointSize="84"/>
+                                                <color key="textColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xlb-d4-iWv">
@@ -55,11 +74,11 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TFA-T3-BYx" userLabel="Comment View">
                                                 <rect key="frame" x="0.0" y="389" width="600" height="55"/>
                                                 <subviews>
-                                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="add title" textAlignment="center" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="GRH-me-S1g">
+                                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Yosemite" placeholder="add title" textAlignment="center" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="GRH-me-S1g">
                                                         <rect key="frame" x="15" y="12" width="570" height="33"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         <color key="textColor" red="0.2239612731" green="1" blue="0.21677931719999999" alpha="1" colorSpace="calibratedRGB"/>
-                                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="27"/>
+                                                        <fontDescription key="fontDescription" name="IowanOldStyle-Roman" family="Iowan Old Style" pointSize="31"/>
                                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences" keyboardAppearance="alert"/>
                                                         <connections>
                                                             <action selector="changedDescription:" destination="BYZ-38-t0r" eventType="editingDidEnd" id="NJu-iQ-QtY"/>
@@ -313,15 +332,15 @@
                                                 <variation key="default">
                                                     <mask key="constraints">
                                                         <exclude reference="RtM-hY-7TI"/>
+                                                        <exclude reference="hAy-DL-B3f"/>
+                                                        <exclude reference="m18-sZ-9CZ"/>
+                                                        <exclude reference="xg4-E0-vS7"/>
                                                         <exclude reference="ypr-Cb-Dhd"/>
                                                         <exclude reference="42O-c2-Glx"/>
                                                         <exclude reference="Cs1-KF-M4q"/>
                                                         <exclude reference="dQe-4U-G5p"/>
                                                         <exclude reference="t7Y-uQ-lN0"/>
                                                         <exclude reference="Df7-mM-Xb4"/>
-                                                        <exclude reference="hAy-DL-B3f"/>
-                                                        <exclude reference="m18-sZ-9CZ"/>
-                                                        <exclude reference="xg4-E0-vS7"/>
                                                     </mask>
                                                 </variation>
                                             </view>
@@ -334,13 +353,17 @@
                                             <constraint firstAttribute="trailing" secondItem="TFA-T3-BYx" secondAttribute="trailing" id="6ww-Oz-da9"/>
                                             <constraint firstItem="Xlb-d4-iWv" firstAttribute="leading" secondItem="KCa-z8-Ep0" secondAttribute="trailing" id="8Yl-7N-MZd"/>
                                             <constraint firstItem="U2e-Qn-tA5" firstAttribute="width" secondItem="ZzD-P1-I7W" secondAttribute="width" constant="-50" id="8e4-HZ-rh7"/>
+                                            <constraint firstItem="t6e-T7-tuT" firstAttribute="leading" secondItem="ZzD-P1-I7W" secondAttribute="leading" constant="20" symbolic="YES" id="Ais-aO-uzC"/>
                                             <constraint firstItem="TFA-T3-BYx" firstAttribute="top" secondItem="Xlb-d4-iWv" secondAttribute="bottom" constant="25" id="BYe-Ai-kvk"/>
                                             <constraint firstItem="U2e-Qn-tA5" firstAttribute="centerX" secondItem="ZzD-P1-I7W" secondAttribute="centerX" id="I47-E7-hEq"/>
                                             <constraint firstItem="TFA-T3-BYx" firstAttribute="leading" secondItem="ZzD-P1-I7W" secondAttribute="leading" id="MLV-c2-0Yw"/>
+                                            <constraint firstItem="MLp-T3-yBh" firstAttribute="centerY" secondItem="t6e-T7-tuT" secondAttribute="centerY" id="McJ-m4-JUq"/>
                                             <constraint firstItem="qrr-kU-RFX" firstAttribute="trailing" secondItem="TFA-T3-BYx" secondAttribute="trailing" id="QqR-cC-hlX"/>
+                                            <constraint firstItem="t6e-T7-tuT" firstAttribute="top" secondItem="ZzD-P1-I7W" secondAttribute="top" constant="20" symbolic="YES" id="XDi-eW-9Mb"/>
                                             <constraint firstItem="Xlb-d4-iWv" firstAttribute="centerX" secondItem="U2e-Qn-tA5" secondAttribute="centerX" id="dro-6q-WCA"/>
                                             <constraint firstItem="U2e-Qn-tA5" firstAttribute="top" secondItem="ZzD-P1-I7W" secondAttribute="top" constant="25" id="i3z-ly-F86"/>
                                             <constraint firstItem="KCa-z8-Ep0" firstAttribute="baseline" secondItem="Xlb-d4-iWv" secondAttribute="baseline" constant="1" id="pAx-bT-ow4"/>
+                                            <constraint firstAttribute="trailing" secondItem="MLp-T3-yBh" secondAttribute="trailing" constant="20" symbolic="YES" id="vlZ-pj-bQm"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -354,23 +377,14 @@
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="Sqb-zd-tNm"/>
                                 </connections>
                             </scrollView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date and title will be automatically sent to your watch. Open Interval watchOS app to configure watch complication settings." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OHT-9J-AW8">
-                                <rect key="frame" x="45" y="565" width="510" height="27"/>
-                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="11"/>
-                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
-                        <color key="backgroundColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.13725490196078433" green="0.13725490196078433" blue="0.13725490196078433" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="bottomMargin" secondItem="wy0-9C-KEM" secondAttribute="bottom" id="04k-dZ-rfj"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="OHT-9J-AW8" secondAttribute="bottom" constant="8" symbolic="YES" id="1dT-cc-ZGI"/>
                             <constraint firstItem="ZzD-P1-I7W" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="5bK-0d-QeS"/>
-                            <constraint firstItem="OHT-9J-AW8" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="25" id="Tae-6C-VMn"/>
                             <constraint firstAttribute="trailing" secondItem="wy0-9C-KEM" secondAttribute="trailing" id="dfu-xm-vah"/>
                             <constraint firstItem="U2e-Qn-tA5" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.5" id="iWn-te-KmC"/>
                             <constraint firstItem="wy0-9C-KEM" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="topMargin" id="kbV-Et-u4d"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="OHT-9J-AW8" secondAttribute="trailing" constant="25" id="pHI-BR-tc0"/>
                             <constraint firstItem="ZzD-P1-I7W" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" id="q1O-Jb-k6G"/>
                             <constraint firstItem="wy0-9C-KEM" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="qEs-FR-K0q"/>
                         </constraints>
@@ -404,6 +418,115 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="250" y="426"/>
+        </scene>
+        <!--Help View Controller-->
+        <scene sceneID="3FX-9H-5gk">
+            <objects>
+                <viewController id="bnr-Vs-h8F" customClass="HelpViewController" customModule="Interval" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Nyt-fw-3ic"/>
+                        <viewControllerLayoutGuide type="bottom" id="QUK-to-If8"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Ic2-UG-HiJ">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Help" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="maD-zn-1aC">
+                                <rect key="frame" x="279" y="290" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.2239612731" green="1" blue="0.21677931719999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c1f-pk-jZj">
+                                <rect key="frame" x="45" y="35" width="69" height="32"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <state key="normal" title="← Return">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="tapReturn" destination="bnr-Vs-h8F" eventType="touchUpInside" id="Iae-u2-Cqc"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Mc-Wk-LvR">
+                                <rect key="frame" x="45" y="92" width="510" height="17"/>
+                                <string key="text">1. Ensure Interval watchOS app is installed to your watch. If not, go to the Watch iOS app, scroll down and select Interval, and install to your watch.</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="2. Ensure glance and complication are enabled inside Watch iOS app." textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xH1-gJ-U8a">
+                                <rect key="frame" x="45" y="117" width="510" height="17"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="3. Add complication to watch face from your watch." textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1wT-GL-ge0">
+                                <rect key="frame" x="45" y="142" width="510" height="17"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="4. Set the date and title from this app." textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4C8-uk-Oim">
+                                <rect key="frame" x="45" y="167" width="510" height="17"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="5. Complication should now show the interval (may take a minute or two to initialize). Tap it to customize the units." textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Toh-XF-4hU">
+                                <rect key="frame" x="45" y="192" width="510" height="17"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="6. If still having trouble, try restarting your Apple Watch and this app." textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dYv-sG-Ubc">
+                                <rect key="frame" x="45" y="217" width="510" height="17"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Iip-TP-ajO">
+                                <rect key="frame" x="240.5" y="557" width="119" height="35"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <state key="normal" title="Rate This App">
+                                    <color key="titleColor" red="0.2239612731" green="1" blue="0.21677931719999999" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="tapRate" destination="bnr-Vs-h8F" eventType="touchUpInside" id="zke-1C-U3z"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="0.13725490200000001" green="0.13725490200000001" blue="0.13725490200000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="1wT-GL-ge0" firstAttribute="trailing" secondItem="xH1-gJ-U8a" secondAttribute="trailing" id="0mf-gk-tmV"/>
+                            <constraint firstItem="Iip-TP-ajO" firstAttribute="centerX" secondItem="Ic2-UG-HiJ" secondAttribute="centerX" id="1Ew-Ny-OBY"/>
+                            <constraint firstItem="5Mc-Wk-LvR" firstAttribute="top" secondItem="c1f-pk-jZj" secondAttribute="bottom" constant="25" id="2WH-2O-dRx"/>
+                            <constraint firstItem="4C8-uk-Oim" firstAttribute="leading" secondItem="1wT-GL-ge0" secondAttribute="leading" id="668-9v-ZdC"/>
+                            <constraint firstItem="5Mc-Wk-LvR" firstAttribute="leading" secondItem="Ic2-UG-HiJ" secondAttribute="leadingMargin" constant="25" id="6EC-LY-igd"/>
+                            <constraint firstItem="dYv-sG-Ubc" firstAttribute="leading" secondItem="Toh-XF-4hU" secondAttribute="leading" id="730-v0-cHx"/>
+                            <constraint firstItem="xH1-gJ-U8a" firstAttribute="trailing" secondItem="5Mc-Wk-LvR" secondAttribute="trailing" id="9uD-zb-a5u"/>
+                            <constraint firstItem="1wT-GL-ge0" firstAttribute="leading" secondItem="xH1-gJ-U8a" secondAttribute="leading" id="Aa0-Do-b9o"/>
+                            <constraint firstItem="Toh-XF-4hU" firstAttribute="leading" secondItem="4C8-uk-Oim" secondAttribute="leading" id="DeD-88-E86"/>
+                            <constraint firstItem="maD-zn-1aC" firstAttribute="centerX" secondItem="Ic2-UG-HiJ" secondAttribute="centerX" id="KJ5-EC-JG4"/>
+                            <constraint firstItem="4C8-uk-Oim" firstAttribute="trailing" secondItem="1wT-GL-ge0" secondAttribute="trailing" id="KoU-Sy-0tX"/>
+                            <constraint firstItem="4C8-uk-Oim" firstAttribute="top" secondItem="1wT-GL-ge0" secondAttribute="bottom" constant="8" symbolic="YES" id="Mlw-u6-RMe"/>
+                            <constraint firstItem="dYv-sG-Ubc" firstAttribute="trailing" secondItem="Toh-XF-4hU" secondAttribute="trailing" id="NPV-wH-n93"/>
+                            <constraint firstItem="xH1-gJ-U8a" firstAttribute="leading" secondItem="5Mc-Wk-LvR" secondAttribute="leading" id="R7s-T9-0M1"/>
+                            <constraint firstItem="1wT-GL-ge0" firstAttribute="top" secondItem="xH1-gJ-U8a" secondAttribute="bottom" constant="8" symbolic="YES" id="U8H-Ty-jaj"/>
+                            <constraint firstItem="Toh-XF-4hU" firstAttribute="top" secondItem="4C8-uk-Oim" secondAttribute="bottom" constant="8" symbolic="YES" id="Uyo-w7-wrR"/>
+                            <constraint firstItem="QUK-to-If8" firstAttribute="top" secondItem="Iip-TP-ajO" secondAttribute="bottom" constant="8" symbolic="YES" id="cEn-JE-ljC"/>
+                            <constraint firstItem="xH1-gJ-U8a" firstAttribute="top" secondItem="5Mc-Wk-LvR" secondAttribute="bottom" constant="8" symbolic="YES" id="e99-Ua-NHK"/>
+                            <constraint firstItem="c1f-pk-jZj" firstAttribute="top" secondItem="Nyt-fw-3ic" secondAttribute="bottom" constant="15" id="i0H-TJ-8wb"/>
+                            <constraint firstItem="Toh-XF-4hU" firstAttribute="trailing" secondItem="4C8-uk-Oim" secondAttribute="trailing" id="jCY-b5-NZr"/>
+                            <constraint firstItem="maD-zn-1aC" firstAttribute="centerY" secondItem="c1f-pk-jZj" secondAttribute="centerY" id="sU2-6t-WwL"/>
+                            <constraint firstItem="c1f-pk-jZj" firstAttribute="leading" secondItem="Ic2-UG-HiJ" secondAttribute="leadingMargin" constant="25" id="tGM-lh-lGg"/>
+                            <constraint firstItem="dYv-sG-Ubc" firstAttribute="top" secondItem="Toh-XF-4hU" secondAttribute="bottom" constant="8" symbolic="YES" id="uix-SF-MEe"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="5Mc-Wk-LvR" secondAttribute="trailing" constant="25" id="zeI-YY-Yfd"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5B3-eh-zqU" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="505" y="1060"/>
         </scene>
     </scenes>
 </document>
