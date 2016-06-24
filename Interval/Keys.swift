@@ -15,5 +15,7 @@ public struct Keys {
         public static let includeTime = "includeTime"
         public static let title = "title"
         public static let hasSaved = "hasSaved"
+        public static let openCount = "openCount"
+        public static let rateStatus = "rateStatus"
     }
 }

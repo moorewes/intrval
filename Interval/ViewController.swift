@@ -10,12 +10,14 @@ import UIKit
 import WatchConnectivity
 
 class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, UITextViewDelegate {
+    @IBOutlet var masterView: UIView!
     @IBOutlet weak var intervalLabel: UILabel!
     @IBOutlet weak var mainScrollView: UIScrollView!
     @IBOutlet weak var mainScrollContentView: UIView!
     @IBOutlet weak var confirmDateButton: UIButton!
     @IBOutlet weak var discardDateButton: UIButton!
     @IBOutlet weak var unitButton: UIButton!
+    @IBOutlet weak var unitButtonSymbol: UIButton!
     @IBOutlet weak var descriptionLabel: UITextField!
     
     @IBOutlet weak var dateRow: UIView!
@@ -33,7 +35,13 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
     @IBOutlet weak var timeContainer: UIView!
     @IBOutlet weak var includeTimeTextButton: UIButton!
     @IBOutlet weak var includeTimeSymbolButton: UIButton!
+    @IBOutlet weak var helpButton: UIButton!
+    @IBOutlet weak var rateButton: UIButton!
+    @IBOutlet weak var separatorMonthDay: UILabel!
+    @IBOutlet weak var separatorDayYear: UILabel!
+    @IBOutlet weak var separatorHourMinute: UILabel!
     
+    var loaded = false
     var interval: Interval!
     var session: WCSession?
     var timer: NSTimer!
@@ -214,7 +222,34 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
         includeTime = interval.includeTime
         dateToUI(interval.date)
         intervalTextHeight = intervalLabel.requiredHeight()
-        
+        setColorScheme()
+        if descriptionLabel.text == "" {
+            let placeholder = NSAttributedString(string:"tap to set title",
+                                                 attributes:[NSForegroundColorAttributeName: Colors.sharedInstance.tColor])
+            descriptionLabel.attributedPlaceholder = placeholder
+        }
+    }
+    func setColorScheme() {
+        let bColor = Colors.sharedInstance.bColor
+        let tColor = Colors.sharedInstance.tColor
+        masterView.backgroundColor = bColor
+        intervalLabel.textColor = tColor
+        unitButton.setTitleColor(tColor, forState: .Normal)
+        unitButtonSymbol.setTitleColor(tColor, forState: .Normal)
+        descriptionLabel.textColor = tColor
+        monthField.textColor = tColor
+        dayField.textColor = tColor
+        yearField.textColor = tColor
+        hourField.textColor = tColor
+        minuteField.textColor = tColor
+        separatorDayYear.textColor = tColor
+        separatorMonthDay.textColor = tColor
+        separatorHourMinute.textColor = tColor
+        meridiemButton.setTitleColor(tColor, forState: .Normal)
+        includeTimeTextButton.setTitleColor(tColor, forState: .Normal)
+        includeTimeSymbolButton.setTitleColor(tColor, forState: .Normal)
+        helpButton.setTitleColor(tColor, forState: .Normal)
+        rateButton.setTitleColor(tColor, forState: .Normal)
     }
     func saveData() {
         DataManager.saveUserData(interval)
@@ -237,19 +272,74 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        let placeholder = NSAttributedString(string:"ADD TITLE",
-                                             attributes:[NSForegroundColorAttributeName: UIColor(white: 1.0, alpha: 0.6)])
-        descriptionLabel.attributedPlaceholder = placeholder
+        
         if let data = DataManager.retrieveUserData() {
             interval = data
+            descriptionLabel.attributedPlaceholder = .None
         } else {
             interval = Interval(date: NSDate(), unit: .Day, includeTime: false, description: descriptionLabel.text!)
+            let placeholder = NSAttributedString(string:"tap to set title",
+                                                 attributes:[NSForegroundColorAttributeName: Colors.sharedInstance.tColor])
+            descriptionLabel.attributedPlaceholder = placeholder
         }
         hasSaved = NSUserDefaults.standardUserDefaults().boolForKey(Keys.UD.hasSaved)
         intervalHeight.constant += intervalLabelShrinkageForSmallDevice
         updateUI()
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(updateKeyboardHeight(_:)), name: UIKeyboardWillChangeFrameNotification, object: nil)
         timer = NSTimer.scheduledTimerWithTimeInterval(60, target: self, selector: #selector(refreshInterval), userInfo: nil, repeats: true)
+    }
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        loaded = true
+        
+        let count = NSUserDefaults.standardUserDefaults().integerForKey(Keys.UD.openCount)
+        let rateStatus = NSUserDefaults.standardUserDefaults().integerForKey(Keys.UD.rateStatus)
+        if count > 7 {
+            if rateStatus == 0 {
+                presentViewController(rateAlert1, animated: true, completion: nil)
+            } else if rateStatus == 2 {
+                presentViewController(rateAlert2, animated: true, completion: nil)
+            }
+            
+        }
+    }
+    var rateAlert1: UIAlertController {
+        let title = "Be Heard"
+        let message = "Consider leaving a rating on the app store? You rock 🎸"
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .Alert)
+        let actionYes = UIAlertAction(title: "Yes, I do rock 🤘", style: UIAlertActionStyle.Default) { _ in
+            NSUserDefaults.standardUserDefaults().setInteger(1, forKey: Keys.UD.rateStatus)
+            self.rateApp()
+        }
+        let actionLater = UIAlertAction(title: "Later, but I prefer jazz 🎷", style: UIAlertActionStyle.Default) { _ in
+            NSUserDefaults.standardUserDefaults().setInteger(2, forKey: Keys.UD.rateStatus)
+        }
+        let actionNo = UIAlertAction(title: "No, I'm busy 🚽", style: .Default) { _ in
+            NSUserDefaults.standardUserDefaults().setInteger(3, forKey: Keys.UD.rateStatus)
+        }
+        alert.addAction(actionYes)
+        alert.addAction(actionLater)
+        alert.addAction(actionNo)
+        return alert
+    }
+    var rateAlert2: UIAlertController {
+        let title = "Be Heard"
+        let message = "Consider jazzing up our page on the app store with your rating and review? 🎷"
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .Alert)
+        let actionYes = UIAlertAction(title: "Yes, my notes are hot 🔥", style: UIAlertActionStyle.Default) { _ in
+            NSUserDefaults.standardUserDefaults().setInteger(1, forKey: Keys.UD.rateStatus)
+            self.rateApp()
+        }
+        let actionLater = UIAlertAction(title: "Later, I'm pretending to practice 🎼", style: UIAlertActionStyle.Default) { _ in
+            NSUserDefaults.standardUserDefaults().setInteger(2, forKey: Keys.UD.rateStatus)
+        }
+        let actionNo = UIAlertAction(title: "No, I'm busy 🚽", style: .Default) { _ in
+            NSUserDefaults.standardUserDefaults().setInteger(3, forKey: Keys.UD.rateStatus)
+        }
+        alert.addAction(actionYes)
+        alert.addAction(actionLater)
+        alert.addAction(actionNo)
+        return alert
     }
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -286,6 +376,9 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
         if let offset = previousScrollOffset {
             mainScrollView.setContentOffset(offset, animated: true)
         }
+        if !confirmDateButton.hidden {
+            confirmDateChange()
+        }
         return true
     }
     func textFieldShouldEndEditing(textField: UITextField) -> Bool {
@@ -313,17 +406,17 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
         //Set background color if needed
         switch textField {
         case hourField, minuteField, yearField, dayField, monthField:
-            textField.backgroundColor = UIColor.darkGrayColor()
-            textField.textColor = UIColor.lightGrayColor()
+            textField.backgroundColor = Colors.sharedInstance.selectedBColor // UIColor.darkGrayColor()
+            textField.textColor = Colors.sharedInstance.selectedTColor //  UIColor.lightGrayColor()
         default: break
         }
         
     }
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
         // in case just started editing
-        if textField.textColor == UIColor.lightGrayColor() {
+        if textField.textColor == Colors.sharedInstance.selectedTColor {
             textField.text = ""
-            textField.textColor = UIColor.whiteColor()
+            textField.textColor = Colors.sharedInstance.tColor
         }
         // ensure not exceeding max
         var max: Int!
@@ -414,24 +507,38 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
         }
     }
     @IBAction func beganEditTextField(sender: UITextField) {
-        sender.backgroundColor = UIColor.darkGrayColor()
+        sender.backgroundColor = Colors.sharedInstance.selectedBColor
         confirmDateButton.hidden = false
         includeTimeTextButton.hidden = false
         includeTimeSymbolButton.hidden = false
         discardDateButton.hidden = false
+        ensureViewIsVisible(sender)
     }
     @IBAction func endEditTextField(sender: UITextField) {
         sender.backgroundColor = UIColor.clearColor()
-        sender.textColor = UIColor.whiteColor()
+        sender.textColor = Colors.sharedInstance.tColor
     }
     @IBAction func changedDescription(sender: UITextField) {
         guard let text = sender.text else { return }
         interval.description = text
         if confirmDateButton.hidden == false {
-            confirmDateChange()
+            //confirmDateChange()
+            
+            guard let date = dateFromUI() else {
+                return
+            }
+            //exitEditDate()
+            if let text = descriptionLabel.text {
+                interval.description = text
+            }
+            interval.includeTime = includeTime
+            interval.date = date
+            updateUI()
+            saveData()
         }
         saveData()
     }
+
     func resignDateTextFields() {
         monthField.resignFirstResponder()
         dayField.resignFirstResponder()
