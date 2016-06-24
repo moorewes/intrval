@@ -57,17 +57,27 @@
                                     <color key="textColor" red="0.2239612731" green="1" blue="0.21677931719999999" alpha="1" colorSpace="calibratedRGB"/>
                                     <fontDescription key="font" type="system" pointSize="11"/>
                                 </label>
-                                <imageView width="1" height="1" alignment="left" hidden="YES" alpha="0.0" id="ulR-gL-Lq8"/>
+                                <imageView width="2" height="2" alignment="left" hidden="YES" id="ulR-gL-Lq8"/>
                             </items>
+                            <variation key="default">
+                                <mask key="items">
+                                    <exclude reference="ulR-gL-Lq8"/>
+                                </mask>
+                            </variation>
                         </group>
                         <group alignment="left" id="3fA-57-odf">
                             <items>
-                                <imageView width="1" height="1" alignment="left" hidden="YES" id="JqV-mR-K1g"/>
                                 <timer width="1" alignment="center" verticalAlignment="center" textAlignment="right" numberOfLines="0" minimumScaleFactor="0.29999999999999999" enabled="YES" format="short" previewedSeconds="3590000007" id="iRz-p0-ghh">
                                     <fontDescription key="font" type="system" pointSize="16"/>
                                     <calendarUnit key="units" year="YES" month="YES" day="YES" hour="YES" minute="YES" second="YES" weekOfMonth="YES"/>
                                 </timer>
+                                <imageView width="2" height="2" alignment="left" verticalAlignment="bottom" hidden="YES" id="JqV-mR-K1g"/>
                             </items>
+                            <variation key="default">
+                                <mask key="items">
+                                    <exclude reference="JqV-mR-K1g"/>
+                                </mask>
+                            </variation>
                         </group>
                     </items>
                     <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="14"/>

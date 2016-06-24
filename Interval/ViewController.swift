@@ -10,6 +10,7 @@ import UIKit
 import WatchConnectivity
 
 class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, UITextViewDelegate {
+    @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet var masterView: UIView!
     @IBOutlet weak var intervalLabel: UILabel!
     @IBOutlet weak var mainScrollView: UIScrollView!
@@ -19,6 +20,7 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
     @IBOutlet weak var unitButton: UIButton!
     @IBOutlet weak var unitButtonSymbol: UIButton!
     @IBOutlet weak var descriptionLabel: UITextField!
+    @IBOutlet weak var statusLabel: UILabel!
     
     @IBOutlet weak var dateRow: UIView!
     @IBOutlet weak var intervalTopSpace: NSLayoutConstraint!
@@ -233,9 +235,9 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
         let bColor = Colors.sharedInstance.bColor
         let tColor = Colors.sharedInstance.tColor
         masterView.backgroundColor = bColor
+        titleLabel.textColor = tColor
         intervalLabel.textColor = tColor
         unitButton.setTitleColor(tColor, forState: .Normal)
-        unitButtonSymbol.setTitleColor(tColor, forState: .Normal)
         descriptionLabel.textColor = tColor
         monthField.textColor = tColor
         dayField.textColor = tColor
@@ -250,6 +252,7 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
         includeTimeSymbolButton.setTitleColor(tColor, forState: .Normal)
         helpButton.setTitleColor(tColor, forState: .Normal)
         rateButton.setTitleColor(tColor, forState: .Normal)
+        statusLabel.textColor = tColor
     }
     func saveData() {
         DataManager.saveUserData(interval)
@@ -287,6 +290,13 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
         updateUI()
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(updateKeyboardHeight(_:)), name: UIKeyboardWillChangeFrameNotification, object: nil)
         timer = NSTimer.scheduledTimerWithTimeInterval(60, target: self, selector: #selector(refreshInterval), userInfo: nil, repeats: true)
+        
+        updateStatusLabel()
+        
+        
+        
+        
+        
     }
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
@@ -301,6 +311,32 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
                 presentViewController(rateAlert2, animated: true, completion: nil)
             }
             
+        }
+    }
+    func updateStatusLabel() {
+        dispatch_async(dispatch_get_main_queue()) {
+            if #available(iOS 9.3, *) {
+                if let sesh = self.session where sesh.activationState == .Activated {
+                    if sesh.watchAppInstalled {
+                        self.statusLabel.text = "Status: Connected to watch"
+                    } else {
+                        self.statusLabel.text = "Status: Intrval watch app not yet installed"
+                    }
+                    if sesh.paired == false {
+                        self.statusLabel.text = "Status: No paired Apple Watch"
+                    }
+                }
+            } else {
+                if let sesh = self.session {
+                    if sesh.watchAppInstalled == false {
+                        self.statusLabel.text = "Status: Not connected to watch"
+                    } else {
+                        self.statusLabel.text = "Status: Connected to watch"
+                    }
+                } else {
+                    self.statusLabel.text = "Status: Not connected to watch"
+                }
+            }
         }
     }
     var rateAlert1: UIAlertController {
@@ -347,17 +383,34 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
             session = WCSession.defaultSession()
             session?.delegate = self
             session?.activateSession()
+            print("session watch state(paired): ", session!.paired)
+            print("session watch state(appInstalled): ", session!.watchAppInstalled)
+            print("session watch state(complicationEnabled): ", session!.complicationEnabled)
             // print("WCSession activated iOS")
             // print("outstanding transfer count: \(WCSession.defaultSession().outstandingFileTransfers.count)")
         }
     }
     func session(session: WCSession, didReceiveMessage message: [String : AnyObject], replyHandler: ([String : AnyObject]) -> Void) {
-        // print("received message")
+        print("received message")
         if let _ = message["initialLaunch"] as? Bool where hasSaved {
             let reply = ComplicationDataHelper.createUserInfo(interval.date, title: interval.description)
             // print("sent message back")
             replyHandler(reply)
         }
+    }
+    func sessionDidBecomeInactive(session: WCSession) {
+        updateStatusLabel()
+        print("sessionDidBecomeInactive")
+    }
+    func sessionWatchStateDidChange(session: WCSession) {
+        updateStatusLabel()
+        print("session watch state(paired) changed: ", session.paired)
+        print("session watch state(appInstalled) changed: ", session.watchAppInstalled)
+        print("session watch state changed(complicationEnabled): ", session.complicationEnabled)
+    }
+    func sessionDidDeactivate(session: WCSession) {
+        print("deactivate session")
+        updateStatusLabel()
     }
     // MARK: UITextFieldDelegate
     func updateKeyboardHeight(notification: NSNotification){
@@ -382,12 +435,14 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
         return true
     }
     func textFieldShouldEndEditing(textField: UITextField) -> Bool {
+        intervalLabel.hidden = false
         textField.backgroundColor = UIColor.clearColor()
         isEditingDate = false
         mainScrollView.scrollEnabled = true
         return true
     }
     func textFieldDidBeginEditing(textField: UITextField) {
+        intervalLabel.hidden = true
         isEditingDate = true
         mainScrollView.scrollEnabled = false
         switch includeTime {

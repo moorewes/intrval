@@ -20,12 +20,30 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="Logo_500" translatesAutoresizingMaskIntoConstraints="NO" id="hq9-Ni-cxQ">
                                 <rect key="frame" x="180" y="236" width="240" height="128"/>
                             </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Intrval" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U0K-vU-2cW">
+                                <rect key="frame" x="273.5" y="28" width="53.5" height="25"/>
+                                <fontDescription key="fontDescription" name="IowanOldStyle-Roman" family="Iowan Old Style" pointSize="18"/>
+                                <color key="textColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5wm-zC-w38">
+                                <rect key="frame" x="-22" y="335" width="25" height="1"/>
+                                <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="tVe-Wo-EBb"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstItem="U0K-vU-2cW" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="5ZQ-ib-Mxb"/>
+                            <constraint firstItem="U0K-vU-2cW" firstAttribute="top" secondItem="Llm-lL-Icb" secondAttribute="bottom" constant="8" symbolic="YES" id="BRI-Kh-a0F"/>
                             <constraint firstItem="hq9-Ni-cxQ" firstAttribute="height" secondItem="Ze5-6b-2t3" secondAttribute="height" multiplier="0.5" id="Df8-4D-kFU"/>
                             <constraint firstItem="hq9-Ni-cxQ" firstAttribute="width" secondItem="Ze5-6b-2t3" secondAttribute="width" multiplier="0.5" id="KJS-Hm-LWR"/>
+                            <constraint firstItem="5wm-zC-w38" firstAttribute="width" secondItem="Ze5-6b-2t3" secondAttribute="width" multiplier="0.3" id="TdF-dp-aej"/>
                             <constraint firstItem="hq9-Ni-cxQ" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="aQP-Mg-gaG"/>
+                            <constraint firstItem="5wm-zC-w38" firstAttribute="top" secondItem="U0K-vU-2cW" secondAttribute="bottom" constant="20" id="lbi-BQ-ifc"/>
+                            <constraint firstItem="5wm-zC-w38" firstAttribute="centerX" secondItem="U0K-vU-2cW" secondAttribute="centerX" id="myc-mY-geQ"/>
                             <constraint firstItem="hq9-Ni-cxQ" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="vcT-qU-DMJ"/>
                         </constraints>
                     </view>
