@@ -220,17 +220,17 @@
 			isa = PBXGroup;
 			children = (
 				DEF9977D1D1DC61E00DAD02E /* AppDelegate.swift */,
-				DEF9977F1D1DC69400DAD02E /* LaunchScreen.storyboard */,
-				DEF997801D1DC69400DAD02E /* Colors.swift */,
-				DEF997811D1DC69400DAD02E /* ComplicationDataHelper.swift */,
-				DEF997821D1DC69400DAD02E /* DataManager.swift */,
-				DEF997831D1DC69400DAD02E /* Extensions.swift */,
-				DEF997841D1DC69400DAD02E /* HelpViewController.swift */,
-				DEF997851D1DC69400DAD02E /* Interval.swift */,
 				DEF997931D1DC75C00DAD02E /* Main.storyboard */,
-				DEF997911D1DC6B100DAD02E /* Assets.xcassets */,
-				DEF997861D1DC69400DAD02E /* Keys.swift */,
 				DEF997871D1DC69400DAD02E /* ViewController.swift */,
+				DEF997841D1DC69400DAD02E /* HelpViewController.swift */,
+				DEF997821D1DC69400DAD02E /* DataManager.swift */,
+				DEF997811D1DC69400DAD02E /* ComplicationDataHelper.swift */,
+				DEF997851D1DC69400DAD02E /* Interval.swift */,
+				DEF997861D1DC69400DAD02E /* Keys.swift */,
+				DEF997801D1DC69400DAD02E /* Colors.swift */,
+				DEF997831D1DC69400DAD02E /* Extensions.swift */,
+				DEF997911D1DC6B100DAD02E /* Assets.xcassets */,
+				DEF9977F1D1DC69400DAD02E /* LaunchScreen.storyboard */,
 				DEEA5F031CAF651800F1CBA7 /* Supporting Files */,
 			);
 			path = Interval;

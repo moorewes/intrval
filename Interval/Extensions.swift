@@ -19,6 +19,15 @@ extension UILabel {
         return label.frame.height
     }
 }
+extension UITextField {
+    func requiredHeight() -> CGFloat {
+        let label = UITextField(frame: CGRectMake(0, 0, self.frame.width, CGFloat.max))
+        label.font = self.font
+        label.text = self.text
+        label.sizeToFit()
+        return label.frame.height
+    }
+}
 extension NSDate {
     var localeDescription: String { return self.descriptionWithLocale(NSCalendar.currentCalendar().locale) }
     var year: Int {

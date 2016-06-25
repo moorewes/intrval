@@ -18,6 +18,7 @@ class HelpViewController: UIViewController {
     @IBOutlet weak var help5: UILabel!
     @IBOutlet weak var help6: UILabel!
     @IBOutlet weak var rateButton: UIButton!
+    @IBOutlet weak var versionLabel: UILabel!
 
     @IBAction func tapReturn() {
         self.dismissViewControllerAnimated(true, completion: nil)
@@ -38,12 +39,18 @@ class HelpViewController: UIViewController {
         help4.textColor = tColor
         help5.textColor = tColor
         help6.textColor = tColor
+        versionLabel.textColor = tColor
         rateButton.setTitleColor(tColor, forState: .Normal)
         returnButton.setTitleColor(tColor, forState: .Normal)
     }
     override func viewDidLoad() {
         super.viewDidLoad()
         updateUI()
+    }
+    override func viewDidAppear(animated: Bool) {
+        if view.bounds.height < 500 {
+            rateButton.hidden = true
+        }
     }
     
 }

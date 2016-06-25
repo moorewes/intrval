@@ -22,7 +22,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelegate {
         UIApplication.sharedApplication().statusBarStyle = style
         
         incrementAppOpenCount()
-        
         return true
     }
 
@@ -42,7 +41,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelegate {
         } else if let vc = window?.rootViewController as? HelpViewController {
             vc.updateUI()
         }
-        incrementAppOpenCount()
         // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
     }
 

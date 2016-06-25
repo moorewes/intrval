@@ -61,7 +61,7 @@ public class Interval {
         case NSCalendarUnit.Hour: answer = "HOUR"
         default: answer = "DAY"
         }
-        let interval = measureIntervalToInt()
+        let interval = abs(measureIntervalToInt())
         if interval != 1 {
             answer += "S"
         }

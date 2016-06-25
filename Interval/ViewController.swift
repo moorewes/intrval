@@ -12,7 +12,7 @@ import WatchConnectivity
 class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, UITextViewDelegate {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet var masterView: UIView!
-    @IBOutlet weak var intervalLabel: UILabel!
+    @IBOutlet weak var intervalLabel: UITextField!
     @IBOutlet weak var mainScrollView: UIScrollView!
     @IBOutlet weak var mainScrollContentView: UIView!
     @IBOutlet weak var confirmDateButton: UIButton!
@@ -42,8 +42,10 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
     @IBOutlet weak var separatorMonthDay: UILabel!
     @IBOutlet weak var separatorDayYear: UILabel!
     @IBOutlet weak var separatorHourMinute: UILabel!
+    @IBOutlet weak var setIntervalHelp: UILabel!
     
     var loaded = false
+    var shouldShowRateRequestIfNecessary = true
     var interval: Interval!
     var session: WCSession?
     var timer: NSTimer!
@@ -56,6 +58,54 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
     let meridiemAM = "AM"
     let meridiemPM = "PM"
     var intervalLabelShrinkageForSmallDevice: CGFloat { return view.bounds.height <= 480 ? -45 : 0 }
+    @IBAction func beginEditInterval() {
+        var unit = "days"
+        switch interval.unit {
+        case NSCalendarUnit.WeekOfYear: unit = "weeks"
+        case NSCalendarUnit.Month: unit = "months"
+        case NSCalendarUnit.Year: unit = "years"
+        case NSCalendarUnit.Hour: unit = "hours"
+        case NSCalendarUnit.Minute: unit = "minutes"
+        default: break
+        }
+        setIntervalHelp.text = "Set the date by entering the number of " + unit + " from now (use negatives for the past). Leave blank to cancel."
+        setIntervalHelp.hidden = false
+        unitButton.enabled = false
+        descriptionLabel.enabled = false
+        unitButtonSymbol.enabled = false
+        helpButton.hidden = true
+        rateButton.hidden = true
+    }
+    @IBAction func editedIntervalLabel(sender: UITextField) {
+        setIntervalHelp.hidden = true
+        unitButton.enabled = true
+        unitButtonSymbol.enabled = true
+        descriptionLabel.enabled = true
+        helpButton.hidden = false
+        rateButton.hidden = false
+        guard let intValue = Int(sender.text!) where intValue != abs(interval.measureIntervalToInt()) else {
+            updateUI()
+            return
+        }
+        editDateFromInterval(intValue)
+    }
+    func editDateFromInterval(intValue: Int) {
+        guard let newDate = NSCalendar.currentCalendar().dateByAddingUnit(interval.unit, value: intValue, toDate: NSDate(), options: []) else {
+            updateUI()
+            return
+        }
+        
+        // Check if date will result in the same interval integer
+//        let testInterval = Interval(date: newDate, unit: interval.unit, includeTime: interval.includeTime, description: "").measureIntervalToInt()
+//        let difference = abs(intValue) - abs(testInterval)
+//        if difference != 0 {
+//            let newInt = intValue + difference
+//            newDate = NSCalendar.currentCalendar().dateByAddingUnit(interval.unit, value: newInt, toDate: NSDate(), options: [])!
+//        }
+        interval.date = newDate
+        updateUI()
+        saveData()
+    }
     @IBAction func didTapUnit() {
         interval.cycleUnit()
         updateUI()
@@ -116,17 +166,19 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
     }
     @IBAction func toggleMeridiem(sender: UIButton) {
         guard let currentMeridiem = sender.titleLabel?.text else {
-            // print("meridiem title label nil")
             return
         }
         var text: String!
         switch currentMeridiem {
         case meridiemAM: text = meridiemPM
         case meridiemPM: text = meridiemAM
-        default: text = "ER"
+        default: text = meridiemPM
         }
         sender.setTitle(text, forState: .Normal)
         if !isEditingDate {
+            if let date = dateFromUI(text) {
+                interval.date = date
+            }
             saveData()
         }
     }
@@ -151,7 +203,7 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
         discardDateButton.hidden = true
     }
     
-    func dateFromUI() -> NSDate? {
+    func dateFromUI(withMeridiem: String? = nil) -> NSDate? {
         var date = ""
         var year = yearField.text!
         var month = monthField.text!
@@ -178,7 +230,8 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
             while minute.characters.count < 2 {
                 minute.insert("0", atIndex: minute.startIndex)
             }
-            date += hour + minute + meridiemButton.titleLabel!.text!
+            let meridiem: String = withMeridiem ?? meridiemButton.titleLabel!.text!
+            date += hour + minute + meridiem // meridiemButton.titleLabel!.text!
             dateFormatter.dateFormat = "MMddyyyyhhmma"
         } else {
             dateFormatter.dateFormat = "MMddyyyy"
@@ -214,11 +267,16 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
     }
     func refreshInterval() {
         intervalLabel.text = interval.measureIntervalToString()
+        var unitString = interval.unitString + " "
+        let since = interval.date.compare(NSDate()) == .OrderedAscending
+        unitString += since ? "since" : "until"
+        unitButton.setTitle(unitString, forState: .Normal)
     }
     func updateUI() {
         intervalLabel.text = interval.measureIntervalToString()
         var unitString = interval.unitString + " "
-        unitString += interval.measureIntervalToInt() < 1 ? "until" : "since"
+        let since = interval.date.compare(NSDate()) == .OrderedAscending
+        unitString += since ? "since" : "until"
         unitButton.setTitle(unitString, forState: .Normal)
         descriptionLabel.text = interval.description
         includeTime = interval.includeTime
@@ -253,6 +311,7 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
         helpButton.setTitleColor(tColor, forState: .Normal)
         rateButton.setTitleColor(tColor, forState: .Normal)
         statusLabel.textColor = tColor
+        setIntervalHelp.textColor = tColor
     }
     func saveData() {
         DataManager.saveUserData(interval)
@@ -260,6 +319,9 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
             sendDataToWatch()
         } else {
             // print("session is nil")
+        }
+        if timer == nil {
+            setTimer()
         }
     }
     func sendDataToWatch() {
@@ -273,12 +335,20 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
         // print("sent message to watch")
         
     }
+    func setTimer() {
+        if let date = NSCalendar.currentCalendar().dateByAddingUnit(.Minute, value: 1, toDate: NSDate(), options: []),
+            let fireDate = NSCalendar.currentCalendar().dateBySettingUnit(.Second, value: 0, ofDate: date, options: []) {
+            timer = NSTimer.init(fireDate: fireDate, interval: 60, target: self, selector: #selector(refreshInterval), userInfo: nil, repeats: true)
+        } else {
+            timer = NSTimer.scheduledTimerWithTimeInterval(60, target: self, selector: #selector(refreshInterval), userInfo: nil, repeats: true)
+        }
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         if let data = DataManager.retrieveUserData() {
             interval = data
             descriptionLabel.attributedPlaceholder = .None
+            setTimer()
         } else {
             interval = Interval(date: NSDate(), unit: .Day, includeTime: false, description: descriptionLabel.text!)
             let placeholder = NSAttributedString(string:"tap to set title",
@@ -289,22 +359,21 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
         intervalHeight.constant += intervalLabelShrinkageForSmallDevice
         updateUI()
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(updateKeyboardHeight(_:)), name: UIKeyboardWillChangeFrameNotification, object: nil)
-        timer = NSTimer.scheduledTimerWithTimeInterval(60, target: self, selector: #selector(refreshInterval), userInfo: nil, repeats: true)
-        
         updateStatusLabel()
-        
-        
-        
-        
-        
     }
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         loaded = true
+        if shouldShowRateRequestIfNecessary {
+            showRateRequestIfNecessary()
+            shouldShowRateRequestIfNecessary = false
+        }
         
+    }
+    func showRateRequestIfNecessary() {
         let count = NSUserDefaults.standardUserDefaults().integerForKey(Keys.UD.openCount)
         let rateStatus = NSUserDefaults.standardUserDefaults().integerForKey(Keys.UD.rateStatus)
-        if count > 7 {
+        if count > 10 {
             if rateStatus == 0 {
                 presentViewController(rateAlert1, animated: true, completion: nil)
             } else if rateStatus == 2 {
@@ -318,23 +387,23 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
             if #available(iOS 9.3, *) {
                 if let sesh = self.session where sesh.activationState == .Activated {
                     if sesh.watchAppInstalled {
-                        self.statusLabel.text = "Status: Connected to watch"
+                        self.statusLabel.text = ""
                     } else {
-                        self.statusLabel.text = "Status: Intrval watch app not yet installed"
+                        self.statusLabel.text = "Intrval watch app not yet installed"
                     }
                     if sesh.paired == false {
-                        self.statusLabel.text = "Status: No paired Apple Watch"
+                        self.statusLabel.text = "No paired Apple Watch found"
                     }
                 }
             } else {
                 if let sesh = self.session {
                     if sesh.watchAppInstalled == false {
-                        self.statusLabel.text = "Status: Not connected to watch"
+                        self.statusLabel.text = "Not connected to watch"
                     } else {
-                        self.statusLabel.text = "Status: Connected to watch"
+                        self.statusLabel.text = ""
                     }
                 } else {
-                    self.statusLabel.text = "Status: Not connected to watch"
+                    self.statusLabel.text = "Not connected to watch"
                 }
             }
         }
@@ -383,9 +452,9 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
             session = WCSession.defaultSession()
             session?.delegate = self
             session?.activateSession()
-            print("session watch state(paired): ", session!.paired)
-            print("session watch state(appInstalled): ", session!.watchAppInstalled)
-            print("session watch state(complicationEnabled): ", session!.complicationEnabled)
+            //print("session watch state(paired): ", session!.paired)
+            //print("session watch state(appInstalled): ", session!.watchAppInstalled)
+            //print("session watch state(complicationEnabled): ", session!.complicationEnabled)
             // print("WCSession activated iOS")
             // print("outstanding transfer count: \(WCSession.defaultSession().outstandingFileTransfers.count)")
         }
@@ -394,22 +463,22 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
         print("received message")
         if let _ = message["initialLaunch"] as? Bool where hasSaved {
             let reply = ComplicationDataHelper.createUserInfo(interval.date, title: interval.description)
-            // print("sent message back")
+            print("sent message back")
             replyHandler(reply)
         }
     }
     func sessionDidBecomeInactive(session: WCSession) {
         updateStatusLabel()
-        print("sessionDidBecomeInactive")
+        //print("sessionDidBecomeInactive")
     }
     func sessionWatchStateDidChange(session: WCSession) {
         updateStatusLabel()
-        print("session watch state(paired) changed: ", session.paired)
-        print("session watch state(appInstalled) changed: ", session.watchAppInstalled)
-        print("session watch state changed(complicationEnabled): ", session.complicationEnabled)
+        //print("session watch state(paired) changed: ", session.paired)
+        //print("session watch state(appInstalled) changed: ", session.watchAppInstalled)
+        //print("session watch state changed(complicationEnabled): ", session.complicationEnabled)
     }
     func sessionDidDeactivate(session: WCSession) {
-        print("deactivate session")
+        //print("deactivate session")
         updateStatusLabel()
     }
     // MARK: UITextFieldDelegate
@@ -435,14 +504,28 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
         return true
     }
     func textFieldShouldEndEditing(textField: UITextField) -> Bool {
+        if textField == intervalLabel { return true }
         intervalLabel.hidden = false
+        unitButton.hidden = false
+        unitButtonSymbol.hidden = false
+        helpButton.hidden = false
+        rateButton.hidden = false
+        titleLabel.hidden = false
         textField.backgroundColor = UIColor.clearColor()
         isEditingDate = false
         mainScrollView.scrollEnabled = true
         return true
     }
     func textFieldDidBeginEditing(textField: UITextField) {
+        if textField == intervalLabel { return }
         intervalLabel.hidden = true
+        unitButton.hidden = true
+        unitButtonSymbol.hidden = true
+        helpButton.hidden = true
+        rateButton.hidden = true
+        if view.bounds.height < 500 {
+            titleLabel.hidden = true
+        }
         isEditingDate = true
         mainScrollView.scrollEnabled = false
         switch includeTime {
@@ -468,6 +551,7 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
         
     }
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+        if textField == intervalLabel { return true }
         // in case just started editing
         if textField.textColor == Colors.sharedInstance.selectedTColor {
             textField.text = ""
@@ -499,6 +583,7 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
         return true
     }
     @IBAction func textFieldDidChange(sender: UITextField) {
+        if sender == intervalLabel { return }
         // Check if over max character length, return if not setting date
         var withinCharLimit = true
         switch sender {
@@ -630,7 +715,7 @@ extension ViewController: UIScrollViewDelegate {
         let max = view.bounds.height/2 - intervalTextHeight + 10
         let offset = min(max, scrollView.contentOffset.y)
         intervalHeight.constant = -offset + intervalLabelShrinkageForSmallDevice
-        intervalTopSpace.constant = 25 + min(max, offset)
+        intervalTopSpace.constant = 88 + min(max, offset)
         view.layoutIfNeeded()
     }
     
