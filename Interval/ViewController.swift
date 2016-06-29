@@ -11,17 +11,21 @@ import WatchConnectivity
 
 class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, UITextViewDelegate {
     @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var separatorLineView: UIView!
     @IBOutlet var masterView: UIView!
     @IBOutlet weak var intervalLabel: UITextField!
     @IBOutlet weak var mainScrollView: UIScrollView!
     @IBOutlet weak var mainScrollContentView: UIView!
     @IBOutlet weak var confirmDateButton: UIButton!
     @IBOutlet weak var discardDateButton: UIButton!
+    @IBOutlet weak var setNowButton: UIButton!
     @IBOutlet weak var unitButton: UIButton!
     @IBOutlet weak var unitButtonSymbol: UIButton!
     @IBOutlet weak var descriptionLabel: UITextField!
     @IBOutlet weak var statusLabel: UILabel!
+    @IBOutlet weak var startupHelpLabel: UILabel!
     
+    @IBOutlet weak var commentView: UIView!
     @IBOutlet weak var dateRow: UIView!
     @IBOutlet weak var intervalTopSpace: NSLayoutConstraint!
     @IBOutlet weak var intervalHeight: NSLayoutConstraint!
@@ -44,7 +48,10 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
     @IBOutlet weak var separatorHourMinute: UILabel!
     @IBOutlet weak var setIntervalHelp: UILabel!
     
+    @IBOutlet weak var startupLabelTopSpaceConstraint: NSLayoutConstraint!
+    
     var loaded = false
+    var shouldShowStartupHelp = true
     var shouldShowRateRequestIfNecessary = true
     var interval: Interval!
     var session: WCSession?
@@ -88,6 +95,13 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
             return
         }
         editDateFromInterval(intValue)
+    }
+    @IBAction func setNow() {
+        if !includeTime {
+            requestShowHideTime()
+        }
+        dateToUI(NSDate())
+        
     }
     func editDateFromInterval(intValue: Int) {
         guard let newDate = NSCalendar.currentCalendar().dateByAddingUnit(interval.unit, value: intValue, toDate: NSDate(), options: []) else {
@@ -201,6 +215,7 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
         includeTimeSymbolButton.hidden = true
         confirmDateButton.hidden = true
         discardDateButton.hidden = true
+        setNowButton.hidden = true
     }
     
     func dateFromUI(withMeridiem: String? = nil) -> NSDate? {
@@ -294,6 +309,7 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
         let tColor = Colors.sharedInstance.tColor
         masterView.backgroundColor = bColor
         titleLabel.textColor = tColor
+        separatorLineView.backgroundColor = tColor
         intervalLabel.textColor = tColor
         unitButton.setTitleColor(tColor, forState: .Normal)
         descriptionLabel.textColor = tColor
@@ -307,7 +323,7 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
         separatorHourMinute.textColor = tColor
         meridiemButton.setTitleColor(tColor, forState: .Normal)
         includeTimeTextButton.setTitleColor(tColor, forState: .Normal)
-        includeTimeSymbolButton.setTitleColor(tColor, forState: .Normal)
+        setNowButton.setTitleColor(tColor, forState: .Normal)
         helpButton.setTitleColor(tColor, forState: .Normal)
         rateButton.setTitleColor(tColor, forState: .Normal)
         statusLabel.textColor = tColor
@@ -345,6 +361,9 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        if NSUserDefaults.standardUserDefaults().integerForKey(Keys.UD.openCount) > 5 {
+            shouldShowStartupHelp = false
+        }
         if let data = DataManager.retrieveUserData() {
             interval = data
             descriptionLabel.attributedPlaceholder = .None
@@ -354,7 +373,10 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
             let placeholder = NSAttributedString(string:"tap to set title",
                                                  attributes:[NSForegroundColorAttributeName: Colors.sharedInstance.tColor])
             descriptionLabel.attributedPlaceholder = placeholder
+            shouldShowStartupHelp = false
         }
+        let color = includeTime ? discardDateButton.titleLabel?.textColor : confirmDateButton.titleLabel?.textColor
+        includeTimeSymbolButton.setTitleColor(color, forState: .Normal)
         hasSaved = NSUserDefaults.standardUserDefaults().boolForKey(Keys.UD.hasSaved)
         intervalHeight.constant += intervalLabelShrinkageForSmallDevice
         updateUI()
@@ -367,6 +389,18 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
         if shouldShowRateRequestIfNecessary {
             showRateRequestIfNecessary()
             shouldShowRateRequestIfNecessary = false
+        }
+        if shouldShowStartupHelp {
+            let dateY = monthField.frame.minY + dateRow.frame.minY
+            let descriptionY = descriptionLabel.frame.maxY + commentView.frame.minY
+            let constant = dateY - (dateY - descriptionY)/2
+            startupLabelTopSpaceConstraint.constant = constant
+            view.layoutIfNeeded()
+            startupHelpLabel.alpha = 1
+            UIView.animateWithDuration(1, delay: 2, options: [], animations: {
+                self.startupHelpLabel.alpha = 0
+                }, completion: nil
+            )
         }
         
     }
@@ -652,6 +686,7 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
         includeTimeTextButton.hidden = false
         includeTimeSymbolButton.hidden = false
         discardDateButton.hidden = false
+        setNowButton.hidden = false
         ensureViewIsVisible(sender)
     }
     @IBAction func endEditTextField(sender: UITextField) {
