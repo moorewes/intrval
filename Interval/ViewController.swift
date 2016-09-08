@@ -52,7 +52,7 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
     
     var loaded = false
     var shouldShowStartupHelp = true
-    var shouldShowRateRequestIfNecessary = true
+    var hasTriedToShowRateRequestThisSession = false
     var interval: Interval!
     var session: WCSession?
     var timer: NSTimer!
@@ -177,6 +177,10 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
         interval.date = date
         updateUI()
         saveData()
+        if !hasTriedToShowRateRequestThisSession {
+            showRateRequestIfNecessary()
+            hasTriedToShowRateRequestThisSession = true
+        }
     }
     @IBAction func toggleMeridiem(sender: UIButton) {
         guard let currentMeridiem = sender.titleLabel?.text else {
@@ -386,10 +390,7 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         loaded = true
-        if shouldShowRateRequestIfNecessary {
-            showRateRequestIfNecessary()
-            shouldShowRateRequestIfNecessary = false
-        }
+        
         if shouldShowStartupHelp {
             let dateY = monthField.frame.minY + dateRow.frame.minY
             let descriptionY = descriptionLabel.frame.maxY + commentView.frame.minY
@@ -397,7 +398,7 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
             startupLabelTopSpaceConstraint.constant = constant
             view.layoutIfNeeded()
             startupHelpLabel.alpha = 1
-            UIView.animateWithDuration(1, delay: 2, options: [], animations: {
+            UIView.animateWithDuration(1, delay: 5, options: [], animations: {
                 self.startupHelpLabel.alpha = 0
                 }, completion: nil
             )
@@ -407,7 +408,7 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
     func showRateRequestIfNecessary() {
         let count = NSUserDefaults.standardUserDefaults().integerForKey(Keys.UD.openCount)
         let rateStatus = NSUserDefaults.standardUserDefaults().integerForKey(Keys.UD.rateStatus)
-        if count > 10 {
+        if count > 5 {
             if rateStatus == 0 {
                 presentViewController(rateAlert1, animated: true, completion: nil)
             } else if rateStatus == 2 {
@@ -444,16 +445,16 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
     }
     var rateAlert1: UIAlertController {
         let title = "Be Heard"
-        let message = "Consider leaving a rating on the app store? You rock 🎸"
+        let message = "Please leave a review on the app store. You rock 🎸"
         let alert = UIAlertController(title: title, message: message, preferredStyle: .Alert)
         let actionYes = UIAlertAction(title: "Yes, I do rock 🤘", style: UIAlertActionStyle.Default) { _ in
             NSUserDefaults.standardUserDefaults().setInteger(1, forKey: Keys.UD.rateStatus)
             self.rateApp()
         }
-        let actionLater = UIAlertAction(title: "Later, but I prefer jazz 🎷", style: UIAlertActionStyle.Default) { _ in
+        let actionLater = UIAlertAction(title: "Later", style: UIAlertActionStyle.Default) { _ in
             NSUserDefaults.standardUserDefaults().setInteger(2, forKey: Keys.UD.rateStatus)
         }
-        let actionNo = UIAlertAction(title: "No, I'm busy 🚽", style: .Default) { _ in
+        let actionNo = UIAlertAction(title: "No", style: .Default) { _ in
             NSUserDefaults.standardUserDefaults().setInteger(3, forKey: Keys.UD.rateStatus)
         }
         alert.addAction(actionYes)
@@ -463,16 +464,16 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
     }
     var rateAlert2: UIAlertController {
         let title = "Be Heard"
-        let message = "Consider jazzing up our page on the app store with your rating and review? 🎷"
+        let message = "Consider leaving us a review?"
         let alert = UIAlertController(title: title, message: message, preferredStyle: .Alert)
-        let actionYes = UIAlertAction(title: "Yes, my notes are hot 🔥", style: UIAlertActionStyle.Default) { _ in
+        let actionYes = UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default) { _ in
             NSUserDefaults.standardUserDefaults().setInteger(1, forKey: Keys.UD.rateStatus)
             self.rateApp()
         }
-        let actionLater = UIAlertAction(title: "Later, I'm pretending to practice 🎼", style: UIAlertActionStyle.Default) { _ in
+        let actionLater = UIAlertAction(title: "Later", style: UIAlertActionStyle.Default) { _ in
             NSUserDefaults.standardUserDefaults().setInteger(2, forKey: Keys.UD.rateStatus)
         }
-        let actionNo = UIAlertAction(title: "No, I'm busy 🚽", style: .Default) { _ in
+        let actionNo = UIAlertAction(title: "No", style: .Default) { _ in
             NSUserDefaults.standardUserDefaults().setInteger(3, forKey: Keys.UD.rateStatus)
         }
         alert.addAction(actionYes)

@@ -12,12 +12,12 @@ class Colors {
     static let sharedInstance = Colors()
     
     // MARK: Color Definitions
-    internal let intrvalBlack = UIColor(white: 0.1, alpha: 1)
-    internal let intrvalWhite = UIColor(white: 0.9, alpha: 1)
+    internal let intrvalBlack = UIColor(red: 0, green: 30/255, blue: 28/255, alpha: 1)  // UIColor(white: 0.1, alpha: 1)
+    internal let intrvalWhite = UIColor(red: 250/255, green: 255/255, blue: 255/255, alpha: 1)  // UIColor(white: 0.9, alpha: 1)
     
     // MARK: Variables
     internal var nightMode: Bool!
-        internal var bColor: UIColor!
+    internal var bColor: UIColor!
     internal var tColor: UIColor!
     internal var selectedBColor: UIColor!
     internal var selectedTColor: UIColor!

@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import MessageUI
 
-class HelpViewController: UIViewController {
+class HelpViewController: UIViewController, MFMailComposeViewControllerDelegate {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var returnButton: UIButton!
     @IBOutlet weak var help1: UILabel!
@@ -18,6 +19,7 @@ class HelpViewController: UIViewController {
     @IBOutlet weak var help5: UILabel!
     @IBOutlet weak var help6: UILabel!
     @IBOutlet weak var rateButton: UIButton!
+    @IBOutlet weak var supportButton: UIButton!
     @IBOutlet weak var versionLabel: UILabel!
 
     @IBAction func tapReturn() {
@@ -26,6 +28,25 @@ class HelpViewController: UIViewController {
     @IBAction func tapRate() {
         if let url = NSURL(string: "itms-apps://itunes.apple.com/us/app/app-name/id1111883763") {
             UIApplication.sharedApplication().openURL(url)
+        }
+    }
+    @IBAction func tapSupport() {
+        if MFMailComposeViewController.canSendMail() {
+            let mail = MFMailComposeViewController()
+            mail.mailComposeDelegate = self
+            mail.setToRecipients(["wesmooredesign@gmail.com"])
+            mail.setSubject("Intrval Feedback")
+            let version = (NSBundle.mainBundle().releaseVersionNumber ?? "") + " " + (NSBundle.mainBundle().buildVersionNumber ?? "")
+            let deviceModel = UIDevice.currentDevice().modelName
+            let iOSVersion = UIDevice.currentDevice().systemVersion
+            let bodyText = "\n\n\nUseful Info:\nIntrval Version: \(version)\nDevice Model: \(deviceModel)\niOS Version: \(iOSVersion)"
+            mail.setMessageBody(bodyText, isHTML: false)
+            self.presentViewController(mail, animated: true, completion: nil)
+        } else {
+            let alert = UIAlertController(title: "Contanct Developer", message: "Please email Wes at wesmooredesign@gmail.com", preferredStyle: .Alert)
+            let action = UIAlertAction(title: "OK", style: .Default, handler: nil)
+            alert.addAction(action)
+            self.presentViewController(alert, animated: true, completion: nil)
         }
     }
     func updateUI() {
@@ -41,6 +62,7 @@ class HelpViewController: UIViewController {
         help6.textColor = tColor
         versionLabel.textColor = tColor
         rateButton.setTitleColor(tColor, forState: .Normal)
+        supportButton.setTitleColor(tColor, forState: .Normal)
         returnButton.setTitleColor(tColor, forState: .Normal)
     }
     override func viewDidLoad() {
@@ -51,6 +73,20 @@ class HelpViewController: UIViewController {
         if view.bounds.height < 500 {
             rateButton.hidden = true
         }
+    }
+    
+    func mailComposeController(controller: MFMailComposeViewController, didFinishWithResult result: MFMailComposeResult, error: NSError?) {
+        switch result {
+        case MFMailComposeResultFailed:
+            //print("Mail sent failure")
+            let alert = UIAlertController(title: "Email Failed To Send", message: "Please try again or use your own email client and send to wesmooredesign@gmail.com", preferredStyle: UIAlertControllerStyle.Alert )
+            self.presentViewController(alert, animated: true, completion: { () -> Void in
+                self.dismissViewControllerAnimated(true, completion: nil)
+            })
+        default:
+            break
+        }
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
     
 }
