@@ -14,13 +14,14 @@ class Colors {
     // MARK: Color Definitions
     internal let intrvalBlack = UIColor(red: 30/255, green: 30/255, blue: 30/255, alpha: 1)  // UIColor(white: 0.1, alpha: 1)
     internal let intrvalWhite = UIColor(red: 250/255, green: 255/255, blue: 250/255, alpha: 1)  // UIColor(white: 0.9, alpha: 1)
-    
+    static let green = UIColor(red: 0, green: 0.5, blue: 0, alpha: 1)
     // MARK: Variables
     internal var nightMode: Bool!
     internal var bColor: UIColor!
     internal var tColor: UIColor!
     internal var selectedBColor: UIColor!
     internal var selectedTColor: UIColor!
+    internal var grey: UIColor!
     
     // MARK: Functions
     internal func refreshColors() {
@@ -36,11 +37,13 @@ class Colors {
             tColor = intrvalWhite
             selectedBColor = UIColor.darkGray
             selectedTColor = UIColor.lightGray
+            grey = UIColor.lightGray
         } else {
             bColor = intrvalWhite
             tColor = intrvalBlack
             selectedBColor = UIColor.lightGray
             selectedTColor = UIColor.darkGray
+            grey = UIColor.darkGray
         }
     }
     

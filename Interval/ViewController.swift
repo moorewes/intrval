@@ -38,19 +38,28 @@ fileprivate func <= <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
 }
 
 
-class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, UITextViewDelegate {
-    /** Called when the session has completed activation. If session state is WCSessionActivationStateNotActivated there will be an error with more details. */
-    @available(iOS 9.3, *)
-    public func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
-        if let e = error {
-            //print(e.localizedDescription)
-        }
-        updateStatusLabel()
-    }
-    func sessionReachabilityDidChange(_ session: WCSession) {
-        updateStatusLabel()
-    }
-
+class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, UITextViewDelegate, UIScrollViewDelegate {
+    
+    // MARK: Properties
+    
+    var loaded = false
+    var shouldShowStartupHelp = true
+    var hasTriedToShowRateRequestThisSession = false
+    var interval: Interval!
+    var session: WCSession?
+    var timer: Timer!
+    var previousScrollOffset: CGPoint?
+    var isEditingDate = false
+    var intervalTextHeight: CGFloat = 100
+    var keyboardHeight: CGFloat = 0
+    var includeTime = false
+    var hasSaved = false
+    let meridiemAM = "AM"
+    let meridiemPM = "PM"
+    var intervalLabelShrinkageForSmallDevice: CGFloat { return view.bounds.height <= 480 ? -45 : 0 }
+    
+    // MARK: IBOutlets
+    
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var separatorLineView: UIView!
     @IBOutlet var masterView: UIView!
@@ -61,7 +70,8 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
     @IBOutlet weak var discardDateButton: UIButton!
     @IBOutlet weak var setNowButton: UIButton!
     @IBOutlet weak var unitButton: UIButton!
-    @IBOutlet weak var unitButtonSymbol: UIButton!
+    @IBOutlet weak var unitLabel: UILabel!
+    @IBOutlet weak var untilSinceLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UITextField!
     @IBOutlet weak var statusLabel: UILabel!
     @IBOutlet weak var startupHelpLabel: UILabel!
@@ -88,24 +98,13 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
     @IBOutlet weak var separatorDayYear: UILabel!
     @IBOutlet weak var separatorHourMinute: UILabel!
     @IBOutlet weak var setIntervalHelp: UILabel!
+    @IBOutlet weak var easterEggLabel: UILabel!
     
     @IBOutlet weak var startupLabelTopSpaceConstraint: NSLayoutConstraint!
+    @IBOutlet weak var commentViewTopSpace: NSLayoutConstraint!
     
-    var loaded = false
-    var shouldShowStartupHelp = true
-    var hasTriedToShowRateRequestThisSession = false
-    var interval: Interval!
-    var session: WCSession?
-    var timer: Timer!
-    var previousScrollOffset: CGPoint?
-    var isEditingDate = false
-    var intervalTextHeight: CGFloat = 100
-    var keyboardHeight: CGFloat = 0
-    var includeTime = false
-    var hasSaved = false
-    let meridiemAM = "AM"
-    let meridiemPM = "PM"
-    var intervalLabelShrinkageForSmallDevice: CGFloat { return view.bounds.height <= 480 ? -45 : 0 }
+    // MARK: IBActions
+    
     @IBAction func beginEditInterval() {
         var unit = "days"
         switch interval.unit {
@@ -120,14 +119,12 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
         setIntervalHelp.isHidden = false
         unitButton.isEnabled = false
         descriptionLabel.isEnabled = false
-        unitButtonSymbol.isEnabled = false
         helpButton.isHidden = true
         rateButton.isHidden = true
     }
     @IBAction func editedIntervalLabel(_ sender: UITextField) {
         setIntervalHelp.isHidden = true
         unitButton.isEnabled = true
-        unitButtonSymbol.isEnabled = true
         descriptionLabel.isEnabled = true
         helpButton.isHidden = false
         rateButton.isHidden = false
@@ -144,27 +141,12 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
         dateToUI(Date())
         
     }
-    func editDateFromInterval(_ intValue: Int) {
-        guard let newDate = (Calendar.current as NSCalendar).date(byAdding: interval.unit, value: intValue, to: Date(), options: []) else {
-            updateUI()
-            return
-        }
-        
-        // Check if date will result in the same interval integer
-//        let testInterval = Interval(date: newDate, unit: interval.unit, includeTime: interval.includeTime, description: "").measureIntervalToInt()
-//        let difference = abs(intValue) - abs(testInterval)
-//        if difference != 0 {
-//            let newInt = intValue + difference
-//            newDate = NSCalendar.currentCalendar().dateByAddingUnit(interval.unit, value: newInt, toDate: NSDate(), options: [])!
-//        }
-        interval.date = newDate
-        updateUI()
-        saveData()
-    }
+    
+    
+    
     @IBAction func didTapUnit() {
         interval.cycleUnit()
         updateUI()
-        //saveData()
     }
     @IBAction func requestShowHideTime() {
         showHideTime(!includeTime)
@@ -184,28 +166,7 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
             }
         )
     }
-    func showHideTime(_ include: Bool) {
-        includeTime = include
-        var constant: CGFloat!
-        switch includeTime {
-        case true:
-            constant = timeContainer.frame.height
-            let color = discardDateButton.titleLabel!.textColor
-            includeTimeSymbolButton.setTitleColor(color, for: UIControlState())
-            includeTimeTextButton.setTitle("exclude time of day", for: UIControlState())
-            includeTimeSymbolButton.setTitle("−", for: UIControlState())
-        case false:
-            constant = 0
-            let color = confirmDateButton.titleLabel!.textColor
-            includeTimeSymbolButton.setTitleColor(color, for: UIControlState())
-            includeTimeTextButton.setTitle("include time of day", for: UIControlState())
-            includeTimeSymbolButton.setTitle("+", for: UIControlState())
-        }
-        
-        timeContainer.isHidden = !includeTime
-        includeTimeTopSpace.constant = constant
-        
-    }
+    
     @IBAction func confirmDateChange() {
         guard let date = dateFromUI() else {
             return
@@ -250,6 +211,109 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
             UIApplication.shared.openURL(url)
         }
     }
+    
+    
+    // MARK: Life Cycle
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        if WCSession.isSupported() {
+            session = WCSession.default()
+            session?.delegate = self
+            session?.activate()
+            //print("session watch state(paired): ", session!.paired)
+            //print("session watch state(appInstalled): ", session!.watchAppInstalled)
+            //print("session watch state(complicationEnabled): ", session!.complicationEnabled)
+            // print("WCSession activated iOS")
+            // print("outstanding transfer count: \(WCSession.defaultSession().outstandingFileTransfers.count)")
+        }
+    }
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        if UserDefaults.standard.integer(forKey: Keys.UD.openCount) > 5 {
+            shouldShowStartupHelp = false
+        }
+        if let data = DataManager.retrieveUserData() {
+            interval = data
+            descriptionLabel.attributedPlaceholder = .none
+            setTimer()
+        } else {
+            interval = Interval(date: Date(), unit: .day, includeTime: false, description: descriptionLabel.text!)
+            let placeholder = NSAttributedString(string:"tap to set title",
+                                                 attributes:[NSForegroundColorAttributeName: Colors.sharedInstance.tColor.withAlphaComponent(0.7)])
+            descriptionLabel.attributedPlaceholder = placeholder
+            shouldShowStartupHelp = false
+        }
+        let color = includeTime ? discardDateButton.titleLabel?.textColor : confirmDateButton.titleLabel?.textColor
+        includeTimeSymbolButton.setTitleColor(color, for: UIControlState())
+        hasSaved = UserDefaults.standard.bool(forKey: Keys.UD.hasSaved)
+        intervalHeight.constant += intervalLabelShrinkageForSmallDevice
+        updateUI()
+        NotificationCenter.default.addObserver(self, selector: #selector(updateKeyboardHeight(_:)), name: NSNotification.Name.UIKeyboardWillChangeFrame, object: nil)
+        updateStatusLabel()
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        loaded = true
+        
+        intervalLabel.layer.borderColor = Colors.green.cgColor
+        intervalLabel.layer.borderWidth = 1
+        intervalLabel.layer.cornerRadius = intervalLabel.bounds.width/2
+        
+        let bottom = dateRow.frame.minY + monthField.frame.minY
+        let top = intervalLabel.frame.maxY
+        let midDistance = (bottom - top)/2
+        let offset = descriptionLabel.frame.midY - commentView.bounds.midY
+        commentViewTopSpace.constant = midDistance - offset
+        
+        if shouldShowStartupHelp {
+            let dateY = monthField.frame.minY + dateRow.frame.minY
+            let descriptionY = descriptionLabel.frame.maxY + commentView.frame.minY
+            let constant = dateY - (dateY - descriptionY)/2
+            startupLabelTopSpaceConstraint.constant = constant
+            view.layoutIfNeeded()
+            startupHelpLabel.alpha = 1
+            UIView.animate(withDuration: 1, delay: 4, options: [], animations: {
+                self.startupHelpLabel.alpha = 0
+                }, completion: nil
+            )
+        }
+    }
+    
+    // MARK: Convenience
+    
+    func updateUI() {
+        refreshInterval()
+        descriptionLabel.text = interval.description
+        includeTime = interval.includeTime
+        dateToUI(interval.date)
+        intervalTextHeight = intervalLabel.requiredHeight()
+        setColorScheme()
+        if descriptionLabel.text == "" {
+            let placeholder = NSAttributedString(string:"tap to set title",
+                                                 attributes:[NSForegroundColorAttributeName: Colors.sharedInstance.tColor])
+            descriptionLabel.attributedPlaceholder = placeholder
+        }
+    }
+    func saveData() {
+        DataManager.saveUserData(interval)
+        if let _ = session {
+            sendDataToWatch()
+        }
+        if timer == nil {
+            setTimer()
+        }
+    }
+    func sendDataToWatch() {
+        if #available(iOS 9.3, *) {
+            guard session?.activationState == .activated else {
+                return
+            }
+        }
+        let userInfo = ComplicationDataHelper.createUserInfo(interval.date, title: interval.description)
+        WCSession.default().transferCurrentComplicationUserInfo(userInfo)
+        //print("sent message to watch")
+    }
+    
     func exitEditDate() {
         resignDateTextFields()
         if let offset = previousScrollOffset {
@@ -262,7 +326,28 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
         discardDateButton.isHidden = true
         setNowButton.isHidden = true
     }
-    
+    func showHideTime(_ include: Bool) {
+        includeTime = include
+        var constant: CGFloat!
+        switch includeTime {
+        case true:
+            constant = timeContainer.frame.height
+            let color = discardDateButton.titleLabel!.textColor
+            includeTimeSymbolButton.setTitleColor(color, for: UIControlState())
+            includeTimeTextButton.setTitle("exclude time of day", for: UIControlState())
+            includeTimeSymbolButton.setTitle("−", for: UIControlState())
+        case false:
+            constant = 0
+            let color = confirmDateButton.titleLabel!.textColor
+            includeTimeSymbolButton.setTitleColor(color, for: UIControlState())
+            includeTimeTextButton.setTitle("include time of day", for: UIControlState())
+            includeTimeSymbolButton.setTitle("+", for: UIControlState())
+        }
+        
+        timeContainer.isHidden = !includeTime
+        includeTimeTopSpace.constant = constant
+        
+    }
     func dateFromUI(_ withMeridiem: String? = nil) -> Date? {
         var date = ""
         var year = yearField.text!
@@ -327,36 +412,23 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
     }
     func refreshInterval() {
         intervalLabel.text = interval.measureIntervalToString()
-        var unitString = interval.unitString + " "
         let since = interval.date.compare(Date()) == .orderedAscending
-        unitString += since ? "since" : "until"
-        unitButton.setTitle(unitString, for: UIControlState())
+        
+        unitLabel.text = interval.unitString.lowercased()
+        untilSinceLabel.text = since ? "since" : "until"
     }
-    func updateUI() {
-        intervalLabel.text = interval.measureIntervalToString()
-        var unitString = interval.unitString + " "
-        let since = interval.date.compare(Date()) == .orderedAscending
-        unitString += since ? "since" : "until"
-        unitButton.setTitle(unitString, for: UIControlState())
-        descriptionLabel.text = interval.description
-        includeTime = interval.includeTime
-        dateToUI(interval.date)
-        intervalTextHeight = intervalLabel.requiredHeight()
-        setColorScheme()
-        if descriptionLabel.text == "" {
-            let placeholder = NSAttributedString(string:"tap to set title",
-                                                 attributes:[NSForegroundColorAttributeName: Colors.sharedInstance.tColor])
-            descriptionLabel.attributedPlaceholder = placeholder
-        }
-    }
+    
     func setColorScheme() {
         let bColor = Colors.sharedInstance.bColor
         let tColor = Colors.sharedInstance.tColor
+        let intervalDescriptorColor = Colors.sharedInstance.grey
         masterView.backgroundColor = bColor
         titleLabel.textColor = tColor
-        //separatorLineView.backgroundColor = tColor
+        separatorLineView.backgroundColor = intervalDescriptorColor
         intervalLabel.textColor = tColor
-        unitButton.setTitleColor(tColor, for: UIControlState())
+        unitLabel.textColor = intervalDescriptorColor
+        untilSinceLabel.textColor = intervalDescriptorColor
+        easterEggLabel.textColor = intervalDescriptorColor
         descriptionLabel.textColor = tColor
         monthField.textColor = tColor
         dayField.textColor = tColor
@@ -375,89 +447,38 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
         setIntervalHelp.textColor = tColor
         startupHelpLabel.textColor = tColor
     }
-    func saveData() {
-        DataManager.saveUserData(interval)
-        if let _ = session {
-            //print("sending data to watch")
-            sendDataToWatch()
-        } else {
-            // print("session is nil")
-        }
-        if timer == nil {
-            setTimer()
-        }
-    }
-    func sendDataToWatch() {
-        if #available(iOS 9.3, *) {
-            guard session?.activationState == .activated else {
-                return
-            }
-        }
-        let userInfo = ComplicationDataHelper.createUserInfo(interval.date, title: interval.description)
-        //WCSession.default().transferCurrentComplicationUserInfo(userInfo)
-        // print("sent message to watch")
-        
-    }
+    
     func setTimer() {
-        if let date = (Calendar.current as NSCalendar).date(byAdding: .minute, value: 1, to: Date(), options: []),
-            let fireDate = (Calendar.current as NSCalendar).date(bySettingUnit: .second, value: 0, of: date, options: []) {
-            timer = Timer.init(fireAt: fireDate, interval: 60, target: self, selector: #selector(refreshInterval), userInfo: nil, repeats: true)
-        } else {
-            timer = Timer.scheduledTimer(timeInterval: 60, target: self, selector: #selector(refreshInterval), userInfo: nil, repeats: true)
-        }
+        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(refreshInterval), userInfo: nil, repeats: true)
     }
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        if UserDefaults.standard.integer(forKey: Keys.UD.openCount) > 5 {
-            shouldShowStartupHelp = false
+    func editDateFromInterval(_ intValue: Int) {
+        guard let newDate = (Calendar.current as NSCalendar).date(byAdding: interval.unit, value: intValue, to: Date(), options: []) else {
+            updateUI()
+            return
         }
-        if let data = DataManager.retrieveUserData() {
-            interval = data
-            descriptionLabel.attributedPlaceholder = .none
-            setTimer()
-        } else {
-            interval = Interval(date: Date(), unit: .day, includeTime: false, description: descriptionLabel.text!)
-            let placeholder = NSAttributedString(string:"tap to set title",
-                                                 attributes:[NSForegroundColorAttributeName: Colors.sharedInstance.tColor.withAlphaComponent(0.7)])
-            descriptionLabel.attributedPlaceholder = placeholder
-            shouldShowStartupHelp = false
-        }
-        let color = includeTime ? discardDateButton.titleLabel?.textColor : confirmDateButton.titleLabel?.textColor
-        includeTimeSymbolButton.setTitleColor(color, for: UIControlState())
-        hasSaved = UserDefaults.standard.bool(forKey: Keys.UD.hasSaved)
-        intervalHeight.constant += intervalLabelShrinkageForSmallDevice
+        
+        interval.date = newDate
         updateUI()
-        NotificationCenter.default.addObserver(self, selector: #selector(updateKeyboardHeight(_:)), name: NSNotification.Name.UIKeyboardWillChangeFrame, object: nil)
-        updateStatusLabel()
+        saveData()
     }
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        loaded = true
-        
-        if true {
-            let dateY = monthField.frame.minY + dateRow.frame.minY
-            let descriptionY = descriptionLabel.frame.maxY + commentView.frame.minY
-            let constant = dateY - (dateY - descriptionY)/2
-            startupLabelTopSpaceConstraint.constant = constant
-            view.layoutIfNeeded()
-            startupHelpLabel.alpha = 1
-            UIView.animate(withDuration: 1, delay: 5, options: [], animations: {
-                self.startupHelpLabel.alpha = 0
-                }, completion: nil
-            )
-        }
-        
-    }
+    
     func showRateRequestIfNecessary() {
         let count = UserDefaults.standard.integer(forKey: Keys.UD.openCount)
-        let rateStatus = UserDefaults.standard.integer(forKey: Keys.UD.rateStatus)
         if count > 5 {
-            if rateStatus == 0 {
-                present(rateAlert1, animated: true, completion: nil)
-            } else if rateStatus == 2 {
-                present(rateAlert2, animated: true, completion: nil)
-            }
+            let rateStatusRaw = UserDefaults.standard.integer(forKey: Keys.UD.rateStatus)
+            let rateStatus = RateAlertStatus(rawValue: rateStatusRaw)
             
+            switch rateStatus {
+            case .unseen:
+                present(rateAlert1, animated: true, completion: nil)
+            case .deferredForNextTime:
+                let newValue = RateAlertStatus.deferredForNow.rawValue
+                UserDefaults.standard.set(newValue, forKey: Keys.UD.rateStatus)
+            case .deferredForNow:
+                present(rateAlert2, animated: true, completion: nil)
+            default:
+                break
+            }
         }
     }
     func updateStatusLabel() {
@@ -488,7 +509,7 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
     }
     var rateAlert1: UIAlertController {
         let title = "Be Heard"
-        let message = "Please leave a review on the app store. You rock 🎸"
+        let message = "Please leave a review on the app store. You rock!"
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let actionYes = UIAlertAction(title: "Yes, I do rock 🤘", style: UIAlertActionStyle.default) { _ in
             UserDefaults.standard.set(1, forKey: Keys.UD.rateStatus)
@@ -524,42 +545,11 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
         alert.addAction(actionNo)
         return alert
     }
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        if WCSession.isSupported() {
-            session = WCSession.default()
-            session?.delegate = self
-            session?.activate()
-            //print("session watch state(paired): ", session!.paired)
-            //print("session watch state(appInstalled): ", session!.watchAppInstalled)
-            //print("session watch state(complicationEnabled): ", session!.complicationEnabled)
-            // print("WCSession activated iOS")
-            // print("outstanding transfer count: \(WCSession.defaultSession().outstandingFileTransfers.count)")
-        }
-    }
-    func session(_ session: WCSession, didReceiveMessage message: [String : Any], replyHandler: @escaping ([String : Any]) -> Void) {
-        //print("received message")
-        if let _ = message["initialLaunch"] as? Bool , hasSaved {
-            let reply = ComplicationDataHelper.createUserInfo(interval.date, title: interval.description)
-            //print("sent message back")
-            replyHandler(reply)
-        }
-    }
-    func sessionDidBecomeInactive(_ session: WCSession) {
-        updateStatusLabel()
-        //print("sessionDidBecomeInactive")
-    }
-    func sessionWatchStateDidChange(_ session: WCSession) {
-        updateStatusLabel()
-        //print("session watch state(paired) changed: ", session.paired)
-        //print("session watch state(appInstalled) changed: ", session.watchAppInstalled)
-        //print("session watch state changed(complicationEnabled): ", session.complicationEnabled)
-    }
-    func sessionDidDeactivate(_ session: WCSession) {
-        //print("deactivate session")
-        updateStatusLabel()
-    }
+    
+    
+    
     // MARK: UITextFieldDelegate
+    
     func updateKeyboardHeight(_ notification: Notification){
         if let userInfo = (notification as NSNotification).userInfo {
             if let keyboardSize = (userInfo[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
@@ -585,7 +575,6 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
         if textField == intervalLabel { return true }
         intervalLabel.isHidden = false
         unitButton.isHidden = false
-        unitButtonSymbol.isHidden = false
         helpButton.isHidden = false
         rateButton.isHidden = false
         titleLabel.isHidden = false
@@ -598,7 +587,6 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
         if textField == intervalLabel { return }
         intervalLabel.isHidden = true
         unitButton.isHidden = true
-        unitButtonSymbol.isHidden = true
         helpButton.isHidden = true
         rateButton.isHidden = true
         if view.bounds.height < 500 {
@@ -660,7 +648,7 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
         
         return true
     }
-    @IBAction func textFieldDidChange(_ sender: UITextField) {
+    @IBAction private func textFieldDidChange(_ sender: UITextField) {
         if sender == intervalLabel { return }
         // Check if over max character length, return if not setting date
         var withinCharLimit = true
@@ -708,7 +696,8 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
         let maxChar = sender == yearField ? 4 : 2
         if sender.text!.characters.count == maxChar {
             switch sender {
-            case monthField, dayField, hourField, yearField where includeTime: shouldAdvance = true
+            case monthField, dayField, hourField, 
+                 yearField where includeTime: shouldAdvance = true
             default: break
             }
         }
@@ -790,16 +779,73 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
             mainScrollView.setContentOffset(offset, animated: true)
         }
     }
-}
-extension ViewController: UIScrollViewDelegate {
+    
+    // MARK: WCSession Delegate
+    
+    @available(iOS 9.3, *)
+    /** Called when the session has completed activation. If session state is WCSessionActivationStateNotActivated there will be an error with more details. */
+    public func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
+//        if let e = error {
+//            print(e.localizedDescription)
+//        }
+        updateStatusLabel()
+    }
+    func sessionReachabilityDidChange(_ session: WCSession) {
+        updateStatusLabel()
+    }
+    func session(_ session: WCSession, didReceiveMessage message: [String : Any], replyHandler: @escaping ([String : Any]) -> Void) {
+        //print("received message")
+        if let _ = message["initialLaunch"] as? Bool , hasSaved {
+            let reply = ComplicationDataHelper.createUserInfo(interval.date, title: interval.description)
+            //print("sent message back")
+            replyHandler(reply)
+        }
+    }
+    func sessionDidBecomeInactive(_ session: WCSession) {
+        updateStatusLabel()
+        //print("sessionDidBecomeInactive")
+    }
+    func sessionWatchStateDidChange(_ session: WCSession) {
+        updateStatusLabel()
+        //print("session watch state(paired) changed: ", session.paired)
+        //print("session watch state(appInstalled) changed: ", session.watchAppInstalled)
+        //print("session watch state changed(complicationEnabled): ", session.complicationEnabled)
+    }
+    func sessionDidDeactivate(_ session: WCSession) {
+        //print("deactivate session")
+        updateStatusLabel()
+    }
+    
+    // MARK: UIScrollView Delegate
+    
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         //let range: CGFloat = view.bounds.height/2.5
         let max = view.bounds.height/2 - intervalTextHeight + 10
-        let offset = min(max, scrollView.contentOffset.y)
-        intervalHeight.constant = -offset + intervalLabelShrinkageForSmallDevice
-        intervalTopSpace.constant = 88 + min(max, offset)
+        let baseHeight = intervalHeight.multiplier * view.bounds.height
+        let offset = min(baseHeight, scrollView.contentOffset.y)
+        let constant = intervalLabelShrinkageForSmallDevice - offset
+        intervalHeight.constant = constant
+        intervalTopSpace.constant = 115 + min(max, offset)
+        
+        let newHeight = intervalHeight.multiplier * view.bounds.height + constant
+        intervalLabel.layer.cornerRadius = newHeight/2
+        
+        
+        let intervalDescriptorsDisappearOffset: CGFloat = 50
+        let alpha = 1 - min(1, scrollView.contentOffset.y/intervalDescriptorsDisappearOffset)
+        unitLabel.alpha = alpha
+        untilSinceLabel.alpha = alpha
+        
+        if scrollView.contentOffset.y < -350 {
+            easterEggLabel.alpha = 1
+        } else {
+            easterEggLabel.alpha = 0
+        }
+        
         view.layoutIfNeeded()
     }
     
 }
+
+
 

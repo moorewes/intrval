@@ -30,7 +30,8 @@ open class Interval {
         case NSCalendar.Unit.day: unit = .weekOfYear
         case NSCalendar.Unit.weekOfYear: unit = .month
         case NSCalendar.Unit.month: unit = .year
-        case NSCalendar.Unit.year: unit = .minute
+        case NSCalendar.Unit.year: unit = .second
+        case NSCalendar.Unit.second: unit = .minute
         case NSCalendar.Unit.minute: unit = .hour
         case NSCalendar.Unit.hour: unit = .day
         default: unit = .day
@@ -60,6 +61,7 @@ open class Interval {
         case NSCalendar.Unit.year: answer = "YEAR"
         case NSCalendar.Unit.minute: answer = "MINUTE"
         case NSCalendar.Unit.hour: answer = "HOUR"
+        case NSCalendar.Unit.second: answer = "SECOND"
         default: answer = "DAY"
         }
         let interval = abs(measureIntervalToInt())

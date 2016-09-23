@@ -3,6 +3,7 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -42,6 +43,9 @@
                                         <subviews>
                                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="30" textAlignment="center" lineBreakMode="characterWrap" baselineAdjustment="alignBaselines" minimumScaleFactor="0.050000000000000003" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="U2e-Qn-tA5">
                                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="U2e-Qn-tA5" secondAttribute="height" id="DxI-WA-POO"/>
+                                                </constraints>
                                                 <fontDescription key="fontDescription" name="IowanOldStyle-Roman" family="Iowan Old Style" pointSize="84"/>
                                                 <color key="textColor" red="0.0" green="0.1960784314" blue="0.1960784314" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -51,10 +55,25 @@
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Since you have time to reach this point, consider leaving us a review?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1gB-iX-JNu" userLabel="easter egg label">
+                                                <fontDescription key="fontDescription" name="IowanOldStyle-Roman" family="Iowan Old Style" pointSize="18"/>
+                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DAYS" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UdK-3O-1LT">
+                                                <fontDescription key="fontDescription" name="IowanOldStyle-Roman" family="Iowan Old Style" pointSize="18"/>
+                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SINCE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aA7-Y3-8RR" userLabel="Until/Since Label">
+                                                <fontDescription key="fontDescription" name="IowanOldStyle-Roman" family="Iowan Old Style" pointSize="18"/>
+                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="30" textAlignment="center" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="ia8-oy-M3i">
                                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <color key="textColor" red="0.0" green="0.19607843137254902" blue="0.19607843137254902" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <fontDescription key="fontDescription" name="IowanOldStyle-Roman" family="Iowan Old Style" pointSize="84"/>
+                                                <fontDescription key="fontDescription" name="IowanOldStyle-Roman" family="Iowan Old Style" pointSize="75"/>
                                                 <textInputTraits key="textInputTraits" returnKeyType="done"/>
                                                 <connections>
                                                     <action selector="beginEditInterval" destination="BYZ-38-t0r" eventType="editingDidBegin" id="d9Q-Y1-AYj"/>
@@ -64,20 +83,11 @@
                                             </textField>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xlb-d4-iWv">
                                                 <fontDescription key="fontDescription" name="IowanOldStyle-Roman" family="Iowan Old Style" pointSize="18"/>
-                                                <state key="normal" title="DAYS since">
+                                                <state key="normal">
                                                     <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </state>
                                                 <connections>
                                                     <action selector="didTapUnit" destination="BYZ-38-t0r" eventType="touchUpInside" id="Egt-tA-qkQ"/>
-                                                </connections>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KCa-z8-Ep0">
-                                                <fontDescription key="fontDescription" type="system" weight="black" pointSize="17"/>
-                                                <state key="normal" title="↺">
-                                                    <color key="titleColor" red="0.0" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                </state>
-                                                <connections>
-                                                    <action selector="didTapUnit" destination="BYZ-38-t0r" eventType="touchUpInside" id="aIi-UC-XcT"/>
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="↑ tap title and date to edit ↓" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xaB-PE-QWe">
@@ -303,6 +313,7 @@
                                                 </subviews>
                                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
+                                                    <constraint firstAttribute="height" constant="150" id="1ZB-8W-CkR"/>
                                                     <constraint firstItem="CIS-wP-kMS" firstAttribute="top" secondItem="ZZ0-4l-9xO" secondAttribute="bottom" constant="8" symbolic="YES" id="42O-c2-Glx"/>
                                                     <constraint firstItem="ZZ0-4l-9xO" firstAttribute="centerX" secondItem="qrr-kU-RFX" secondAttribute="centerX" id="5Ek-Q1-Tag"/>
                                                     <constraint firstItem="io6-f2-sji" firstAttribute="baseline" secondItem="yRj-vy-4T1" secondAttribute="baseline" id="6Xr-Z6-0p6"/>
@@ -315,8 +326,8 @@
                                                     <constraint firstItem="zWz-lP-8BL" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="1s6-xG-np9" secondAttribute="trailing" constant="10" id="Nj4-3N-flD"/>
                                                     <constraint firstItem="CIS-wP-kMS" firstAttribute="baseline" secondItem="yRj-vy-4T1" secondAttribute="baseline" id="QZK-dd-frw"/>
                                                     <constraint firstAttribute="height" constant="55" id="RtM-hY-7TI"/>
+                                                    <constraint firstItem="yRj-vy-4T1" firstAttribute="top" secondItem="1xt-DH-c7p" secondAttribute="top" constant="-3" id="SFX-Oy-zId"/>
                                                     <constraint firstAttribute="trailing" secondItem="yRj-vy-4T1" secondAttribute="trailing" constant="10" id="TxP-IC-xzs"/>
-                                                    <constraint firstAttribute="bottom" secondItem="CIS-wP-kMS" secondAttribute="bottom" constant="20" symbolic="YES" id="YLg-03-B1B"/>
                                                     <constraint firstItem="io6-f2-sji" firstAttribute="top" secondItem="1s6-xG-np9" secondAttribute="bottom" constant="8" symbolic="YES" id="biz-hF-WFI"/>
                                                     <constraint firstItem="yRj-vy-4T1" firstAttribute="baseline" secondItem="GrS-1Z-Ya1" secondAttribute="baseline" id="cMo-om-HGO"/>
                                                     <constraint firstItem="CIS-wP-kMS" firstAttribute="top" secondItem="ZZ0-4l-9xO" secondAttribute="bottom" constant="8" symbolic="YES" id="dQe-4U-G5p"/>
@@ -338,45 +349,52 @@
                                                         <exclude reference="hAy-DL-B3f"/>
                                                         <exclude reference="m18-sZ-9CZ"/>
                                                         <exclude reference="xg4-E0-vS7"/>
+                                                        <exclude reference="Df7-mM-Xb4"/>
+                                                        <exclude reference="cMo-om-HGO"/>
                                                         <exclude reference="ypr-Cb-Dhd"/>
                                                         <exclude reference="42O-c2-Glx"/>
                                                         <exclude reference="Cs1-KF-M4q"/>
                                                         <exclude reference="dQe-4U-G5p"/>
                                                         <exclude reference="t7Y-uQ-lN0"/>
-                                                        <exclude reference="Df7-mM-Xb4"/>
                                                     </mask>
                                                 </variation>
                                             </view>
                                         </subviews>
                                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
+                                            <constraint firstItem="UdK-3O-1LT" firstAttribute="centerX" secondItem="ia8-oy-M3i" secondAttribute="centerX" id="0Sy-ue-she"/>
                                             <constraint firstItem="qrr-kU-RFX" firstAttribute="leading" secondItem="TFA-T3-BYx" secondAttribute="leading" id="1T0-B7-QrG"/>
                                             <constraint firstItem="zWz-lP-8BL" firstAttribute="top" secondItem="xaB-PE-QWe" secondAttribute="bottom" constant="15" id="1g9-Ml-9x5"/>
+                                            <constraint firstItem="UdK-3O-1LT" firstAttribute="top" secondItem="ia8-oy-M3i" secondAttribute="top" constant="20" id="3XB-FM-D9t"/>
+                                            <constraint firstItem="Xlb-d4-iWv" firstAttribute="height" secondItem="ia8-oy-M3i" secondAttribute="height" id="4Dn-z5-BKf"/>
                                             <constraint firstItem="qrr-kU-RFX" firstAttribute="top" secondItem="TFA-T3-BYx" secondAttribute="bottom" constant="20" id="4aC-D6-wLA"/>
-                                            <constraint firstItem="Xlb-d4-iWv" firstAttribute="top" secondItem="U2e-Qn-tA5" secondAttribute="bottom" id="67G-Zb-fg7"/>
                                             <constraint firstAttribute="trailing" secondItem="TFA-T3-BYx" secondAttribute="trailing" id="6ww-Oz-da9"/>
-                                            <constraint firstItem="Xlb-d4-iWv" firstAttribute="leading" secondItem="KCa-z8-Ep0" secondAttribute="trailing" id="8Yl-7N-MZd"/>
-                                            <constraint firstItem="U2e-Qn-tA5" firstAttribute="width" secondItem="ZzD-P1-I7W" secondAttribute="width" constant="-50" id="8e4-HZ-rh7"/>
-                                            <constraint firstItem="TFA-T3-BYx" firstAttribute="top" secondItem="Xlb-d4-iWv" secondAttribute="bottom" id="BYe-Ai-kvk"/>
+                                            <constraint firstItem="Xlb-d4-iWv" firstAttribute="width" secondItem="ia8-oy-M3i" secondAttribute="width" id="76H-wY-vvG"/>
                                             <constraint firstItem="xaB-PE-QWe" firstAttribute="centerY" secondItem="ZzD-P1-I7W" secondAttribute="top" id="CTH-Pn-UCo"/>
                                             <constraint firstItem="U2e-Qn-tA5" firstAttribute="centerX" secondItem="ZzD-P1-I7W" secondAttribute="centerX" id="I47-E7-hEq"/>
                                             <constraint firstItem="ia8-oy-M3i" firstAttribute="top" secondItem="U2e-Qn-tA5" secondAttribute="top" id="IDg-16-svm"/>
                                             <constraint firstItem="TFA-T3-BYx" firstAttribute="leading" secondItem="ZzD-P1-I7W" secondAttribute="leading" id="MLV-c2-0Yw"/>
+                                            <constraint firstItem="aA7-Y3-8RR" firstAttribute="centerX" secondItem="ia8-oy-M3i" secondAttribute="centerX" id="Mvo-Uc-enR"/>
                                             <constraint firstItem="ia8-oy-M3i" firstAttribute="bottom" secondItem="U2e-Qn-tA5" secondAttribute="bottom" id="Pau-1Q-zxf"/>
+                                            <constraint firstItem="TFA-T3-BYx" firstAttribute="centerY" secondItem="ia8-oy-M3i" secondAttribute="bottom" constant="40" id="Qbz-91-Rn0"/>
                                             <constraint firstItem="qrr-kU-RFX" firstAttribute="trailing" secondItem="TFA-T3-BYx" secondAttribute="trailing" id="QqR-cC-hlX"/>
+                                            <constraint firstItem="1gB-iX-JNu" firstAttribute="width" secondItem="ZzD-P1-I7W" secondAttribute="width" multiplier="0.7" id="Qu9-vx-BQn"/>
+                                            <constraint firstItem="ia8-oy-M3i" firstAttribute="centerY" secondItem="1gB-iX-JNu" secondAttribute="bottom" constant="75" id="TIS-B8-dhg"/>
                                             <constraint firstItem="qrr-kU-RFX" firstAttribute="top" secondItem="xaB-PE-QWe" secondAttribute="bottom" constant="8" symbolic="YES" id="WoC-E9-OZS"/>
                                             <constraint firstItem="TFA-T3-BYx" firstAttribute="top" secondItem="U2e-Qn-tA5" secondAttribute="bottom" constant="10" id="cMa-gl-MYR"/>
                                             <constraint firstItem="ia8-oy-M3i" firstAttribute="top" secondItem="FfE-cK-cZq" secondAttribute="bottom" constant="-40" id="cmv-xd-jz0"/>
-                                            <constraint firstItem="Xlb-d4-iWv" firstAttribute="centerX" secondItem="U2e-Qn-tA5" secondAttribute="centerX" id="dro-6q-WCA"/>
+                                            <constraint firstItem="Xlb-d4-iWv" firstAttribute="centerY" secondItem="ia8-oy-M3i" secondAttribute="centerY" id="fH0-UC-76U"/>
                                             <constraint firstItem="xaB-PE-QWe" firstAttribute="top" secondItem="TFA-T3-BYx" secondAttribute="bottom" constant="8" symbolic="YES" id="h5T-or-4Ll"/>
-                                            <constraint firstItem="U2e-Qn-tA5" firstAttribute="top" secondItem="ZzD-P1-I7W" secondAttribute="top" constant="88" id="i3z-ly-F86"/>
+                                            <constraint firstItem="U2e-Qn-tA5" firstAttribute="top" secondItem="ZzD-P1-I7W" secondAttribute="top" constant="115" id="i3z-ly-F86"/>
                                             <constraint firstItem="FfE-cK-cZq" firstAttribute="width" secondItem="ZzD-P1-I7W" secondAttribute="width" multiplier="0.9" id="ihK-qf-ZoP"/>
                                             <constraint firstItem="FfE-cK-cZq" firstAttribute="centerX" secondItem="ia8-oy-M3i" secondAttribute="centerX" id="ihu-tr-fUq"/>
+                                            <constraint firstItem="Xlb-d4-iWv" firstAttribute="centerX" secondItem="ia8-oy-M3i" secondAttribute="centerX" id="jlT-0l-18e"/>
                                             <constraint firstItem="xaB-PE-QWe" firstAttribute="centerX" secondItem="qrr-kU-RFX" secondAttribute="centerX" id="nW0-jA-GbD"/>
                                             <constraint firstItem="ia8-oy-M3i" firstAttribute="trailing" secondItem="U2e-Qn-tA5" secondAttribute="trailing" id="nki-Fn-dmF"/>
-                                            <constraint firstItem="KCa-z8-Ep0" firstAttribute="baseline" secondItem="Xlb-d4-iWv" secondAttribute="baseline" constant="1" id="pAx-bT-ow4"/>
                                             <constraint firstItem="ia8-oy-M3i" firstAttribute="leading" secondItem="U2e-Qn-tA5" secondAttribute="leading" id="vfe-pm-2Vs"/>
                                             <constraint firstAttribute="bottom" secondItem="qrr-kU-RFX" secondAttribute="bottom" id="vlh-IQ-cHc"/>
+                                            <constraint firstItem="aA7-Y3-8RR" firstAttribute="bottom" secondItem="ia8-oy-M3i" secondAttribute="bottom" constant="-20" id="w7k-ya-ZVK"/>
+                                            <constraint firstItem="1gB-iX-JNu" firstAttribute="centerX" secondItem="ia8-oy-M3i" secondAttribute="centerX" id="yN8-3o-OWl"/>
                                         </constraints>
                                         <variation key="default">
                                             <mask key="constraints">
@@ -449,6 +467,7 @@
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
                     <connections>
                         <outlet property="commentView" destination="TFA-T3-BYx" id="cqZ-fP-wdh"/>
+                        <outlet property="commentViewTopSpace" destination="Qbz-91-Rn0" id="zEH-QC-sgz"/>
                         <outlet property="confirmDateButton" destination="yRj-vy-4T1" id="eD0-sZ-rJE"/>
                         <outlet property="dateContainer" destination="ZZ0-4l-9xO" id="x2d-LB-zWS"/>
                         <outlet property="dateHeight" destination="RtM-hY-7TI" id="B6K-Rs-Abn"/>
@@ -456,6 +475,7 @@
                         <outlet property="dayField" destination="diZ-YA-cWe" id="mPe-vO-iho"/>
                         <outlet property="descriptionLabel" destination="GRH-me-S1g" id="fcj-mU-Owe"/>
                         <outlet property="discardDateButton" destination="io6-f2-sji" id="iin-Hs-Zzh"/>
+                        <outlet property="easterEggLabel" destination="1gB-iX-JNu" id="0IF-bz-cxI"/>
                         <outlet property="helpButton" destination="t6e-T7-tuT" id="RZS-we-yJ6"/>
                         <outlet property="hourField" destination="0zF-iz-6tV" id="Fm5-KX-t8P"/>
                         <outlet property="includeTimeSymbolButton" destination="6VZ-S0-5Ba" id="Xeo-Zt-Ybq"/>
@@ -483,7 +503,8 @@
                         <outlet property="timeContainer" destination="1xt-DH-c7p" id="sMJ-df-zzd"/>
                         <outlet property="titleLabel" destination="NJG-Rb-zlI" id="KXH-8A-YNh"/>
                         <outlet property="unitButton" destination="Xlb-d4-iWv" id="XOw-2N-dUd"/>
-                        <outlet property="unitButtonSymbol" destination="KCa-z8-Ep0" id="Yf9-Ar-ETK"/>
+                        <outlet property="unitLabel" destination="UdK-3O-1LT" id="kCi-Xt-jhd"/>
+                        <outlet property="untilSinceLabel" destination="aA7-Y3-8RR" id="n1D-ge-fWy"/>
                         <outlet property="yearField" destination="r5k-xY-WJT" id="oAU-Xd-Jl6"/>
                     </connections>
                 </viewController>
@@ -503,14 +524,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Help" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="maD-zn-1aC">
-                                <frame key="frameInset" minX="282" minY="39" width="36.5" height="23.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Help" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="maD-zn-1aC">
                                 <fontDescription key="fontDescription" name="IowanOldStyle-Roman" family="Iowan Old Style" pointSize="17"/>
                                 <color key="textColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c1f-pk-jZj">
-                                <frame key="frameInset" minX="30" minY="35" width="62" height="32"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c1f-pk-jZj">
                                 <fontDescription key="fontDescription" name="IowanOldStyle-Roman" family="Iowan Old Style" pointSize="14"/>
                                 <state key="normal" title="← Return">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -519,52 +538,44 @@
                                     <action selector="tapReturn" destination="bnr-Vs-h8F" eventType="touchUpInside" id="Iae-u2-Cqc"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Mc-Wk-LvR">
-                                <frame key="frameInset" minX="30" minY="92" width="540" height="38.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Mc-Wk-LvR">
                                 <string key="text">1. Ensure Intrval watchOS app is installed to your watch. If not, go to the Watch iOS app, scroll down and select Intrval, and install to your watch.</string>
                                 <fontDescription key="fontDescription" name="IowanOldStyle-Roman" family="Iowan Old Style" pointSize="14"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="2. Ensure glance and complication are enabled inside Watch iOS app." textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xH1-gJ-U8a">
-                                <frame key="frameInset" minX="30" minY="138" width="540" height="19.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2. Ensure glance and complication are enabled inside Watch iOS app." textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xH1-gJ-U8a">
                                 <fontDescription key="fontDescription" name="IowanOldStyle-Roman" family="Iowan Old Style" pointSize="14"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="3. Add complication to watch face from your watch." textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1wT-GL-ge0">
-                                <frame key="frameInset" minX="30" minY="166" width="540" height="19.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3. Add complication to watch face from your watch." textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1wT-GL-ge0">
                                 <fontDescription key="fontDescription" name="IowanOldStyle-Roman" family="Iowan Old Style" pointSize="14"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="4. Set the date and title from this app." textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4C8-uk-Oim">
-                                <frame key="frameInset" minX="30" minY="193" width="540" height="19.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="4. Set the date and title from this app." textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4C8-uk-Oim">
                                 <fontDescription key="fontDescription" name="IowanOldStyle-Roman" family="Iowan Old Style" pointSize="14"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="5. Complication should now show the interval (may take a couple minutes to initialize). Tap it to customize the units." textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Toh-XF-4hU">
-                                <frame key="frameInset" minX="30" minY="221" width="540" height="38.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="5. Complication should now show the interval (may take a couple minutes to initialize). Tap it to customize the units." textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Toh-XF-4hU">
                                 <fontDescription key="fontDescription" name="IowanOldStyle-Roman" family="Iowan Old Style" pointSize="14"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dYv-sG-Ubc">
-                                <frame key="frameInset" minX="30" minY="267" width="540" height="38.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dYv-sG-Ubc">
                                 <string key="text">6. Depending on a few factors (e.g. low battery), data transfer to your watch may not be immediate. If still having trouble, try restarting your Apple Watch and this app.</string>
                                 <fontDescription key="fontDescription" name="IowanOldStyle-Roman" family="Iowan Old Style" pointSize="14"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="v1.1.2 (7)" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oYC-Ne-u1f">
-                                <frame key="frameInset" minX="278" minY="581" width="44" height="14"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="v1.2.0 (8)" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oYC-Ne-u1f">
                                 <fontDescription key="fontDescription" name="IowanOldStyle-Roman" family="Iowan Old Style" pointSize="10"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LIC-QL-ZCb">
-                                <frame key="frameInset" minX="211.5" minY="477" width="176" height="45"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LIC-QL-ZCb">
                                 <fontDescription key="fontDescription" name="IowanOldStyle-Roman" family="Iowan Old Style" pointSize="24"/>
                                 <state key="normal" title="Contact Support">
                                     <color key="titleColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -573,8 +584,7 @@
                                     <action selector="tapSupport" destination="bnr-Vs-h8F" eventType="touchUpInside" id="3GN-S0-oSb"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Iip-TP-ajO">
-                                <frame key="frameInset" minX="223" minY="530" width="153" height="45"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Iip-TP-ajO">
                                 <fontDescription key="fontDescription" name="IowanOldStyle-Roman" family="Iowan Old Style" pointSize="24"/>
                                 <state key="normal" title="Rate This App">
                                     <color key="titleColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
