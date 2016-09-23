@@ -8,17 +8,17 @@
 
 import Foundation
 
-public class ComplicationDataHelper{
+open class ComplicationDataHelper{
     
-    private static let dateKey = "date"
-    private static let titleKey = "title"
+    fileprivate static let dateKey = "date"
+    fileprivate static let titleKey = "title"
     
-    public class func createUserInfo(date: NSDate, title: String) -> [String:AnyObject] {
-        let dict: [String:AnyObject] = [dateKey:date, titleKey:title]
+    open class func createUserInfo(_ date: Date, title: String) -> [String:Any] {
+        let dict: [String:Any] = [dateKey:date as Any, titleKey:title as Any]
         return dict
     }
-    public class func dataFromUserInfo(userInfo: [String:AnyObject]) -> (date: NSDate, title: String) {
-        let date = userInfo[dateKey] as! NSDate
+    open class func dataFromUserInfo(_ userInfo: [String:Any]) -> (date: Date, title: String) {
+        let date = userInfo[dateKey] as! Date
         let title = userInfo[titleKey] as! String
         return (date, title)
     }

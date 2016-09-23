@@ -12,8 +12,8 @@ class Colors {
     static let sharedInstance = Colors()
     
     // MARK: Color Definitions
-    internal let intrvalBlack = UIColor(red: 0, green: 30/255, blue: 28/255, alpha: 1)  // UIColor(white: 0.1, alpha: 1)
-    internal let intrvalWhite = UIColor(red: 250/255, green: 255/255, blue: 255/255, alpha: 1)  // UIColor(white: 0.9, alpha: 1)
+    internal let intrvalBlack = UIColor(red: 30/255, green: 30/255, blue: 30/255, alpha: 1)  // UIColor(white: 0.1, alpha: 1)
+    internal let intrvalWhite = UIColor(red: 250/255, green: 255/255, blue: 250/255, alpha: 1)  // UIColor(white: 0.9, alpha: 1)
     
     // MARK: Variables
     internal var nightMode: Bool!
@@ -24,22 +24,23 @@ class Colors {
     
     // MARK: Functions
     internal func refreshColors() {
-        let hour = NSCalendar.currentCalendar().component(.Hour, fromDate: NSDate())
+        let hour = (Calendar.current as NSCalendar).component(.hour, from: Date())
         if hour > 6 && hour < 20 {
             nightMode = false
         } else {
             nightMode = true
         }
+        //nightMode = true
         if nightMode == true {
             bColor = intrvalBlack
             tColor = intrvalWhite
-            selectedBColor = UIColor.darkGrayColor()
-            selectedTColor = UIColor.lightGrayColor()
+            selectedBColor = UIColor.darkGray
+            selectedTColor = UIColor.lightGray
         } else {
             bColor = intrvalWhite
             tColor = intrvalBlack
-            selectedBColor = UIColor.lightGrayColor()
-            selectedTColor = UIColor.darkGrayColor()
+            selectedBColor = UIColor.lightGray
+            selectedTColor = UIColor.darkGray
         }
     }
     

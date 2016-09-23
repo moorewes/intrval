@@ -15,11 +15,11 @@ class GlanceController: WKInterfaceController {
     @IBOutlet var intervalDescriptionLabel: WKInterfaceLabel!
     @IBOutlet var timer: WKInterfaceTimer!
 
-    var data: (date: NSDate, title: String)?
+    var data: (date: Date, title: String)?
     func updateUI(){
         // Test for data
-        if let title = NSUserDefaults.standardUserDefaults().stringForKey(Keys.UD.title),
-            let date = NSUserDefaults.standardUserDefaults().valueForKey(Keys.UD.referenceDate) as? NSDate {
+        if let title = UserDefaults.standard.string(forKey: Keys.UD.title),
+            let date = UserDefaults.standard.value(forKey: Keys.UD.referenceDate) as? Date {
             //Ensure views are shown
             timer.setHidden(false)
             intervalDescriptionLabel.setHidden(false)
@@ -30,15 +30,15 @@ class GlanceController: WKInterfaceController {
             
             //Setup interval description
             var descriptor: String!
-            if date.compare(NSDate()) == .OrderedAscending {
+            if date.compare(Date()) == .orderedAscending {
                 descriptor = "time since "
             } else {
                 descriptor = "time until "
             }
-            let dF = NSDateFormatter()
-            dF.dateStyle = .ShortStyle
-            dF.timeStyle = .ShortStyle
-            let dateString = dF.stringFromDate(date)
+            let dF = DateFormatter()
+            dF.dateStyle = .short
+            dF.timeStyle = .short
+            let dateString = dF.string(from: date)
             intervalDescriptionLabel.setText(descriptor + dateString)
         } else {
             // Load no data defaults and hide views
@@ -47,8 +47,8 @@ class GlanceController: WKInterfaceController {
             intervalDescriptionLabel.setHidden(true)
         }
     }
-    override func awakeWithContext(context: AnyObject?) {
-        super.awakeWithContext(context)
+    override func awake(withContext context: Any?) {
+        super.awake(withContext: context)
         // print("awakeWithContext")
         updateUI()
     }

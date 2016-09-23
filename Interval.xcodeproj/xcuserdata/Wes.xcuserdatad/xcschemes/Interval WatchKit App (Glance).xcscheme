@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0730"
+   LastUpgradeVersion = "0800"
    version = "2.0">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -89,8 +89,7 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES"
-      launchAutomaticallySubstyle = "4"
-      notificationPayloadFile = "Interval WatchKit Extension/PushNotificationPayload.apns">
+      launchAutomaticallySubstyle = "4">
       <RemoteRunnable
          runnableDebuggingMode = "2"
          BundleIdentifier = "com.apple.carousel"
@@ -121,8 +120,7 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES"
-      launchAutomaticallySubstyle = "4"
-      notificationPayloadFile = "Interval WatchKit Extension/PushNotificationPayload.apns">
+      launchAutomaticallySubstyle = "4">
       <RemoteRunnable
          runnableDebuggingMode = "2"
          BundleIdentifier = "com.apple.carousel"

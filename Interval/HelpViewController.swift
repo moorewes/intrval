@@ -23,11 +23,11 @@ class HelpViewController: UIViewController, MFMailComposeViewControllerDelegate 
     @IBOutlet weak var versionLabel: UILabel!
 
     @IBAction func tapReturn() {
-        self.dismissViewControllerAnimated(true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
     }
     @IBAction func tapRate() {
-        if let url = NSURL(string: "itms-apps://itunes.apple.com/us/app/app-name/id1111883763") {
-            UIApplication.sharedApplication().openURL(url)
+        if let url = URL(string: "itms-apps://itunes.apple.com/us/app/app-name/id1111883763") {
+            UIApplication.shared.openURL(url)
         }
     }
     @IBAction func tapSupport() {
@@ -36,17 +36,17 @@ class HelpViewController: UIViewController, MFMailComposeViewControllerDelegate 
             mail.mailComposeDelegate = self
             mail.setToRecipients(["wesmooredesign@gmail.com"])
             mail.setSubject("Intrval Feedback")
-            let version = (NSBundle.mainBundle().releaseVersionNumber ?? "") + " " + (NSBundle.mainBundle().buildVersionNumber ?? "")
-            let deviceModel = UIDevice.currentDevice().modelName
-            let iOSVersion = UIDevice.currentDevice().systemVersion
+            let version = (Bundle.main.releaseVersionNumber ?? "") + " " + (Bundle.main.buildVersionNumber ?? "")
+            let deviceModel = UIDevice.current.modelName
+            let iOSVersion = UIDevice.current.systemVersion
             let bodyText = "\n\n\nUseful Info:\nIntrval Version: \(version)\nDevice Model: \(deviceModel)\niOS Version: \(iOSVersion)"
             mail.setMessageBody(bodyText, isHTML: false)
-            self.presentViewController(mail, animated: true, completion: nil)
+            self.present(mail, animated: true, completion: nil)
         } else {
-            let alert = UIAlertController(title: "Contanct Developer", message: "Please email Wes at wesmooredesign@gmail.com", preferredStyle: .Alert)
-            let action = UIAlertAction(title: "OK", style: .Default, handler: nil)
+            let alert = UIAlertController(title: "Contanct Developer", message: "Please email Wes at wesmooredesign@gmail.com", preferredStyle: .alert)
+            let action = UIAlertAction(title: "OK", style: .default, handler: nil)
             alert.addAction(action)
-            self.presentViewController(alert, animated: true, completion: nil)
+            self.present(alert, animated: true, completion: nil)
         }
     }
     func updateUI() {
@@ -61,32 +61,32 @@ class HelpViewController: UIViewController, MFMailComposeViewControllerDelegate 
         help5.textColor = tColor
         help6.textColor = tColor
         versionLabel.textColor = tColor
-        rateButton.setTitleColor(tColor, forState: .Normal)
-        supportButton.setTitleColor(tColor, forState: .Normal)
-        returnButton.setTitleColor(tColor, forState: .Normal)
+        rateButton.setTitleColor(tColor, for: UIControlState())
+        supportButton.setTitleColor(tColor, for: UIControlState())
+        returnButton.setTitleColor(tColor, for: UIControlState())
     }
     override func viewDidLoad() {
         super.viewDidLoad()
         updateUI()
     }
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         if view.bounds.height < 500 {
-            rateButton.hidden = true
+            rateButton.isHidden = true
         }
     }
     
-    func mailComposeController(controller: MFMailComposeViewController, didFinishWithResult result: MFMailComposeResult, error: NSError?) {
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
         switch result {
-        case MFMailComposeResultFailed:
+        case MFMailComposeResult.failed:
             //print("Mail sent failure")
-            let alert = UIAlertController(title: "Email Failed To Send", message: "Please try again or use your own email client and send to wesmooredesign@gmail.com", preferredStyle: UIAlertControllerStyle.Alert )
-            self.presentViewController(alert, animated: true, completion: { () -> Void in
-                self.dismissViewControllerAnimated(true, completion: nil)
+            let alert = UIAlertController(title: "Email Failed To Send", message: "Please try again or use your own email client and send to wesmooredesign@gmail.com", preferredStyle: UIAlertControllerStyle.alert )
+            self.present(alert, animated: true, completion: { () -> Void in
+                self.dismiss(animated: true, completion: nil)
             })
         default:
             break
         }
-        self.dismissViewControllerAnimated(true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
     }
     
 }

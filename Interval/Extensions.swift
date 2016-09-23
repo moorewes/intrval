@@ -10,9 +10,9 @@ import UIKit
 
 extension UILabel {
     func requiredHeight() -> CGFloat {
-        let label = UILabel(frame: CGRectMake(0, 0, self.frame.width, CGFloat.max))
+        let label = UILabel(frame: CGRect(x: 0, y: 0, width: self.frame.width, height: CGFloat.greatestFiniteMagnitude))
         label.numberOfLines = 0
-        label.lineBreakMode = NSLineBreakMode.ByWordWrapping
+        label.lineBreakMode = NSLineBreakMode.byWordWrapping
         label.font = self.font
         label.text = self.text
         label.sizeToFit()
@@ -21,33 +21,33 @@ extension UILabel {
 }
 extension UITextField {
     func requiredHeight() -> CGFloat {
-        let label = UITextField(frame: CGRectMake(0, 0, self.frame.width, CGFloat.max))
+        let label = UITextField(frame: CGRect(x: 0, y: 0, width: self.frame.width, height: CGFloat.greatestFiniteMagnitude))
         label.font = self.font
         label.text = self.text
         label.sizeToFit()
         return label.frame.height
     }
 }
-extension NSDate {
-    var localeDescription: String { return self.descriptionWithLocale(NSCalendar.currentCalendar().locale) }
+extension Date {
+    var localeDescription: String { return self.description(with: Calendar.current.locale) }
     var year: Int {
-        let result = NSCalendar.currentCalendar().component(.Year, fromDate: self)
+        let result = (Calendar.current as NSCalendar).component(.year, from: self)
         return result
     }
     var month: Int {
-        let result = NSCalendar.currentCalendar().component(.Month, fromDate: self)
+        let result = (Calendar.current as NSCalendar).component(.month, from: self)
         return result
     }
     var dayOfMonth: Int {
-        let result = NSCalendar.currentCalendar().component(.Day, fromDate: self)
+        let result = (Calendar.current as NSCalendar).component(.day, from: self)
         return result
     }
     var daysFromNow: Int {
-        let interval = NSCalendar.currentCalendar().components(.Day, fromDate: NSDate(), toDate: self, options: NSCalendarOptions()).day
-        return interval
+        let interval = (Calendar.current as NSCalendar).components(.day, from: Date(), to: self, options: NSCalendar.Options()).day
+        return interval!
     }
 }
-extension NSBundle {
+extension Bundle {
     var releaseVersionNumber: String? {
         return self.infoDictionary?["CFBundleShortVersionString"] as? String
     }
@@ -63,7 +63,7 @@ extension UIDevice {
         uname(&systemInfo)
         let machineMirror = Mirror(reflecting: systemInfo.machine)
         let identifier = machineMirror.children.reduce("") { identifier, element in
-            guard let value = element.value as? Int8 where value != 0 else { return identifier }
+            guard let value = element.value as? Int8 , value != 0 else { return identifier }
             return identifier + String(UnicodeScalar(UInt8(value)))
         }
         
@@ -93,6 +93,22 @@ extension UIDevice {
         case "AppleTV5,3":                              return "Apple TV"
         case "i386", "x86_64":                          return "Simulator"
         default:                                        return identifier
+        }
+    }
+}
+extension Calendar.Component {
+    init(unit: NSCalendar.Unit) {
+        switch unit {
+        case NSCalendar.Unit.day: self = .day
+        case NSCalendar.Unit.month: self = .month
+        case NSCalendar.Unit.year: self = .year
+        case NSCalendar.Unit.hour: self = .hour
+        case NSCalendar.Unit.minute: self = .minute
+        case NSCalendar.Unit.second: self = .second
+        case NSCalendar.Unit.weekOfYear: self = .weekOfYear
+        default:
+            assertionFailure("inappropriate unit")
+            self = .day
         }
     }
 }

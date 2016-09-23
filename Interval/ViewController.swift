@@ -8,8 +8,49 @@
 
 import UIKit
 import WatchConnectivity
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
+fileprivate func >= <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l >= r
+  default:
+    return !(lhs < rhs)
+  }
+}
+
+fileprivate func <= <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l <= r
+  default:
+    return !(rhs < lhs)
+  }
+}
+
 
 class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, UITextViewDelegate {
+    /** Called when the session has completed activation. If session state is WCSessionActivationStateNotActivated there will be an error with more details. */
+    @available(iOS 9.3, *)
+    public func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
+        if let e = error {
+            //print(e.localizedDescription)
+        }
+        updateStatusLabel()
+    }
+    func sessionReachabilityDidChange(_ session: WCSession) {
+        updateStatusLabel()
+    }
+
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var separatorLineView: UIView!
     @IBOutlet var masterView: UIView!
@@ -55,7 +96,7 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
     var hasTriedToShowRateRequestThisSession = false
     var interval: Interval!
     var session: WCSession?
-    var timer: NSTimer!
+    var timer: Timer!
     var previousScrollOffset: CGPoint?
     var isEditingDate = false
     var intervalTextHeight: CGFloat = 100
@@ -68,29 +109,29 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
     @IBAction func beginEditInterval() {
         var unit = "days"
         switch interval.unit {
-        case NSCalendarUnit.WeekOfYear: unit = "weeks"
-        case NSCalendarUnit.Month: unit = "months"
-        case NSCalendarUnit.Year: unit = "years"
-        case NSCalendarUnit.Hour: unit = "hours"
-        case NSCalendarUnit.Minute: unit = "minutes"
+        case NSCalendar.Unit.weekOfYear: unit = "weeks"
+        case NSCalendar.Unit.month: unit = "months"
+        case NSCalendar.Unit.year: unit = "years"
+        case NSCalendar.Unit.hour: unit = "hours"
+        case NSCalendar.Unit.minute: unit = "minutes"
         default: break
         }
         setIntervalHelp.text = "Set the date by entering the number of " + unit + " from now (use negatives for the past). Leave blank to cancel."
-        setIntervalHelp.hidden = false
-        unitButton.enabled = false
-        descriptionLabel.enabled = false
-        unitButtonSymbol.enabled = false
-        helpButton.hidden = true
-        rateButton.hidden = true
+        setIntervalHelp.isHidden = false
+        unitButton.isEnabled = false
+        descriptionLabel.isEnabled = false
+        unitButtonSymbol.isEnabled = false
+        helpButton.isHidden = true
+        rateButton.isHidden = true
     }
-    @IBAction func editedIntervalLabel(sender: UITextField) {
-        setIntervalHelp.hidden = true
-        unitButton.enabled = true
-        unitButtonSymbol.enabled = true
-        descriptionLabel.enabled = true
-        helpButton.hidden = false
-        rateButton.hidden = false
-        guard let intValue = Int(sender.text!) where intValue != abs(interval.measureIntervalToInt()) else {
+    @IBAction func editedIntervalLabel(_ sender: UITextField) {
+        setIntervalHelp.isHidden = true
+        unitButton.isEnabled = true
+        unitButtonSymbol.isEnabled = true
+        descriptionLabel.isEnabled = true
+        helpButton.isHidden = false
+        rateButton.isHidden = false
+        guard let intValue = Int(sender.text!) , intValue != abs(interval.measureIntervalToInt()) else {
             updateUI()
             return
         }
@@ -100,11 +141,11 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
         if !includeTime {
             requestShowHideTime()
         }
-        dateToUI(NSDate())
+        dateToUI(Date())
         
     }
-    func editDateFromInterval(intValue: Int) {
-        guard let newDate = NSCalendar.currentCalendar().dateByAddingUnit(interval.unit, value: intValue, toDate: NSDate(), options: []) else {
+    func editDateFromInterval(_ intValue: Int) {
+        guard let newDate = (Calendar.current as NSCalendar).date(byAdding: interval.unit, value: intValue, to: Date(), options: []) else {
             updateUI()
             return
         }
@@ -127,11 +168,11 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
     }
     @IBAction func requestShowHideTime() {
         showHideTime(!includeTime)
-        UIView.animateWithDuration(0.3,
+        UIView.animate(withDuration: 0.3,
             delay: 0,
             usingSpringWithDamping: 0.9,
             initialSpringVelocity: 0,
-            options: .CurveEaseIn,
+            options: .curveEaseIn,
             animations: {
                 self.view.layoutIfNeeded()
             },
@@ -143,25 +184,25 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
             }
         )
     }
-    func showHideTime(include: Bool) {
+    func showHideTime(_ include: Bool) {
         includeTime = include
         var constant: CGFloat!
         switch includeTime {
         case true:
             constant = timeContainer.frame.height
             let color = discardDateButton.titleLabel!.textColor
-            includeTimeSymbolButton.setTitleColor(color, forState: .Normal)
-            includeTimeTextButton.setTitle("exclude time of day", forState: .Normal)
-            includeTimeSymbolButton.setTitle("−", forState: .Normal)
+            includeTimeSymbolButton.setTitleColor(color, for: UIControlState())
+            includeTimeTextButton.setTitle("exclude time of day", for: UIControlState())
+            includeTimeSymbolButton.setTitle("−", for: UIControlState())
         case false:
             constant = 0
             let color = confirmDateButton.titleLabel!.textColor
-            includeTimeSymbolButton.setTitleColor(color, forState: .Normal)
-            includeTimeTextButton.setTitle("include time of day", forState: .Normal)
-            includeTimeSymbolButton.setTitle("+", forState: .Normal)
+            includeTimeSymbolButton.setTitleColor(color, for: UIControlState())
+            includeTimeTextButton.setTitle("include time of day", for: UIControlState())
+            includeTimeSymbolButton.setTitle("+", for: UIControlState())
         }
         
-        timeContainer.hidden = !includeTime
+        timeContainer.isHidden = !includeTime
         includeTimeTopSpace.constant = constant
         
     }
@@ -182,7 +223,7 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
             hasTriedToShowRateRequestThisSession = true
         }
     }
-    @IBAction func toggleMeridiem(sender: UIButton) {
+    @IBAction func toggleMeridiem(_ sender: UIButton) {
         guard let currentMeridiem = sender.titleLabel?.text else {
             return
         }
@@ -192,7 +233,7 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
         case meridiemPM: text = meridiemAM
         default: text = meridiemPM
         }
-        sender.setTitle(text, forState: .Normal)
+        sender.setTitle(text, for: UIControlState())
         if !isEditingDate {
             if let date = dateFromUI(text) {
                 interval.date = date
@@ -200,13 +241,13 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
             saveData()
         }
     }
-    @IBAction func cancelEditDate(sender: UIButton) {
+    @IBAction func cancelEditDate(_ sender: UIButton) {
         exitEditDate()
         updateUI()
     }
     @IBAction func rateApp() {
-        if let url = NSURL(string: "itms-apps://itunes.apple.com/us/app/app-name/id1111883763") {
-            UIApplication.sharedApplication().openURL(url)
+        if let url = URL(string: "itms-apps://itunes.apple.com/us/app/app-name/id1111883763") {
+            UIApplication.shared.openURL(url)
         }
     }
     func exitEditDate() {
@@ -215,39 +256,39 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
             previousScrollOffset = nil
             mainScrollView.setContentOffset(offset, animated: true)
         }
-        includeTimeTextButton.hidden = true
-        includeTimeSymbolButton.hidden = true
-        confirmDateButton.hidden = true
-        discardDateButton.hidden = true
-        setNowButton.hidden = true
+        includeTimeTextButton.isHidden = true
+        includeTimeSymbolButton.isHidden = true
+        confirmDateButton.isHidden = true
+        discardDateButton.isHidden = true
+        setNowButton.isHidden = true
     }
     
-    func dateFromUI(withMeridiem: String? = nil) -> NSDate? {
+    func dateFromUI(_ withMeridiem: String? = nil) -> Date? {
         var date = ""
         var year = yearField.text!
         var month = monthField.text!
         var day = dayField.text!
         // add leading zeros
         while year.characters.count < 4 {
-            year.insert("0", atIndex: year.startIndex)
+            year.insert("0", at: year.startIndex)
         }
         while month.characters.count < 2 {
-            month.insert("0", atIndex: month.startIndex)
+            month.insert("0", at: month.startIndex)
         }
         while day.characters.count < 2 {
-            day.insert("0", atIndex: day.startIndex)
+            day.insert("0", at: day.startIndex)
         }
         date += month + day + year
-        let dateFormatter = NSDateFormatter()
+        let dateFormatter = DateFormatter()
         if includeTime {
             // add leading zeros to time
             var hour = hourField.text!
             var minute = minuteField.text!
             while hour.characters.count < 2 {
-                hour.insert("0", atIndex: hour.startIndex)
+                hour.insert("0", at: hour.startIndex)
             }
             while minute.characters.count < 2 {
-                minute.insert("0", atIndex: minute.startIndex)
+                minute.insert("0", at: minute.startIndex)
             }
             let meridiem: String = withMeridiem ?? meridiemButton.titleLabel!.text!
             date += hour + minute + meridiem // meridiemButton.titleLabel!.text!
@@ -255,48 +296,48 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
         } else {
             dateFormatter.dateFormat = "MMddyyyy"
         }
-        guard let result = dateFormatter.dateFromString(date) else {
+        guard let result = dateFormatter.date(from: date) else {
             return nil
         }
         return result
     }
-    func dateToUI(date: NSDate) {
-        let dateFormatter = NSDateFormatter()
+    func dateToUI(_ date: Date) {
+        let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MM"
-        let month = dateFormatter.stringFromDate(date)
+        let month = dateFormatter.string(from: date)
         monthField.text = month
         dateFormatter.dateFormat = "dd"
-        let day = dateFormatter.stringFromDate(date)
+        let day = dateFormatter.string(from: date)
         dayField.text = day
         dateFormatter.dateFormat = "yyyy"
-        let year = dateFormatter.stringFromDate(date)
+        let year = dateFormatter.string(from: date)
         yearField.text = year
         if includeTime {
             dateFormatter.dateFormat = "hh"
-            let hour = dateFormatter.stringFromDate(date)
+            let hour = dateFormatter.string(from: date)
             hourField.text = hour
             dateFormatter.dateFormat = "mm"
-            let minute = dateFormatter.stringFromDate(date)
+            let minute = dateFormatter.string(from: date)
             minuteField.text = minute
             dateFormatter.dateFormat = "a"
-            let meridiem = dateFormatter.stringFromDate(date)
-            meridiemButton.setTitle(meridiem, forState: .Normal)
+            let meridiem = dateFormatter.string(from: date)
+            meridiemButton.setTitle(meridiem, for: UIControlState())
         }
         showHideTime(includeTime)
     }
     func refreshInterval() {
         intervalLabel.text = interval.measureIntervalToString()
         var unitString = interval.unitString + " "
-        let since = interval.date.compare(NSDate()) == .OrderedAscending
+        let since = interval.date.compare(Date()) == .orderedAscending
         unitString += since ? "since" : "until"
-        unitButton.setTitle(unitString, forState: .Normal)
+        unitButton.setTitle(unitString, for: UIControlState())
     }
     func updateUI() {
         intervalLabel.text = interval.measureIntervalToString()
         var unitString = interval.unitString + " "
-        let since = interval.date.compare(NSDate()) == .OrderedAscending
+        let since = interval.date.compare(Date()) == .orderedAscending
         unitString += since ? "since" : "until"
-        unitButton.setTitle(unitString, forState: .Normal)
+        unitButton.setTitle(unitString, for: UIControlState())
         descriptionLabel.text = interval.description
         includeTime = interval.includeTime
         dateToUI(interval.date)
@@ -313,9 +354,9 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
         let tColor = Colors.sharedInstance.tColor
         masterView.backgroundColor = bColor
         titleLabel.textColor = tColor
-        separatorLineView.backgroundColor = tColor
+        //separatorLineView.backgroundColor = tColor
         intervalLabel.textColor = tColor
-        unitButton.setTitleColor(tColor, forState: .Normal)
+        unitButton.setTitleColor(tColor, for: UIControlState())
         descriptionLabel.textColor = tColor
         monthField.textColor = tColor
         dayField.textColor = tColor
@@ -325,17 +366,19 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
         separatorDayYear.textColor = tColor
         separatorMonthDay.textColor = tColor
         separatorHourMinute.textColor = tColor
-        meridiemButton.setTitleColor(tColor, forState: .Normal)
-        includeTimeTextButton.setTitleColor(tColor, forState: .Normal)
-        setNowButton.setTitleColor(tColor, forState: .Normal)
-        helpButton.setTitleColor(tColor, forState: .Normal)
-        rateButton.setTitleColor(tColor, forState: .Normal)
+        meridiemButton.setTitleColor(tColor, for: UIControlState())
+        includeTimeTextButton.setTitleColor(tColor, for: UIControlState())
+        setNowButton.setTitleColor(tColor, for: UIControlState())
+        helpButton.setTitleColor(tColor, for: UIControlState())
+        rateButton.setTitleColor(tColor, for: UIControlState())
         statusLabel.textColor = tColor
         setIntervalHelp.textColor = tColor
+        startupHelpLabel.textColor = tColor
     }
     func saveData() {
         DataManager.saveUserData(interval)
         if let _ = session {
+            //print("sending data to watch")
             sendDataToWatch()
         } else {
             // print("session is nil")
@@ -346,59 +389,59 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
     }
     func sendDataToWatch() {
         if #available(iOS 9.3, *) {
-            guard session?.activationState == .Activated else {
+            guard session?.activationState == .activated else {
                 return
             }
         }
         let userInfo = ComplicationDataHelper.createUserInfo(interval.date, title: interval.description)
-        WCSession.defaultSession().transferCurrentComplicationUserInfo(userInfo)
+        //WCSession.default().transferCurrentComplicationUserInfo(userInfo)
         // print("sent message to watch")
         
     }
     func setTimer() {
-        if let date = NSCalendar.currentCalendar().dateByAddingUnit(.Minute, value: 1, toDate: NSDate(), options: []),
-            let fireDate = NSCalendar.currentCalendar().dateBySettingUnit(.Second, value: 0, ofDate: date, options: []) {
-            timer = NSTimer.init(fireDate: fireDate, interval: 60, target: self, selector: #selector(refreshInterval), userInfo: nil, repeats: true)
+        if let date = (Calendar.current as NSCalendar).date(byAdding: .minute, value: 1, to: Date(), options: []),
+            let fireDate = (Calendar.current as NSCalendar).date(bySettingUnit: .second, value: 0, of: date, options: []) {
+            timer = Timer.init(fireAt: fireDate, interval: 60, target: self, selector: #selector(refreshInterval), userInfo: nil, repeats: true)
         } else {
-            timer = NSTimer.scheduledTimerWithTimeInterval(60, target: self, selector: #selector(refreshInterval), userInfo: nil, repeats: true)
+            timer = Timer.scheduledTimer(timeInterval: 60, target: self, selector: #selector(refreshInterval), userInfo: nil, repeats: true)
         }
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        if NSUserDefaults.standardUserDefaults().integerForKey(Keys.UD.openCount) > 5 {
+        if UserDefaults.standard.integer(forKey: Keys.UD.openCount) > 5 {
             shouldShowStartupHelp = false
         }
         if let data = DataManager.retrieveUserData() {
             interval = data
-            descriptionLabel.attributedPlaceholder = .None
+            descriptionLabel.attributedPlaceholder = .none
             setTimer()
         } else {
-            interval = Interval(date: NSDate(), unit: .Day, includeTime: false, description: descriptionLabel.text!)
+            interval = Interval(date: Date(), unit: .day, includeTime: false, description: descriptionLabel.text!)
             let placeholder = NSAttributedString(string:"tap to set title",
-                                                 attributes:[NSForegroundColorAttributeName: Colors.sharedInstance.tColor])
+                                                 attributes:[NSForegroundColorAttributeName: Colors.sharedInstance.tColor.withAlphaComponent(0.7)])
             descriptionLabel.attributedPlaceholder = placeholder
             shouldShowStartupHelp = false
         }
         let color = includeTime ? discardDateButton.titleLabel?.textColor : confirmDateButton.titleLabel?.textColor
-        includeTimeSymbolButton.setTitleColor(color, forState: .Normal)
-        hasSaved = NSUserDefaults.standardUserDefaults().boolForKey(Keys.UD.hasSaved)
+        includeTimeSymbolButton.setTitleColor(color, for: UIControlState())
+        hasSaved = UserDefaults.standard.bool(forKey: Keys.UD.hasSaved)
         intervalHeight.constant += intervalLabelShrinkageForSmallDevice
         updateUI()
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(updateKeyboardHeight(_:)), name: UIKeyboardWillChangeFrameNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateKeyboardHeight(_:)), name: NSNotification.Name.UIKeyboardWillChangeFrame, object: nil)
         updateStatusLabel()
     }
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         loaded = true
         
-        if shouldShowStartupHelp {
+        if true {
             let dateY = monthField.frame.minY + dateRow.frame.minY
             let descriptionY = descriptionLabel.frame.maxY + commentView.frame.minY
             let constant = dateY - (dateY - descriptionY)/2
             startupLabelTopSpaceConstraint.constant = constant
             view.layoutIfNeeded()
             startupHelpLabel.alpha = 1
-            UIView.animateWithDuration(1, delay: 5, options: [], animations: {
+            UIView.animate(withDuration: 1, delay: 5, options: [], animations: {
                 self.startupHelpLabel.alpha = 0
                 }, completion: nil
             )
@@ -406,33 +449,33 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
         
     }
     func showRateRequestIfNecessary() {
-        let count = NSUserDefaults.standardUserDefaults().integerForKey(Keys.UD.openCount)
-        let rateStatus = NSUserDefaults.standardUserDefaults().integerForKey(Keys.UD.rateStatus)
+        let count = UserDefaults.standard.integer(forKey: Keys.UD.openCount)
+        let rateStatus = UserDefaults.standard.integer(forKey: Keys.UD.rateStatus)
         if count > 5 {
             if rateStatus == 0 {
-                presentViewController(rateAlert1, animated: true, completion: nil)
+                present(rateAlert1, animated: true, completion: nil)
             } else if rateStatus == 2 {
-                presentViewController(rateAlert2, animated: true, completion: nil)
+                present(rateAlert2, animated: true, completion: nil)
             }
             
         }
     }
     func updateStatusLabel() {
-        dispatch_async(dispatch_get_main_queue()) {
+        DispatchQueue.main.async {
             if #available(iOS 9.3, *) {
-                if let sesh = self.session where sesh.activationState == .Activated {
-                    if sesh.watchAppInstalled {
+                if let sesh = self.session , sesh.activationState == .activated {
+                    if sesh.isWatchAppInstalled {
                         self.statusLabel.text = ""
                     } else {
                         self.statusLabel.text = "Intrval watch app not yet installed"
                     }
-                    if sesh.paired == false {
+                    if sesh.isPaired == false {
                         self.statusLabel.text = "No paired Apple Watch found"
                     }
                 }
             } else {
                 if let sesh = self.session {
-                    if sesh.watchAppInstalled == false {
+                    if sesh.isWatchAppInstalled == false {
                         self.statusLabel.text = "Not connected to watch"
                     } else {
                         self.statusLabel.text = ""
@@ -446,16 +489,16 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
     var rateAlert1: UIAlertController {
         let title = "Be Heard"
         let message = "Please leave a review on the app store. You rock 🎸"
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .Alert)
-        let actionYes = UIAlertAction(title: "Yes, I do rock 🤘", style: UIAlertActionStyle.Default) { _ in
-            NSUserDefaults.standardUserDefaults().setInteger(1, forKey: Keys.UD.rateStatus)
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let actionYes = UIAlertAction(title: "Yes, I do rock 🤘", style: UIAlertActionStyle.default) { _ in
+            UserDefaults.standard.set(1, forKey: Keys.UD.rateStatus)
             self.rateApp()
         }
-        let actionLater = UIAlertAction(title: "Later", style: UIAlertActionStyle.Default) { _ in
-            NSUserDefaults.standardUserDefaults().setInteger(2, forKey: Keys.UD.rateStatus)
+        let actionLater = UIAlertAction(title: "Later", style: UIAlertActionStyle.default) { _ in
+            UserDefaults.standard.set(2, forKey: Keys.UD.rateStatus)
         }
-        let actionNo = UIAlertAction(title: "No", style: .Default) { _ in
-            NSUserDefaults.standardUserDefaults().setInteger(3, forKey: Keys.UD.rateStatus)
+        let actionNo = UIAlertAction(title: "No", style: .default) { _ in
+            UserDefaults.standard.set(3, forKey: Keys.UD.rateStatus)
         }
         alert.addAction(actionYes)
         alert.addAction(actionLater)
@@ -465,16 +508,16 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
     var rateAlert2: UIAlertController {
         let title = "Be Heard"
         let message = "Consider leaving us a review?"
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .Alert)
-        let actionYes = UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default) { _ in
-            NSUserDefaults.standardUserDefaults().setInteger(1, forKey: Keys.UD.rateStatus)
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let actionYes = UIAlertAction(title: "Yes", style: UIAlertActionStyle.default) { _ in
+            UserDefaults.standard.set(1, forKey: Keys.UD.rateStatus)
             self.rateApp()
         }
-        let actionLater = UIAlertAction(title: "Later", style: UIAlertActionStyle.Default) { _ in
-            NSUserDefaults.standardUserDefaults().setInteger(2, forKey: Keys.UD.rateStatus)
+        let actionLater = UIAlertAction(title: "Later", style: UIAlertActionStyle.default) { _ in
+            UserDefaults.standard.set(2, forKey: Keys.UD.rateStatus)
         }
-        let actionNo = UIAlertAction(title: "No", style: .Default) { _ in
-            NSUserDefaults.standardUserDefaults().setInteger(3, forKey: Keys.UD.rateStatus)
+        let actionNo = UIAlertAction(title: "No", style: .default) { _ in
+            UserDefaults.standard.set(3, forKey: Keys.UD.rateStatus)
         }
         alert.addAction(actionYes)
         alert.addAction(actionLater)
@@ -484,9 +527,9 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         if WCSession.isSupported() {
-            session = WCSession.defaultSession()
+            session = WCSession.default()
             session?.delegate = self
-            session?.activateSession()
+            session?.activate()
             //print("session watch state(paired): ", session!.paired)
             //print("session watch state(appInstalled): ", session!.watchAppInstalled)
             //print("session watch state(complicationEnabled): ", session!.complicationEnabled)
@@ -494,32 +537,32 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
             // print("outstanding transfer count: \(WCSession.defaultSession().outstandingFileTransfers.count)")
         }
     }
-    func session(session: WCSession, didReceiveMessage message: [String : AnyObject], replyHandler: ([String : AnyObject]) -> Void) {
-        print("received message")
-        if let _ = message["initialLaunch"] as? Bool where hasSaved {
+    func session(_ session: WCSession, didReceiveMessage message: [String : Any], replyHandler: @escaping ([String : Any]) -> Void) {
+        //print("received message")
+        if let _ = message["initialLaunch"] as? Bool , hasSaved {
             let reply = ComplicationDataHelper.createUserInfo(interval.date, title: interval.description)
-            print("sent message back")
+            //print("sent message back")
             replyHandler(reply)
         }
     }
-    func sessionDidBecomeInactive(session: WCSession) {
+    func sessionDidBecomeInactive(_ session: WCSession) {
         updateStatusLabel()
         //print("sessionDidBecomeInactive")
     }
-    func sessionWatchStateDidChange(session: WCSession) {
+    func sessionWatchStateDidChange(_ session: WCSession) {
         updateStatusLabel()
         //print("session watch state(paired) changed: ", session.paired)
         //print("session watch state(appInstalled) changed: ", session.watchAppInstalled)
         //print("session watch state changed(complicationEnabled): ", session.complicationEnabled)
     }
-    func sessionDidDeactivate(session: WCSession) {
+    func sessionDidDeactivate(_ session: WCSession) {
         //print("deactivate session")
         updateStatusLabel()
     }
     // MARK: UITextFieldDelegate
-    func updateKeyboardHeight(notification: NSNotification){
-        if let userInfo = notification.userInfo {
-            if let keyboardSize = (userInfo[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.CGRectValue() {
+    func updateKeyboardHeight(_ notification: Notification){
+        if let userInfo = (notification as NSNotification).userInfo {
+            if let keyboardSize = (userInfo[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
                 keyboardHeight = keyboardSize.height
                 if isEditingDate {
                     ensureViewIsVisible(dateRow)
@@ -527,42 +570,42 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
             }
         }
     }
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
-        textField.backgroundColor = UIColor.clearColor()
+        textField.backgroundColor = UIColor.clear
         if let offset = previousScrollOffset {
             mainScrollView.setContentOffset(offset, animated: true)
         }
-        if !confirmDateButton.hidden {
+        if !confirmDateButton.isHidden {
             confirmDateChange()
         }
         return true
     }
-    func textFieldShouldEndEditing(textField: UITextField) -> Bool {
+    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
         if textField == intervalLabel { return true }
-        intervalLabel.hidden = false
-        unitButton.hidden = false
-        unitButtonSymbol.hidden = false
-        helpButton.hidden = false
-        rateButton.hidden = false
-        titleLabel.hidden = false
-        textField.backgroundColor = UIColor.clearColor()
+        intervalLabel.isHidden = false
+        unitButton.isHidden = false
+        unitButtonSymbol.isHidden = false
+        helpButton.isHidden = false
+        rateButton.isHidden = false
+        titleLabel.isHidden = false
+        textField.backgroundColor = UIColor.clear
         isEditingDate = false
-        mainScrollView.scrollEnabled = true
+        mainScrollView.isScrollEnabled = true
         return true
     }
-    func textFieldDidBeginEditing(textField: UITextField) {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
         if textField == intervalLabel { return }
-        intervalLabel.hidden = true
-        unitButton.hidden = true
-        unitButtonSymbol.hidden = true
-        helpButton.hidden = true
-        rateButton.hidden = true
+        intervalLabel.isHidden = true
+        unitButton.isHidden = true
+        unitButtonSymbol.isHidden = true
+        helpButton.isHidden = true
+        rateButton.isHidden = true
         if view.bounds.height < 500 {
-            titleLabel.hidden = true
+            titleLabel.isHidden = true
         }
         isEditingDate = true
-        mainScrollView.scrollEnabled = false
+        mainScrollView.isScrollEnabled = false
         switch includeTime {
         case true: includeTimeTopSpace.constant = timeContainer.frame.height
         case false: includeTimeTopSpace.constant = 0
@@ -585,7 +628,7 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
         }
         
     }
-    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         if textField == intervalLabel { return true }
         // in case just started editing
         if textField.textColor == Colors.sharedInstance.selectedTColor {
@@ -602,7 +645,7 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
         default: return true
         }
         //only proceed if max applies
-        let char = string.cStringUsingEncoding(NSUTF8StringEncoding)!
+        let char = string.cString(using: String.Encoding.utf8)!
         let isBackSpace = strcmp(char, "\\b") == -92
         if textField.text?.characters.count >= max && !isBackSpace {
             //            switch textField {
@@ -617,7 +660,7 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
         
         return true
     }
-    @IBAction func textFieldDidChange(sender: UITextField) {
+    @IBAction func textFieldDidChange(_ sender: UITextField) {
         if sender == intervalLabel { return }
         // Check if over max character length, return if not setting date
         var withinCharLimit = true
@@ -675,29 +718,31 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
         
         if let _ = dateFromUI() {
             confirmDateButton.alpha = 1
-            confirmDateButton.enabled = true
+            confirmDateButton.isEnabled = true
         } else {
             confirmDateButton.alpha = 0.2
-            confirmDateButton.enabled = false
+            confirmDateButton.isEnabled = false
         }
     }
-    @IBAction func beganEditTextField(sender: UITextField) {
+    @IBAction func beganEditTextField(_ sender: UITextField) {
         sender.backgroundColor = Colors.sharedInstance.selectedBColor
-        confirmDateButton.hidden = false
-        includeTimeTextButton.hidden = false
-        includeTimeSymbolButton.hidden = false
-        discardDateButton.hidden = false
-        setNowButton.hidden = false
+        confirmDateButton.isHidden = false
+        includeTimeTextButton.isHidden = false
+        includeTimeSymbolButton.isHidden = false
+        discardDateButton.isHidden = false
+        setNowButton.isHidden = false
         ensureViewIsVisible(sender)
     }
-    @IBAction func endEditTextField(sender: UITextField) {
-        sender.backgroundColor = UIColor.clearColor()
+    @IBAction func endEditTextField(_ sender: UITextField) {
+        sender.backgroundColor = UIColor.clear
         sender.textColor = Colors.sharedInstance.tColor
     }
-    @IBAction func changedDescription(sender: UITextField) {
-        guard let text = sender.text else { return }
+    @IBAction func changedDescription(_ sender: UITextField) {
+        guard let text = sender.text else {
+            return
+        }
         interval.description = text
-        if confirmDateButton.hidden == false {
+        if !confirmDateButton.isHidden {
             //confirmDateChange()
             
             guard let date = dateFromUI() else {
@@ -709,9 +754,10 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
             }
             interval.includeTime = includeTime
             interval.date = date
-            updateUI()
-            saveData()
+            //updateUI()
+            //saveData()
         }
+        updateUI()
         saveData()
     }
 
@@ -723,7 +769,7 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
         hourField.resignFirstResponder()
         descriptionLabel.resignFirstResponder()
     }
-    func advanceCursorFrom(startingField: UITextField){
+    func advanceCursorFrom(_ startingField: UITextField){
         var nextField: UITextField!
         switch startingField {
         case monthField: nextField = dayField
@@ -734,19 +780,19 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
         }
         nextField.becomeFirstResponder()
     }
-    func ensureViewIsVisible(visibleView: UIView) {
+    func ensureViewIsVisible(_ visibleView: UIView) {
         let minOffsetY = visibleView.frame.maxY + keyboardHeight - view.bounds.height
         if mainScrollView.contentOffset.y < minOffsetY {
             if previousScrollOffset == nil {
                 previousScrollOffset = mainScrollView.contentOffset
             }
-            let offset = CGPointMake(0, minOffsetY)
+            let offset = CGPoint(x: 0, y: minOffsetY)
             mainScrollView.setContentOffset(offset, animated: true)
         }
     }
 }
 extension ViewController: UIScrollViewDelegate {
-    func scrollViewDidScroll(scrollView: UIScrollView) {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
         //let range: CGFloat = view.bounds.height/2.5
         let max = view.bounds.height/2 - intervalTextHeight + 10
         let offset = min(max, scrollView.contentOffset.y)

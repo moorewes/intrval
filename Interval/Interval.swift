@@ -10,55 +10,56 @@ import Foundation
 
 
 
-public class Interval {
-    public var date: NSDate
-    public var unit: NSCalendarUnit
-    public var includeTime: Bool
-    public var description: String
-    public func measureIntervalToInt(toDate: NSDate? = nil) -> Int {
-        var tDate = NSDate()
+open class Interval {
+    open var date: Date
+    open var unit: NSCalendar.Unit
+    open var includeTime: Bool
+    open var description: String
+    open func measureIntervalToInt(_ toDate: Date? = nil) -> Int {
+        var tDate = Date()
         if let tD = toDate {
             tDate = tD
         }
-        let interval = NSCalendar.currentCalendar().components(unit, fromDate: date, toDate: tDate, options: NSCalendarOptions())
-        let answer = interval.valueForComponent(unit)
-        return answer
+        let component = Calendar.Component.init(unit: unit)
+        let interval = Calendar.current.dateComponents([component], from: date, to: tDate)
+        let answer = interval.value(for: component)
+        return answer!
     }
-    public func cycleUnit() {
+    open func cycleUnit() {
         switch unit {
-        case NSCalendarUnit.Day: unit = .WeekOfYear
-        case NSCalendarUnit.WeekOfYear: unit = .Month
-        case NSCalendarUnit.Month: unit = .Year
-        case NSCalendarUnit.Year: unit = .Minute
-        case NSCalendarUnit.Minute: unit = .Hour
-        case NSCalendarUnit.Hour: unit = .Day
-        default: unit = .Day
+        case NSCalendar.Unit.day: unit = .weekOfYear
+        case NSCalendar.Unit.weekOfYear: unit = .month
+        case NSCalendar.Unit.month: unit = .year
+        case NSCalendar.Unit.year: unit = .minute
+        case NSCalendar.Unit.minute: unit = .hour
+        case NSCalendar.Unit.hour: unit = .day
+        default: unit = .day
         }
     }
-    public func measureIntervalToString() -> String {
+    open func measureIntervalToString() -> String {
         let interval = abs(measureIntervalToInt())
         let answer = "\(interval)"
         return answer
     }
-    public var dateString: String {
-        let dateFormatter = NSDateFormatter()
+    open var dateString: String {
+        let dateFormatter = DateFormatter()
         if includeTime {
             dateFormatter.dateFormat = "M/dd/YYYY h:mm a"
         } else {
             dateFormatter.dateFormat = "M/dd/YYYY"
         }
-        let result = dateFormatter.stringFromDate(date)
+        let result = dateFormatter.string(from: date)
         return result
     }
-    public var unitString: String {
+    open var unitString: String {
         var answer: String
         switch unit {
-        case NSCalendarUnit.Day: answer = "DAY"
-        case NSCalendarUnit.WeekOfYear: answer = "WEEK"
-        case NSCalendarUnit.Month: answer = "MONTH"
-        case NSCalendarUnit.Year: answer = "YEAR"
-        case NSCalendarUnit.Minute: answer = "MINUTE"
-        case NSCalendarUnit.Hour: answer = "HOUR"
+        case NSCalendar.Unit.day: answer = "DAY"
+        case NSCalendar.Unit.weekOfYear: answer = "WEEK"
+        case NSCalendar.Unit.month: answer = "MONTH"
+        case NSCalendar.Unit.year: answer = "YEAR"
+        case NSCalendar.Unit.minute: answer = "MINUTE"
+        case NSCalendar.Unit.hour: answer = "HOUR"
         default: answer = "DAY"
         }
         let interval = abs(measureIntervalToInt())
@@ -67,7 +68,7 @@ public class Interval {
         }
         return answer
     }
-    public init(date: NSDate, unit: NSCalendarUnit, includeTime: Bool, description: String){
+    public init(date: Date, unit: NSCalendar.Unit, includeTime: Bool, description: String){
         self.date = date
         self.unit = unit
         self.includeTime = includeTime

@@ -12,35 +12,37 @@ import WatchConnectivity
 
 class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionDelegate {
     
+
+    
     var session: WCSession!
     var complicationController: ComplicationController?
     func updateComplication() {
         let server = CLKComplicationServer.sharedInstance()
-        server.activeComplications?.forEach { server.reloadTimelineForComplication($0) }
+        server.activeComplications?.forEach { server.reloadTimeline(for: $0) }
     }
-    func saveData(title: String, date: NSDate) {
-        let defaults = NSUserDefaults.standardUserDefaults()
+    func saveData(_ title: String, date: Date) {
+        let defaults = UserDefaults.standard
         defaults.setValue(title, forKey: Keys.UD.title)
         defaults.setValue(date, forKey: Keys.UD.referenceDate)
     }
     func initializeDefaultsIfNeeded() {
-        let defaults = NSUserDefaults.standardUserDefaults()
-        guard defaults.valueForKey(Keys.UD.intervalUnit) as? UInt == nil else {
+        let defaults = UserDefaults.standard
+        guard defaults.value(forKey: Keys.UD.intervalUnit) as? UInt == nil else {
             // Data already exists
             return
         }
         // Note: .Era represents SmartAuto
-        let unit = NSCalendarUnit.Era.rawValue
+        let unit = NSCalendar.Unit.era.rawValue
         defaults.setValue(unit, forKey: Keys.UD.intervalUnit)
-        defaults.setBool(true, forKey: Keys.UD.showSecondUnit)
+        defaults.set(true, forKey: Keys.UD.showSecondUnit)
     }
     
     // MARK: Lifecycle
     
     func applicationDidFinishLaunching() {
         // If no data, send request to phone for data
-        if NSUserDefaults.standardUserDefaults().valueForKey(Keys.UD.referenceDate) as? NSDate == nil && session.reachable {
-            let message: [String:AnyObject] = ["initialLaunch":true]
+        if UserDefaults.standard.value(forKey: Keys.UD.referenceDate) as? Date == nil && session.isReachable {
+            let message: [String:Any] = ["initialLaunch":true]
             session.sendMessage(message, replyHandler: { (info) in
                 let pulledData = ComplicationDataHelper.dataFromUserInfo(info)
                 self.saveData(pulledData.title, date: pulledData.date)
@@ -54,9 +56,9 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionDelegate {
         super.init()
         initializeDefaultsIfNeeded()
         if WCSession.isSupported() {
-            session = WCSession.defaultSession()
+            session = WCSession.default()
             session.delegate = self
-            session.activateSession()
+            session.activate()
         }
         return
     }
@@ -64,10 +66,18 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionDelegate {
     
     // MARK: WCSessionDelegate
     
-    func session(session: WCSession, didReceiveUserInfo userInfo: [String : AnyObject]) {
+    /** Called when the session has completed activation. If session state is WCSessionActivationStateNotActivated there will be an error with more details. */
+    @available(watchOS 2.2, *)
+    public func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
+//        if let e = error {
+//            print(e.localizedDescription)
+//        }
+    }
+    
+    func session(_ session: WCSession, didReceiveUserInfo userInfo: [String : Any]) {
         let pulledData = ComplicationDataHelper.dataFromUserInfo(userInfo)
-        NSUserDefaults.standardUserDefaults().setValue(pulledData.date, forKey: Keys.UD.referenceDate)
-        NSUserDefaults.standardUserDefaults().setValue(pulledData.title, forKey: Keys.UD.title)
+        UserDefaults.standard.setValue(pulledData.date, forKey: Keys.UD.referenceDate)
+        UserDefaults.standard.setValue(pulledData.title, forKey: Keys.UD.title)
         updateComplication()
     }
     
