@@ -345,17 +345,17 @@
                                                 <variation key="default">
                                                     <mask key="constraints">
                                                         <exclude reference="RtM-hY-7TI"/>
+                                                        <exclude reference="ypr-Cb-Dhd"/>
+                                                        <exclude reference="42O-c2-Glx"/>
+                                                        <exclude reference="Cs1-KF-M4q"/>
+                                                        <exclude reference="dQe-4U-G5p"/>
+                                                        <exclude reference="t7Y-uQ-lN0"/>
                                                         <exclude reference="biz-hF-WFI"/>
                                                         <exclude reference="hAy-DL-B3f"/>
                                                         <exclude reference="m18-sZ-9CZ"/>
                                                         <exclude reference="xg4-E0-vS7"/>
                                                         <exclude reference="Df7-mM-Xb4"/>
                                                         <exclude reference="cMo-om-HGO"/>
-                                                        <exclude reference="ypr-Cb-Dhd"/>
-                                                        <exclude reference="42O-c2-Glx"/>
-                                                        <exclude reference="Cs1-KF-M4q"/>
-                                                        <exclude reference="dQe-4U-G5p"/>
-                                                        <exclude reference="t7Y-uQ-lN0"/>
                                                     </mask>
                                                 </variation>
                                             </view>
@@ -398,10 +398,10 @@
                                         </constraints>
                                         <variation key="default">
                                             <mask key="constraints">
-                                                <exclude reference="h5T-or-4Ll"/>
                                                 <exclude reference="cMa-gl-MYR"/>
                                                 <exclude reference="4aC-D6-wLA"/>
                                                 <exclude reference="WoC-E9-OZS"/>
+                                                <exclude reference="h5T-or-4Ll"/>
                                                 <exclude reference="1g9-Ml-9x5"/>
                                             </mask>
                                         </variation>
@@ -544,7 +544,7 @@
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2. Ensure glance and complication are enabled inside Watch iOS app." textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xH1-gJ-U8a">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2. Ensure Intrval complication is enabled inside Watch iOS app → Complications." textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xH1-gJ-U8a">
                                 <fontDescription key="fontDescription" name="IowanOldStyle-Roman" family="Iowan Old Style" pointSize="14"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>

@@ -422,7 +422,7 @@ class ViewController: UIViewController, WCSessionDelegate, UITextFieldDelegate, 
         let bColor = Colors.sharedInstance.bColor
         let tColor = Colors.sharedInstance.tColor
         let intervalDescriptorColor = Colors.sharedInstance.grey
-        masterView.backgroundColor = bColor
+        masterView.backgroundColor = bColor // UIColor(white: 0.97, alpha: 1)
         titleLabel.textColor = tColor
         separatorLineView.backgroundColor = intervalDescriptorColor
         intervalLabel.textColor = tColor

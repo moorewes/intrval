@@ -61,6 +61,7 @@ class HelpViewController: UIViewController, MFMailComposeViewControllerDelegate 
         help5.textColor = tColor
         help6.textColor = tColor
         versionLabel.textColor = tColor
+        versionLabel.text = "Version 1.2.0 (14)"
         rateButton.setTitleColor(tColor, for: UIControlState())
         supportButton.setTitleColor(tColor, for: UIControlState())
         returnButton.setTitleColor(tColor, for: UIControlState())
