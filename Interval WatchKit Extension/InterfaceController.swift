@@ -10,10 +10,12 @@ import WatchKit
 import Foundation
 
 class InterfaceController: WKInterfaceController {
-    @IBOutlet var firstUnitPicker: WKInterfacePicker!
-    @IBOutlet var secondUnitToggle: WKInterfaceSwitch!
+
+    // MARK: - Properties
     
     var timer: Timer?
+    var intervals: [WatchInterval] = []
+    var currentInterval: WatchInterval?
     
     let kSmartAuto = "SMART AUTO"
     let kYear = "YEARS"
@@ -37,42 +39,129 @@ class InterfaceController: WKInterfaceController {
         minuteItem.title = kMinute
         return [autoItem, yearItem, monthItem, dayItem, hourItem, minuteItem]
     }
+    
+    var counterSelectItems: [WKPickerItem] {
+        var result = [WKPickerItem]()
+        intervals = ComplicationDataHelper.allIntervals()
+        for interval in intervals {
+            let item = WKPickerItem()
+            item.title = interval.title
+            result.append(item)
+        }
+        if result.isEmpty {
+            let noneSelectedItem = WKPickerItem()
+            noneSelectedItem.title = "None, open app"
+            result.append(noneSelectedItem)
+        }
+        return result
+    }
+    
+    // MARK: - IBOutlets
+    
+    @IBOutlet var counterSelectPicker: WKInterfacePicker!
+    @IBOutlet var firstUnitPicker: WKInterfacePicker!
+    @IBOutlet var secondUnitToggle: WKInterfaceSwitch!
+    @IBOutlet var topRowTitleToggle: WKInterfaceSwitch!
+    
+    // MARK: - IBActions
+    
+    @IBAction func didSelectCounterItem(_ value: Int) {
+        let interval = intervals[value]
+        currentInterval = interval
+        ComplicationDataHelper.setCurrent(interval: interval)
+        setTimerToUpdateComplication()
+        print("updated current")
+        
+    }
+    
     @IBAction func didSelectFirstUnit(_ value: Int) {
         // print("selected first: ", value)
         saveFirstUnitData(value)
         // Auto enable 2 units for smart auto
         if value == 0 {
             secondUnitToggle.setOn(true)
-            saveSecondUnitData(true)
+            didToggleSecondUnit(true)
         }
     }
     @IBAction func didToggleSecondUnit(_ value: Bool) {
-        saveSecondUnitData(value)
+        ComplicationDataHelper.showSecondUnit = value
+        setTimerToUpdateComplication()
     }
+    @IBAction func didToggleTopRowTitle(_ value: Bool) {
+        ComplicationDataHelper.useTopRowForTitle = value
+        setTimerToUpdateComplication()
+    }
+    
+    // MARK: - Life Cycle
+    
+    override func awake(withContext context: Any?) {
+        super.awake(withContext: context)
+        print("awake")
+        NotificationCenter.default.addObserver(self, selector: #selector(updateUI), name: .watchIntervalDataUpdated, object: nil)
+        firstUnitPicker.setItems(firstUnitItems)
+        updateUI()
+        print("done awakening")
+        // Configure interface objects here.
+    }
+    
+    override func willActivate() {
+        // This method is called when watch view controller is about to be visible to user
+        super.willActivate()
+        updateUI()
+        print("willActivate")
+    }
+    
+    override func didDeactivate() {
+        // This method is called when watch view controller is no longer visible
+        super.didDeactivate()
+        timer?.fire()
+    }
+    
+    // MARK: - Convenience
+    
     func updateUI() {
-        // print("updateUI()")
-        if let firstUnitRaw = UserDefaults.standard.value(forKey: Keys.UD.intervalUnit) as? UInt {
-            // Set First Unit
-            // Note: .Era is used for Smart Auto
-            var item = 0
-            let unit = NSCalendar.Unit.init(rawValue: firstUnitRaw)
-            switch unit {
-            case NSCalendar.Unit.era: item = 0
-            case NSCalendar.Unit.year: item = 1
-            case NSCalendar.Unit.month: item = 2
-            case NSCalendar.Unit.day: item = 3
-            case NSCalendar.Unit.hour: item = 4
-            case NSCalendar.Unit.minute: item = 5
-            default: break
-            }
-            firstUnitPicker.setSelectedItemIndex(item)
-            // Set Second Unit
-            let showSecondUnit = UserDefaults.standard.bool(forKey: Keys.UD.showSecondUnit)
-            secondUnitToggle.setOn(showSecondUnit)
-        } else {
-            firstUnitPicker.setSelectedItemIndex(0)
+        // Set First Unit
+        // Note: .Era is used for Smart Auto
+        let firstUnitRaw = ComplicationDataHelper.defaultUnit
+        var item = 0
+        let unit = NSCalendar.Unit.init(rawValue: firstUnitRaw)
+        switch unit {
+        case NSCalendar.Unit.era: item = 0
+        case NSCalendar.Unit.year: item = 1
+        case NSCalendar.Unit.month: item = 2
+        case NSCalendar.Unit.day: item = 3
+        case NSCalendar.Unit.hour: item = 4
+        case NSCalendar.Unit.minute: item = 5
+        default: break
         }
+        firstUnitPicker.setSelectedItemIndex(item)
+        
+        // Set Second Unit
+        let showSecondUnit = ComplicationDataHelper.showSecondUnit
+        secondUnitToggle.setOn(showSecondUnit)
+        
+        // Set top row title preference
+        let useTopRowForTitle = ComplicationDataHelper.useTopRowForTitle
+        topRowTitleToggle.setOn(useTopRowForTitle)
+        
+        // Setup counter select picker
+        counterSelectPicker.setItems(counterSelectItems)
+        // Set currentSelected
+        if let currentCounter = ComplicationDataHelper.currentInterval() {
+            for i in 0..<intervals.count {
+                let interval = intervals[i]
+                if interval.id == currentCounter.id {
+                    currentInterval = interval
+                    counterSelectPicker.setSelectedItemIndex(i)
+                }
+            }
+        } else {
+            counterSelectPicker.setSelectedItemIndex(0)
+        }
+        
+        
     }
+    
     func saveFirstUnitData(_ unitValue: Int) {
         // Note: .Era is used for Smart Auto
         var unit: NSCalendar.Unit!
@@ -86,49 +175,30 @@ class InterfaceController: WKInterfaceController {
         default: unit = .era
         }
         let unitRaw = unit.rawValue
-        UserDefaults.standard.setValue(unitRaw, forKey: Keys.UD.intervalUnit)
+        ComplicationDataHelper.defaultUnit = unitRaw
         setTimerToUpdateComplication()
-        // print("saved first unit: ", unit)
     }
-    func saveSecondUnitData(_ include: Bool) {
-        UserDefaults.standard.set(include, forKey: Keys.UD.showSecondUnit)
-        setTimerToUpdateComplication()
-        // print("saved second unit: ", include)
-    }
+    
     func setTimerToUpdateComplication() {
         if let t = timer {
             // print("timer exists")
-            t.fireDate = Date(timeIntervalSinceNow: 5)
+            t.fireDate = Date(timeIntervalSinceNow: 3)
         } else {
             // print("timer doesn't exist")
-            timer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(updateComplication), userInfo: nil, repeats: false)
+            timer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(updateComplication), userInfo: nil, repeats: false)
         }
     }
+    
     func updateComplication() {
         timer = nil
-        // print("updateComplication")
+        print("updateComplication")
         if let delegate = WKExtension.shared().delegate as? ExtensionDelegate {
             delegate.updateComplication()
         }
         
     }
-    override func awake(withContext context: Any?) {
-        super.awake(withContext: context)
-        firstUnitPicker.setItems(firstUnitItems)
-        updateUI()
-        // Configure interface objects here.
-    }
-
-    override func willActivate() {
-        // This method is called when watch view controller is about to be visible to user
-        super.willActivate()
-    }
-
-    override func didDeactivate() {
-        // This method is called when watch view controller is no longer visible
-        super.didDeactivate()
-        timer?.fire()
-    }
+    
+    
 
 }
 

@@ -46,6 +46,18 @@ extension Date {
         let interval = (Calendar.current as NSCalendar).components(.day, from: Date(), to: self, options: NSCalendar.Options()).day
         return interval!
     }
+    /// Returns an NSDate on the same calendar day as self, but with time components
+    func withTime(hour: Int, minute: Int, second: Int = 0) -> Date {
+        
+        return Calendar.current.date(bySettingHour: hour, minute: minute, second: second, of: self)!
+    }
+    
+    func withCurrentTime() -> Date {
+        let now = Date()
+        let hour = NSCalendar.current.component(.hour, from: now)
+        let minute = NSCalendar.current.component(.minute, from: now)
+        return self.withTime(hour: hour, minute: minute)
+    }
 }
 extension Bundle {
     var releaseVersionNumber: String? {

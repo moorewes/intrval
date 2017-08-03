@@ -20,8 +20,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let nighttime = Colors.sharedInstance.nightMode == true
         let style: UIStatusBarStyle = nighttime ? .lightContent : .default
         UIApplication.shared.statusBarStyle = style
-        
-        incrementAppOpenCount()
+        DataManager.main.transferLegacyData()
+        DataManager.main.incrementAppOpenCount()
         return true
     }
 
@@ -36,11 +36,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
-        if let vc = window?.rootViewController as? ViewController {
-            vc.updateUI()
-        } else if let vc = window?.rootViewController as? HelpViewController {
-            vc.updateUI()
-        }
+//        if let vc = window?.rootViewController as? ViewController {
+//            vc.updateUI()
+//        } else if let vc = window?.rootViewController as? HelpViewController {
+//            vc.updateUI()
+//        }
         // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
     }
 
@@ -51,11 +51,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-    func incrementAppOpenCount() {
-        var count = UserDefaults.standard.integer(forKey: Keys.UD.openCount)
-        count += 1
-        UserDefaults.standard.set(count, forKey: Keys.UD.openCount)
-    }
+    
 
 
 }

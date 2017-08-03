@@ -7,10 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		DE2685CE1CDE8E8800742BF7 /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2685CD1CDE8E8800742BF7 /* Keys.swift */; };
 		DE2685D01CDE8ED900742BF7 /* ComplicationDataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2685CF1CDE8ED900742BF7 /* ComplicationDataHelper.swift */; };
+		DE2DED021F311C6100058A4A /* IntervalTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2DED011F311C6100058A4A /* IntervalTableViewCell.swift */; };
+		DE2DED041F311DD700058A4A /* IntervalListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2DED031F311DD700058A4A /* IntervalListTableViewController.swift */; };
+		DE2DED081F312C8000058A4A /* IntervalDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2DED071F312C8000058A4A /* IntervalDetailTableViewController.swift */; };
+		DE2DED0A1F313BB300058A4A /* EditDateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2DED091F313BB300058A4A /* EditDateViewController.swift */; };
+		DE2DED0C1F313BC600058A4A /* EditTimeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2DED0B1F313BC600058A4A /* EditTimeViewController.swift */; };
+		DE2DED0E1F313C3E00058A4A /* CircleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2DED0D1F313C3E00058A4A /* CircleButton.swift */; };
+		DE2DED101F324E0600058A4A /* WatchInterval.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2DED0F1F324E0500058A4A /* WatchInterval.swift */; };
+		DE2DED121F3270B700058A4A /* EditDateInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2DED111F3270B700058A4A /* EditDateInterfaceController.swift */; };
+		DE4F8F2C1DC4567000E15F17 /* ClockKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE4F8F2B1DC4567000E15F17 /* ClockKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		DE5126481D527E750010DDC1 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = DE5126471D527E750010DDC1 /* .gitignore */; };
 		DEC0FA1B1D95B8BA0003C6F8 /* RateStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEC0FA1A1D95B8BA0003C6F8 /* RateStatus.swift */; };
+		DEED85DE1F33C43000D95EB7 /* RemindersChooseTypeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEED85DD1F33C43000D95EB7 /* RemindersChooseTypeTableViewController.swift */; };
+		DEED85E01F33C45100D95EB7 /* RemindersSetPeriodConstantViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEED85DF1F33C45100D95EB7 /* RemindersSetPeriodConstantViewController.swift */; };
+		DEED85E21F33C46600D95EB7 /* RemindersListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEED85E11F33C46600D95EB7 /* RemindersListTableViewController.swift */; };
 		DEF28D071CADCDDE00D50DC1 /* IntervalTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF28D061CADCDDE00D50DC1 /* IntervalTests.swift */; };
 		DEF28D121CADCDDE00D50DC1 /* IntervalUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF28D111CADCDDE00D50DC1 /* IntervalUITests.swift */; };
 		DEF28D171CADCDDE00D50DC1 /* Interval WatchKit App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = DEF28D161CADCDDE00D50DC1 /* Interval WatchKit App.app */; };
@@ -117,10 +128,21 @@
 		DE002C881CAF24D300FE65CE /* Interval WatchKit Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Interval WatchKit Extension.entitlements"; sourceTree = "<group>"; };
 		DE002C891CAF254100FE65CE /* Interval WatchKit App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Interval WatchKit App.entitlements"; sourceTree = "<group>"; };
 		DE23177D1CAF163A007D605C /* Interval.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Interval.entitlements; sourceTree = "<group>"; };
-		DE2685CD1CDE8E8800742BF7 /* Keys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
 		DE2685CF1CDE8ED900742BF7 /* ComplicationDataHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComplicationDataHelper.swift; sourceTree = "<group>"; };
+		DE2DED011F311C6100058A4A /* IntervalTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntervalTableViewCell.swift; sourceTree = "<group>"; };
+		DE2DED031F311DD700058A4A /* IntervalListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntervalListTableViewController.swift; sourceTree = "<group>"; };
+		DE2DED071F312C8000058A4A /* IntervalDetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntervalDetailTableViewController.swift; sourceTree = "<group>"; };
+		DE2DED091F313BB300058A4A /* EditDateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditDateViewController.swift; sourceTree = "<group>"; };
+		DE2DED0B1F313BC600058A4A /* EditTimeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditTimeViewController.swift; sourceTree = "<group>"; };
+		DE2DED0D1F313C3E00058A4A /* CircleButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircleButton.swift; sourceTree = "<group>"; };
+		DE2DED0F1F324E0500058A4A /* WatchInterval.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchInterval.swift; sourceTree = "<group>"; };
+		DE2DED111F3270B700058A4A /* EditDateInterfaceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditDateInterfaceController.swift; sourceTree = "<group>"; };
+		DE4F8F2B1DC4567000E15F17 /* ClockKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ClockKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS3.0.sdk/System/Library/Frameworks/ClockKit.framework; sourceTree = DEVELOPER_DIR; };
 		DE5126471D527E750010DDC1 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		DEC0FA1A1D95B8BA0003C6F8 /* RateStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RateStatus.swift; sourceTree = "<group>"; };
+		DEED85DD1F33C43000D95EB7 /* RemindersChooseTypeTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemindersChooseTypeTableViewController.swift; sourceTree = "<group>"; };
+		DEED85DF1F33C45100D95EB7 /* RemindersSetPeriodConstantViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemindersSetPeriodConstantViewController.swift; sourceTree = "<group>"; };
+		DEED85E11F33C46600D95EB7 /* RemindersListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemindersListTableViewController.swift; sourceTree = "<group>"; };
 		DEF28CEE1CADCDDE00D50DC1 /* Interval.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Interval.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DEF28CFD1CADCDDE00D50DC1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DEF28D021CADCDDE00D50DC1 /* IntervalTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IntervalTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -181,12 +203,21 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DE4F8F2C1DC4567000E15F17 /* ClockKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		DE4F8F2A1DC4566F00E15F17 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				DE4F8F2B1DC4567000E15F17 /* ClockKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		DEEA5F031CAF651800F1CBA7 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
@@ -205,6 +236,7 @@
 				DEF28D1A1CADCDDE00D50DC1 /* Interval WatchKit App */,
 				DEF28D291CADCDDE00D50DC1 /* Interval WatchKit Extension */,
 				DEF28CEF1CADCDDE00D50DC1 /* Products */,
+				DE4F8F2A1DC4566F00E15F17 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -232,7 +264,16 @@
 				DEF997811D1DC69400DAD02E /* ComplicationDataHelper.swift */,
 				DEC0FA1A1D95B8BA0003C6F8 /* RateStatus.swift */,
 				DEF997851D1DC69400DAD02E /* Interval.swift */,
+				DE2DED091F313BB300058A4A /* EditDateViewController.swift */,
+				DE2DED0B1F313BC600058A4A /* EditTimeViewController.swift */,
+				DE2DED0D1F313C3E00058A4A /* CircleButton.swift */,
+				DE2DED031F311DD700058A4A /* IntervalListTableViewController.swift */,
+				DE2DED011F311C6100058A4A /* IntervalTableViewCell.swift */,
+				DEED85DD1F33C43000D95EB7 /* RemindersChooseTypeTableViewController.swift */,
+				DEED85DF1F33C45100D95EB7 /* RemindersSetPeriodConstantViewController.swift */,
+				DEED85E11F33C46600D95EB7 /* RemindersListTableViewController.swift */,
 				DEF997861D1DC69400DAD02E /* Keys.swift */,
+				DE2DED071F312C8000058A4A /* IntervalDetailTableViewController.swift */,
 				DEF997801D1DC69400DAD02E /* Colors.swift */,
 				DEF997831D1DC69400DAD02E /* Extensions.swift */,
 				DEF997911D1DC6B100DAD02E /* Assets.xcassets */,
@@ -276,11 +317,12 @@
 			children = (
 				DE002C881CAF24D300FE65CE /* Interval WatchKit Extension.entitlements */,
 				DEF28D2C1CADCDDE00D50DC1 /* InterfaceController.swift */,
+				DE2DED111F3270B700058A4A /* EditDateInterfaceController.swift */,
 				DEF28D2E1CADCDDE00D50DC1 /* ExtensionDelegate.swift */,
 				DE2685CF1CDE8ED900742BF7 /* ComplicationDataHelper.swift */,
+				DE2DED0F1F324E0500058A4A /* WatchInterval.swift */,
 				DEF28D301CADCDDE00D50DC1 /* NotificationController.swift */,
 				DEF28D321CADCDDE00D50DC1 /* GlanceController.swift */,
-				DE2685CD1CDE8E8800742BF7 /* Keys.swift */,
 				DEF28D341CADCDDE00D50DC1 /* ComplicationController.swift */,
 				DEF28D361CADCDDE00D50DC1 /* Assets.xcassets */,
 				DEF28D381CADCDDE00D50DC1 /* Info.plist */,
@@ -517,15 +559,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DE2DED0A1F313BB300058A4A /* EditDateViewController.swift in Sources */,
 				DEF9978C1D1DC69400DAD02E /* Extensions.swift in Sources */,
 				DEF9978F1D1DC69400DAD02E /* Keys.swift in Sources */,
 				DEF9978D1D1DC69400DAD02E /* HelpViewController.swift in Sources */,
+				DEED85DE1F33C43000D95EB7 /* RemindersChooseTypeTableViewController.swift in Sources */,
 				DEC0FA1B1D95B8BA0003C6F8 /* RateStatus.swift in Sources */,
+				DEED85E21F33C46600D95EB7 /* RemindersListTableViewController.swift in Sources */,
+				DE2DED041F311DD700058A4A /* IntervalListTableViewController.swift in Sources */,
 				DEF997901D1DC69400DAD02E /* ViewController.swift in Sources */,
 				DEF9977E1D1DC61E00DAD02E /* AppDelegate.swift in Sources */,
+				DE2DED0C1F313BC600058A4A /* EditTimeViewController.swift in Sources */,
 				DEF9978B1D1DC69400DAD02E /* DataManager.swift in Sources */,
+				DE2DED081F312C8000058A4A /* IntervalDetailTableViewController.swift in Sources */,
+				DEED85E01F33C45100D95EB7 /* RemindersSetPeriodConstantViewController.swift in Sources */,
+				DE2DED0E1F313C3E00058A4A /* CircleButton.swift in Sources */,
 				DEF997891D1DC69400DAD02E /* Colors.swift in Sources */,
 				DEF9978E1D1DC69400DAD02E /* Interval.swift in Sources */,
+				DE2DED021F311C6100058A4A /* IntervalTableViewCell.swift in Sources */,
 				DEF9978A1D1DC69400DAD02E /* ComplicationDataHelper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -551,7 +602,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				DEF28D311CADCDDE00D50DC1 /* NotificationController.swift in Sources */,
-				DE2685CE1CDE8E8800742BF7 /* Keys.swift in Sources */,
+				DE2DED101F324E0600058A4A /* WatchInterval.swift in Sources */,
+				DE2DED121F3270B700058A4A /* EditDateInterfaceController.swift in Sources */,
 				DE2685D01CDE8ED900742BF7 /* ComplicationDataHelper.swift in Sources */,
 				DEF28D2F1CADCDDE00D50DC1 /* ExtensionDelegate.swift in Sources */,
 				DEF28D351CADCDDE00D50DC1 /* ComplicationController.swift in Sources */,

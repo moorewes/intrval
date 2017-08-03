@@ -18,14 +18,14 @@ class GlanceController: WKInterfaceController {
     var data: (date: Date, title: String)?
     func updateUI(){
         // Test for data
-        if let title = UserDefaults.standard.string(forKey: Keys.UD.title),
-            let date = UserDefaults.standard.value(forKey: Keys.UD.referenceDate) as? Date {
+        if let interval = ComplicationDataHelper.currentInterval() {
+            let date = interval.date
             //Ensure views are shown
             timer.setHidden(false)
             intervalDescriptionLabel.setHidden(false)
             
             //Setup title and timer
-            titleLabel.setText(title)
+            titleLabel.setText(interval.title)
             timer.setDate(date)
             
             //Setup interval description

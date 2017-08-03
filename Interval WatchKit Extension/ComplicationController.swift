@@ -40,9 +40,7 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
         
         // Ensure data exists & retrieve data
         // print("getting current entry")
-        guard let date = UserDefaults.standard.value(forKey: Keys.UD.referenceDate) as? Date,
-            let unitRaw = UserDefaults.standard.value(forKey: Keys.UD.intervalUnit) as? UInt,
-        let titleText = UserDefaults.standard.value(forKey: Keys.UD.title) as? String else {
+        guard let interval = ComplicationDataHelper.currentInterval() else {
             // print("no values in userDefaults")
             func returnWithTemplate(_ template: CLKComplicationTemplate) {
                 let entry = CLKComplicationTimelineEntry(date: Date(), complicationTemplate: template)
@@ -72,9 +70,11 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
                 template.textProvider = CLKSimpleTextProvider(text: "setup on iOS")
                 returnWithTemplate(template)
             case .extraLarge:
-                let template = CLKComplicationTemplateExtraLargeSimpleText()
-                template.textProvider = CLKSimpleTextProvider(text: "setup on iOS")
-                returnWithTemplate(template)
+                if #available(watchOSApplicationExtension 3.0, *) {
+                    let template = CLKComplicationTemplateExtraLargeSimpleText()
+                    template.textProvider = CLKSimpleTextProvider(text: "setup on iOS")
+                    returnWithTemplate(template)
+                }
             default: break
             }
             return
@@ -82,47 +82,65 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
         
         
         // Setup
-        let showSecondUnit = UserDefaults.standard.bool(forKey: Keys.UD.showSecondUnit)
-        var unit = NSCalendar.Unit.init(rawValue: unitRaw)
+        let showSecondUnit = ComplicationDataHelper.showSecondUnit
+        var unit = NSCalendar.Unit.init(rawValue: interval.unit)
         //Note: .Era represents Smart Auto
         if unit == .era {
-            unit = smartAutoUnit(fromDate: date)
+            unit = smartAutoUnit(fromDate: interval.date)
         }
         //Build short text for small complications
         let titleLengthLimit = complication.family == .circularSmall ? 4 : 5
-        var titleTextShort = titleText
+        var titleTextShort = interval.title
         if titleTextShort.characters.count > titleLengthLimit {
-            let range = titleText.startIndex..<titleTextShort.characters.index(titleTextShort.startIndex, offsetBy: titleLengthLimit)
+            let range = interval.title.startIndex..<titleTextShort.characters.index(titleTextShort.startIndex, offsetBy: titleLengthLimit)
             titleTextShort = titleTextShort.substring(with: range)
         }
         
         // Build text providers
-        let titleTextProvider = CLKSimpleTextProvider(text: titleText, shortText: titleTextShort)
-        let numberTextProvider = CLKRelativeDateTextProvider(date: date, style: .natural, units: unit)
+        let titleTextProvider = CLKSimpleTextProvider(text: interval.title, shortText: titleTextShort)
+        let numberTextProvider = CLKRelativeDateTextProvider(date: interval.date, style: .natural, units: unit)
         
         // Configure showing multiple units for larger families
         if showSecondUnit {
-            numberTextProvider.calendarUnits = displayUnitForBaseUnit(unit, date: date, forFamily: complication.family)
+            numberTextProvider.calendarUnits = displayUnitForBaseUnit(unit, date: interval.date, forFamily: complication.family)
         }
+        let useTopRowForTitle = ComplicationDataHelper.useTopRowForTitle
         
         // Build entries and execute handler
         switch complication.family {
         case .modularSmall:
             let template = CLKComplicationTemplateModularSmallStackText()
-            template.line1TextProvider = numberTextProvider
-            template.line2TextProvider = titleTextProvider
+            if useTopRowForTitle {
+                template.line1TextProvider = titleTextProvider
+                template.line2TextProvider = numberTextProvider
+            } else {
+                template.line1TextProvider = numberTextProvider
+                template.line2TextProvider = titleTextProvider
+            }
+            
             let entry = CLKComplicationTimelineEntry(date: Date(), complicationTemplate: template)
             handler(entry)
         case .modularLarge:
             let template = CLKComplicationTemplateModularLargeTallBody()
-            template.headerTextProvider = CLKSimpleTextProvider(text: titleText) //numberTextProvider
-            template.bodyTextProvider = numberTextProvider // CLKSimpleTextProvider(text: titleText)
+            if useTopRowForTitle {
+                template.headerTextProvider = CLKSimpleTextProvider(text: interval.title)
+                template.bodyTextProvider = numberTextProvider
+            } else {
+                template.headerTextProvider = numberTextProvider
+                template.bodyTextProvider = CLKSimpleTextProvider(text: interval.title)
+            }
+            
             let entry = CLKComplicationTimelineEntry(date: Date(), complicationTemplate: template)
             handler(entry)
         case .circularSmall:
             let template = CLKComplicationTemplateCircularSmallStackText()
-            template.line1TextProvider = numberTextProvider
-            template.line2TextProvider = titleTextProvider
+            if useTopRowForTitle {
+                template.line1TextProvider = titleTextProvider
+                template.line2TextProvider = numberTextProvider
+            } else {
+                template.line1TextProvider = numberTextProvider
+                template.line2TextProvider = titleTextProvider
+            }
             let entry = CLKComplicationTimelineEntry(date: Date(), complicationTemplate: template)
             handler(entry)
         case .utilitarianSmall:
@@ -136,12 +154,21 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
             let entry = CLKComplicationTimelineEntry(date: Date(), complicationTemplate: template)
             handler(entry)
         case .extraLarge:
-            let template = CLKComplicationTemplateExtraLargeStackText()
-            template.line1TextProvider = numberTextProvider
-            template.line2TextProvider = titleTextProvider
-            let entry = CLKComplicationTimelineEntry(date: Date(), complicationTemplate: template)
-            handler(entry)
-        default: break
+            if #available(watchOS 3.0, *) {
+                let template = CLKComplicationTemplateExtraLargeStackText()
+                if useTopRowForTitle {
+                    template.line1TextProvider = titleTextProvider
+                    template.line2TextProvider = numberTextProvider
+                } else {
+                    template.line1TextProvider = numberTextProvider
+                    template.line2TextProvider = titleTextProvider
+                }
+                let entry = CLKComplicationTimelineEntry(date: Date(), complicationTemplate: template)
+                handler(entry)
+            }
+            
+        default:
+            break
         }
     }
     
@@ -189,9 +216,11 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
             template.textProvider = intervalTextProvider
             handler(template)
         case .extraLarge:
-            let template = CLKComplicationTemplateExtraLargeSimpleText()
-            template.textProvider = CLKSimpleTextProvider(text: intervalText)
-            handler(template)
+            if #available(watchOS 3.0, *) {
+                let template = CLKComplicationTemplateExtraLargeSimpleText()
+                template.textProvider = CLKSimpleTextProvider(text: intervalText)
+                handler(template)
+            }
         default: break
         }
     }

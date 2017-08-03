@@ -1,10 +1,31 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="AgC-eL-Hgc">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
+    <device id="watch38" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="10032"/>
+        <deployment identifier="watchOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="12029"/>
     </dependencies>
     <scenes>
+        <!--Edit Date Interface Controller-->
+        <scene sceneID="Q2P-7V-bRG">
+            <objects>
+                <controller id="83v-vD-ajn" customClass="EditDateInterfaceController" customModule="Interval_WatchKit_Extension">
+                    <items>
+                        <table alignment="left" id="Ed5-hk-GLo"/>
+                        <label alignment="center" text="Please use Intrval iPhone app to edit your counter titles, dates, etc." textAlignment="center" numberOfLines="0" id="kCk-PQ-rWU"/>
+                        <button width="1" alignment="left" title="Return" id="Tsc-k1-B08">
+                            <connections>
+                                <action selector="returnToMain" destination="83v-vD-ajn" id="NUl-sD-jSO"/>
+                            </connections>
+                        </button>
+                    </items>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="512" y="347"/>
+        </scene>
         <!--Interface Controller-->
         <scene sceneID="aou-V4-d1y">
             <objects>
@@ -13,17 +34,32 @@
                         <label width="1" alignment="left" text="Intrval Complication Settings" textAlignment="center" numberOfLines="0" id="oyL-sN-EsP">
                             <fontDescription key="font" style="UICTFontTextStyleHeadline"/>
                         </label>
-                        <label alignment="center" text="(edit date on iOS app)" textAlignment="center" numberOfLines="0" id="Tem-Fj-vJp">
-                            <fontDescription key="font" style="UICTFontTextStyleFootnote"/>
-                        </label>
                         <label height="10" alignment="left" id="Fp6-AO-B3S" userLabel="Spacer"/>
-                        <label alignment="left" text="Display Unit" textAlignment="left" id="rii-sX-AMV"/>
+                        <label alignment="left" text="Current Counter:" textAlignment="left" id="dEB-Do-AIu"/>
+                        <picker height="40" alignment="left" focusStyle="sequence" indicatorMode="shownWhileFocused" id="y7H-GA-AZ1">
+                            <connections>
+                                <action selector="didSelectCounterItem:" destination="AgC-eL-Hgc" id="exE-ae-DUa"/>
+                            </connections>
+                        </picker>
+                        <button width="1" alignment="left" title="Edit Date" id="UMp-a5-KTx">
+                            <connections>
+                                <segue destination="83v-vD-ajn" kind="push" id="aLH-JF-JEr"/>
+                            </connections>
+                        </button>
+                        <label height="10" alignment="left" id="Pas-De-ecI" userLabel="Spacer"/>
+                        <label alignment="left" text="Display Unit:" textAlignment="left" id="rii-sX-AMV"/>
                         <picker height="40" alignment="left" focusStyle="sequence" indicatorMode="shownWhileFocused" id="mCP-8R-Uar">
                             <connections>
                                 <action selector="didSelectFirstUnit:" destination="AgC-eL-Hgc" id="q7c-Rb-UZm"/>
                             </connections>
                         </picker>
-                        <label height="10" alignment="left" id="vOi-Pd-Iqa"/>
+                        <label width="1" alignment="left" textAlignment="center" numberOfLines="0" id="VRD-vb-mus">
+                            <fontDescription key="font" type="system" pointSize="12"/>
+                        </label>
+                        <label width="1" alignment="left" text="Smart Auto is recommended. It will adjust the unit automatically over time." textAlignment="center" numberOfLines="0" id="B8L-gc-NoW">
+                            <fontDescription key="font" type="system" pointSize="12"/>
+                        </label>
+                        <label height="10" alignment="left" id="nrf-yj-bhF" userLabel="Spacer"/>
                         <switch width="1" alignment="left" value="YES" title="Show 2 Units" id="VzQ-h4-MSz">
                             <connections>
                                 <action selector="didToggleSecondUnit:" destination="AgC-eL-Hgc" id="x55-BE-BiY"/>
@@ -32,15 +68,26 @@
                         <label width="1" alignment="left" text="(e.g. 2y 5m, shown in larger complications)" textAlignment="center" numberOfLines="0" id="wr4-Ai-5qi">
                             <fontDescription key="font" type="system" pointSize="12"/>
                         </label>
+                        <label height="10" alignment="left" id="eNt-kB-vbW" userLabel="Spacer"/>
+                        <switch width="1" alignment="left" title="Title on top row" id="a8m-9K-69p">
+                            <connections>
+                                <action selector="didToggleTopRowTitle:" destination="AgC-eL-Hgc" id="Je2-E4-N4u"/>
+                            </connections>
+                        </switch>
+                        <label width="1" alignment="left" text="Applies for two line complications" textAlignment="center" numberOfLines="0" id="njZ-U1-cHL">
+                            <fontDescription key="font" type="system" pointSize="12"/>
+                        </label>
+                        <label height="10" alignment="left" id="kbs-z8-yMp" userLabel="Spacer"/>
                         <label alignment="left" text="Troubleshooting:" id="Dp6-hG-WCr"/>
-                        <label alignment="left" numberOfLines="0" id="vaS-Nj-aeQ">
-                            <string key="text">Ensure date and title have been set on companion iOS App. Transfers may take longer with low watch battery. If issues persist, restart your watch.</string>
+                        <label alignment="left" text="Ensure you have created counters on the Intrval iOS App. Transfers may take longer with low watch battery." numberOfLines="0" id="vaS-Nj-aeQ">
                             <fontDescription key="font" style="UICTFontTextStyleFootnote"/>
                         </label>
                     </items>
                     <connections>
+                        <outlet property="counterSelectPicker" destination="y7H-GA-AZ1" id="AjE-M5-gVX"/>
                         <outlet property="firstUnitPicker" destination="mCP-8R-Uar" id="kIH-3B-ljG"/>
                         <outlet property="secondUnitToggle" destination="VzQ-h4-MSz" id="IiN-2n-Npx"/>
+                        <outlet property="topRowTitleToggle" destination="a8m-9K-69p" id="cTP-lJ-fnV"/>
                     </connections>
                 </controller>
             </objects>
@@ -57,7 +104,7 @@
                                     <fontDescription key="font" type="system" pointSize="14"/>
                                 </label>
                                 <label alignment="right" text="time since 01/23/16 08:30am" textAlignment="right" numberOfLines="2" minimumScaleFactor="0.69999999999999996" id="N2p-U7-MUL">
-                                    <color key="textColor" red="0.2239612731" green="1" blue="0.21677931719999999" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="textColor" red="0.2239612731" green="1" blue="0.21677931719999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <fontDescription key="font" type="system" pointSize="11"/>
                                 </label>
                                 <imageView width="2" height="2" alignment="left" hidden="YES" id="ulR-gL-Lq8"/>
@@ -91,7 +138,7 @@
                     </connections>
                 </glanceController>
             </objects>
-            <point key="canvasLocation" x="235" y="672"/>
+            <point key="canvasLocation" x="164" y="867"/>
         </scene>
         <!--Static Notification Interface Controller-->
         <scene sceneID="AEw-b0-oYE">

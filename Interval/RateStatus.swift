@@ -7,14 +7,14 @@
 //
 
 import Foundation
-enum RateAlertStatus: Int {
+public enum RateAlertStatus: Int {
     case unseen = 0
     case acceptedRequest = 1
     case deferredForNextTime = 2
     case rejectedRequest = 3
     case deferredForNow = 4
     
-    init(rawValue: Int) {
+    public init(rawValue: Int) {
         switch rawValue {
         case 0: self = .unseen
         case 1: self = .acceptedRequest

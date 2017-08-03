@@ -10,12 +10,6 @@ import Foundation
 
 public struct Keys {
     public struct UD {
-        public static let referenceDate = "referenceDate"
-        public static let intervalUnit = "intervalUnit"
-        public static let includeTime = "includeTime"
-        public static let title = "title"
-        public static let hasSaved = "hasSaved"
-        public static let openCount = "openCount"
-        public static let rateStatus = "rateStatus"
+        
     }
 }
