@@ -15,7 +15,7 @@ class EditDateViewController: UIViewController {
     @IBOutlet weak var datePicker: UIDatePicker!
     
     @IBAction func saveEdit() {
-        interval.date = datePicker.date
+        interval.date = datePicker.date.withZeroSeconds
         DataManager.main.update(interval: interval)
         navigationController?.popViewController(animated: true)
     }

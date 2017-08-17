@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DE19C4BB1F35367F0096F70C /* RemindersDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE19C4BA1F35367F0096F70C /* RemindersDataManager.swift */; };
+		DE1DFDA71F34F023004D99E3 /* RemindersDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE1DFDA61F34F023004D99E3 /* RemindersDetailTableViewController.swift */; };
+		DE1DFDA91F34F03E004D99E3 /* RemindersEditDateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE1DFDA81F34F03E004D99E3 /* RemindersEditDateViewController.swift */; };
+		DE1DFDAB1F34F362004D99E3 /* ReminderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE1DFDAA1F34F362004D99E3 /* ReminderTableViewCell.swift */; };
+		DE1DFDAE1F34F4F6004D99E3 /* IntrvalDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DE1DFDAC1F34F4F6004D99E3 /* IntrvalDataModel.xcdatamodeld */; };
+		DE1DFDB11F34F57E004D99E3 /* Reminder+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE1DFDAF1F34F57E004D99E3 /* Reminder+CoreDataClass.swift */; };
+		DE1DFDB21F34F57E004D99E3 /* Reminder+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE1DFDB01F34F57E004D99E3 /* Reminder+CoreDataProperties.swift */; };
 		DE2685D01CDE8ED900742BF7 /* ComplicationDataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2685CF1CDE8ED900742BF7 /* ComplicationDataHelper.swift */; };
 		DE2DED021F311C6100058A4A /* IntervalTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2DED011F311C6100058A4A /* IntervalTableViewCell.swift */; };
 		DE2DED041F311DD700058A4A /* IntervalListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2DED031F311DD700058A4A /* IntervalListTableViewController.swift */; };
@@ -18,6 +25,7 @@
 		DE2DED121F3270B700058A4A /* EditDateInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2DED111F3270B700058A4A /* EditDateInterfaceController.swift */; };
 		DE4F8F2C1DC4567000E15F17 /* ClockKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE4F8F2B1DC4567000E15F17 /* ClockKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		DE5126481D527E750010DDC1 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = DE5126471D527E750010DDC1 /* .gitignore */; };
+		DE676D091F423E5F0006CD11 /* Launch.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DE676D081F423E5F0006CD11 /* Launch.storyboard */; };
 		DEC0FA1B1D95B8BA0003C6F8 /* RateStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEC0FA1A1D95B8BA0003C6F8 /* RateStatus.swift */; };
 		DEED85DE1F33C43000D95EB7 /* RemindersChooseTypeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEED85DD1F33C43000D95EB7 /* RemindersChooseTypeTableViewController.swift */; };
 		DEED85E01F33C45100D95EB7 /* RemindersSetPeriodConstantViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEED85DF1F33C45100D95EB7 /* RemindersSetPeriodConstantViewController.swift */; };
@@ -127,6 +135,13 @@
 /* Begin PBXFileReference section */
 		DE002C881CAF24D300FE65CE /* Interval WatchKit Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Interval WatchKit Extension.entitlements"; sourceTree = "<group>"; };
 		DE002C891CAF254100FE65CE /* Interval WatchKit App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Interval WatchKit App.entitlements"; sourceTree = "<group>"; };
+		DE19C4BA1F35367F0096F70C /* RemindersDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemindersDataManager.swift; sourceTree = "<group>"; };
+		DE1DFDA61F34F023004D99E3 /* RemindersDetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemindersDetailTableViewController.swift; sourceTree = "<group>"; };
+		DE1DFDA81F34F03E004D99E3 /* RemindersEditDateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemindersEditDateViewController.swift; sourceTree = "<group>"; };
+		DE1DFDAA1F34F362004D99E3 /* ReminderTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReminderTableViewCell.swift; sourceTree = "<group>"; };
+		DE1DFDAD1F34F4F6004D99E3 /* IntrvalDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = IntrvalDataModel.xcdatamodel; sourceTree = "<group>"; };
+		DE1DFDAF1F34F57E004D99E3 /* Reminder+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Reminder+CoreDataClass.swift"; sourceTree = "<group>"; };
+		DE1DFDB01F34F57E004D99E3 /* Reminder+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Reminder+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		DE23177D1CAF163A007D605C /* Interval.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Interval.entitlements; sourceTree = "<group>"; };
 		DE2685CF1CDE8ED900742BF7 /* ComplicationDataHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComplicationDataHelper.swift; sourceTree = "<group>"; };
 		DE2DED011F311C6100058A4A /* IntervalTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntervalTableViewCell.swift; sourceTree = "<group>"; };
@@ -139,6 +154,7 @@
 		DE2DED111F3270B700058A4A /* EditDateInterfaceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditDateInterfaceController.swift; sourceTree = "<group>"; };
 		DE4F8F2B1DC4567000E15F17 /* ClockKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ClockKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS3.0.sdk/System/Library/Frameworks/ClockKit.framework; sourceTree = DEVELOPER_DIR; };
 		DE5126471D527E750010DDC1 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		DE676D081F423E5F0006CD11 /* Launch.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Launch.storyboard; sourceTree = "<group>"; };
 		DEC0FA1A1D95B8BA0003C6F8 /* RateStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RateStatus.swift; sourceTree = "<group>"; };
 		DEED85DD1F33C43000D95EB7 /* RemindersChooseTypeTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemindersChooseTypeTableViewController.swift; sourceTree = "<group>"; };
 		DEED85DF1F33C45100D95EB7 /* RemindersSetPeriodConstantViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemindersSetPeriodConstantViewController.swift; sourceTree = "<group>"; };
@@ -255,15 +271,21 @@
 		DEF28CF01CADCDDE00D50DC1 /* Interval */ = {
 			isa = PBXGroup;
 			children = (
+				DE1DFDAF1F34F57E004D99E3 /* Reminder+CoreDataClass.swift */,
+				DE1DFDB01F34F57E004D99E3 /* Reminder+CoreDataProperties.swift */,
 				DEF9977D1D1DC61E00DAD02E /* AppDelegate.swift */,
 				DE5126471D527E750010DDC1 /* .gitignore */,
 				DEF997931D1DC75C00DAD02E /* Main.storyboard */,
 				DEF997871D1DC69400DAD02E /* ViewController.swift */,
 				DEF997841D1DC69400DAD02E /* HelpViewController.swift */,
 				DEF997821D1DC69400DAD02E /* DataManager.swift */,
+				DE19C4BA1F35367F0096F70C /* RemindersDataManager.swift */,
 				DEF997811D1DC69400DAD02E /* ComplicationDataHelper.swift */,
 				DEC0FA1A1D95B8BA0003C6F8 /* RateStatus.swift */,
 				DEF997851D1DC69400DAD02E /* Interval.swift */,
+				DE1DFDA61F34F023004D99E3 /* RemindersDetailTableViewController.swift */,
+				DE1DFDA81F34F03E004D99E3 /* RemindersEditDateViewController.swift */,
+				DE1DFDAA1F34F362004D99E3 /* ReminderTableViewCell.swift */,
 				DE2DED091F313BB300058A4A /* EditDateViewController.swift */,
 				DE2DED0B1F313BC600058A4A /* EditTimeViewController.swift */,
 				DE2DED0D1F313C3E00058A4A /* CircleButton.swift */,
@@ -276,8 +298,10 @@
 				DE2DED071F312C8000058A4A /* IntervalDetailTableViewController.swift */,
 				DEF997801D1DC69400DAD02E /* Colors.swift */,
 				DEF997831D1DC69400DAD02E /* Extensions.swift */,
+				DE1DFDAC1F34F4F6004D99E3 /* IntrvalDataModel.xcdatamodeld */,
 				DEF997911D1DC6B100DAD02E /* Assets.xcassets */,
 				DEF9977F1D1DC69400DAD02E /* LaunchScreen.storyboard */,
+				DE676D081F423E5F0006CD11 /* Launch.storyboard */,
 				DEEA5F031CAF651800F1CBA7 /* Supporting Files */,
 			);
 			path = Interval;
@@ -515,6 +539,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DE5126481D527E750010DDC1 /* .gitignore in Resources */,
+				DE676D091F423E5F0006CD11 /* Launch.storyboard in Resources */,
 				DEF997941D1DC75C00DAD02E /* Main.storyboard in Resources */,
 				DEF997881D1DC69400DAD02E /* LaunchScreen.storyboard in Resources */,
 				DEF997921D1DC6B100DAD02E /* Assets.xcassets in Resources */,
@@ -560,20 +585,27 @@
 			buildActionMask = 2147483647;
 			files = (
 				DE2DED0A1F313BB300058A4A /* EditDateViewController.swift in Sources */,
+				DE1DFDAE1F34F4F6004D99E3 /* IntrvalDataModel.xcdatamodeld in Sources */,
 				DEF9978C1D1DC69400DAD02E /* Extensions.swift in Sources */,
 				DEF9978F1D1DC69400DAD02E /* Keys.swift in Sources */,
+				DE1DFDB21F34F57E004D99E3 /* Reminder+CoreDataProperties.swift in Sources */,
 				DEF9978D1D1DC69400DAD02E /* HelpViewController.swift in Sources */,
 				DEED85DE1F33C43000D95EB7 /* RemindersChooseTypeTableViewController.swift in Sources */,
 				DEC0FA1B1D95B8BA0003C6F8 /* RateStatus.swift in Sources */,
 				DEED85E21F33C46600D95EB7 /* RemindersListTableViewController.swift in Sources */,
+				DE19C4BB1F35367F0096F70C /* RemindersDataManager.swift in Sources */,
 				DE2DED041F311DD700058A4A /* IntervalListTableViewController.swift in Sources */,
+				DE1DFDB11F34F57E004D99E3 /* Reminder+CoreDataClass.swift in Sources */,
 				DEF997901D1DC69400DAD02E /* ViewController.swift in Sources */,
 				DEF9977E1D1DC61E00DAD02E /* AppDelegate.swift in Sources */,
 				DE2DED0C1F313BC600058A4A /* EditTimeViewController.swift in Sources */,
 				DEF9978B1D1DC69400DAD02E /* DataManager.swift in Sources */,
 				DE2DED081F312C8000058A4A /* IntervalDetailTableViewController.swift in Sources */,
 				DEED85E01F33C45100D95EB7 /* RemindersSetPeriodConstantViewController.swift in Sources */,
+				DE1DFDA71F34F023004D99E3 /* RemindersDetailTableViewController.swift in Sources */,
+				DE1DFDA91F34F03E004D99E3 /* RemindersEditDateViewController.swift in Sources */,
 				DE2DED0E1F313C3E00058A4A /* CircleButton.swift in Sources */,
+				DE1DFDAB1F34F362004D99E3 /* ReminderTableViewCell.swift in Sources */,
 				DEF997891D1DC69400DAD02E /* Colors.swift in Sources */,
 				DEF9978E1D1DC69400DAD02E /* Interval.swift in Sources */,
 				DE2DED021F311C6100058A4A /* IntervalTableViewCell.swift in Sources */,
@@ -946,6 +978,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		DE1DFDAC1F34F4F6004D99E3 /* IntrvalDataModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				DE1DFDAD1F34F4F6004D99E3 /* IntrvalDataModel.xcdatamodel */,
+			);
+			currentVersion = DE1DFDAD1F34F4F6004D99E3 /* IntrvalDataModel.xcdatamodel */;
+			path = IntrvalDataModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = DEF28CE61CADCDDE00D50DC1 /* Project object */;
 }

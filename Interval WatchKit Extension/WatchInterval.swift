@@ -22,6 +22,16 @@ class WatchInterval {
     var id: Date
     var unit: UInt = NSCalendar.Unit.era.rawValue
     
+    var dateString: String {
+        let df = DateFormatter()
+        df.dateStyle = .short
+        df.timeStyle = .short
+        return df.string(from: date)
+    }
+    var isBeforeNow: Bool {
+        return date < Date()
+    }
+    
     init(date: Date, title: String, id: Date) {
         self.date = date
         self.title = title

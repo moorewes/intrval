@@ -15,7 +15,27 @@ class InterfaceController: WKInterfaceController {
     
     var timer: Timer?
     var intervals: [WatchInterval] = []
-    var currentInterval: WatchInterval?
+    var currentInterval: WatchInterval? {
+        didSet {
+            if let interval = currentInterval {
+                timerLabel.setDate(interval.date)
+                timerLabel.setHidden(false)
+                dateLabel.setText(interval.dateString)
+                dateLabel.setHidden(false)
+                let text = interval.isBeforeNow ? "Since" : "Until"
+                dateDescriptorLabel.setText(text)
+                dateDescriptorLabel.setHidden(false)
+            } else {
+                timerLabel.setHidden(true)
+                dateLabel.setHidden(true)
+                dateDescriptorLabel.setText("")
+                dateDescriptorLabel.setHidden(true)
+            }
+        }
+    }
+    @IBOutlet var timerLabel: WKInterfaceTimer!
+    @IBOutlet var dateLabel: WKInterfaceLabel!
+    @IBOutlet var dateDescriptorLabel: WKInterfaceLabel!
     
     let kSmartAuto = "SMART AUTO"
     let kYear = "YEARS"
@@ -52,6 +72,8 @@ class InterfaceController: WKInterfaceController {
             let noneSelectedItem = WKPickerItem()
             noneSelectedItem.title = "None, open app"
             result.append(noneSelectedItem)
+            currentInterval = nil
+            ComplicationDataHelper.setCurrent(interval: nil)
         }
         return result
     }
@@ -157,6 +179,7 @@ class InterfaceController: WKInterfaceController {
             }
         } else {
             counterSelectPicker.setSelectedItemIndex(0)
+            currentInterval = nil
         }
         
         

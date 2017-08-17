@@ -33,7 +33,7 @@ class EditTimeViewController: UIViewController {
     @IBAction func saveEdit() {
         interval.includeTime = includeTimeSwitch.isOn
         if interval.includeTime {
-            interval.date = timePicker.date
+            interval.date = timePicker.date.withZeroSeconds
         } else {
             interval.date = interval.date.withTime(hour: 0, minute: 0, second: 0)
         }

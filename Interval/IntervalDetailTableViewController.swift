@@ -14,6 +14,9 @@ class IntervalDetailTableViewController: UITableViewController, UITextFieldDeleg
         private init() {}
         static let editDate = "editDate"
         static let editTime = "editTime"
+        static let showAllReminders = "showAllReminders"
+        static let chooseReminderType = "chooseReminderType"
+        static let showReminderDetail = "showReminderDetail"
     }
     
     var interval: Interval!
@@ -24,6 +27,7 @@ class IntervalDetailTableViewController: UITableViewController, UITextFieldDeleg
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
+    @IBOutlet weak var alertCountLabel: UILabel!
     
     // MARK: - Life Cycle
     
@@ -31,6 +35,24 @@ class IntervalDetailTableViewController: UITableViewController, UITextFieldDeleg
         super.viewDidLoad()
         refreshUI()
         title = "Edit Counter"
+        tableView.tableFooterView = UIView()
+        
+//        let navTitleColor = UIColor.white // Themes.current.navTitleColor
+//        let navBarFont = Theme.navigationBarFont
+//        navigationController?.navigationBar.titleTextAttributes = [
+//            NSForegroundColorAttributeName: navTitleColor,
+//            NSFontAttributeName: navBarFont
+//        ]
+        
+        let backItem = UIBarButtonItem()
+        backItem.title = "Back"
+        backItem.setTitleTextAttributes([NSFontAttributeName: Theme.navigationBarFont], for: .normal)
+        navigationItem.backBarButtonItem = backItem
+        
+//        navigationItem.backBarButtonItem = UIBarButtonItem()
+//        navigationItem.backBarButtonItem?.title = "Back"
+//        navigationItem.backBarButtonItem?.setTitleTextAttributes([NSFontAttributeName: Theme.navigationBarFont], for: .normal)
+        //navigationItem.backBarButtonItem?.tintColor = UIColor.white
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -48,6 +70,14 @@ class IntervalDetailTableViewController: UITableViewController, UITextFieldDeleg
             titleTextField.becomeFirstResponder()
         }
         isFullyLoaded = true
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        if titleTextField.isFirstResponder {
+            commitTitleEdits()
+            titleTextField.resignFirstResponder()
+        }
     }
 
     // MARK: - Table view data source
@@ -113,8 +143,8 @@ class IntervalDetailTableViewController: UITableViewController, UITextFieldDeleg
             dateVC.interval = interval
         } else if let timeVC = segue.destination as? EditTimeViewController {
             timeVC.interval = interval
-        } else if let chooseRemindersTypeVC = segue.destination as? RemindersChooseTypeTableViewController {
-            chooseRemindersTypeVC.interval = interval
+        } else if let remindersListVC = segue.destination as? RemindersListTableViewController {
+            remindersListVC.interval = interval
         }
         if titleTextField.isFirstResponder {
             commitTitleEdits()
@@ -126,7 +156,6 @@ class IntervalDetailTableViewController: UITableViewController, UITextFieldDeleg
     // MARK: - UITextFieldDelegate
     
     
-    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         commitTitleEdits()
         textField.resignFirstResponder()
@@ -135,7 +164,6 @@ class IntervalDetailTableViewController: UITableViewController, UITextFieldDeleg
     
     func commitTitleEdits() {
         interval.description = titleTextField.text!
-        title = interval.description
         saveInterval()
     }
     
@@ -145,6 +173,12 @@ class IntervalDetailTableViewController: UITableViewController, UITextFieldDeleg
         titleTextField.text = interval.description
         dateLabel.text = interval.dateString
         timeLabel.text = interval.includeTime ? interval.timeString : "Not Set"
+        let remindersCount = RemindersDataManager.main.reminders(forIntervalCreationDate: interval.creationDate).count
+        if remindersCount > 0 {
+            alertCountLabel.text = "\(remindersCount)"
+        } else {
+            alertCountLabel.text = "None"
+        }
     }
     
     func saveInterval() {

@@ -39,9 +39,9 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
     func getCurrentTimelineEntry(for complication: CLKComplication, withHandler handler: (@escaping (CLKComplicationTimelineEntry?) -> Void)) {
         
         // Ensure data exists & retrieve data
-        // print("getting current entry")
+        print("getting current entry")
         guard let interval = ComplicationDataHelper.currentInterval() else {
-            // print("no values in userDefaults")
+            print("no values in userDefaults")
             func returnWithTemplate(_ template: CLKComplicationTemplate) {
                 let entry = CLKComplicationTimelineEntry(date: Date(), complicationTemplate: template)
                 handler(entry)
@@ -176,7 +176,7 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
     
     func getNextRequestedUpdateDate(handler: @escaping (Date?) -> Void) {
         // Call the handler with the date when you would next like to be given the opportunity to update your complication content
-        let date = Date(timeIntervalSinceNow: 60*60)
+        let date = Date(timeIntervalSinceNow: 2*60*60)
         handler(date);
     }
     
@@ -241,7 +241,7 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
             return .day
         }
         let hourInterval = intervalForUnit(.hour, fromDate: date)
-        guard hourInterval < 1 else {
+        guard hourInterval < 2 else {
             return .hour
         }
         let secondInterval = intervalForUnit(.second, fromDate: date)

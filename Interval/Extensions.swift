@@ -56,7 +56,31 @@ extension Date {
         let now = Date()
         let hour = NSCalendar.current.component(.hour, from: now)
         let minute = NSCalendar.current.component(.minute, from: now)
-        return self.withTime(hour: hour, minute: minute)
+        return self.withTime(hour: hour, minute: minute, second: 0)
+    }
+    
+    /// String value of month/day/year of self formatted with no leading zeroes and two digit year, i.e. "8/9/10"
+    var shortString: String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .short
+        return dateFormatter.string(from: self)
+    }
+    
+    var dateString: String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .medium
+        return dateFormatter.string(from: self)
+    }
+    
+    var timeString: String {
+        let dF = DateFormatter()
+        dF.timeStyle = .short
+        return dF.string(from: self)
+    }
+    var withZeroSeconds: Date {
+        let calender = Calendar.current
+        let dateComponents = calender.dateComponents([.year, .month, .day, .hour, .minute], from: self)
+        return calender.date(from: dateComponents)!
     }
 }
 extension Bundle {
@@ -106,6 +130,25 @@ extension UIDevice {
         case "i386", "x86_64":                          return "Simulator"
         default:                                        return identifier
         }
+    }
+}
+extension NSCalendar.Unit {
+    func asString(plural: Bool = true) -> String {
+        var answer: String
+        switch self {
+        case NSCalendar.Unit.day: answer = "Day"
+        case NSCalendar.Unit.weekOfYear: answer = "Week"
+        case NSCalendar.Unit.month: answer = "Month"
+        case NSCalendar.Unit.year: answer = "Year"
+        case NSCalendar.Unit.minute: answer = "Minute"
+        case NSCalendar.Unit.hour: answer = "Hour"
+        case NSCalendar.Unit.second: answer = "Second"
+        default: answer = "Day"
+        }
+        if plural {
+            answer += "s"
+        }
+        return answer
     }
 }
 extension Calendar.Component {

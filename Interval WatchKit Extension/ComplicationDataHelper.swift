@@ -111,8 +111,12 @@ internal class ComplicationDataHelper {
     
     // MARK: - Convenience (Storing/Updating)
     
-    internal class func setCurrent(interval: WatchInterval) {
-        let object = interval.asStorageDict()
+    internal class func setCurrent(interval: WatchInterval?) {
+        guard let int = interval else {
+            defaults.set(nil, forKey: UDKey.currentInterval)
+            return
+        }
+        let object = int.asStorageDict()
         defaults.set(object, forKey: UDKey.currentInterval)
     }
     
@@ -175,8 +179,12 @@ internal class ComplicationDataHelper {
         for interval in intervals {
             if interval.id == current.id {
                 setCurrent(interval: interval)
+                return
             }
         }
+        
+        // Will only get here if current interval was deleted on this update
+        setCurrent(interval: intervals.first)
     }
     
     

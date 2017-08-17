@@ -9,87 +9,109 @@
 import UIKit
 
 class RemindersListTableViewController: UITableViewController {
+    
+    struct SegueID {
+        static let editReminder = "editReminder"
+        static let newReminder = "newReminder"
+    }
+    
+    var interval: Interval!
+    var reminders: [Reminder] = []
+    var selectedReminder: Reminder?
+    var shouldSaveOnReturn = false
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        refreshData()
+        
+        let backItem = UIBarButtonItem()
+        backItem.title = "Back"
+        backItem.setTitleTextAttributes([NSFontAttributeName: Theme.navigationBarFont], for: .normal)
+        navigationItem.backBarButtonItem = backItem
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        
+        editButtonItem.setTitleTextAttributes([NSFontAttributeName: Theme.navigationBarFont], for: .normal)
+        editButtonItem.tintColor = UIColor.white
+        navigationItem.rightBarButtonItem = editButtonItem
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if shouldSaveOnReturn {
+            refreshData()
+            RemindersDataManager.main.save()
+            shouldSaveOnReturn = false
+        }
+        
     }
 
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
+        return reminders.count
     }
 
-    /*
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
+        let cell = tableView.dequeueReusableCell(withIdentifier: "reminderCell", for: indexPath) as! ReminderTableViewCell
+        let reminder = reminders[indexPath.row]
+        cell.dateLabel.text = reminder.fireDate.dateString + " at " + reminder.fireDate.timeString
+        print("Fires: \(reminder.fireDate.localeDescription), counter date: \(reminder.interval!.date.localeDescription)")
+        cell.intervalLabel.text = "Fires " + reminder.interval!.smartIntervalString(forDate: reminder.fireDate)
 
         return cell
     }
-    */
+ 
 
-    /*
-    // Override to support conditional editing of the table view.
+    
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
         return true
     }
-    */
+ 
 
-    /*
-    // Override to support editing the table view.
+    
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+            let reminder = reminders[indexPath.row]
+            RemindersDataManager.main.remove(reminder: reminder)
+            refreshData()
+        }
     }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        selectedReminder = reminders[indexPath.row]
+        performSegue(withIdentifier: SegueID.editReminder, sender: nil)
     }
-    */
 
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
+    
     // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        if let reminder = selectedReminder,
+            let vc = segue.destination as? RemindersEditDateViewController {
+            vc.reminder = reminder
+            selectedReminder = nil
+            shouldSaveOnReturn = true
+        }
+        if let id = segue.identifier,
+            id == SegueID.newReminder,
+            let vc = segue.destination as? RemindersEditDateViewController {
+            vc.reminder = RemindersDataManager.main.newReminder(for: interval)
+            shouldSaveOnReturn = true
+        }
     }
-    */
+ 
+    // MARK: - Convenience
+    
+    func refreshData() {
+        reminders = RemindersDataManager.main.reminders(forIntervalCreationDate: interval.creationDate)
+        tableView.reloadData()
+    }
 
 }

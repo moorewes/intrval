@@ -41,6 +41,14 @@
                                 <action selector="didSelectCounterItem:" destination="AgC-eL-Hgc" id="exE-ae-DUa"/>
                             </connections>
                         </picker>
+                        <timer alignment="center" textAlignment="center" numberOfLines="0" enabled="YES" format="abbreviated" previewedSeconds="553599" id="GMl-Ug-zGQ">
+                            <calendarUnit key="units" year="YES" month="YES" day="YES" hour="YES" minute="YES" second="YES" weekOfMonth="YES"/>
+                        </timer>
+                        <label alignment="center" text="Until" textAlignment="center" id="QKA-DL-GQq">
+                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <fontDescription key="font" style="UICTFontTextStyleFootnote"/>
+                        </label>
+                        <label alignment="center" text="12/07/2000 12:12PM" textAlignment="center" numberOfLines="0" id="WZj-w4-MRl"/>
                         <button width="1" alignment="left" title="Edit Date" id="UMp-a5-KTx">
                             <connections>
                                 <segue destination="83v-vD-ajn" kind="push" id="aLH-JF-JEr"/>
@@ -85,8 +93,11 @@
                     </items>
                     <connections>
                         <outlet property="counterSelectPicker" destination="y7H-GA-AZ1" id="AjE-M5-gVX"/>
+                        <outlet property="dateDescriptorLabel" destination="QKA-DL-GQq" id="Rxh-eh-qFP"/>
+                        <outlet property="dateLabel" destination="WZj-w4-MRl" id="A5v-9g-KAh"/>
                         <outlet property="firstUnitPicker" destination="mCP-8R-Uar" id="kIH-3B-ljG"/>
                         <outlet property="secondUnitToggle" destination="VzQ-h4-MSz" id="IiN-2n-Npx"/>
+                        <outlet property="timerLabel" destination="GMl-Ug-zGQ" id="O56-Su-3vq"/>
                         <outlet property="topRowTitleToggle" destination="a8m-9K-69p" id="cTP-lJ-fnV"/>
                     </connections>
                 </controller>
@@ -117,7 +128,7 @@
                         </group>
                         <group alignment="left" id="3fA-57-odf">
                             <items>
-                                <timer width="1" alignment="center" verticalAlignment="center" textAlignment="right" numberOfLines="0" minimumScaleFactor="0.29999999999999999" enabled="YES" format="short" previewedSeconds="3590000007" id="iRz-p0-ghh">
+                                <timer width="1" alignment="center" verticalAlignment="center" textAlignment="right" numberOfLines="0" minimumScaleFactor="0.29999999999999999" enabled="YES" format="short" previewedSeconds="590000007" id="iRz-p0-ghh">
                                     <fontDescription key="font" type="system" pointSize="16"/>
                                     <calendarUnit key="units" year="YES" month="YES" day="YES" hour="YES" minute="YES" second="YES" weekOfMonth="YES"/>
                                 </timer>

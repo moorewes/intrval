@@ -21,7 +21,7 @@ class RemindersChooseTypeTableViewController: UITableViewController {
         static let completion = "Completion"
     }
     
-    var interval: Interval!
+    var reminder: Reminder!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,7 +58,7 @@ class RemindersChooseTypeTableViewController: UITableViewController {
             case SegueID.minutes: setConstantVC.unit = .minute
             default: break
             }
-            setConstantVC.interval = interval
+            setConstantVC.reminder = reminder
         }
         
     }

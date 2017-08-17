@@ -15,10 +15,27 @@ class RemindersSetPeriodConstantViewController: UIViewController, UITextFieldDel
     @IBOutlet weak var fireDateLabel: UILabel!
     
     var unit: Calendar.Component!
-    var interval: Interval!
+    var interval: Interval { return reminder.interval! }
+    var reminder: Reminder!
+    var fireDate: Date?
 
     @IBAction func editedConstant() {
         updateUI()
+    }
+    @IBAction func saveEdit() {
+        guard let date = fireDate else {
+            return
+        }
+        reminder.fireDate = date
+        let vcs = navigationController!.viewControllers
+        for vc in vcs {
+            if vc.superclass == RemindersListTableViewController.self {
+                navigationController?.popToViewController(vc, animated: true)
+            }
+        }
+        
+        
+        
     }
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,7 +74,7 @@ class RemindersSetPeriodConstantViewController: UIViewController, UITextFieldDel
     // MARK: - Convenience
     
     func updateUI() {
-        
+        fireDate = nil
         if let constant = Int(constantTextField.text!) {
             var newConstant = constant
             var newUnit = unit!
@@ -66,6 +83,7 @@ class RemindersSetPeriodConstantViewController: UIViewController, UITextFieldDel
                 newUnit = .day
             }
             if let fireDate = interval.dateForInterval(unit: newUnit, constant: newConstant) {
+                self.fireDate = fireDate
                 let df = DateFormatter()
                 df.dateStyle = .medium
                 df.timeStyle = .none

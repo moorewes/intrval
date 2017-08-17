@@ -28,12 +28,16 @@ open class Interval {
     open func isCountingDown() -> Bool {
         return measureIntervalToInt() < 0
     }
-    open func measureIntervalToInt(_ toDate: Date? = nil) -> Int {
+    open func measureIntervalToInt(toDate: Date? = nil, unit: NSCalendar.Unit? = nil) -> Int {
         var tDate = Date()
+        var iUnit = self.unit
         if let tD = toDate {
             tDate = tD
         }
-        let component = Calendar.Component.init(unit: unit)
+        if let u = unit {
+            iUnit = u
+        }
+        let component = Calendar.Component.init(unit: iUnit)
         let interval = Calendar.current.dateComponents([component], from: date, to: tDate)
         let answer = interval.value(for: component)
         return answer!
@@ -67,6 +71,14 @@ open class Interval {
         df.dateStyle = .none
         df.timeStyle = .short
         return df.string(from: date)
+    }
+    
+    open var dateWithTimeString: String {
+        return dateString + " " + timeString
+    }
+    
+    open var hasAlerts: Bool {
+        return !RemindersDataManager.main.reminders(forIntervalCreationDate: creationDate).isEmpty
     }
     
     open var unitString: String {
@@ -111,7 +123,9 @@ open class Interval {
         unit = smartAutoUnit()
         let int = measureIntervalToInt()
         var result = measureIntervalToString() + " " + unitStringLowercase
-        if int < 0 {
+        if int == -1 {
+            result += " Remains"
+        } else if int < 0 {
             result += " Remain"
         } else if int == 1 {
             result += " Has Passed"
@@ -120,25 +134,40 @@ open class Interval {
         }
         return result
     }
+    open func smartIntervalString(forDate: Date, pastPreposition: String = "Before", futurePreposition: String = "After") -> String {
+        if forDate == self.date { return "on completion" }
+        let unit = smartAutoUnit(forDate: forDate)
+        let component = Calendar.Component.init(unit: unit)
+        let interval = Calendar.current.dateComponents([component], from: self.date, to: forDate)
+        let int = interval.value(for: component)!
+        var result = "\(abs(int)) " + unit.asString(plural: abs(int) != 1)
+        if int < 0 {
+            result += " " + pastPreposition + " "
+        } else {
+            result += " " + futurePreposition + " "
+        }
+        result += description
+        return result
+    }
     
-    func smartAutoUnit() -> NSCalendar.Unit {
-        let yearInterval = intervalForUnit(.year, fromDate: date)
+    func smartAutoUnit(forDate toDate: Date = Date()) -> NSCalendar.Unit {
+        let yearInterval = intervalForUnit(.year, fromDate: date, toDate: toDate)
         guard yearInterval < 1 else {
             return .year
         }
-        let monthInterval = intervalForUnit(.month, fromDate: date)
+        let monthInterval = intervalForUnit(.month, fromDate: date, toDate: toDate)
         guard monthInterval < 1 else {
             return .month
         }
-        let dayInterval = intervalForUnit(.day, fromDate: date)
+        let dayInterval = intervalForUnit(.day, fromDate: date, toDate: toDate)
         guard dayInterval < 1 else {
             return .day
         }
-        let hourInterval = intervalForUnit(.hour, fromDate: date)
+        let hourInterval = intervalForUnit(.hour, fromDate: date, toDate: toDate)
         guard hourInterval < 1 else {
             return .hour
         }
-        let secondInterval = intervalForUnit(.second, fromDate: date)
+        let secondInterval = intervalForUnit(.second, fromDate: date, toDate: toDate)
         guard secondInterval < 60 else {
             return .minute
         }
@@ -155,9 +184,9 @@ open class Interval {
         return newDate
     }
     
-    func intervalForUnit(_ unit: NSCalendar.Unit, fromDate date: Date) -> Int {
+    func intervalForUnit(_ unit: NSCalendar.Unit, fromDate date: Date, toDate: Date = Date()) -> Int {
         let component = Calendar.Component.init(unit: unit)
-        let components = Calendar.current.dateComponents([component], from: date, to: Date())
+        let components = Calendar.current.dateComponents([component], from: date, to: toDate)
         let count = components.value(for: component)!
         return abs(count)
     }

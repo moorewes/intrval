@@ -19,6 +19,9 @@ class IntervalTableViewCell: UITableViewCell {
     @IBOutlet weak var timeIntervalLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
+    @IBOutlet weak var dateLabelUpperConstraint: NSLayoutConstraint!
+    @IBOutlet weak var dateLabelCenterConstraint: NSLayoutConstraint!
+    @IBOutlet weak var alertImageView: UIImageView!
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -37,7 +40,13 @@ class IntervalTableViewCell: UITableViewCell {
         dateLabel.text = df.string(from: interval.date)
         df.dateStyle = .none
         df.timeStyle = .short
-        timeLabel.text = df.string(from: interval.date)
+        if interval.includeTime {
+            timeLabel.text = df.string(from: interval.date)
+        } else {
+            timeLabel.text = ""
+        }
+        alertImageView.isHidden = !interval.hasAlerts
+        setDateLabelPosition()
         refreshIntervalLabel()
         timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(refreshIntervalLabel), userInfo: nil, repeats: true)
     }
@@ -50,6 +59,12 @@ class IntervalTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+    }
+    
+    func setDateLabelPosition() {
+        dateLabelUpperConstraint.isActive = interval.includeTime
+        dateLabelCenterConstraint.isActive = !interval.includeTime
+        layoutIfNeeded()
     }
 
 }

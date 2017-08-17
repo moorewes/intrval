@@ -34,11 +34,11 @@ open class DataManager: NSObject, WCSessionDelegate {
             session = WCSession.default()
             session?.delegate = self
             session?.activate()
-            print("session watch state(paired): ", session!.isPaired)
-            print("session watch state(appInstalled): ", session!.isWatchAppInstalled)
-            print("session watch state(complicationEnabled): ", session!.isComplicationEnabled)
-            print("WCSession activated iOS")
-            print("outstanding transfer count: \(WCSession.default().outstandingFileTransfers.count)")
+//            print("session watch state(paired): ", session!.isPaired)
+//            print("session watch state(appInstalled): ", session!.isWatchAppInstalled)
+//            print("session watch state(complicationEnabled): ", session!.isComplicationEnabled)
+//            print("WCSession activated iOS")
+//            print("outstanding transfer count: \(WCSession.default().outstandingFileTransfers.count)")
         }
     }
     
@@ -75,6 +75,15 @@ open class DataManager: NSObject, WCSessionDelegate {
         defaults.removeObject(forKey: Keys.includeTime)
         defaults.removeObject(forKey: Keys.title)
         print("successfully transfered legacy data")
+    }
+    
+    open func clearAccidentIntervals() {
+        let intervals = allIntervals()
+        for interval in intervals {
+            if interval.creationDate.timeIntervalSinceNow > -5 && interval.description == "" {
+                remove(interval: interval, from: intervals)
+            }
+        }
     }
     
     open func allIntervals() -> [Interval] {
@@ -121,9 +130,9 @@ open class DataManager: NSObject, WCSessionDelegate {
         }
     }
     
-    open func remove(interval: Interval) {
-        let intervals = allIntervals()
-        for (index, item) in intervals.enumerated() {
+    open func remove(interval: Interval, from intervals: [Interval]? = nil) {
+        let allntervals = intervals ?? allIntervals()
+        for (index, item) in allntervals.enumerated() {
             if item.creationDate == interval.creationDate {
                 var data = dataObject()
                 data.remove(at: index)
@@ -132,6 +141,15 @@ open class DataManager: NSObject, WCSessionDelegate {
                 transferDataToWatch()
             }
         }
+    }
+    
+    open func interval(withCreationDate creationDate: Date) -> Interval? {
+        for interval in allIntervals() {
+            if interval.creationDate == creationDate {
+                return interval
+            }
+        }
+        return nil
     }
     
     // MARK: - Rating Status Methods
@@ -161,34 +179,12 @@ open class DataManager: NSObject, WCSessionDelegate {
         return defaults.bool(forKey: Keys.hasSaved)
     }
     
-    // MARK: - Legacy To Remove
-//    open class func retrieveUserData() -> Interval? {
-//        
-//        guard let date = defaults.value(forKey: Keys.referenceDate) as? Date,
-//            let unitRaw = defaults.value(forKey: Keys.intervalUnit) as? UInt,
-//            let includeTime = defaults.value(forKey: Keys.includeTime) as? Bool,
-//            let description = defaults.value(forKey: Keys.title) as? String else {
-//                //assertionFailure("couldnt retrieve data")
-//                return nil
-//        }
-//        let unit = NSCalendar.Unit(rawValue: unitRaw)
-//        let interval = Interval(date: date, unit: unit, includeTime: includeTime, description: description, creationDate: Date())
-//        return interval
-//    }
-//    open class func saveUserData(_ interval: Interval) {
-//        defaults.setValue(interval.date, forKey: Keys.referenceDate)
-//        defaults.setValue(interval.unit.rawValue, forKey: Keys.intervalUnit)
-//        defaults.setValue(interval.includeTime, forKey: Keys.includeTime)
-//        defaults.setValue(interval.description, forKey: Keys.title)
-//        defaults.set(true, forKey: Keys.hasSaved)
-//        //print("saved")
-//    }
-    
     // MARK: WCSession Delegate
     
     @available(iOS 9.3, *)
     /** Called when the session has completed activation. If session state is WCSessionActivationStateNotActivated there will be an error with more details. */
     public func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
+        print("session activated")
         if let e = error {
             print(e.localizedDescription)
         }

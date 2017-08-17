@@ -10,8 +10,6 @@ import UIKit
 import MessageUI
 
 class HelpViewController: UIViewController, MFMailComposeViewControllerDelegate {
-    @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var returnButton: UIButton!
     @IBOutlet weak var help1: UILabel!
     @IBOutlet weak var help2: UILabel!
     @IBOutlet weak var help3: UILabel!
@@ -49,26 +47,35 @@ class HelpViewController: UIViewController, MFMailComposeViewControllerDelegate 
             self.present(alert, animated: true, completion: nil)
         }
     }
-    func updateUI() {
-        let bColor = Colors.sharedInstance.bColor
-        let tColor = Colors.sharedInstance.tColor
-        view.backgroundColor = bColor
-        titleLabel.textColor = tColor
-        help1.textColor = tColor
-        help2.textColor = tColor
-        help3.textColor = tColor
-        help4.textColor = tColor
-        help5.textColor = tColor
-        help6.textColor = tColor
-        versionLabel.textColor = tColor
-        versionLabel.text = "Version 1.2.0 (14)"
-        rateButton.setTitleColor(tColor, for: UIControlState())
-        supportButton.setTitleColor(tColor, for: UIControlState())
-        returnButton.setTitleColor(tColor, for: UIControlState())
-    }
+//    func updateUI() {
+//        let bColor = Colors.sharedInstance.bColor
+//        let tColor = Colors.sharedInstance.tColor
+//        view.backgroundColor = bColor
+//        help1.textColor = tColor
+//        help2.textColor = tColor
+//        help3.textColor = tColor
+//        help4.textColor = tColor
+//        help5.textColor = tColor
+//        help6.textColor = tColor
+//        versionLabel.textColor = tColor
+//        versionLabel.text = "Version 1.2.0 (14)"
+//        rateButton.setTitleColor(tColor, for: UIControlState())
+//        supportButton.setTitleColor(tColor, for: UIControlState())
+//    }
     override func viewDidLoad() {
         super.viewDidLoad()
-        updateUI()
+        
+        navigationItem.backBarButtonItem?.setTitleTextAttributes([NSFontAttributeName: Theme.navigationBarFont], for: .normal)
+        navigationItem.backBarButtonItem?.tintColor = UIColor.white
+        
+        if let version = Bundle.main.releaseVersionNumber, let build = Bundle.main.buildVersionNumber {
+            versionLabel.text = "Designed By Wes Moore\nVersion \(version) (\(build))"
+        } else {
+            versionLabel.text = ""
+        }
+        
+        
+        //updateUI()
     }
     override func viewDidAppear(_ animated: Bool) {
         if view.bounds.height < 500 {

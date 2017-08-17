@@ -31,7 +31,7 @@ class CircleButton: UIButton {
     }
     
     override func layoutSubviews() {
-        layer.cornerRadius = bounds.height/2
+        layer.cornerRadius = 5// bounds.height/2
         super.layoutSubviews()
         
     }
