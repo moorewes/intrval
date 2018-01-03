@@ -47,6 +47,12 @@
       "idiom" : "iphone",
       "filename" : "Interval_Icon_07_180.png",
       "scale" : "3x"
+    },
+    {
+      "size" : "1024x1024",
+      "idiom" : "ios-marketing",
+      "filename" : "Interval_Icon_07_1024.png",
+      "scale" : "1x"
     }
   ],
   "info" : {

@@ -20,10 +20,13 @@ class IntervalDetailTableViewController: UITableViewController, UITextFieldDeleg
     }
     
     var interval: Interval!
+    var unit: NSCalendar.Unit = .day
     var index: Int!
     
     var isFullyLoaded = false
 
+    @IBOutlet weak var intervalLabel: UILabel!
+    @IBOutlet weak var unitLabel: UILabel!
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
@@ -64,11 +67,15 @@ class IntervalDetailTableViewController: UITableViewController, UITextFieldDeleg
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         if isFullyLoaded {
+            unit = .day
+            
             refreshUI()
         }
         if interval.description.isEmpty {
             titleTextField.becomeFirstResponder()
         }
+        
+        let timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateInterval), userInfo: nil, repeats: true)
         isFullyLoaded = true
     }
     
@@ -90,6 +97,12 @@ class IntervalDetailTableViewController: UITableViewController, UITextFieldDeleg
         return 4
     }
 
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard indexPath.row == 0 else { return }
+        cycleUnit()
+        refreshUI()
+    }
+    
     /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
@@ -170,6 +183,9 @@ class IntervalDetailTableViewController: UITableViewController, UITextFieldDeleg
     // MARK: - Convenience
     
     func refreshUI() {
+        unitLabel.text = unitString()
+        updateInterval()
+        
         titleTextField.text = interval.description
         dateLabel.text = interval.dateString
         timeLabel.text = interval.includeTime ? interval.timeString : "Not Set"
@@ -179,6 +195,40 @@ class IntervalDetailTableViewController: UITableViewController, UITextFieldDeleg
         } else {
             alertCountLabel.text = "None"
         }
+    }
+    func unitString() -> String {
+        var answer: String
+        switch unit {
+        case NSCalendar.Unit.day: answer = "Day"
+        case NSCalendar.Unit.weekOfYear: answer = "Week"
+        case NSCalendar.Unit.month: answer = "Month"
+        case NSCalendar.Unit.year: answer = "Year"
+        case NSCalendar.Unit.minute: answer = "Minute"
+        case NSCalendar.Unit.hour: answer = "Hour"
+        case NSCalendar.Unit.second: answer = "Second"
+        default: answer = "Day"
+        }
+        let interval = abs(self.interval.measureIntervalToInt(unit: unit))
+        if interval != 1 {
+            answer += "s"
+        }
+        return answer
+    }
+    func cycleUnit() {
+        switch unit {
+        case NSCalendar.Unit.day: unit = .weekOfYear
+        case NSCalendar.Unit.weekOfYear: unit = .month
+        case NSCalendar.Unit.month: unit = .year
+        case NSCalendar.Unit.year: unit = .second
+        case NSCalendar.Unit.second: unit = .minute
+        case NSCalendar.Unit.minute: unit = .hour
+        case NSCalendar.Unit.hour: unit = .day
+        default: unit = .day
+        }
+    }
+    
+    func updateInterval() {
+        intervalLabel.text = "\(abs(interval.measureIntervalToInt(unit: unit)))"
     }
     
     func saveInterval() {

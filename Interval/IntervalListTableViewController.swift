@@ -31,7 +31,6 @@ class IntervalListTableViewController: UITableViewController {
         super.viewDidLoad()
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
-        
         navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName: Theme.navigationBarFont, NSForegroundColorAttributeName: UIColor.white]
         
         editButtonItem.setTitleTextAttributes([NSFontAttributeName: Theme.navigationBarFont], for: .normal)
