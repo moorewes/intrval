@@ -48,7 +48,7 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionDelegate {
         print("super init complete")
         ComplicationDataHelper.initializeDefaultsIfNeeded()
         if WCSession.isSupported() {
-            session = WCSession.default()
+            session = WCSession.default
             session.delegate = self
             session.activate()
         }

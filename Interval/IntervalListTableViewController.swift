@@ -10,7 +10,8 @@ import UIKit
 
 struct Theme {
     static let navigationBarFont = UIFont(name: "Futura-CondensedMedium", size: 22) ?? UIFont.systemFont(ofSize: 18)
-    static let intrvalGreen = UIColor(colorLiteralRed: 36/255, green: 138/255, blue: 174/255, alpha: 1)
+    //static let intrvalGreen = UIColor(colorLiteralRed: 36/255, green: 138/255, blue: 174/255, alpha: 1)
+    static let intrvalGreen = UIColor(red: 36/255, green: 138/255, blue: 174/255, alpha: 1)
 }
 
 class IntervalListTableViewController: UITableViewController {
@@ -31,18 +32,18 @@ class IntervalListTableViewController: UITableViewController {
         super.viewDidLoad()
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
-        navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName: Theme.navigationBarFont, NSForegroundColorAttributeName: UIColor.white]
+        navigationController?.navigationBar.titleTextAttributes = convertToOptionalNSAttributedStringKeyDictionary([NSAttributedString.Key.font.rawValue: Theme.navigationBarFont, NSAttributedString.Key.foregroundColor.rawValue: UIColor.white])
         
-        editButtonItem.setTitleTextAttributes([NSFontAttributeName: Theme.navigationBarFont], for: .normal)
+        editButtonItem.setTitleTextAttributes(convertToOptionalNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.font): Theme.navigationBarFont]), for: .normal)
         editButtonItem.tintColor = UIColor.white
         navigationItem.rightBarButtonItem = editButtonItem
         
-        helpBarButtonItem.setTitleTextAttributes([NSFontAttributeName: Theme.navigationBarFont], for: .normal)
+        helpBarButtonItem.setTitleTextAttributes(convertToOptionalNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.font): Theme.navigationBarFont]), for: .normal)
         helpBarButtonItem.tintColor = UIColor.white
         
         let backItem = UIBarButtonItem()
         backItem.title = "Back"
-        backItem.setTitleTextAttributes([NSFontAttributeName: Theme.navigationBarFont], for: .normal)
+        backItem.setTitleTextAttributes(convertToOptionalNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.font): Theme.navigationBarFont]), for: .normal)
         navigationItem.backBarButtonItem = backItem
         
         navigationController?.navigationBar.barTintColor = Theme.intrvalGreen
@@ -96,7 +97,7 @@ class IntervalListTableViewController: UITableViewController {
 
     
     // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             let cell = tableView.cellForRow(at: indexPath) as! IntervalTableViewCell
             let interval = cell.interval!
@@ -134,26 +135,28 @@ class IntervalListTableViewController: UITableViewController {
     }
     
     func showRateRequestIfNecessary() {
-        let count = DataManager.main.openCount()
-        if count > 5 {
-            let rateStatus = DataManager.main.rateStatus()
-
-            switch rateStatus {
-            case .unseen:
-                present(rateAlert1, animated: true, completion: nil)
-            case .deferredForNextTime:
-                DataManager.main.update(rateStatus: .deferredForNow)
-            case .deferredForNow:
-                present(rateAlert2, animated: true, completion: nil)
-            default:
-                break
-            }
-        }
+//        let count = DataManager.main.openCount()
+//        if count > 5 {
+//            let rateStatus = DataManager.main.rateStatus()
+//
+//            switch rateStatus {
+//            case .unseen:
+//                present(rateAlert1, animated: true, completion: nil)
+//            case .deferredForNextTime:
+//                DataManager.main.update(rateStatus: .deferredForNow)
+//            case .deferredForNow:
+//                present(rateAlert2, animated: true, completion: nil)
+//            default:
+//                break
+//            }
+//        }
     }
     
     func rateApp() {
         if let url = URL(string: "itms-apps://itunes.apple.com/us/app/app-name/id1111883763") {
-            UIApplication.shared.openURL(url)
+            UIApplication.shared.open(url, options: [:]) { (fail) in
+                return
+            }
         }
     }
     
@@ -161,11 +164,11 @@ class IntervalListTableViewController: UITableViewController {
         let title = "Be Heard"
         let message = "Please leave us a review on the App Store. You rock!"
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let actionYes = UIAlertAction(title: "Yes, I do rock 🤘", style: UIAlertActionStyle.default) { _ in
+        let actionYes = UIAlertAction(title: "Yes, I do rock 🤘", style: UIAlertAction.Style.default) { _ in
             DataManager.main.update(rateStatus: .acceptedRequest)
             self.rateApp()
         }
-        let actionLater = UIAlertAction(title: "Later", style: UIAlertActionStyle.default) { _ in
+        let actionLater = UIAlertAction(title: "Later", style: UIAlertAction.Style.default) { _ in
             DataManager.main.update(rateStatus: .deferredForNextTime)
         }
         let actionNo = UIAlertAction(title: "No", style: .default) { _ in
@@ -180,11 +183,11 @@ class IntervalListTableViewController: UITableViewController {
         let title = "Be Heard"
         let message = "Leave us a quick review on the App Store?"
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let actionYes = UIAlertAction(title: "Yes", style: UIAlertActionStyle.default) { _ in
+        let actionYes = UIAlertAction(title: "Yes", style: UIAlertAction.Style.default) { _ in
             DataManager.main.update(rateStatus: .acceptedRequest)
             self.rateApp()
         }
-        let actionLater = UIAlertAction(title: "Later", style: UIAlertActionStyle.default) { _ in
+        let actionLater = UIAlertAction(title: "Later", style: UIAlertAction.Style.default) { _ in
             DataManager.main.update(rateStatus: .deferredForNextTime)
         }
         let actionNo = UIAlertAction(title: "No", style: .default) { _ in
@@ -198,4 +201,15 @@ class IntervalListTableViewController: UITableViewController {
     
     
 
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToOptionalNSAttributedStringKeyDictionary(_ input: [String: Any]?) -> [NSAttributedString.Key: Any]? {
+	guard let input = input else { return nil }
+	return Dictionary(uniqueKeysWithValues: input.map { key, value in (NSAttributedString.Key(rawValue: key), value)})
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromNSAttributedStringKey(_ input: NSAttributedString.Key) -> String {
+	return input.rawValue
 }

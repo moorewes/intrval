@@ -25,7 +25,7 @@ class HelpViewController: UIViewController, MFMailComposeViewControllerDelegate 
     }
     @IBAction func tapRate() {
         if let url = URL(string: "itms-apps://itunes.apple.com/us/app/app-name/id1111883763") {
-            UIApplication.shared.openURL(url)
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
         }
     }
     @IBAction func tapSupport() {
@@ -65,7 +65,7 @@ class HelpViewController: UIViewController, MFMailComposeViewControllerDelegate 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationItem.backBarButtonItem?.setTitleTextAttributes([NSFontAttributeName: Theme.navigationBarFont], for: .normal)
+        navigationItem.backBarButtonItem?.setTitleTextAttributes(convertToOptionalNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.font): Theme.navigationBarFont]), for: .normal)
         navigationItem.backBarButtonItem?.tintColor = UIColor.white
         
         if let version = Bundle.main.releaseVersionNumber, let build = Bundle.main.buildVersionNumber {
@@ -87,7 +87,7 @@ class HelpViewController: UIViewController, MFMailComposeViewControllerDelegate 
         switch result {
         case MFMailComposeResult.failed:
             //print("Mail sent failure")
-            let alert = UIAlertController(title: "Email Failed To Send", message: "Please try again or use your own email client and send to wesmooredesign@gmail.com", preferredStyle: UIAlertControllerStyle.alert )
+            let alert = UIAlertController(title: "Email Failed To Send", message: "Please try again or use your own email client and send to wesmooredesign@gmail.com", preferredStyle: UIAlertController.Style.alert )
             self.present(alert, animated: true, completion: { () -> Void in
                 self.dismiss(animated: true, completion: nil)
             })
@@ -97,4 +97,15 @@ class HelpViewController: UIViewController, MFMailComposeViewControllerDelegate 
         self.dismiss(animated: true, completion: nil)
     }
     
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToOptionalNSAttributedStringKeyDictionary(_ input: [String: Any]?) -> [NSAttributedString.Key: Any]? {
+	guard let input = input else { return nil }
+	return Dictionary(uniqueKeysWithValues: input.map { key, value in (NSAttributedString.Key(rawValue: key), value)})
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromNSAttributedStringKey(_ input: NSAttributedString.Key) -> String {
+	return input.rawValue
 }

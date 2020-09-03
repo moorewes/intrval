@@ -31,7 +31,7 @@ open class DataManager: NSObject, WCSessionDelegate {
     private override init() {
         super.init()
         if WCSession.isSupported() {
-            session = WCSession.default()
+            session = WCSession.default
             session?.delegate = self
             session?.activate()
 //            print("session watch state(paired): ", session!.isPaired)
@@ -55,7 +55,7 @@ open class DataManager: NSObject, WCSessionDelegate {
         }
         let intervals = allIntervals()
         let data = ComplicationDataHelper.userInfo(for: intervals)
-        WCSession.default().transferCurrentComplicationUserInfo(data)
+        WCSession.default.transferCurrentComplicationUserInfo(data)
     }
     
     // MARK: - Legacy To Remain

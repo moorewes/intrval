@@ -45,12 +45,15 @@ class IntervalTableViewCell: UITableViewCell {
         } else {
             timeLabel.text = ""
         }
-        alertImageView.isHidden = !interval.hasAlerts
+        //alertImageView.isHidden = !interval.hasAlerts
         setDateLabelPosition()
         refreshIntervalLabel()
-        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(refreshIntervalLabel), userInfo: nil, repeats: true)
+        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { _ in
+            self.refreshIntervalLabel()
+        })
     }
     
+
     func refreshIntervalLabel() {
         timeIntervalLabel.text = interval.smartIntervalString()
     }

@@ -70,11 +70,9 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
                 template.textProvider = CLKSimpleTextProvider(text: "setup on iOS")
                 returnWithTemplate(template)
             case .extraLarge:
-                if #available(watchOSApplicationExtension 3.0, *) {
-                    let template = CLKComplicationTemplateExtraLargeSimpleText()
-                    template.textProvider = CLKSimpleTextProvider(text: "setup on iOS")
-                    returnWithTemplate(template)
-                }
+                let template = CLKComplicationTemplateExtraLargeSimpleText()
+                template.textProvider = CLKSimpleTextProvider(text: "setup on iOS")
+                returnWithTemplate(template)
             default: break
             }
             return
@@ -91,9 +89,10 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
         //Build short text for small complications
         let titleLengthLimit = complication.family == .circularSmall ? 4 : 5
         var titleTextShort = interval.title
-        if titleTextShort.characters.count > titleLengthLimit {
-            let range = interval.title.startIndex..<titleTextShort.characters.index(titleTextShort.startIndex, offsetBy: titleLengthLimit)
-            titleTextShort = titleTextShort.substring(with: range)
+        if titleTextShort.count > titleLengthLimit {
+            let range = interval.title.startIndex..<titleTextShort.index(titleTextShort.startIndex, offsetBy: titleLengthLimit)
+            let shortText = String(titleTextShort[range])
+            titleTextShort = shortText
         }
         
         // Build text providers
@@ -148,6 +147,11 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
             template.textProvider = numberTextProvider
             let entry = CLKComplicationTimelineEntry(date: Date(), complicationTemplate: template)
             handler(entry)
+        case . utilitarianSmallFlat:
+            let template = CLKComplicationTemplateUtilitarianSmallFlat()
+            template.textProvider = numberTextProvider
+            let entry = CLKComplicationTimelineEntry(date: Date(), complicationTemplate: template)
+            handler(entry)
         case .utilitarianLarge:
             let template = CLKComplicationTemplateUtilitarianLargeFlat()
             template.textProvider = numberTextProvider
@@ -166,7 +170,50 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
                 let entry = CLKComplicationTimelineEntry(date: Date(), complicationTemplate: template)
                 handler(entry)
             }
-            
+
+        case .graphicCorner:
+            let template = CLKComplicationTemplateGraphicCornerStackText()
+            template.innerTextProvider = titleTextProvider
+            template.outerTextProvider = numberTextProvider
+            let entry = CLKComplicationTimelineEntry(date: Date(), complicationTemplate: template)
+            handler(entry)
+            break
+
+        case .graphicRectangular:
+            let text = interval.isBeforeNow ? "since" : "until"
+            let template = CLKComplicationTemplateGraphicRectangularStandardBody()
+            template.headerTextProvider = numberTextProvider
+            template.body1TextProvider = CLKSimpleTextProvider(text: text)
+            template.body1TextProvider.tintColor = UIColor.init(white: 1, alpha: 0.3)
+            template.body2TextProvider = titleTextProvider
+            let entry = CLKComplicationTimelineEntry(date: Date(), complicationTemplate: template)
+            handler(entry)
+            break
+    //        case .graphicCircular:
+    //            let startDate = interval.isBeforeNow ? interval.date : Date()
+    //            let endDate = interval.isBeforeNow ? Date() : interval.date
+    //            let gaugeProvider = CLKTimeIntervalGaugeProvider(style: .fill, gaugeColors: [UIColor.clear], gaugeColorLocations: nil, start: startDate, startFillFraction: 0, end: endDate, endFillFraction: 1)
+    //            let unitProvider = CLKSimpleTextProvider(text: interval.unit)
+    //            unitProvider.
+    //
+    //            let template = CLKComplicationTemplateGraphicCircularOpenGaugeSimpleText()
+    //            template.centerTextProvider = numberTextProvider
+    //            template.bottomTextProvider = unitTextProvide
+    //
+    //            template.gaugeProvider = gaugeProvider
+    //            let entry = CLKComplicationTimelineEntry(date: Date(), complicationTemplate: template)
+    //            handler(entry)
+    //            break
+                
+    //        case .graphicBezel:
+    //            let circularTemplate = CLKComplicationTemplateGraphicCircularStackText()
+    //            circularTemplate.line1TextProvider = CLKSimpleTextProvider(text: "")
+    //            let template = CLKComplicationTemplateGraphicBezelCircularText()
+    //            template.textProvider = numberTextProvider
+    //            template.circularTemplate = circularTemplate
+    //
+    //            let entry = CLKComplicationTimelineEntry(date: Date(), complicationTemplate: template)
+    //            handler(entry)
         default:
             break
         }
@@ -174,11 +221,13 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
     
     // MARK: - Update Scheduling
     
-    func getNextRequestedUpdateDate(handler: @escaping (Date?) -> Void) {
-        // Call the handler with the date when you would next like to be given the opportunity to update your complication content
-        let date = Date(timeIntervalSinceNow: 2*60*60)
-        handler(date);
-    }
+//    func getNextRequestedUpdateDate(handler: @escaping (Date?) -> Void) {
+//        // Call the handler with the date when you would next like to be given the opportunity to update your complication content
+//        let date = Date(timeIntervalSinceNow: 2*60*60)
+//        handler(date);
+//    }
+    
+    
     
     // MARK: - Placeholder Templates
     
@@ -254,7 +303,7 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
         var newUnit: NSCalendar.Unit?
         // Only allow for certain families
         switch family {
-        case .modularLarge, .utilitarianLarge, .utilitarianSmall, .extraLarge:
+        case .modularLarge, .utilitarianLarge, .utilitarianSmall, .extraLarge, .graphicRectangular:
             // Only allow for certain units
             switch unit {
             case NSCalendar.Unit.year: newUnit = .month

@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
-    <device id="watch38" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="15705" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
+    <device id="watch38"/>
     <dependencies>
         <deployment identifier="watchOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="12029"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="15501"/>
     </dependencies>
     <scenes>
         <!--Edit Date Interface Controller-->
@@ -56,7 +54,7 @@
                         </button>
                         <label height="10" alignment="left" id="Pas-De-ecI" userLabel="Spacer"/>
                         <label alignment="left" text="Display Unit:" textAlignment="left" id="rii-sX-AMV"/>
-                        <picker height="40" alignment="left" focusStyle="sequence" indicatorMode="shownWhileFocused" id="mCP-8R-Uar">
+                        <picker alignment="left" focusStyle="sequence" indicatorMode="shownWhileFocused" id="mCP-8R-Uar">
                             <connections>
                                 <action selector="didSelectFirstUnit:" destination="AgC-eL-Hgc" id="q7c-Rb-UZm"/>
                             </connections>
@@ -103,53 +101,6 @@
                 </controller>
             </objects>
             <point key="canvasLocation" x="235" y="347"/>
-        </scene>
-        <!--Glance Interface Controller-->
-        <scene sceneID="BOz-TT-tkC">
-            <objects>
-                <glanceController spacing="0.0" id="0uZ-2p-rRc" customClass="GlanceController" customModule="Interval_WatchKit_App" customModuleProvider="target">
-                    <items>
-                        <group alignment="left" layout="vertical" id="tgi-8P-tAG">
-                            <items>
-                                <label alignment="right" text="Yosemite" textAlignment="right" minimumScaleFactor="0.40000000000000002" id="M9d-aL-QQq">
-                                    <fontDescription key="font" type="system" pointSize="14"/>
-                                </label>
-                                <label alignment="right" text="time since 01/23/16 08:30am" textAlignment="right" numberOfLines="2" minimumScaleFactor="0.69999999999999996" id="N2p-U7-MUL">
-                                    <color key="textColor" red="0.2239612731" green="1" blue="0.21677931719999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    <fontDescription key="font" type="system" pointSize="11"/>
-                                </label>
-                                <imageView width="2" height="2" alignment="left" hidden="YES" id="ulR-gL-Lq8"/>
-                            </items>
-                            <variation key="default">
-                                <mask key="items">
-                                    <exclude reference="ulR-gL-Lq8"/>
-                                </mask>
-                            </variation>
-                        </group>
-                        <group alignment="left" id="3fA-57-odf">
-                            <items>
-                                <timer width="1" alignment="center" verticalAlignment="center" textAlignment="right" numberOfLines="0" minimumScaleFactor="0.29999999999999999" enabled="YES" format="short" previewedSeconds="590000007" id="iRz-p0-ghh">
-                                    <fontDescription key="font" type="system" pointSize="16"/>
-                                    <calendarUnit key="units" year="YES" month="YES" day="YES" hour="YES" minute="YES" second="YES" weekOfMonth="YES"/>
-                                </timer>
-                                <imageView width="2" height="2" alignment="left" verticalAlignment="bottom" hidden="YES" id="JqV-mR-K1g"/>
-                            </items>
-                            <variation key="default">
-                                <mask key="items">
-                                    <exclude reference="JqV-mR-K1g"/>
-                                </mask>
-                            </variation>
-                        </group>
-                    </items>
-                    <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="14"/>
-                    <connections>
-                        <outlet property="intervalDescriptionLabel" destination="N2p-U7-MUL" id="dZm-fB-jRn"/>
-                        <outlet property="timer" destination="iRz-p0-ghh" id="4rZ-jm-OdB"/>
-                        <outlet property="titleLabel" destination="M9d-aL-QQq" id="gaL-ij-8wI"/>
-                    </connections>
-                </glanceController>
-            </objects>
-            <point key="canvasLocation" x="164" y="867"/>
         </scene>
         <!--Static Notification Interface Controller-->
         <scene sceneID="AEw-b0-oYE">

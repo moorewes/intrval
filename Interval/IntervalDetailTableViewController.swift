@@ -49,7 +49,7 @@ class IntervalDetailTableViewController: UITableViewController, UITextFieldDeleg
         
         let backItem = UIBarButtonItem()
         backItem.title = "Back"
-        backItem.setTitleTextAttributes([NSFontAttributeName: Theme.navigationBarFont], for: .normal)
+        backItem.setTitleTextAttributes(convertToOptionalNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.font): Theme.navigationBarFont]), for: .normal)
         navigationItem.backBarButtonItem = backItem
         
 //        navigationItem.backBarButtonItem = UIBarButtonItem()
@@ -75,7 +75,10 @@ class IntervalDetailTableViewController: UITableViewController, UITextFieldDeleg
             titleTextField.becomeFirstResponder()
         }
         
-        let timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateInterval), userInfo: nil, repeats: true)
+       // let timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateInterval), userInfo: nil, repeats: true)
+        let _ = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
+            self.updateInterval()
+        }
         isFullyLoaded = true
     }
     
@@ -156,8 +159,6 @@ class IntervalDetailTableViewController: UITableViewController, UITextFieldDeleg
             dateVC.interval = interval
         } else if let timeVC = segue.destination as? EditTimeViewController {
             timeVC.interval = interval
-        } else if let remindersListVC = segue.destination as? RemindersListTableViewController {
-            remindersListVC.interval = interval
         }
         if titleTextField.isFirstResponder {
             commitTitleEdits()
@@ -189,12 +190,12 @@ class IntervalDetailTableViewController: UITableViewController, UITextFieldDeleg
         titleTextField.text = interval.description
         dateLabel.text = interval.dateString
         timeLabel.text = interval.includeTime ? interval.timeString : "Not Set"
-        let remindersCount = RemindersDataManager.main.reminders(forIntervalCreationDate: interval.creationDate).count
-        if remindersCount > 0 {
-            alertCountLabel.text = "\(remindersCount)"
-        } else {
-            alertCountLabel.text = "None"
-        }
+//        let remindersCount = RemindersDataManager.main.reminders(forIntervalCreationDate: interval.creationDate).count
+//        if remindersCount > 0 {
+//            alertCountLabel.text = "\(remindersCount)"
+//        } else {
+//            alertCountLabel.text = "None"
+//        }
     }
     func unitString() -> String {
         var answer: String
@@ -227,6 +228,7 @@ class IntervalDetailTableViewController: UITableViewController, UITextFieldDeleg
         }
     }
     
+
     func updateInterval() {
         intervalLabel.text = "\(abs(interval.measureIntervalToInt(unit: unit)))"
     }
@@ -238,4 +240,15 @@ class IntervalDetailTableViewController: UITableViewController, UITextFieldDeleg
     
     
 
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToOptionalNSAttributedStringKeyDictionary(_ input: [String: Any]?) -> [NSAttributedString.Key: Any]? {
+	guard let input = input else { return nil }
+	return Dictionary(uniqueKeysWithValues: input.map { key, value in (NSAttributedString.Key(rawValue: key), value)})
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromNSAttributedStringKey(_ input: NSAttributedString.Key) -> String {
+	return input.rawValue
 }

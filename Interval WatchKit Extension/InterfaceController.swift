@@ -119,7 +119,10 @@ class InterfaceController: WKInterfaceController {
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
         print("awake")
-        NotificationCenter.default.addObserver(self, selector: #selector(updateUI), name: .watchIntervalDataUpdated, object: nil)
+            // NotificationCenter.default.addObserver(self, selector: #selector(updateUI), name: .watchIntervalDataUpdated, object: nil)
+        NotificationCenter.default.addObserver(forName: .watchIntervalDataUpdated, object: nil, queue: nil) { [unowned self] (notification) in
+            self.updateUI()
+        }
         firstUnitPicker.setItems(firstUnitItems)
         updateUI()
         print("done awakening")
@@ -141,6 +144,7 @@ class InterfaceController: WKInterfaceController {
     
     // MARK: - Convenience
     
+
     func updateUI() {
         // Set First Unit
         // Note: .Era is used for Smart Auto
@@ -208,10 +212,14 @@ class InterfaceController: WKInterfaceController {
             t.fireDate = Date(timeIntervalSinceNow: 3)
         } else {
             // print("timer doesn't exist")
-            timer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(updateComplication), userInfo: nil, repeats: false)
+//            timer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(updateComplication), userInfo: nil, repeats: false)
+            timer = Timer.scheduledTimer(withTimeInterval: 3, repeats: false, block: { _ in
+                self.updateComplication()
+            })
         }
     }
     
+
     func updateComplication() {
         timer = nil
         print("updateComplication")

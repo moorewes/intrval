@@ -20,7 +20,7 @@ open class Interval {
         public static let title = "title"
         private init() {}
     }
-    open let creationDate: Date
+    public let creationDate: Date
     open var date: Date
     open var unit: NSCalendar.Unit
     open var includeTime: Bool
@@ -77,9 +77,9 @@ open class Interval {
         return dateString + " " + timeString
     }
     
-    open var hasAlerts: Bool {
-        return !RemindersDataManager.main.reminders(forIntervalCreationDate: creationDate).isEmpty
-    }
+//    open var hasAlerts: Bool {
+//        return !RemindersDataManager.main.reminders(forIntervalCreationDate: creationDate).isEmpty
+//    }
     
     open var unitString: String {
         var answer: String
