@@ -55,7 +55,7 @@ class IntervalTableViewCell: UITableViewCell {
     
 
     func refreshIntervalLabel() {
-        timeIntervalLabel.text = interval.smartIntervalString()
+        timeIntervalLabel.text = interval.smartIntervalFullString()
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

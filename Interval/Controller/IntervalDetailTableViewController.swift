@@ -19,18 +19,47 @@ class IntervalDetailTableViewController: UITableViewController, UITextFieldDeleg
         static let showReminderDetail = "showReminderDetail"
     }
     
-    var interval: Interval!
-    var unit: NSCalendar.Unit = .day
-    var index: Int!
+    struct CellID {
+        
+    }
     
+    var interval: Interval!
+    var isNewInterval = false
+    var isEditingDate = false
+    var index: Int!
     var isFullyLoaded = false
+    
+    // MARK: - IBOutlets
 
     @IBOutlet weak var intervalLabel: UILabel!
     @IBOutlet weak var unitLabel: UILabel!
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var dateLabel: UILabel!
-    @IBOutlet weak var timeLabel: UILabel!
-    @IBOutlet weak var alertCountLabel: UILabel!
+    @IBOutlet weak var datePicker: UIDatePicker!
+    @IBOutlet weak var includeTimeSwitch: UISwitch!
+    
+    // MARK: - IBActions
+    
+    
+    @IBAction func dateWasChanged(_ sender: UIDatePicker) {
+        interval.date = interval.includeTime ? sender.date : sender.date.withZeroSeconds
+        if isNewInterval {
+            setIntervalLabel(hidden: false)
+            isNewInterval = !isNewInterval
+        }
+        saveInterval()
+        refreshUI()
+    }
+    
+    @IBAction func includeTimeWasChanged(_ sender: UISwitch) {
+        interval.includeTime = sender.isOn
+        refreshUI()
+    }
+    @IBAction func setDateToNow() {
+        interval.setDateToNow()
+        refreshUI()
+    }
+    
     
     // MARK: - Life Cycle
     
@@ -39,43 +68,26 @@ class IntervalDetailTableViewController: UITableViewController, UITextFieldDeleg
         refreshUI()
         title = "Edit Counter"
         tableView.tableFooterView = UIView()
+        datePicker.date = interval.date
         
-//        let navTitleColor = UIColor.white // Themes.current.navTitleColor
-//        let navBarFont = Theme.navigationBarFont
-//        navigationController?.navigationBar.titleTextAttributes = [
-//            NSForegroundColorAttributeName: navTitleColor,
-//            NSFontAttributeName: navBarFont
-//        ]
+        setIntervalLabel(hidden: isNewInterval)
         
         let backItem = UIBarButtonItem()
         backItem.title = "Back"
         backItem.setTitleTextAttributes(convertToOptionalNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.font): Theme.navigationBarFont]), for: .normal)
         navigationItem.backBarButtonItem = backItem
         
-//        navigationItem.backBarButtonItem = UIBarButtonItem()
-//        navigationItem.backBarButtonItem?.title = "Back"
-//        navigationItem.backBarButtonItem?.setTitleTextAttributes([NSFontAttributeName: Theme.navigationBarFont], for: .normal)
-        //navigationItem.backBarButtonItem?.tintColor = UIColor.white
-        
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         if isFullyLoaded {
-            unit = .day
-            
             refreshUI()
         }
         if interval.description.isEmpty {
             titleTextField.becomeFirstResponder()
         }
-        
-       // let timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateInterval), userInfo: nil, repeats: true)
+
         let _ = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
             self.updateInterval()
         }
@@ -97,63 +109,23 @@ class IntervalDetailTableViewController: UITableViewController, UITextFieldDeleg
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4
-    }
-
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard indexPath.row == 0 else { return }
-        cycleUnit()
-        refreshUI()
+        return isEditingDate ? 5 : 4
     }
     
-    /*
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
 
-        // Configure the cell...
 
-        return cell
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        // If user taps on date cell, reveal the date picker
+        if indexPath.row == 3 {
+            isEditingDate = !isEditingDate
+            toggleDateEditing()
+        }
     }
-    */
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
 
     // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
+ 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let dateVC = segue.destination as? EditDateViewController {
             dateVC.interval = interval
@@ -173,6 +145,10 @@ class IntervalDetailTableViewController: UITableViewController, UITextFieldDeleg
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         commitTitleEdits()
         textField.resignFirstResponder()
+        if isNewInterval {
+            isEditingDate = true
+            toggleDateEditing()
+        }
         return true
     }
     
@@ -184,22 +160,55 @@ class IntervalDetailTableViewController: UITableViewController, UITextFieldDeleg
     // MARK: - Convenience
     
     func refreshUI() {
-        unitLabel.text = unitString()
-        updateInterval()
-        
+        unitLabel.text = intervalUnitString()
+        intervalLabel.text = "\(abs(interval.currentInterval(ofUnit: interval.smartAutoUnit())))"
         titleTextField.text = interval.description
         dateLabel.text = interval.dateString
-        timeLabel.text = interval.includeTime ? interval.timeString : "Not Set"
-//        let remindersCount = RemindersDataManager.main.reminders(forIntervalCreationDate: interval.creationDate).count
-//        if remindersCount > 0 {
-//            alertCountLabel.text = "\(remindersCount)"
-//        } else {
-//            alertCountLabel.text = "None"
-//        }
+        datePicker.datePickerMode = interval.includeTime ? .dateAndTime : .date
+        includeTimeSwitch.isOn = interval.includeTime
     }
+    
+    private func toggleDateEditing() {
+        
+        // Date picker row is the bottom row
+        let bottomRow = IndexPath(row: 4, section: 0)
+        
+        // Animate the date picker row insertion/removal
+        if isEditingDate {
+            tableView.insertRows(at: [bottomRow], with: .fade)
+            tableView.scrollToRow(at: bottomRow, at: .none, animated: true)
+        } else {
+            tableView.deleteRows(at: [bottomRow], with: .fade)
+        }
+    }
+    
+    private func setIntervalLabel(hidden: Bool) {
+        intervalLabel.isHidden = hidden
+        unitLabel.isHidden = hidden
+    }
+        
+    private func cellID(at indexPath: IndexPath) -> String {
+        switch indexPath.row {
+        case 0: return "intervalTimerCell"
+        case 1: return "titleCell"
+        case 2: return "includeTimeCell"
+        case 3: return "dateCell"
+        case 4: return isEditingDate ? "datePickerCell" : "setDateNowCell"
+        default: return "setDateNowCell"
+        }
+    }
+    
+    func intervalUnitString() -> String {
+        let intervalInt = interval.currentInterval()
+        var result = unitString()
+        result += intervalInt < 0 ? " until" : " since"
+        return result
+        
+    }
+    
     func unitString() -> String {
         var answer: String
-        switch unit {
+        switch interval.smartAutoUnit() {
         case NSCalendar.Unit.day: answer = "Day"
         case NSCalendar.Unit.weekOfYear: answer = "Week"
         case NSCalendar.Unit.month: answer = "Month"
@@ -209,28 +218,20 @@ class IntervalDetailTableViewController: UITableViewController, UITextFieldDeleg
         case NSCalendar.Unit.second: answer = "Second"
         default: answer = "Day"
         }
-        let interval = abs(self.interval.measureIntervalToInt(unit: unit))
+        let interval = abs(self.interval.currentInterval())
         if interval != 1 {
             answer += "s"
         }
         return answer
     }
-    func cycleUnit() {
-        switch unit {
-        case NSCalendar.Unit.day: unit = .weekOfYear
-        case NSCalendar.Unit.weekOfYear: unit = .month
-        case NSCalendar.Unit.month: unit = .year
-        case NSCalendar.Unit.year: unit = .second
-        case NSCalendar.Unit.second: unit = .minute
-        case NSCalendar.Unit.minute: unit = .hour
-        case NSCalendar.Unit.hour: unit = .day
-        default: unit = .day
-        }
-    }
+    
     
 
     func updateInterval() {
-        intervalLabel.text = "\(abs(interval.measureIntervalToInt(unit: unit)))"
+        let number = abs(interval.currentInterval())
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        intervalLabel.text = formatter.string(from: NSNumber(value: number))
     }
     
     func saveInterval() {

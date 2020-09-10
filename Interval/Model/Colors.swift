@@ -42,8 +42,8 @@ class Colors {
             bColor = intrvalWhite
             tColor = intrvalBlack
             selectedBColor = UIColor.lightGray
-            selectedTColor = UIColor.darkGray
             grey = UIColor.darkGray
+            selectedTColor = UIColor.darkGray
         }
     }
     

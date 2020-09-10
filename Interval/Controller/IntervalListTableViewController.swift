@@ -16,22 +16,18 @@ struct Theme {
 
 class IntervalListTableViewController: UITableViewController {
     
-    struct SegueID {
-        private init() {}
-        static let edit = "editInterval"
+    private struct SegueID {
+        static let Edit = "editInterval"
     }
     
     var intervals = [Interval]()
     var selectedInterval: Interval?
     var startupSyncComplete = false
     @IBOutlet weak var helpBarButtonItem: UIBarButtonItem!
-    @IBOutlet weak var dateLabelUpperConstraint: NSLayoutConstraint!
-    @IBOutlet weak var dateLabelCenterConstraint: NSLayoutConstraint!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
+        
         navigationController?.navigationBar.titleTextAttributes = convertToOptionalNSAttributedStringKeyDictionary([NSAttributedString.Key.font.rawValue: Theme.navigationBarFont, NSAttributedString.Key.foregroundColor.rawValue: UIColor.white])
         
         editButtonItem.setTitleTextAttributes(convertToOptionalNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.font): Theme.navigationBarFont]), for: .normal)
@@ -86,7 +82,7 @@ class IntervalListTableViewController: UITableViewController {
         let cell = tableView.cellForRow(at: indexPath) as! IntervalTableViewCell
         let interval = cell.interval
         selectedInterval = interval
-        performSegue(withIdentifier: SegueID.edit, sender: nil)
+        performSegue(withIdentifier: SegueID.Edit, sender: nil)
     }
 
     
@@ -120,6 +116,7 @@ class IntervalListTableViewController: UITableViewController {
                 let newInterval = Interval(date: newDate, unit: .day, includeTime: false, description: "", creationDate: Date())
                 DataManager.main.store(interval: newInterval)
                 vc.interval = newInterval
+                vc.isNewInterval = true
             }
             
         }

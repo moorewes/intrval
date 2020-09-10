@@ -26,19 +26,11 @@ open class Interval {
     open var includeTime: Bool
     open var description: String
     open func isCountingDown() -> Bool {
-        return measureIntervalToInt() < 0
+        return currentInterval(ofUnit: .second) < 0
     }
-    open func measureIntervalToInt(toDate: Date? = nil, unit: NSCalendar.Unit? = nil) -> Int {
-        var tDate = Date()
-        var iUnit = self.unit
-        if let tD = toDate {
-            tDate = tD
-        }
-        if let u = unit {
-            iUnit = u
-        }
-        let component = Calendar.Component.init(unit: iUnit)
-        let interval = Calendar.current.dateComponents([component], from: date, to: tDate)
+    open func currentInterval(ofUnit unit: NSCalendar.Unit? = nil, for toDate: Date = Date()) -> Int {
+        let component = Calendar.Component.init(unit: unit ?? smartAutoUnit())
+        let interval = Calendar.current.dateComponents([component], from: date, to: toDate)
         let answer = interval.value(for: component)
         return answer!
     }
@@ -54,8 +46,11 @@ open class Interval {
         default: unit = .day
         }
     }
+    open func setDateToNow() {
+        date = includeTime ? Date() : Date().withZeroSeconds
+    }
     open func measureIntervalToString() -> String {
-        let interval = abs(measureIntervalToInt())
+        let interval = abs(currentInterval(ofUnit: unit))
         let answer = "\(interval)"
         return answer
     }
@@ -63,7 +58,7 @@ open class Interval {
     open var dateString: String {
         let df = DateFormatter()
         df.dateStyle = .short
-        df.timeStyle = .none
+        df.timeStyle = includeTime ? .short : .none
         return df.string(from: date)
     }
     open var timeString: String {
@@ -93,7 +88,7 @@ open class Interval {
         case NSCalendar.Unit.second: answer = "SECOND"
         default: answer = "DAY"
         }
-        let interval = abs(measureIntervalToInt())
+        let interval = abs(currentInterval(ofUnit: unit))
         if interval != 1 {
             answer += "S"
         }
@@ -111,7 +106,7 @@ open class Interval {
         case NSCalendar.Unit.second: answer = "Second"
         default: answer = "Day"
         }
-        let interval = abs(measureIntervalToInt())
+        let interval = abs(currentInterval(ofUnit: unit))
         if interval != 1 {
             answer += "s"
         }
@@ -119,9 +114,9 @@ open class Interval {
     }
     
     /// Returns user readable interval, for example "2 Years Remain" or "1 Month Has Passed"
-    open func smartIntervalString() -> String {
+    open func smartIntervalFullString() -> String {
         unit = smartAutoUnit()
-        let int = measureIntervalToInt()
+        let int = currentInterval(ofUnit: unit)
         var result = measureIntervalToString() + " " + unitStringLowercase
         if int == -1 {
             result += " Remains"
@@ -134,6 +129,17 @@ open class Interval {
         }
         return result
     }
+    
+    /// Returns user readable interval unit, for example "years since" or "month before"
+    open func smartIntervalUnitString() -> String {
+        unit = smartAutoUnit()
+        let int = currentInterval(ofUnit: unit)
+        var result = unitStringLowercase
+        result += int < 0 ? " until" : " since"
+        return result
+    }
+    
+    
     open func smartIntervalString(forDate: Date, pastPreposition: String = "Before", futurePreposition: String = "After") -> String {
         if forDate == self.date { return "on completion" }
         let unit = smartAutoUnit(forDate: forDate)
@@ -160,7 +166,7 @@ open class Interval {
             return .month
         }
         let dayInterval = intervalForUnit(.day, fromDate: date, toDate: toDate)
-        guard dayInterval < 1 else {
+        guard dayInterval < 1 && includeTime else {
             return .day
         }
         let hourInterval = intervalForUnit(.hour, fromDate: date, toDate: toDate)
