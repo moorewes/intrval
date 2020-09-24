@@ -20,6 +20,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //UIApplication.shared.statusBarStyle = .lightContent
         DataManager.main.transferLegacyData()
         DataManager.main.incrementAppOpenCount()
+        
+        if let customFont = UIFont(name: "Futura-CondensedMedium", size: 20.0) {
+            UIBarButtonItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: customFont], for: .normal)
+        }
         return true
     }
 
