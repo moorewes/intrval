@@ -8,7 +8,9 @@
 
 import UIKit
 
-class IntervalDetailTableViewController: UITableViewController, UITextFieldDelegate {
+class IntervalDetailTableViewController: UITableViewController {
+    
+    // MARK: - Types
     
     struct SegueID {
         private init() {}
@@ -19,9 +21,7 @@ class IntervalDetailTableViewController: UITableViewController, UITextFieldDeleg
         static let showReminderDetail = "showReminderDetail"
     }
     
-    struct CellID {
-        
-    }
+    // MARK: - Properties
     
     var interval: Interval!
     var isNewInterval = false
@@ -40,14 +40,12 @@ class IntervalDetailTableViewController: UITableViewController, UITextFieldDeleg
     
     // MARK: - IBActions
     
-    
     @IBAction func dateWasChanged(_ sender: UIDatePicker) {
         interval.date = interval.includeTime ? sender.date : sender.date.withZeroSeconds
         if isNewInterval {
             setIntervalLabel(hidden: false)
             isNewInterval = !isNewInterval
         }
-        saveInterval()
         refreshUI()
     }
     
@@ -60,23 +58,30 @@ class IntervalDetailTableViewController: UITableViewController, UITextFieldDeleg
         refreshUI()
     }
     
+    @IBAction func userSaved(_ sender: UIBarButtonItem) {
+        DataManager.main.update(interval: interval)
+        navigationController?.popViewController(animated: true)
+    }
+    
+    @IBAction func userCanceled(_ sender: Any) {
+        navigationController?.popViewController(animated: true)
+    }
+    
     
     // MARK: - Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         refreshUI()
-        title = "Edit Counter"
+        title = ""
         tableView.tableFooterView = UIView()
-        datePicker.date = interval.date
         
         setIntervalLabel(hidden: isNewInterval)
         
-        let backItem = UIBarButtonItem()
-        backItem.title = "Back"
-        backItem.setTitleTextAttributes(convertToOptionalNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.font): Theme.navigationBarFont]), for: .normal)
-        navigationItem.backBarButtonItem = backItem
-        
+        let tap : UITapGestureRecognizer = UITapGestureRecognizer(target: self.titleTextField, action: #selector(UITextField.resignFirstResponder))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+                
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -102,30 +107,8 @@ class IntervalDetailTableViewController: UITableViewController, UITextFieldDeleg
         }
     }
 
-    // MARK: - Table view data source
-
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return isEditingDate ? 5 : 4
-    }
-    
-
-
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        // If user taps on date cell, reveal the date picker
-        if indexPath.row == 3 {
-            isEditingDate = !isEditingDate
-            toggleDateEditing()
-        }
-    }
-
     // MARK: - Navigation
 
- 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let dateVC = segue.destination as? EditDateViewController {
             dateVC.interval = interval
@@ -137,25 +120,6 @@ class IntervalDetailTableViewController: UITableViewController, UITextFieldDeleg
             titleTextField.resignFirstResponder()
         }
     }
-
-    
-    // MARK: - UITextFieldDelegate
-    
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        commitTitleEdits()
-        textField.resignFirstResponder()
-        if isNewInterval {
-            isEditingDate = true
-            toggleDateEditing()
-        }
-        return true
-    }
-    
-    func commitTitleEdits() {
-        interval.description = titleTextField.text!
-        saveInterval()
-    }
     
     // MARK: - Convenience
     
@@ -165,7 +129,16 @@ class IntervalDetailTableViewController: UITableViewController, UITextFieldDeleg
         titleTextField.text = interval.description
         dateLabel.text = interval.dateString
         datePicker.datePickerMode = interval.includeTime ? .dateAndTime : .date
+        datePicker.date = interval.date
         includeTimeSwitch.isOn = interval.includeTime
+    }
+    
+    func commitTitleEdits() {
+        interval.description = titleTextField.text!
+    }
+    
+    @objc func dismissKeyboard() {
+        titleTextField.resignFirstResponder()
     }
     
     private func toggleDateEditing() {
@@ -225,31 +198,47 @@ class IntervalDetailTableViewController: UITableViewController, UITextFieldDeleg
         return answer
     }
     
-    
-
     func updateInterval() {
         let number = abs(interval.currentInterval())
         let formatter = NumberFormatter()
         formatter.numberStyle = .decimal
         intervalLabel.text = formatter.string(from: NSNumber(value: number))
     }
+}
+
+extension IntervalDetailTableViewController {
     
-    func saveInterval() {
-        DataManager.main.update(interval: interval)
+    // MARK: - Table view data source
+
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return isEditingDate ? 5 : 4
     }
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.row == 3 {
+            isEditingDate = !isEditingDate
+            toggleDateEditing()
+        }
+    }
     
-    
-
 }
 
-// Helper function inserted by Swift 4.2 migrator.
-fileprivate func convertToOptionalNSAttributedStringKeyDictionary(_ input: [String: Any]?) -> [NSAttributedString.Key: Any]? {
-	guard let input = input else { return nil }
-	return Dictionary(uniqueKeysWithValues: input.map { key, value in (NSAttributedString.Key(rawValue: key), value)})
-}
-
-// Helper function inserted by Swift 4.2 migrator.
-fileprivate func convertFromNSAttributedStringKey(_ input: NSAttributedString.Key) -> String {
-	return input.rawValue
+extension IntervalDetailTableViewController: UITextFieldDelegate {
+    
+    // MARK: - UITextFieldDelegate
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        commitTitleEdits()
+        textField.resignFirstResponder()
+        if isNewInterval {
+            isEditingDate = true
+            toggleDateEditing()
+        }
+        return true
+    }
+    
 }
