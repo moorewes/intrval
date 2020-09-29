@@ -7,23 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		DE19C4BB1F35367F0096F70C /* RemindersDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE19C4BA1F35367F0096F70C /* RemindersDataManager.swift */; };
-		DE1DFDAB1F34F362004D99E3 /* ReminderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE1DFDAA1F34F362004D99E3 /* ReminderTableViewCell.swift */; };
-		DE1DFDAE1F34F4F6004D99E3 /* IntrvalDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DE1DFDAC1F34F4F6004D99E3 /* IntrvalDataModel.xcdatamodeld */; };
-		DE1DFDB11F34F57E004D99E3 /* Reminder+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE1DFDAF1F34F57E004D99E3 /* Reminder+CoreDataClass.swift */; };
-		DE1DFDB21F34F57E004D99E3 /* Reminder+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE1DFDB01F34F57E004D99E3 /* Reminder+CoreDataProperties.swift */; };
+		DE0F99DC252254A5006079E1 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE0F99DB252254A5006079E1 /* DataController.swift */; };
 		DE2685D01CDE8ED900742BF7 /* ComplicationDataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2685CF1CDE8ED900742BF7 /* ComplicationDataHelper.swift */; };
-		DE2DED021F311C6100058A4A /* IntervalTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2DED011F311C6100058A4A /* IntervalTableViewCell.swift */; };
-		DE2DED041F311DD700058A4A /* IntervalListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2DED031F311DD700058A4A /* IntervalListTableViewController.swift */; };
-		DE2DED081F312C8000058A4A /* IntervalDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2DED071F312C8000058A4A /* IntervalDetailTableViewController.swift */; };
-		DE2DED0A1F313BB300058A4A /* EditDateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2DED091F313BB300058A4A /* EditDateViewController.swift */; };
-		DE2DED0C1F313BC600058A4A /* EditTimeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2DED0B1F313BC600058A4A /* EditTimeViewController.swift */; };
+		DE2DED021F311C6100058A4A /* CounterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2DED011F311C6100058A4A /* CounterTableViewCell.swift */; };
+		DE2DED041F311DD700058A4A /* CounterListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2DED031F311DD700058A4A /* CounterListTableViewController.swift */; };
+		DE2DED081F312C8000058A4A /* CounterDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2DED071F312C8000058A4A /* CounterDetailTableViewController.swift */; };
 		DE2DED101F324E0600058A4A /* WatchInterval.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2DED0F1F324E0500058A4A /* WatchInterval.swift */; };
 		DE2DED121F3270B700058A4A /* EditDateInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2DED111F3270B700058A4A /* EditDateInterfaceController.swift */; };
 		DE4F8F2C1DC4567000E15F17 /* ClockKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE4F8F2B1DC4567000E15F17 /* ClockKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		DE5126481D527E750010DDC1 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = DE5126471D527E750010DDC1 /* .gitignore */; };
 		DE676D091F423E5F0006CD11 /* Launch.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DE676D081F423E5F0006CD11 /* Launch.storyboard */; };
-		DEAC75D025097CC800062809 /* UIViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEAC75CF25097CC800062809 /* UIViewExtensions.swift */; };
+		DE7EBB742522A11F0061F38F /* CounterDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DE7EBB722522A11F0061F38F /* CounterDataModel.xcdatamodeld */; };
+		DE7EBB8B2522A1BD0061F38F /* Counter+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE7EBB892522A1BD0061F38F /* Counter+CoreDataClass.swift */; };
+		DE7EBB8C2522A1BD0061F38F /* Counter+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE7EBB8A2522A1BD0061F38F /* Counter+CoreDataProperties.swift */; };
+		DE8DBD66252282CB008A75C3 /* RoundedCornerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE8DBD65252282CB008A75C3 /* RoundedCornerButton.swift */; };
+		DEAC75D025097CC800062809 /* RoundedCornerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEAC75CF25097CC800062809 /* RoundedCornerView.swift */; };
 		DEC0FA1B1D95B8BA0003C6F8 /* RateStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEC0FA1A1D95B8BA0003C6F8 /* RateStatus.swift */; };
 		DEF28D071CADCDDE00D50DC1 /* IntervalTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF28D061CADCDDE00D50DC1 /* IntervalTests.swift */; };
 		DEF28D121CADCDDE00D50DC1 /* IntervalUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF28D111CADCDDE00D50DC1 /* IntervalUITests.swift */; };
@@ -40,7 +38,7 @@
 		DEF997881D1DC69400DAD02E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DEF9977F1D1DC69400DAD02E /* LaunchScreen.storyboard */; };
 		DEF997891D1DC69400DAD02E /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF997801D1DC69400DAD02E /* Colors.swift */; };
 		DEF9978A1D1DC69400DAD02E /* ComplicationDataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF997811D1DC69400DAD02E /* ComplicationDataHelper.swift */; };
-		DEF9978B1D1DC69400DAD02E /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF997821D1DC69400DAD02E /* DataManager.swift */; };
+		DEF9978B1D1DC69400DAD02E /* LegacyDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF997821D1DC69400DAD02E /* LegacyDataController.swift */; };
 		DEF9978C1D1DC69400DAD02E /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF997831D1DC69400DAD02E /* Extensions.swift */; };
 		DEF9978D1D1DC69400DAD02E /* HelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF997841D1DC69400DAD02E /* HelpViewController.swift */; };
 		DEF9978E1D1DC69400DAD02E /* Interval.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF997851D1DC69400DAD02E /* Interval.swift */; };
@@ -128,24 +126,22 @@
 /* Begin PBXFileReference section */
 		DE002C881CAF24D300FE65CE /* Interval WatchKit Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Interval WatchKit Extension.entitlements"; sourceTree = "<group>"; };
 		DE002C891CAF254100FE65CE /* Interval WatchKit App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Interval WatchKit App.entitlements"; sourceTree = "<group>"; };
-		DE19C4BA1F35367F0096F70C /* RemindersDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemindersDataManager.swift; sourceTree = "<group>"; };
-		DE1DFDAA1F34F362004D99E3 /* ReminderTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReminderTableViewCell.swift; sourceTree = "<group>"; };
-		DE1DFDAD1F34F4F6004D99E3 /* IntrvalDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = IntrvalDataModel.xcdatamodel; sourceTree = "<group>"; };
-		DE1DFDAF1F34F57E004D99E3 /* Reminder+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Reminder+CoreDataClass.swift"; sourceTree = "<group>"; };
-		DE1DFDB01F34F57E004D99E3 /* Reminder+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Reminder+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		DE0F99DB252254A5006079E1 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		DE23177D1CAF163A007D605C /* Interval.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Interval.entitlements; sourceTree = "<group>"; };
 		DE2685CF1CDE8ED900742BF7 /* ComplicationDataHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComplicationDataHelper.swift; sourceTree = "<group>"; };
-		DE2DED011F311C6100058A4A /* IntervalTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntervalTableViewCell.swift; sourceTree = "<group>"; };
-		DE2DED031F311DD700058A4A /* IntervalListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntervalListTableViewController.swift; sourceTree = "<group>"; };
-		DE2DED071F312C8000058A4A /* IntervalDetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntervalDetailTableViewController.swift; sourceTree = "<group>"; };
-		DE2DED091F313BB300058A4A /* EditDateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditDateViewController.swift; sourceTree = "<group>"; };
-		DE2DED0B1F313BC600058A4A /* EditTimeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditTimeViewController.swift; sourceTree = "<group>"; };
+		DE2DED011F311C6100058A4A /* CounterTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CounterTableViewCell.swift; sourceTree = "<group>"; };
+		DE2DED031F311DD700058A4A /* CounterListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CounterListTableViewController.swift; sourceTree = "<group>"; };
+		DE2DED071F312C8000058A4A /* CounterDetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CounterDetailTableViewController.swift; sourceTree = "<group>"; };
 		DE2DED0F1F324E0500058A4A /* WatchInterval.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchInterval.swift; sourceTree = "<group>"; };
 		DE2DED111F3270B700058A4A /* EditDateInterfaceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditDateInterfaceController.swift; sourceTree = "<group>"; };
 		DE4F8F2B1DC4567000E15F17 /* ClockKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ClockKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS3.0.sdk/System/Library/Frameworks/ClockKit.framework; sourceTree = DEVELOPER_DIR; };
 		DE5126471D527E750010DDC1 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		DE676D081F423E5F0006CD11 /* Launch.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Launch.storyboard; sourceTree = "<group>"; };
-		DEAC75CF25097CC800062809 /* UIViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtensions.swift; sourceTree = "<group>"; };
+		DE7EBB732522A11F0061F38F /* CounterDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CounterDataModel.xcdatamodel; sourceTree = "<group>"; };
+		DE7EBB892522A1BD0061F38F /* Counter+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Counter+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		DE7EBB8A2522A1BD0061F38F /* Counter+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Counter+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		DE8DBD65252282CB008A75C3 /* RoundedCornerButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedCornerButton.swift; sourceTree = "<group>"; };
+		DEAC75CF25097CC800062809 /* RoundedCornerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedCornerView.swift; sourceTree = "<group>"; };
 		DEC0FA1A1D95B8BA0003C6F8 /* RateStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RateStatus.swift; sourceTree = "<group>"; };
 		DEF28CEE1CADCDDE00D50DC1 /* Interval.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Interval.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DEF28CFD1CADCDDE00D50DC1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -170,7 +166,7 @@
 		DEF9977F1D1DC69400DAD02E /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DEF997801D1DC69400DAD02E /* Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		DEF997811D1DC69400DAD02E /* ComplicationDataHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComplicationDataHelper.swift; sourceTree = "<group>"; };
-		DEF997821D1DC69400DAD02E /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
+		DEF997821D1DC69400DAD02E /* LegacyDataController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LegacyDataController.swift; sourceTree = "<group>"; };
 		DEF997831D1DC69400DAD02E /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		DEF997841D1DC69400DAD02E /* HelpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelpViewController.swift; sourceTree = "<group>"; };
 		DEF997851D1DC69400DAD02E /* Interval.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Interval.swift; sourceTree = "<group>"; };
@@ -223,17 +219,17 @@
 		DED2F8352501AEB400BACD1C /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				DE1DFDAF1F34F57E004D99E3 /* Reminder+CoreDataClass.swift */,
-				DE1DFDB01F34F57E004D99E3 /* Reminder+CoreDataProperties.swift */,
-				DEF997821D1DC69400DAD02E /* DataManager.swift */,
-				DE19C4BA1F35367F0096F70C /* RemindersDataManager.swift */,
+				DE7EBB892522A1BD0061F38F /* Counter+CoreDataClass.swift */,
+				DE7EBB8A2522A1BD0061F38F /* Counter+CoreDataProperties.swift */,
+				DE0F99DB252254A5006079E1 /* DataController.swift */,
+				DEF997821D1DC69400DAD02E /* LegacyDataController.swift */,
 				DEF997811D1DC69400DAD02E /* ComplicationDataHelper.swift */,
 				DEC0FA1A1D95B8BA0003C6F8 /* RateStatus.swift */,
 				DEF997851D1DC69400DAD02E /* Interval.swift */,
 				DEF997861D1DC69400DAD02E /* Keys.swift */,
 				DEF997801D1DC69400DAD02E /* Colors.swift */,
 				DEF997831D1DC69400DAD02E /* Extensions.swift */,
-				DE1DFDAC1F34F4F6004D99E3 /* IntrvalDataModel.xcdatamodeld */,
+				DE7EBB722522A11F0061F38F /* CounterDataModel.xcdatamodeld */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -242,11 +238,11 @@
 			isa = PBXGroup;
 			children = (
 				DEF997931D1DC75C00DAD02E /* Main.storyboard */,
-				DE1DFDAA1F34F362004D99E3 /* ReminderTableViewCell.swift */,
-				DE2DED011F311C6100058A4A /* IntervalTableViewCell.swift */,
+				DE2DED011F311C6100058A4A /* CounterTableViewCell.swift */,
 				DEF9977F1D1DC69400DAD02E /* LaunchScreen.storyboard */,
 				DE676D081F423E5F0006CD11 /* Launch.storyboard */,
-				DEAC75CF25097CC800062809 /* UIViewExtensions.swift */,
+				DEAC75CF25097CC800062809 /* RoundedCornerView.swift */,
+				DE8DBD65252282CB008A75C3 /* RoundedCornerButton.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -254,11 +250,9 @@
 		DED2F8372501AED500BACD1C /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				DE2DED031F311DD700058A4A /* IntervalListTableViewController.swift */,
-				DE2DED071F312C8000058A4A /* IntervalDetailTableViewController.swift */,
+				DE2DED031F311DD700058A4A /* CounterListTableViewController.swift */,
+				DE2DED071F312C8000058A4A /* CounterDetailTableViewController.swift */,
 				DEF997841D1DC69400DAD02E /* HelpViewController.swift */,
-				DE2DED091F313BB300058A4A /* EditDateViewController.swift */,
-				DE2DED0B1F313BC600058A4A /* EditTimeViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -587,25 +581,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DE2DED0A1F313BB300058A4A /* EditDateViewController.swift in Sources */,
-				DE1DFDAE1F34F4F6004D99E3 /* IntrvalDataModel.xcdatamodeld in Sources */,
+				DE7EBB742522A11F0061F38F /* CounterDataModel.xcdatamodeld in Sources */,
 				DEF9978C1D1DC69400DAD02E /* Extensions.swift in Sources */,
+				DE8DBD66252282CB008A75C3 /* RoundedCornerButton.swift in Sources */,
 				DEF9978F1D1DC69400DAD02E /* Keys.swift in Sources */,
-				DE1DFDB21F34F57E004D99E3 /* Reminder+CoreDataProperties.swift in Sources */,
 				DEF9978D1D1DC69400DAD02E /* HelpViewController.swift in Sources */,
+				DE0F99DC252254A5006079E1 /* DataController.swift in Sources */,
+				DE7EBB8C2522A1BD0061F38F /* Counter+CoreDataProperties.swift in Sources */,
 				DEC0FA1B1D95B8BA0003C6F8 /* RateStatus.swift in Sources */,
-				DE19C4BB1F35367F0096F70C /* RemindersDataManager.swift in Sources */,
-				DE2DED041F311DD700058A4A /* IntervalListTableViewController.swift in Sources */,
-				DE1DFDB11F34F57E004D99E3 /* Reminder+CoreDataClass.swift in Sources */,
+				DE2DED041F311DD700058A4A /* CounterListTableViewController.swift in Sources */,
 				DEF9977E1D1DC61E00DAD02E /* AppDelegate.swift in Sources */,
-				DE2DED0C1F313BC600058A4A /* EditTimeViewController.swift in Sources */,
-				DEF9978B1D1DC69400DAD02E /* DataManager.swift in Sources */,
-				DEAC75D025097CC800062809 /* UIViewExtensions.swift in Sources */,
-				DE2DED081F312C8000058A4A /* IntervalDetailTableViewController.swift in Sources */,
-				DE1DFDAB1F34F362004D99E3 /* ReminderTableViewCell.swift in Sources */,
+				DEF9978B1D1DC69400DAD02E /* LegacyDataController.swift in Sources */,
+				DEAC75D025097CC800062809 /* RoundedCornerView.swift in Sources */,
+				DE2DED081F312C8000058A4A /* CounterDetailTableViewController.swift in Sources */,
 				DEF997891D1DC69400DAD02E /* Colors.swift in Sources */,
 				DEF9978E1D1DC69400DAD02E /* Interval.swift in Sources */,
-				DE2DED021F311C6100058A4A /* IntervalTableViewCell.swift in Sources */,
+				DE7EBB8B2522A1BD0061F38F /* Counter+CoreDataClass.swift in Sources */,
+				DE2DED021F311C6100058A4A /* CounterTableViewCell.swift in Sources */,
 				DEF9978A1D1DC69400DAD02E /* ComplicationDataHelper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1049,13 +1041,13 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		DE1DFDAC1F34F4F6004D99E3 /* IntrvalDataModel.xcdatamodeld */ = {
+		DE7EBB722522A11F0061F38F /* CounterDataModel.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				DE1DFDAD1F34F4F6004D99E3 /* IntrvalDataModel.xcdatamodel */,
+				DE7EBB732522A11F0061F38F /* CounterDataModel.xcdatamodel */,
 			);
-			currentVersion = DE1DFDAD1F34F4F6004D99E3 /* IntrvalDataModel.xcdatamodel */;
-			path = IntrvalDataModel.xcdatamodeld;
+			currentVersion = DE7EBB732522A11F0061F38F /* CounterDataModel.xcdatamodel */;
+			path = CounterDataModel.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};

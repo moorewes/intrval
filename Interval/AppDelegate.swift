@@ -18,8 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-        DataManager.main.transferLegacyData()
-        DataManager.main.incrementAppOpenCount()
+        LegacyDataController.main.transferLegacyData()
         
         if let customFont = UIFont(name: "Futura-CondensedMedium", size: 20.0) {
             UIBarButtonItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: customFont], for: .normal)

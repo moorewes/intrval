@@ -65,8 +65,7 @@ class HelpViewController: UIViewController, MFMailComposeViewControllerDelegate 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationItem.backBarButtonItem?.setTitleTextAttributes(convertToOptionalNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.font): Theme.navigationBarFont]), for: .normal)
-        navigationItem.backBarButtonItem?.tintColor = UIColor.white
+        // TODO: Nav bar colors
         
         if let version = Bundle.main.releaseVersionNumber, let build = Bundle.main.buildVersionNumber {
             versionLabel.text = "Designed By Wes Moore\nVersion \(version) (\(build))"

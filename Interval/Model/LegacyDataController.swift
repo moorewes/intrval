@@ -9,7 +9,8 @@
 import Foundation
 import WatchConnectivity
 
-open class DataManager: NSObject, WCSessionDelegate {
+open class LegacyDataController: NSObject, WCSessionDelegate {
+    
     struct Keys {
         static let intervalData = "intervalData"
         public static let referenceDate = "referenceDate"
@@ -22,7 +23,7 @@ open class DataManager: NSObject, WCSessionDelegate {
         private init() {}
     }
     
-    static let main = DataManager()
+    static let main = LegacyDataController()
     
     fileprivate let defaults = UserDefaults.standard
     
@@ -58,7 +59,15 @@ open class DataManager: NSObject, WCSessionDelegate {
         WCSession.default.transferCurrentComplicationUserInfo(data)
     }
     
-    // MARK: - Legacy To Remain
+    // MARK: - Legacy Data Migration
+    
+    internal func legacyCounter() -> [(title: String, date: Date, includeTime: Bool)]? {
+        
+        return nil
+        
+    }
+    
+    // MARK: - Legacy To Remain (Prev)
     
     open func transferLegacyData() {
         guard let date = defaults.value(forKey: Keys.referenceDate) as? Date,

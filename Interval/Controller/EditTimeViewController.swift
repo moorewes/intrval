@@ -37,7 +37,7 @@ class EditTimeViewController: UIViewController {
         } else {
             interval.date = interval.date.withTime(hour: 0, minute: 0, second: 0)
         }
-        DataManager.main.update(interval: interval)
+        LegacyDataController.main.update(interval: interval)
         navigationController?.popViewController(animated: true)
     }
     override func viewDidLoad() {
