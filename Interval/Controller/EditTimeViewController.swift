@@ -51,8 +51,6 @@ class EditTimeViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
-    
     // MARK: - Convenience
     
     func refreshUI() {

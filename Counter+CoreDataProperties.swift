@@ -10,7 +10,6 @@
 import Foundation
 import CoreData
 
-
 extension Counter {
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<Counter> {
@@ -29,5 +28,4 @@ extension Counter {
         self.title = ""
         self.includeTime = false
     }
-
 }

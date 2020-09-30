@@ -14,8 +14,8 @@ class InterfaceController: WKInterfaceController {
     // MARK: - Properties
     
     var timer: Timer?
-    var intervals: [WatchInterval] = []
-    var currentInterval: WatchInterval? {
+    var intervals: [WatchCounter] = []
+    var currentInterval: WatchCounter? {
         didSet {
             if let interval = currentInterval {
                 timerLabel.setDate(interval.date)

@@ -11,11 +11,20 @@ import UIKit
 class Colors {
     static let sharedInstance = Colors()
     
-    // MARK: Color Definitions
-    internal let intrvalBlack = UIColor(red: 30/255, green: 30/255, blue: 30/255, alpha: 1)  // UIColor(white: 0.1, alpha: 1)
-    internal let intrvalWhite = UIColor(red: 250/255, green: 255/255, blue: 250/255, alpha: 1)  // UIColor(white: 0.9, alpha: 1)
+    // MARK: - Color Definitions
+    
+    internal let intrvalBlack = UIColor(red: 30/255,
+                                        green: 30/255,
+                                        blue: 30/255,
+                                        alpha: 1)
+    internal let intrvalWhite = UIColor(red: 250/255,
+                                        green: 255/255,
+                                        blue: 250/255,
+                                        alpha: 1)
     static let green = UIColor(red: 0, green: 0.5, blue: 0, alpha: 1)
-    // MARK: Variables
+    
+    // MARK: - Properties
+    
     internal var nightMode: Bool!
     internal var bColor: UIColor!
     internal var tColor: UIColor!
@@ -23,8 +32,15 @@ class Colors {
     internal var selectedTColor: UIColor!
     internal var grey: UIColor!
     
-    // MARK: Functions
-    internal func refreshColors() {
+    // MARK: - Initializers
+    
+    init() {
+        refreshColors()
+    }
+    
+    // MARK: - Methods
+    
+    func refreshColors() {
         let hour = (Calendar.current as NSCalendar).component(.hour, from: Date())
         if hour > 6 && hour < 20 {
             nightMode = false
@@ -45,10 +61,5 @@ class Colors {
             grey = UIColor.darkGray
             selectedTColor = UIColor.darkGray
         }
-    }
-    
-    // MARK: Lifecycle
-    init() {
-        refreshColors()
     }
 }

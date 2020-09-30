@@ -8,35 +8,33 @@
 
 import Foundation
 
-internal class ComplicationDataHelper {
+class ComplicationDataHelper {
     
-//    struct UIKey {
-//        fileprivate static let data = "data"
-//        fileprivate static let date = "date"
-//        fileprivate static let title = "title"
-//        fileprivate static let id = "creationDate"
-//    }
-    
-    struct UDKey {
-        fileprivate static let currentInterval = "currentIntervalData"
-        fileprivate static let allIntervals = "watchIntervalData"
-        fileprivate static let defaultUnit = "defaultUnit"
-        fileprivate static let userPrefersDefaultUnit = "userPrefersDefaultUnit"
-        fileprivate static let showSecondUnit = "shouldShowSecondUnit"
-        fileprivate static let useTopRowForTitle = "useTopRowForTitle"
+    // MARK: - Types
+
+    private enum UDKey {
         
-        struct Legacy {
-            fileprivate static let referenceDate = "referenceDate"
-            fileprivate static let intervalUnit = "intervalUnit"
-            fileprivate static let title = "title"
-            fileprivate static let showSecondUnit = "showSecondUnit"
-        }
+        static let currentInterval = "currentIntervalData"
+        static let allIntervals = "watchIntervalData"
+        static let defaultUnit = "defaultUnit"
+        static let userPrefersDefaultUnit = "userPrefersDefaultUnit"
+        static let showSecondUnit = "shouldShowSecondUnit"
+        static let useTopRowForTitle = "useTopRowForTitle"
+        
+    }
+    
+    private enum Legacy {
+        
+        static let referenceDate = "referenceDate"
+        static let intervalUnit = "intervalUnit"
+        static let title = "title"
+        static let showSecondUnit = "showSecondUnit"
         
     }
     
     // MARK: - Properties
     
-    fileprivate static let defaults = UserDefaults.standard
+    private static let defaults = UserDefaults.standard
     
     internal class var userPrefersDefaultUnit: Bool {
         get {
@@ -75,43 +73,34 @@ internal class ComplicationDataHelper {
         }
     }
     
-    
-    // MARK: - Convenience (Retrieving)
-    
-    internal class func allIntervals() -> [WatchInterval] {
-        guard let data = UserDefaults.standard.object(forKey: UDKey.allIntervals) as? [String:Any],
-        let array = data[UDKey.allIntervals] as? [[String:Any]] else {
+    internal class func allIntervals() -> [WatchCounter] {
+        guard let data = UserDefaults.standard.object(forKey: UDKey.allIntervals) as? [String: Any],
+        let array = data[UDKey.allIntervals] as? [[String: Any]] else {
                 print("Couldn't fetch data for watch interface")
                 return []
         }
-        var result = [WatchInterval]()
+        var result = [WatchCounter]()
         for info in array {
-            let interval = WatchInterval(storageInfo: info)
+            let interval = WatchCounter(storageInfo: info)
             result.append(interval)
         }
         return result
     }
     
-    internal class func currentInterval() -> WatchInterval? {
+    internal class func currentInterval() -> WatchCounter? {
         guard let info = defaults.object(forKey: UDKey.currentInterval) as? [String:Any] else {
             return nil
         }
-        let interval = WatchInterval(storageInfo: info)
+        let interval = WatchCounter(storageInfo: info)
         if userPrefersDefaultUnit {
             interval.unit = defaultUnit
         }
         return interval
     }
+
+    // MARK: Convenience
     
-    
-    
-    // MARK: - Helper (Retrieving)
-    
-    
-    
-    // MARK: - Convenience (Storing/Updating)
-    
-    internal class func setCurrent(interval: WatchInterval?) {
+    internal class func setCurrent(interval: WatchCounter?) {
         guard let int = interval else {
             defaults.set(nil, forKey: UDKey.currentInterval)
             return
@@ -120,17 +109,18 @@ internal class ComplicationDataHelper {
         defaults.set(object, forKey: UDKey.currentInterval)
     }
     
-    internal class func saveAll(_ intervalTransferInfo: [[String:Any]]) {
-        var intervals = [WatchInterval]()
-        for item in intervalTransferInfo {
-            if let interval = WatchInterval(transferInfo: item) {
+    internal class func importTransferData(_ data: [[String: Any]]) {
+        var intervals = [WatchCounter]()
+        for dict in data {
+            if let interval = WatchCounter(transferDict: dict) {
                 intervals.append(interval)
                 print("success in processing transfer interval")
             } else {
-                print("failed to process transfer interval: \(item.debugDescription)")
+                print("failed to process transfer interval: \(dict.debugDescription)")
             }
         }
-        saveAll(intervals)
+        
+        save(intervals)
     }
     
     internal class func initializeDefaultsIfNeeded() {
@@ -146,17 +136,16 @@ internal class ComplicationDataHelper {
     
     // MARK: - Helper (Storing/Updating)
     
-    fileprivate class func saveAll(_ intervals: [WatchInterval]) {
+    private class func save(_ intervals: [WatchCounter]) {
         let objectToSave = userDefaultsObject(forAll: intervals)
         defaults.set(objectToSave, forKey: UDKey.allIntervals)
         
-        // Update current interval in case changed with update
         updateCurrentInterval()
         NotificationCenter.default.post(name: .watchIntervalDataUpdated, object: nil)
     }
     
-    fileprivate class func userDefaultsObject(forAll intervals: [WatchInterval]) -> [String:Any] {
-        var dictArray = [[String:Any]]()
+    private class func userDefaultsObject(forAll intervals: [WatchCounter]) -> [String: Any] {
+        var dictArray = [[String: Any]]()
         for interval in intervals {
             let dict = interval.asStorageDict()
             dictArray.append(dict)

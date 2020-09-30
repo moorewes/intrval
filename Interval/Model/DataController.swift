@@ -8,7 +8,6 @@
  
 */
 
-
 import Foundation
 import CoreData
 
@@ -16,25 +15,25 @@ internal class DataController {
     
     // MARK: - Types
     
-    internal struct Entity {
+    enum Entity {
         static let Counter = "Counter"
     }
     
-    private struct DefaultsKeys {
+    private enum DefaultsKeys {
         static let legacyCounterData = "intervalData"
     }
     
-    // MARK: - Singleton Instance
+    // MARK: - Properties
+    
+    // MARK: Singleton Instance
     
     static let main = DataController()
     
-    // MARK: - Properties
+    // MARK: Internal Properties
     
-    lazy internal var persistentContainer: NSPersistentContainer = {
-        
+    lazy var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "CounterDataModel")
-        
-        container.loadPersistentStores { (description, error) in
+        container.loadPersistentStores { (_, error) in
             if let error = error {
                 fatalError("Unable to load persistent stores: \(error)")
             }
@@ -43,22 +42,33 @@ internal class DataController {
         return container
     }()
     
-    lazy internal var defaultCounterFetchRequest: NSFetchRequest<Counter> = {
-        
-        let fetchRequest = NSFetchRequest<Counter>(entityName: Entity.Counter)
-        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
-        return fetchRequest
-        
-    }()
+    // MARK: - Init
     
-    // MARK: - Convenience
+    init() {
+        importLegacyDataIfNeeded()
+    }
     
-    internal func importLegacyUserDefaultCounters() {
+    // MARK: - Methods
         
-        guard let legacyCounters = UserDefaults.standard.value(forKey: DefaultsKeys.legacyCounterData) as? [[String: AnyObject]] else {
+    private func importLegacyDataIfNeeded() {
+        guard let legacyCounters = LegacyDataController.counters() else { return }
+        
+        let moc = persistentContainer.viewContext
+        for legacyCounter in legacyCounters {
+            let counter = Counter(context: moc)
+            counter.title = legacyCounter.title
+            counter.date = legacyCounter.date
+            counter.includeTime = legacyCounter.includeTime
+        }
+        
+        do {
+            try moc.save()
+        } catch {
             return
         }
         
+        moc.reset()
+        LegacyDataController.removeAllData()
     }
     
 }

@@ -7,16 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4D398DEDF8849AC133C82990 /* Pods_IntervalTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA2C46EBEB7910136E9133D2 /* Pods_IntervalTests.framework */; };
+		4E6BA18FBF7143D560EBAA6A /* Pods_Interval_IntervalUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 523B622B0E93F23FCDBDEF71 /* Pods_Interval_IntervalUITests.framework */; };
 		DE0F99DC252254A5006079E1 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE0F99DB252254A5006079E1 /* DataController.swift */; };
 		DE2685D01CDE8ED900742BF7 /* ComplicationDataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2685CF1CDE8ED900742BF7 /* ComplicationDataHelper.swift */; };
 		DE2DED021F311C6100058A4A /* CounterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2DED011F311C6100058A4A /* CounterTableViewCell.swift */; };
 		DE2DED041F311DD700058A4A /* CounterListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2DED031F311DD700058A4A /* CounterListTableViewController.swift */; };
 		DE2DED081F312C8000058A4A /* CounterDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2DED071F312C8000058A4A /* CounterDetailTableViewController.swift */; };
-		DE2DED101F324E0600058A4A /* WatchInterval.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2DED0F1F324E0500058A4A /* WatchInterval.swift */; };
+		DE2DED101F324E0600058A4A /* WatchCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2DED0F1F324E0500058A4A /* WatchCounter.swift */; };
 		DE2DED121F3270B700058A4A /* EditDateInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2DED111F3270B700058A4A /* EditDateInterfaceController.swift */; };
 		DE4F8F2C1DC4567000E15F17 /* ClockKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE4F8F2B1DC4567000E15F17 /* ClockKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		DE5126481D527E750010DDC1 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = DE5126471D527E750010DDC1 /* .gitignore */; };
 		DE676D091F423E5F0006CD11 /* Launch.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DE676D081F423E5F0006CD11 /* Launch.storyboard */; };
+		DE7A83AB2523EC4D005F75D4 /* LegacyDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE7A83AA2523EC4D005F75D4 /* LegacyDataController.swift */; };
 		DE7EBB742522A11F0061F38F /* CounterDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DE7EBB722522A11F0061F38F /* CounterDataModel.xcdatamodeld */; };
 		DE7EBB8B2522A1BD0061F38F /* Counter+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE7EBB892522A1BD0061F38F /* Counter+CoreDataClass.swift */; };
 		DE7EBB8C2522A1BD0061F38F /* Counter+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE7EBB8A2522A1BD0061F38F /* Counter+CoreDataProperties.swift */; };
@@ -37,14 +40,14 @@
 		DEF9977E1D1DC61E00DAD02E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF9977D1D1DC61E00DAD02E /* AppDelegate.swift */; };
 		DEF997881D1DC69400DAD02E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DEF9977F1D1DC69400DAD02E /* LaunchScreen.storyboard */; };
 		DEF997891D1DC69400DAD02E /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF997801D1DC69400DAD02E /* Colors.swift */; };
-		DEF9978A1D1DC69400DAD02E /* ComplicationDataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF997811D1DC69400DAD02E /* ComplicationDataHelper.swift */; };
-		DEF9978B1D1DC69400DAD02E /* LegacyDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF997821D1DC69400DAD02E /* LegacyDataController.swift */; };
+		DEF9978A1D1DC69400DAD02E /* WatchDataTranslator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF997811D1DC69400DAD02E /* WatchDataTranslator.swift */; };
+		DEF9978B1D1DC69400DAD02E /* WatchCommunicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF997821D1DC69400DAD02E /* WatchCommunicator.swift */; };
 		DEF9978C1D1DC69400DAD02E /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF997831D1DC69400DAD02E /* Extensions.swift */; };
 		DEF9978D1D1DC69400DAD02E /* HelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF997841D1DC69400DAD02E /* HelpViewController.swift */; };
 		DEF9978E1D1DC69400DAD02E /* Interval.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF997851D1DC69400DAD02E /* Interval.swift */; };
-		DEF9978F1D1DC69400DAD02E /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF997861D1DC69400DAD02E /* Keys.swift */; };
 		DEF997921D1DC6B100DAD02E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DEF997911D1DC6B100DAD02E /* Assets.xcassets */; };
 		DEF997941D1DC75C00DAD02E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DEF997931D1DC75C00DAD02E /* Main.storyboard */; };
+		FB8A8E12F07D05B5AB8D98DC /* Pods_Interval.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F08B65C31E59DD4B36890AE /* Pods_Interval.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -124,6 +127,15 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		1C4155DC408156CEAAB96283 /* Pods-Interval-IntervalUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Interval-IntervalUITests.release.xcconfig"; path = "Target Support Files/Pods-Interval-IntervalUITests/Pods-Interval-IntervalUITests.release.xcconfig"; sourceTree = "<group>"; };
+		2F08B65C31E59DD4B36890AE /* Pods_Interval.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Interval.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		308EA1BC7949C9DCC13E449D /* Pods-Interval-IntervalUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Interval-IntervalUITests.debug.xcconfig"; path = "Target Support Files/Pods-Interval-IntervalUITests/Pods-Interval-IntervalUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		370BA3137EC74607617B34D4 /* Pods-IntervalTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IntervalTests.release.xcconfig"; path = "Target Support Files/Pods-IntervalTests/Pods-IntervalTests.release.xcconfig"; sourceTree = "<group>"; };
+		3D2F376DC2C00827AA433FDD /* Pods-Interval.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Interval.debug.xcconfig"; path = "Target Support Files/Pods-Interval/Pods-Interval.debug.xcconfig"; sourceTree = "<group>"; };
+		523B622B0E93F23FCDBDEF71 /* Pods_Interval_IntervalUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Interval_IntervalUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		93040A6E39196CE7B9FA0F96 /* Pods-IntervalTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IntervalTests.debug.xcconfig"; path = "Target Support Files/Pods-IntervalTests/Pods-IntervalTests.debug.xcconfig"; sourceTree = "<group>"; };
+		B08E3EDC8CE8AAEA643EC6E3 /* Pods-Interval.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Interval.release.xcconfig"; path = "Target Support Files/Pods-Interval/Pods-Interval.release.xcconfig"; sourceTree = "<group>"; };
+		CA2C46EBEB7910136E9133D2 /* Pods_IntervalTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_IntervalTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE002C881CAF24D300FE65CE /* Interval WatchKit Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Interval WatchKit Extension.entitlements"; sourceTree = "<group>"; };
 		DE002C891CAF254100FE65CE /* Interval WatchKit App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Interval WatchKit App.entitlements"; sourceTree = "<group>"; };
 		DE0F99DB252254A5006079E1 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
@@ -132,11 +144,12 @@
 		DE2DED011F311C6100058A4A /* CounterTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CounterTableViewCell.swift; sourceTree = "<group>"; };
 		DE2DED031F311DD700058A4A /* CounterListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CounterListTableViewController.swift; sourceTree = "<group>"; };
 		DE2DED071F312C8000058A4A /* CounterDetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CounterDetailTableViewController.swift; sourceTree = "<group>"; };
-		DE2DED0F1F324E0500058A4A /* WatchInterval.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchInterval.swift; sourceTree = "<group>"; };
+		DE2DED0F1F324E0500058A4A /* WatchCounter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchCounter.swift; sourceTree = "<group>"; };
 		DE2DED111F3270B700058A4A /* EditDateInterfaceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditDateInterfaceController.swift; sourceTree = "<group>"; };
 		DE4F8F2B1DC4567000E15F17 /* ClockKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ClockKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS3.0.sdk/System/Library/Frameworks/ClockKit.framework; sourceTree = DEVELOPER_DIR; };
 		DE5126471D527E750010DDC1 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		DE676D081F423E5F0006CD11 /* Launch.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Launch.storyboard; sourceTree = "<group>"; };
+		DE7A83AA2523EC4D005F75D4 /* LegacyDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegacyDataController.swift; sourceTree = "<group>"; };
 		DE7EBB732522A11F0061F38F /* CounterDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CounterDataModel.xcdatamodel; sourceTree = "<group>"; };
 		DE7EBB892522A1BD0061F38F /* Counter+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Counter+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
 		DE7EBB8A2522A1BD0061F38F /* Counter+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Counter+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
@@ -165,21 +178,28 @@
 		DEF9977D1D1DC61E00DAD02E /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DEF9977F1D1DC69400DAD02E /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DEF997801D1DC69400DAD02E /* Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
-		DEF997811D1DC69400DAD02E /* ComplicationDataHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComplicationDataHelper.swift; sourceTree = "<group>"; };
-		DEF997821D1DC69400DAD02E /* LegacyDataController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LegacyDataController.swift; sourceTree = "<group>"; };
+		DEF997811D1DC69400DAD02E /* WatchDataTranslator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchDataTranslator.swift; sourceTree = "<group>"; };
+		DEF997821D1DC69400DAD02E /* WatchCommunicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchCommunicator.swift; sourceTree = "<group>"; };
 		DEF997831D1DC69400DAD02E /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		DEF997841D1DC69400DAD02E /* HelpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelpViewController.swift; sourceTree = "<group>"; };
 		DEF997851D1DC69400DAD02E /* Interval.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Interval.swift; sourceTree = "<group>"; };
-		DEF997861D1DC69400DAD02E /* Keys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
 		DEF997911D1DC6B100DAD02E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DEF997931D1DC75C00DAD02E /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		9F4AA8BDF254270175F12540 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DEF28CEB1CADCDDE00D50DC1 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FB8A8E12F07D05B5AB8D98DC /* Pods_Interval.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -187,6 +207,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4D398DEDF8849AC133C82990 /* Pods_IntervalTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -194,6 +215,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4E6BA18FBF7143D560EBAA6A /* Pods_Interval_IntervalUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -208,10 +230,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9E06B3F59DEE5537A8A7E272 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				3D2F376DC2C00827AA433FDD /* Pods-Interval.debug.xcconfig */,
+				B08E3EDC8CE8AAEA643EC6E3 /* Pods-Interval.release.xcconfig */,
+				308EA1BC7949C9DCC13E449D /* Pods-Interval-IntervalUITests.debug.xcconfig */,
+				1C4155DC408156CEAAB96283 /* Pods-Interval-IntervalUITests.release.xcconfig */,
+				93040A6E39196CE7B9FA0F96 /* Pods-IntervalTests.debug.xcconfig */,
+				370BA3137EC74607617B34D4 /* Pods-IntervalTests.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		DE4F8F2A1DC4566F00E15F17 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 				DE4F8F2B1DC4567000E15F17 /* ClockKit.framework */,
+				2F08B65C31E59DD4B36890AE /* Pods_Interval.framework */,
+				523B622B0E93F23FCDBDEF71 /* Pods_Interval_IntervalUITests.framework */,
+				CA2C46EBEB7910136E9133D2 /* Pods_IntervalTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -222,11 +260,11 @@
 				DE7EBB892522A1BD0061F38F /* Counter+CoreDataClass.swift */,
 				DE7EBB8A2522A1BD0061F38F /* Counter+CoreDataProperties.swift */,
 				DE0F99DB252254A5006079E1 /* DataController.swift */,
-				DEF997821D1DC69400DAD02E /* LegacyDataController.swift */,
-				DEF997811D1DC69400DAD02E /* ComplicationDataHelper.swift */,
+				DEF997821D1DC69400DAD02E /* WatchCommunicator.swift */,
+				DE7A83AA2523EC4D005F75D4 /* LegacyDataController.swift */,
+				DEF997811D1DC69400DAD02E /* WatchDataTranslator.swift */,
 				DEC0FA1A1D95B8BA0003C6F8 /* RateStatus.swift */,
 				DEF997851D1DC69400DAD02E /* Interval.swift */,
-				DEF997861D1DC69400DAD02E /* Keys.swift */,
 				DEF997801D1DC69400DAD02E /* Colors.swift */,
 				DEF997831D1DC69400DAD02E /* Extensions.swift */,
 				DE7EBB722522A11F0061F38F /* CounterDataModel.xcdatamodeld */,
@@ -276,6 +314,7 @@
 				DEF28D291CADCDDE00D50DC1 /* Interval WatchKit Extension */,
 				DEF28CEF1CADCDDE00D50DC1 /* Products */,
 				DE4F8F2A1DC4566F00E15F17 /* Frameworks */,
+				9E06B3F59DEE5537A8A7E272 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -342,7 +381,7 @@
 				DE2DED111F3270B700058A4A /* EditDateInterfaceController.swift */,
 				DEF28D2E1CADCDDE00D50DC1 /* ExtensionDelegate.swift */,
 				DE2685CF1CDE8ED900742BF7 /* ComplicationDataHelper.swift */,
-				DE2DED0F1F324E0500058A4A /* WatchInterval.swift */,
+				DE2DED0F1F324E0500058A4A /* WatchCounter.swift */,
 				DEF28D301CADCDDE00D50DC1 /* NotificationController.swift */,
 				DEF28D341CADCDDE00D50DC1 /* ComplicationController.swift */,
 				DEF28D361CADCDDE00D50DC1 /* Assets.xcassets */,
@@ -366,11 +405,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = DEF28D431CADCDDE00D50DC1 /* Build configuration list for PBXNativeTarget "Interval" */;
 			buildPhases = (
+				3E9409F052DB42BD9E73D68E /* [CP] Check Pods Manifest.lock */,
 				DEF28CEA1CADCDDE00D50DC1 /* Sources */,
 				DEF28CEB1CADCDDE00D50DC1 /* Frameworks */,
 				DEF28CEC1CADCDDE00D50DC1 /* Resources */,
 				DEF28D421CADCDDE00D50DC1 /* Embed Watch Content */,
 				DE23179D1CAF17D1007D605C /* Embed Frameworks */,
+				DE7A83952523B6D9005F75D4 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -386,6 +427,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = DEF28D461CADCDDE00D50DC1 /* Build configuration list for PBXNativeTarget "IntervalTests" */;
 			buildPhases = (
+				E1C731FA0AFFAE616DC33576 /* [CP] Check Pods Manifest.lock */,
 				DEF28CFE1CADCDDE00D50DC1 /* Sources */,
 				DEF28CFF1CADCDDE00D50DC1 /* Frameworks */,
 				DEF28D001CADCDDE00D50DC1 /* Resources */,
@@ -404,6 +446,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = DEF28D491CADCDDE00D50DC1 /* Build configuration list for PBXNativeTarget "IntervalUITests" */;
 			buildPhases = (
+				E9C8904EDC21F2EB10F579B7 /* [CP] Check Pods Manifest.lock */,
 				DEF28D091CADCDDE00D50DC1 /* Sources */,
 				DEF28D0A1CADCDDE00D50DC1 /* Frameworks */,
 				DEF28D0B1CADCDDE00D50DC1 /* Resources */,
@@ -424,6 +467,7 @@
 			buildPhases = (
 				DEF28D141CADCDDE00D50DC1 /* Resources */,
 				DEF28D3E1CADCDDE00D50DC1 /* Embed App Extensions */,
+				9F4AA8BDF254270175F12540 /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -460,7 +504,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 1130;
+				LastUpgradeCheck = 1200;
 				ORGANIZATIONNAME = "Wes Moore";
 				TargetAttributes = {
 					DEF28CED1CADCDDE00D50DC1 = {
@@ -576,6 +620,92 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		3E9409F052DB42BD9E73D68E /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Interval-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		DE7A83952523B6D9005F75D4 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#if which swiftlint >/dev/null; then\n#  swiftlint\n#else\n#  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\n#fi\n";
+		};
+		E1C731FA0AFFAE616DC33576 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-IntervalTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E9C8904EDC21F2EB10F579B7 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Interval-IntervalUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		DEF28CEA1CADCDDE00D50DC1 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -583,22 +713,22 @@
 			files = (
 				DE7EBB742522A11F0061F38F /* CounterDataModel.xcdatamodeld in Sources */,
 				DEF9978C1D1DC69400DAD02E /* Extensions.swift in Sources */,
+				DE7A83AB2523EC4D005F75D4 /* LegacyDataController.swift in Sources */,
 				DE8DBD66252282CB008A75C3 /* RoundedCornerButton.swift in Sources */,
-				DEF9978F1D1DC69400DAD02E /* Keys.swift in Sources */,
 				DEF9978D1D1DC69400DAD02E /* HelpViewController.swift in Sources */,
 				DE0F99DC252254A5006079E1 /* DataController.swift in Sources */,
 				DE7EBB8C2522A1BD0061F38F /* Counter+CoreDataProperties.swift in Sources */,
 				DEC0FA1B1D95B8BA0003C6F8 /* RateStatus.swift in Sources */,
 				DE2DED041F311DD700058A4A /* CounterListTableViewController.swift in Sources */,
 				DEF9977E1D1DC61E00DAD02E /* AppDelegate.swift in Sources */,
-				DEF9978B1D1DC69400DAD02E /* LegacyDataController.swift in Sources */,
+				DEF9978B1D1DC69400DAD02E /* WatchCommunicator.swift in Sources */,
 				DEAC75D025097CC800062809 /* RoundedCornerView.swift in Sources */,
 				DE2DED081F312C8000058A4A /* CounterDetailTableViewController.swift in Sources */,
 				DEF997891D1DC69400DAD02E /* Colors.swift in Sources */,
 				DEF9978E1D1DC69400DAD02E /* Interval.swift in Sources */,
 				DE7EBB8B2522A1BD0061F38F /* Counter+CoreDataClass.swift in Sources */,
 				DE2DED021F311C6100058A4A /* CounterTableViewCell.swift in Sources */,
-				DEF9978A1D1DC69400DAD02E /* ComplicationDataHelper.swift in Sources */,
+				DEF9978A1D1DC69400DAD02E /* WatchDataTranslator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -623,7 +753,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DEF28D311CADCDDE00D50DC1 /* NotificationController.swift in Sources */,
-				DE2DED101F324E0600058A4A /* WatchInterval.swift in Sources */,
+				DE2DED101F324E0600058A4A /* WatchCounter.swift in Sources */,
 				DE2DED121F3270B700058A4A /* EditDateInterfaceController.swift in Sources */,
 				DE2685D01CDE8ED900742BF7 /* ComplicationDataHelper.swift in Sources */,
 				DEF28D2F1CADCDDE00D50DC1 /* ExtensionDelegate.swift in Sources */,
@@ -693,6 +823,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -750,6 +881,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -784,7 +916,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Interval WatchKit Extension/Interval WatchKit Extension.entitlements";
 				CURRENT_PROJECT_VERSION = 19;
 				INFOPLIST_FILE = "Interval WatchKit Extension/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -809,7 +941,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Interval WatchKit Extension/Interval WatchKit Extension.entitlements";
 				CURRENT_PROJECT_VERSION = 19;
 				INFOPLIST_FILE = "Interval WatchKit Extension/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -869,6 +1001,7 @@
 		};
 		DEF28D441CADCDDE00D50DC1 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3D2F376DC2C00827AA433FDD /* Pods-Interval.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -890,6 +1023,7 @@
 		};
 		DEF28D451CADCDDE00D50DC1 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B08E3EDC8CE8AAEA643EC6E3 /* Pods-Interval.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -911,10 +1045,11 @@
 		};
 		DEF28D471CADCDDE00D50DC1 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 93040A6E39196CE7B9FA0F96 /* Pods-IntervalTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = IntervalTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -930,10 +1065,11 @@
 		};
 		DEF28D481CADCDDE00D50DC1 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 370BA3137EC74607617B34D4 /* Pods-IntervalTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = IntervalTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -949,6 +1085,7 @@
 		};
 		DEF28D4A1CADCDDE00D50DC1 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 308EA1BC7949C9DCC13E449D /* Pods-Interval-IntervalUITests.debug.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = IntervalUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -966,6 +1103,7 @@
 		};
 		DEF28D4B1CADCDDE00D50DC1 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1C4155DC408156CEAAB96283 /* Pods-Interval-IntervalUITests.release.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = IntervalUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (

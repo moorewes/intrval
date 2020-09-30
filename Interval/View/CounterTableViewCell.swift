@@ -12,7 +12,7 @@ class CounterTableViewCell: UITableViewCell {
     
     // MARK: - Properties
     
-    internal static let id = "counterCell"
+    internal static let cellID = "counterCell"
     
     internal var counter: Counter? {
         didSet {
@@ -21,21 +21,19 @@ class CounterTableViewCell: UITableViewCell {
     }
         
     private lazy var dateFormatter: DateFormatter = {
-        
         let formatter = DateFormatter()
         formatter.dateStyle = .short
         formatter.timeStyle = .none
-        return formatter
         
+        return formatter
     }()
     
     private lazy var timeFormatter: DateFormatter = {
-        
         let formatter = DateFormatter()
         formatter.dateStyle = .none
         formatter.timeStyle = .short
-        return formatter
         
+        return formatter
     }()
     
     // MARK: - IBOutlets
@@ -44,14 +42,13 @@ class CounterTableViewCell: UITableViewCell {
     @IBOutlet weak var timeIntervalLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
     
-    // MARK: - Convenience
+    // MARK: - Methods
     
-    internal func startUpdatingIntervalLabel() {
-        NotificationCenter.default.addObserver(self, selector: #selector(refreshIntervalLabel), name: .counterCellShouldUpdateTimeIntervalLabel, object: nil)
+    func refreshIntervalLabel() {
+        timeIntervalLabel.text = intervalString()
     }
     
-    internal func refreshUI() {
-        
+    private func refreshUI() {
         guard let counter = self.counter else { return }
         
         titleLabel.text = counter.title
@@ -62,26 +59,22 @@ class CounterTableViewCell: UITableViewCell {
         }
 
         refreshIntervalLabel()
-
     }
     
-    @objc internal func refreshIntervalLabel() {
-        guard let counter = counter else { return }
+    private func intervalString() -> String {
+        guard let counter = counter else { return "" }
         
         let timeInterval = counter.timeInterval()
-        var intervalText = "\(timeInterval.value) \(timeInterval.unit)"
-        if timeInterval.value == -1 {
-            intervalText += " Remains"
-        } else if timeInterval.value < 0 {
-            intervalText += " Remain"
-        } else if timeInterval.value == 1 {
-            intervalText += " Has Passed"
+        let interval = timeInterval.value
+        var intervalText = "\(abs(interval)) \(timeInterval.unit)"
+        
+        if interval > 0 {
+            intervalText += interval == 1 ? " has passed" : "s have passed"
         } else {
-            intervalText += " Have Passed"
+            intervalText += interval == -1 ? " remains" : "s remain"
         }
         
-        timeIntervalLabel.text = intervalText
+        return intervalText
     }
-
-
+    
 }

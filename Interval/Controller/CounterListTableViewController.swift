@@ -9,25 +9,20 @@
 import UIKit
 import CoreData
 
-extension Notification.Name {
-    static let counterCellShouldUpdateTimeIntervalLabel = Notification.Name("counterCellShouldUpdateTimeIntervalLabel")
-}
-
 class CounterListTableViewController: UITableViewController {
     
     // MARK: - Types
-    
-    private struct SegueID {
+        
+    private enum SegueID {
+        
         static let EditCounter = "editCounter"
+        
     }
     
     // MARK: - Properties
     
     private var fetchedResultsController: NSFetchedResultsController<Counter>!
-    
-    var startupSyncComplete = false
-    
-    var refreshTimeIntervalTimer: Timer?
+    private var refreshCellsTimer: Timer?
     
     // MARK: - IBOutlet Properties
     
@@ -40,72 +35,54 @@ class CounterListTableViewController: UITableViewController {
         super.viewDidLoad()
                 
         newIntervalButton.layer.cornerRadius = newIntervalButton.frame.height/2
-        
+
         navigationItem.rightBarButtonItem = editButtonItem
         
         setupFetchedResultsController()
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        
         super.viewDidAppear(animated)
         
-        if !startupSyncComplete {
-            LegacyDataController.main.transferDataToWatch()
-            startupSyncComplete = true
-        }
+        startAutoCellRefreshTimer()
+    }
         
-        refreshTimeIntervalTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { _ in
-            NotificationCenter.default.post(name: .counterCellShouldUpdateTimeIntervalLabel, object: nil)
-        })
-        
+    deinit {
+        refreshCellsTimer?.invalidate()
     }
     
     // MARK: - Navigation
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-        refreshTimeIntervalTimer?.invalidate()
+        refreshCellsTimer?.invalidate()
         
         if let vc = segue.destination as? CounterDetailTableViewController {
-                                    
             if let indexPath = tableView.indexPathForSelectedRow {
-                
                 vc.counter = fetchedResultsController.object(at: indexPath)
-                
             } else {
-                
                 let newCounter = Counter(context: fetchedResultsController.managedObjectContext)
                 newCounter.title = ""
                 newCounter.date = Date()
                 newCounter.includeTime = false
-                
                 vc.counter = newCounter
-                
             }
             
+            vc.onDoneBlock = { self.startAutoCellRefreshTimer() }
         }
-        
     }
     
     // MARK: - Convenience
     
     private func setupFetchedResultsController() {
-        
-        let context = DataController.main.persistentContainer.viewContext
-        
+        let moc = DataController.main.persistentContainer.viewContext
         let fetchRequest: NSFetchRequest<Counter> = Counter.fetchRequest()
-        
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
-        
         let controller = NSFetchedResultsController (
             fetchRequest: fetchRequest,
-            managedObjectContext: context,
+            managedObjectContext: moc,
             sectionNameKeyPath: nil,
             cacheName: nil
         )
-        
         controller.delegate = self
         
         do {
@@ -117,14 +94,25 @@ class CounterListTableViewController: UITableViewController {
         fetchedResultsController = controller
     }
     
+    fileprivate func startAutoCellRefreshTimer() {
+        refreshCellsTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { _ in
+            self.refreshCells()
+        })
+    }
+    
+    private func refreshCells() {
+        for cell in tableView.visibleCells {
+            guard let counterCell = cell as? CounterTableViewCell else { continue }
+            counterCell.refreshIntervalLabel()
+        }
+    }
+    
     private func saveChanges() {
-        
         do {
             try fetchedResultsController.managedObjectContext.save()
         } catch {
             fatalError("Failed to save changes, \(error)")
         }
-        
     }
     
 }
@@ -134,59 +122,46 @@ extension CounterListTableViewController {
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        
         return fetchedResultsController.sections?.count ?? 0
-        
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        guard let section = fetchedResultsController.sections?.first else {
-            return 0
-        }
-        
+        guard let section = fetchedResultsController.sections?.first else { return 0 }
         return section.numberOfObjects
-        
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        let cell = tableView.dequeueReusableCell(withIdentifier: CounterTableViewCell.id, for: indexPath) as! CounterTableViewCell
-        
+        let cell = tableView.dequeueReusableCell(withIdentifier: CounterTableViewCell.cellID,
+                                                 for: indexPath) as! CounterTableViewCell
         cell.counter = fetchedResultsController.object(at: indexPath)
-        cell.startUpdatingIntervalLabel()
 
         return cell
-        
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
         performSegue(withIdentifier: SegueID.EditCounter, sender: nil)
-        
     }
 
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        
         return true
-        
     }
 
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        
+    override func tableView(_ tableView: UITableView,
+                            commit editingStyle: UITableViewCell.EditingStyle,
+                            forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            
             let object = fetchedResultsController.object(at: indexPath)
             fetchedResultsController.managedObjectContext.delete(object)
-            
             saveChanges()
-            
         }
     }
     
-    override func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+    override func tableView(_ tableView: UITableView,
+                            didEndDisplaying cell: UITableViewCell,
+                            forRowAt indexPath: IndexPath) {
         NotificationCenter.default.removeObserver(cell)
     }
+    
 }
 
 extension CounterListTableViewController: NSFetchedResultsControllerDelegate {
@@ -201,28 +176,21 @@ extension CounterListTableViewController: NSFetchedResultsControllerDelegate {
         tableView.endUpdates()
     }
     
-    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
-                
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>,
+                    didChange anObject: Any,
+                    at indexPath: IndexPath?,
+                    for type: NSFetchedResultsChangeType,
+                    newIndexPath: IndexPath?) {
         switch type {
-        
         case .delete:
             tableView.deleteRows(at: [indexPath!], with: .fade)
-            
         case .insert:
             tableView.insertRows(at: [newIndexPath!], with: .fade)
-            
         case .move:
-            //let cell = tableView.cellForRow(at: indexPath!) as! CounterTableViewCell
-            //cell.counter = anObject as? Counter
             tableView.moveRow(at: indexPath!, to: newIndexPath!)
-            
         case .update:
             tableView.reloadRows(at: [indexPath!], with: .fade)
-            //let cell = tableView.cellForRow(at: indexPath!) as! CounterTableViewCell
-            //cell.counter = anObject as? Counter
-            
         default: break
-            
         }
     }
     

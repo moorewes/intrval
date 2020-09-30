@@ -13,17 +13,19 @@ import CoreData
 @objc(Counter)
 public class Counter: NSManagedObject {
     
-    internal func timeInterval(using unit: Calendar.Component? = nil) -> (value: Int, unit: Calendar.Component) {
+    // MARK: - Methods
+    
+    func timeInterval(using unit: Calendar.Component? = nil) -> (value: Int, unit: Calendar.Component) {
         let component = unit ?? relativeTimeIntervalUnit()
         let components = Calendar.current.dateComponents([component], from: date, to: Date())
         guard let count = components.value(for: component) else {
             return (0, component)
         }
-        return (abs(count), component)
         
+        return (count, component)
     }
     
-    internal func relativeTimeIntervalUnit() -> Calendar.Component {
+    func relativeTimeIntervalUnit() -> Calendar.Component {
         
         let yearInterval = timeInterval(using: .year).value
         guard yearInterval < 1 else {

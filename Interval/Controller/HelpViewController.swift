@@ -41,7 +41,9 @@ class HelpViewController: UIViewController, MFMailComposeViewControllerDelegate 
             mail.setMessageBody(bodyText, isHTML: false)
             self.present(mail, animated: true, completion: nil)
         } else {
-            let alert = UIAlertController(title: "Contanct Developer", message: "Please email Wes at wesmooredesign@gmail.com", preferredStyle: .alert)
+            let alert = UIAlertController(title: "Contanct Developer",
+                                          message: "Please email Wes at wesmooredesign@gmail.com",
+                                          preferredStyle: .alert)
             let action = UIAlertAction(title: "OK", style: .default, handler: nil)
             alert.addAction(action)
             self.present(alert, animated: true, completion: nil)
@@ -64,15 +66,12 @@ class HelpViewController: UIViewController, MFMailComposeViewControllerDelegate 
 //    }
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // TODO: Nav bar colors
-        
+                
         if let version = Bundle.main.releaseVersionNumber, let build = Bundle.main.buildVersionNumber {
             versionLabel.text = "Designed By Wes Moore\nVersion \(version) (\(build))"
         } else {
             versionLabel.text = ""
         }
-        
         
         //updateUI()
     }
@@ -96,15 +95,4 @@ class HelpViewController: UIViewController, MFMailComposeViewControllerDelegate 
         self.dismiss(animated: true, completion: nil)
     }
     
-}
-
-// Helper function inserted by Swift 4.2 migrator.
-fileprivate func convertToOptionalNSAttributedStringKeyDictionary(_ input: [String: Any]?) -> [NSAttributedString.Key: Any]? {
-	guard let input = input else { return nil }
-	return Dictionary(uniqueKeysWithValues: input.map { key, value in (NSAttributedString.Key(rawValue: key), value)})
-}
-
-// Helper function inserted by Swift 4.2 migrator.
-fileprivate func convertFromNSAttributedStringKey(_ input: NSAttributedString.Key) -> String {
-	return input.rawValue
 }
