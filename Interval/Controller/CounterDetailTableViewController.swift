@@ -137,6 +137,7 @@ class CounterDetailTableViewController: UITableViewController {
         
         datePicker.isHidden = false
     }
+    
 }
 
 extension CounterDetailTableViewController: UITextFieldDelegate {
@@ -153,4 +154,5 @@ extension CounterDetailTableViewController: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
         counter.title = textField.text!
     }
+    
 }

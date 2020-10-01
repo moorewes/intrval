@@ -15,39 +15,40 @@ public class Counter: NSManagedObject {
     
     // MARK: - Methods
     
-    func timeInterval(using unit: Calendar.Component? = nil) -> (value: Int, unit: Calendar.Component) {
-        let component = unit ?? relativeTimeIntervalUnit()
-        let components = Calendar.current.dateComponents([component], from: date, to: Date())
-        guard let count = components.value(for: component) else {
-            return (0, component)
-        }
-        
-        return (count, component)
+    /// Returns an Interval object by automatically picking a relevant unit,
+    /// e.g. 2 minutes instead of 120 seconds
+    func scaledTimeInterval() -> Interval {
+        let unit = scaledTimeIntervalUnit()
+        return timeInterval(using: unit)
     }
     
-    func relativeTimeIntervalUnit() -> Calendar.Component {
-        
-        let yearInterval = timeInterval(using: .year).value
+    private func timeInterval(using unit: Calendar.Component) -> Interval {
+        let component = unit
+        return Interval(date: date, unit: component)
+    }
+    
+    private func scaledTimeIntervalUnit() -> Calendar.Component {
+        let yearInterval = Interval(date: date, unit: .year).absValue
         guard yearInterval < 1 else {
             return .year
         }
         
-        let monthInterval = timeInterval(using: .month).value
+        let monthInterval = Interval(date: date, unit: .month).absValue
         guard monthInterval < 1 else {
             return .month
         }
         
-        let dayInterval = timeInterval(using: .day).value
+        let dayInterval = Interval(date: date, unit: .day).absValue
         guard dayInterval < 1 && includeTime else {
             return .day
         }
         
-        let hourInterval = timeInterval(using: .hour).value
+        let hourInterval = Interval(date: date, unit: .hour).absValue
         guard hourInterval < 1 else {
             return .hour
         }
         
-        let secondInterval = timeInterval(using: .second).value
+        let secondInterval = Interval(date: date, unit: .second).absValue
         guard secondInterval < 60 else {
             return .minute
         }

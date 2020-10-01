@@ -64,7 +64,7 @@ class CounterTableViewCell: UITableViewCell {
     private func intervalString() -> String {
         guard let counter = counter else { return "" }
         
-        let timeInterval = counter.timeInterval()
+        let timeInterval = counter.scaledTimeInterval()
         let interval = timeInterval.value
         var intervalText = "\(abs(interval)) \(timeInterval.unit)"
         
