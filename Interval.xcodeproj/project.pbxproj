@@ -24,9 +24,11 @@
 		DE7EBB8B2522A1BD0061F38F /* Counter+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE7EBB892522A1BD0061F38F /* Counter+CoreDataClass.swift */; };
 		DE7EBB8C2522A1BD0061F38F /* Counter+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE7EBB8A2522A1BD0061F38F /* Counter+CoreDataProperties.swift */; };
 		DE8DBD66252282CB008A75C3 /* RoundedCornerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE8DBD65252282CB008A75C3 /* RoundedCornerButton.swift */; };
+		DEABF5DE252657740092F0F9 /* DataControllerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEABF5DD252657740092F0F9 /* DataControllerMock.swift */; };
+		DEABF5EA252660440092F0F9 /* DataControllerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEABF5E9252660440092F0F9 /* DataControllerTest.swift */; };
 		DEAC75D025097CC800062809 /* RoundedCornerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEAC75CF25097CC800062809 /* RoundedCornerView.swift */; };
 		DEB467A8252563C200BC8A74 /* TestDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEB467A7252563C200BC8A74 /* TestDataController.swift */; };
-		DEB467AD252565A200BC8A74 /* TestCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEB467AC252565A200BC8A74 /* TestCounter.swift */; };
+		DEB467AD252565A200BC8A74 /* CounterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEB467AC252565A200BC8A74 /* CounterTest.swift */; };
 		DEC0FA1B1D95B8BA0003C6F8 /* RateStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEC0FA1A1D95B8BA0003C6F8 /* RateStatus.swift */; };
 		DEF28D071CADCDDE00D50DC1 /* IntervalTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF28D061CADCDDE00D50DC1 /* IntervalTests.swift */; };
 		DEF28D121CADCDDE00D50DC1 /* IntervalUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF28D111CADCDDE00D50DC1 /* IntervalUITests.swift */; };
@@ -156,9 +158,11 @@
 		DE7EBB892522A1BD0061F38F /* Counter+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Counter+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
 		DE7EBB8A2522A1BD0061F38F /* Counter+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Counter+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 		DE8DBD65252282CB008A75C3 /* RoundedCornerButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedCornerButton.swift; sourceTree = "<group>"; };
+		DEABF5DD252657740092F0F9 /* DataControllerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataControllerMock.swift; sourceTree = "<group>"; };
+		DEABF5E9252660440092F0F9 /* DataControllerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataControllerTest.swift; sourceTree = "<group>"; };
 		DEAC75CF25097CC800062809 /* RoundedCornerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedCornerView.swift; sourceTree = "<group>"; };
 		DEB467A7252563C200BC8A74 /* TestDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestDataController.swift; sourceTree = "<group>"; };
-		DEB467AC252565A200BC8A74 /* TestCounter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCounter.swift; sourceTree = "<group>"; };
+		DEB467AC252565A200BC8A74 /* CounterTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CounterTest.swift; sourceTree = "<group>"; };
 		DEC0FA1A1D95B8BA0003C6F8 /* RateStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RateStatus.swift; sourceTree = "<group>"; };
 		DEF28CEE1CADCDDE00D50DC1 /* Interval.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Interval.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DEF28CFD1CADCDDE00D50DC1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -258,6 +262,17 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		DEABF5D3252655FE0092F0F9 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				DEB467AC252565A200BC8A74 /* CounterTest.swift */,
+				DEABF5DD252657740092F0F9 /* DataControllerMock.swift */,
+				DEABF5E9252660440092F0F9 /* DataControllerTest.swift */,
+				DEF28D061CADCDDE00D50DC1 /* IntervalTests.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		DED2F8352501AEB400BACD1C /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -351,9 +366,8 @@
 		DEF28D051CADCDDE00D50DC1 /* IntervalTests */ = {
 			isa = PBXGroup;
 			children = (
-				DEF28D061CADCDDE00D50DC1 /* IntervalTests.swift */,
+				DEABF5D3252655FE0092F0F9 /* Model */,
 				DEB467A7252563C200BC8A74 /* TestDataController.swift */,
-				DEB467AC252565A200BC8A74 /* TestCounter.swift */,
 				DEF28D081CADCDDE00D50DC1 /* Info.plist */,
 			);
 			path = IntervalTests;
@@ -744,7 +758,9 @@
 			files = (
 				DEF28D071CADCDDE00D50DC1 /* IntervalTests.swift in Sources */,
 				DEB467A8252563C200BC8A74 /* TestDataController.swift in Sources */,
-				DEB467AD252565A200BC8A74 /* TestCounter.swift in Sources */,
+				DEB467AD252565A200BC8A74 /* CounterTest.swift in Sources */,
+				DEABF5DE252657740092F0F9 /* DataControllerMock.swift in Sources */,
+				DEABF5EA252660440092F0F9 /* DataControllerTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

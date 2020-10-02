@@ -13,6 +13,8 @@ import CoreData
 @objc(Counter)
 public class Counter: NSManagedObject {
     
+    static let modelName = "CounterDataModel"
+    
     // MARK: - Methods
     
     /// Returns an Interval object by automatically picking a relevant unit,

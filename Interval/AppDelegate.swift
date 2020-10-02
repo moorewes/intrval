@@ -15,7 +15,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-                
+        
+        let _ = WatchCommunicator.main
+        
         if let customFont = UIFont(name: "Futura-CondensedMedium", size: 20.0) {
             UIBarButtonItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: customFont], for: .normal)
             UINavigationBar.appearance().tintColor = UIColor.init(named: "NavBarItems")

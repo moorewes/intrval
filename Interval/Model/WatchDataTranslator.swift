@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CoreData
 
 open class WatchDataTranslator {
     
@@ -14,12 +15,23 @@ open class WatchDataTranslator {
     private static let dateKey = "date"
     private static let titleKey = "title"
     
-    class func data(for counters: [Counter]) -> [String: Any] {
+    class func data() -> [String: Any] {
+        let context = DataController.main.container.newBackgroundContext()
+        let fetchRequest: NSFetchRequest<Counter> = Counter.fetchRequest()
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
+        
+        var counters = [Counter]()
+        do {
+            counters = try context.fetch(fetchRequest)
+        } catch {
+            fatalError("Failed to fetch entities: \(error)")
+        }
+        
         var dictArray = [[String: Any]]()
         for counter in counters {
             var dict = [String: Any]()
             dict[dateKey] = counter.date
-            dict[titleKey] = counter.description
+            dict[titleKey] = counter.title
             dictArray.append(dict)
         }
         

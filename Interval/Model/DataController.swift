@@ -15,45 +15,71 @@ internal class DataController {
     
     // MARK: - Types
     
-    enum Entity {
-        static let Counter = "Counter"
-    }
-    
     private enum DefaultsKeys {
         static let legacyCounterData = "intervalData"
     }
     
-    // MARK: - Properties
-    
-    // MARK: Singleton Instance
+    // MARK: - Singleton Instance
     
     static let main = DataController()
     
-    // MARK: Internal Properties
+    // MARK: - Properties
     
-    lazy var persistentContainer: NSPersistentContainer = {
-        let container = NSPersistentContainer(name: "CounterDataModel")
+    // MARK: Internal
+    
+    var container: NSPersistentContainer
+    
+    var viewContext: NSManagedObjectContext { return container.viewContext }
+            
+    // MARK: - Init
+    
+    init() {
+        self.container = NSPersistentContainer(name: Counter.modelName)
         container.loadPersistentStores { (_, error) in
             if let error = error {
                 fatalError("Unable to load persistent stores: \(error)")
             }
         }
-        
-        return container
-    }()
-    
-    // MARK: - Init
-    
-    init() {
-        importLegacyDataIfNeeded()
     }
     
     // MARK: - Methods
+    
+    func save() {
+        guard viewContext.hasChanges else { return }
+        
+        do {
+            try viewContext.save()
+        } catch {
+            fatalError("Failed to save changes made to counter. Error: \(error)")
+        }
+        
+        WatchCommunicator.main.transferDataToWatch()
+        
+    }
+    
+    func discardChanges() {
+        viewContext.rollback()
+    }
+    
+    private func allCounters() -> [Counter] {
+        let context = container.newBackgroundContext()
+        let fetchRequest: NSFetchRequest<Counter> = Counter.fetchRequest()
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
+        
+        var objects = [Counter]()
+        do {
+            objects = try context.fetch(fetchRequest)
+        } catch {
+            fatalError("Failed to fetch entities: \(error)")
+        }
+        print(objects.first!.date, objects.first!.title)
+        return objects
+    }
         
     private func importLegacyDataIfNeeded() {
         guard let legacyCounters = LegacyDataController.counters() else { return }
         
-        let moc = persistentContainer.viewContext
+        let moc = container.viewContext
         for legacyCounter in legacyCounters {
             let counter = Counter(context: moc)
             counter.title = legacyCounter.title
@@ -68,6 +94,7 @@ internal class DataController {
         }
         
         moc.reset()
+        
         LegacyDataController.removeAllData()
     }
     

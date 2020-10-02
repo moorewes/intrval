@@ -14,6 +14,7 @@ class CounterDetailTableViewController: UITableViewController {
     // MARK: - Properties
     
     var counter: Counter!
+    var dataController = DataController.main
     
     var onDoneBlock: (() -> Void)?
     
@@ -32,44 +33,34 @@ class CounterDetailTableViewController: UITableViewController {
     
     // MARK: - IBActions
     
-    @IBAction private func dateWasChanged(_ sender: UIDatePicker) {
+    @IBAction func dateWasChanged(_ sender: UIDatePicker) {
         counter.date = datePicker.date
     }
     
-    @IBAction private func includeTimeWasChanged(_ sender: UISwitch) {
+    @IBAction func includeTimeWasChanged(_ sender: UISwitch) {
         counter.includeTime = sender.isOn
         refreshUI()
     }
     
-    @IBAction private func setDateToNow() {
+    @IBAction func setDateToNow() {
         let now = Date()
         counter.date = now
         datePicker.date = now
     }
     
-    @IBAction private func userSaved() {
-        counter.title = titleTextField.text!
-        if counter.title.isEmpty {
-            counter.title = "Unnamed Counter"
-        }
+    @IBAction func userSaved() {
+        let inputText = titleTextField.text!
+        counter.title = inputText.isEmpty ? "Unnamed Counter" : inputText
         
-        counter.date = datePicker.date
-        
-        do {
-            try counter.managedObjectContext?.save()
-        } catch {
-            fatalError("Failed to save changes made to counter. Error: \(error)")
-        }
-        
-        dismiss(animated: true, completion: onDoneBlock)
+        dataController.save()
+
+        dismissView()
     }
     
     @IBAction private func userCanceled() {
-        if let moc = counter.managedObjectContext {
-            moc.rollback()
-        }
+        dataController.discardChanges()
         
-        dismiss(animated: true, completion: onDoneBlock)
+        dismissView()
     }
     
     // MARK: - Life Cycle
@@ -77,21 +68,10 @@ class CounterDetailTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tableView.tableFooterView = UIView()
-        
-        setupDatePicker()
-        
-        datePicker.date = counter.date
-        
-        titleTextField.text = counter.title
-        
         dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .short
         
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self.titleTextField,
-                                                                  action: #selector(UITextField.resignFirstResponder))
-        tap.cancelsTouchesInView = false
-        view.addGestureRecognizer(tap)
+        setupView()
         
         refreshUI()
     }
@@ -123,7 +103,22 @@ class CounterDetailTableViewController: UITableViewController {
         includeTimeSwitch.isOn = counter.includeTime
     }
     
-    fileprivate func setupDatePicker() {
+    private func setupView() {
+        tableView.tableFooterView = UIView()
+        
+        setupDatePicker()
+        
+        datePicker.date = counter.date
+        
+        titleTextField.text = counter.title
+        
+        let tap = UITapGestureRecognizer(target: self.titleTextField,
+                                         action: #selector(UITextField.resignFirstResponder))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+    }
+    
+    private func setupDatePicker() {
         // Enable pop-up date editing mode if possible as it's more user friendly
         if #available(iOS 14, *) {
             datePicker = datePickerInline
@@ -138,6 +133,10 @@ class CounterDetailTableViewController: UITableViewController {
         datePicker.isHidden = false
     }
     
+    private func dismissView() {
+        dismiss(animated: true, completion: onDoneBlock)
+    }
+    
 }
 
 extension CounterDetailTableViewController: UITextFieldDelegate {
@@ -145,9 +144,7 @@ extension CounterDetailTableViewController: UITextFieldDelegate {
     // MARK: - UITextFieldDelegate
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        counter.title = titleTextField.text!
         textField.resignFirstResponder()
-        
         return true
     }
     

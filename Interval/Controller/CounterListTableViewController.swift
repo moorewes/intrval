@@ -44,17 +44,17 @@ class CounterListTableViewController: UITableViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        startAutoCellRefreshTimer()
+        startAutoUpdatingCellCounters()
     }
         
     deinit {
-        refreshCellsTimer?.invalidate()
+        stopAutoUpdatingCellCounters()
     }
     
     // MARK: - Navigation
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        refreshCellsTimer?.invalidate()
+        stopAutoUpdatingCellCounters()
         
         if let vc = segue.destination as? CounterDetailTableViewController {
             if let indexPath = tableView.indexPathForSelectedRow {
@@ -67,16 +67,18 @@ class CounterListTableViewController: UITableViewController {
                 vc.counter = newCounter
             }
             
-            vc.onDoneBlock = { self.startAutoCellRefreshTimer() }
+            vc.onDoneBlock = startAutoUpdatingCellCounters
         }
     }
     
     // MARK: - Convenience
     
     private func setupFetchedResultsController() {
-        let moc = DataController.main.persistentContainer.viewContext
+        let moc = DataController.main.viewContext
+        
         let fetchRequest: NSFetchRequest<Counter> = Counter.fetchRequest()
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
+        
         let controller = NSFetchedResultsController (
             fetchRequest: fetchRequest,
             managedObjectContext: moc,
@@ -94,10 +96,14 @@ class CounterListTableViewController: UITableViewController {
         fetchedResultsController = controller
     }
     
-    fileprivate func startAutoCellRefreshTimer() {
+    private func startAutoUpdatingCellCounters() {
         refreshCellsTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { _ in
             self.refreshCells()
         })
+    }
+    
+    private func stopAutoUpdatingCellCounters() {
+        refreshCellsTimer?.invalidate()
     }
     
     private func refreshCells() {
@@ -107,7 +113,7 @@ class CounterListTableViewController: UITableViewController {
         }
     }
     
-    private func saveChanges() {
+    private func saveData() {
         do {
             try fetchedResultsController.managedObjectContext.save()
         } catch {
@@ -140,6 +146,7 @@ extension CounterListTableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         performSegue(withIdentifier: SegueID.EditCounter, sender: nil)
+        tableView.deselectRow(at: indexPath, animated: false)
     }
 
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -152,14 +159,8 @@ extension CounterListTableViewController {
         if editingStyle == .delete {
             let object = fetchedResultsController.object(at: indexPath)
             fetchedResultsController.managedObjectContext.delete(object)
-            saveChanges()
+            saveData()
         }
-    }
-    
-    override func tableView(_ tableView: UITableView,
-                            didEndDisplaying cell: UITableViewCell,
-                            forRowAt indexPath: IndexPath) {
-        NotificationCenter.default.removeObserver(cell)
     }
     
 }
@@ -192,6 +193,7 @@ extension CounterListTableViewController: NSFetchedResultsControllerDelegate {
             tableView.reloadRows(at: [indexPath!], with: .fade)
         default: break
         }
+        print(controller.managedObjectContext.hasChanges)
     }
     
 }

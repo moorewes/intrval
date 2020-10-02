@@ -57,13 +57,12 @@ open class WatchCommunicator: NSObject, WCSessionDelegate {
     
     // MARK: Internal Methods
     
-    public func transferDataToWatch(_ counters: [Counter]) {
+    func transferDataToWatch() {
         guard session?.activationState == .activated else {
             print("Tried to transfer data to watch but session is not activated")
             return
         }
-        
-        let data = WatchDataTranslator.data(for: counters)
+        let data = WatchDataTranslator.data()
         WCSession.default.transferCurrentComplicationUserInfo(data)
     }
     
@@ -92,20 +91,17 @@ open class WatchCommunicator: NSObject, WCSessionDelegate {
     }
     
     public func sessionDidBecomeInactive(_ session: WCSession) {
-        //updateStatusLabel()
         print("sessionDidBecomeInactive")
     }
     
     public func sessionWatchStateDidChange(_ session: WCSession) {
-        //updateStatusLabel()
         print("session watch state(paired) changed: ", session.isPaired)
         print("session watch state(appInstalled) changed: ", session.isWatchAppInstalled)
         print("session watch state changed(complicationEnabled): ", session.isComplicationEnabled)
     }
     
     public func sessionDidDeactivate(_ session: WCSession) {
-        print("deactivate session")
-        //updateStatusLabel()
+        print("session deactivated")
     }
     
 }
