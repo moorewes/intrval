@@ -17,6 +17,10 @@ public class Counter: NSManagedObject {
     
     // MARK: - Methods
     
+    func asWatchCounter() -> WatchCounter {
+        return WatchCounter(date: date, title: title, id: id)
+    }
+    
     /// Returns an Interval object by automatically picking a relevant unit,
     /// e.g. 2 minutes instead of 120 seconds
     func scaledTimeInterval() -> Interval {
@@ -59,3 +63,12 @@ public class Counter: NSManagedObject {
     }
 
 }
+
+//extension Counter: NSCoding {
+//
+//    public func encode(with coder: NSCoder) {
+//        <#code#>
+//    }
+//
+//
+//}

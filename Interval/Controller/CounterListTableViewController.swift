@@ -21,6 +21,7 @@ class CounterListTableViewController: UITableViewController {
     
     // MARK: - Properties
     
+    private var dataController = DataController.main
     private var fetchedResultsController: NSFetchedResultsController<Counter>!
     private var refreshCellsTimer: Timer?
     
@@ -57,14 +58,13 @@ class CounterListTableViewController: UITableViewController {
         stopAutoUpdatingCellCounters()
         
         if let vc = segue.destination as? CounterDetailTableViewController {
+            let childMOC = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
+            childMOC.parent = fetchedResultsController.managedObjectContext
+
             if let indexPath = tableView.indexPathForSelectedRow {
                 vc.counter = fetchedResultsController.object(at: indexPath)
             } else {
-                let newCounter = Counter(context: fetchedResultsController.managedObjectContext)
-                newCounter.title = ""
-                newCounter.date = Date()
-                newCounter.includeTime = false
-                vc.counter = newCounter
+                vc.counter = dataController.newCounter()
             }
             
             vc.onDoneBlock = startAutoUpdatingCellCounters

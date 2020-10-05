@@ -14,8 +14,9 @@
 		DE2DED021F311C6100058A4A /* CounterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2DED011F311C6100058A4A /* CounterTableViewCell.swift */; };
 		DE2DED041F311DD700058A4A /* CounterListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2DED031F311DD700058A4A /* CounterListTableViewController.swift */; };
 		DE2DED081F312C8000058A4A /* CounterDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2DED071F312C8000058A4A /* CounterDetailTableViewController.swift */; };
-		DE2DED101F324E0600058A4A /* WatchCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2DED0F1F324E0500058A4A /* WatchCounter.swift */; };
 		DE2DED121F3270B700058A4A /* EditDateInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2DED111F3270B700058A4A /* EditDateInterfaceController.swift */; };
+		DE4A3DE1252BA1A6001BD93F /* WatchCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE4A3DE0252BA1A6001BD93F /* WatchCounter.swift */; };
+		DE4A3DE8252BA1B2001BD93F /* WatchCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2DED0F1F324E0500058A4A /* WatchCounter.swift */; };
 		DE4F8F2C1DC4567000E15F17 /* ClockKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE4F8F2B1DC4567000E15F17 /* ClockKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		DE5126481D527E750010DDC1 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = DE5126471D527E750010DDC1 /* .gitignore */; };
 		DE676D091F423E5F0006CD11 /* Launch.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DE676D081F423E5F0006CD11 /* Launch.storyboard */; };
@@ -27,7 +28,6 @@
 		DEABF5DE252657740092F0F9 /* DataControllerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEABF5DD252657740092F0F9 /* DataControllerMock.swift */; };
 		DEABF5EA252660440092F0F9 /* DataControllerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEABF5E9252660440092F0F9 /* DataControllerTest.swift */; };
 		DEAC75D025097CC800062809 /* RoundedCornerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEAC75CF25097CC800062809 /* RoundedCornerView.swift */; };
-		DEB467A8252563C200BC8A74 /* TestDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEB467A7252563C200BC8A74 /* TestDataController.swift */; };
 		DEB467AD252565A200BC8A74 /* CounterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEB467AC252565A200BC8A74 /* CounterTest.swift */; };
 		DEC0FA1B1D95B8BA0003C6F8 /* RateStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEC0FA1A1D95B8BA0003C6F8 /* RateStatus.swift */; };
 		DEF28D071CADCDDE00D50DC1 /* IntervalTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF28D061CADCDDE00D50DC1 /* IntervalTests.swift */; };
@@ -44,7 +44,7 @@
 		DEF9977E1D1DC61E00DAD02E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF9977D1D1DC61E00DAD02E /* AppDelegate.swift */; };
 		DEF997881D1DC69400DAD02E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DEF9977F1D1DC69400DAD02E /* LaunchScreen.storyboard */; };
 		DEF997891D1DC69400DAD02E /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF997801D1DC69400DAD02E /* Colors.swift */; };
-		DEF9978A1D1DC69400DAD02E /* WatchDataTranslator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF997811D1DC69400DAD02E /* WatchDataTranslator.swift */; };
+		DEF9978A1D1DC69400DAD02E /* WatchCounterCoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF997811D1DC69400DAD02E /* WatchCounterCoder.swift */; };
 		DEF9978B1D1DC69400DAD02E /* WatchCommunicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF997821D1DC69400DAD02E /* WatchCommunicator.swift */; };
 		DEF9978C1D1DC69400DAD02E /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF997831D1DC69400DAD02E /* Extensions.swift */; };
 		DEF9978D1D1DC69400DAD02E /* HelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF997841D1DC69400DAD02E /* HelpViewController.swift */; };
@@ -150,6 +150,7 @@
 		DE2DED071F312C8000058A4A /* CounterDetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CounterDetailTableViewController.swift; sourceTree = "<group>"; };
 		DE2DED0F1F324E0500058A4A /* WatchCounter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchCounter.swift; sourceTree = "<group>"; };
 		DE2DED111F3270B700058A4A /* EditDateInterfaceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditDateInterfaceController.swift; sourceTree = "<group>"; };
+		DE4A3DE0252BA1A6001BD93F /* WatchCounter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchCounter.swift; sourceTree = "<group>"; };
 		DE4F8F2B1DC4567000E15F17 /* ClockKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ClockKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS3.0.sdk/System/Library/Frameworks/ClockKit.framework; sourceTree = DEVELOPER_DIR; };
 		DE5126471D527E750010DDC1 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		DE676D081F423E5F0006CD11 /* Launch.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Launch.storyboard; sourceTree = "<group>"; };
@@ -161,7 +162,6 @@
 		DEABF5DD252657740092F0F9 /* DataControllerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataControllerMock.swift; sourceTree = "<group>"; };
 		DEABF5E9252660440092F0F9 /* DataControllerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataControllerTest.swift; sourceTree = "<group>"; };
 		DEAC75CF25097CC800062809 /* RoundedCornerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedCornerView.swift; sourceTree = "<group>"; };
-		DEB467A7252563C200BC8A74 /* TestDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestDataController.swift; sourceTree = "<group>"; };
 		DEB467AC252565A200BC8A74 /* CounterTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CounterTest.swift; sourceTree = "<group>"; };
 		DEC0FA1A1D95B8BA0003C6F8 /* RateStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RateStatus.swift; sourceTree = "<group>"; };
 		DEF28CEE1CADCDDE00D50DC1 /* Interval.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Interval.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -186,7 +186,7 @@
 		DEF9977D1D1DC61E00DAD02E /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DEF9977F1D1DC69400DAD02E /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DEF997801D1DC69400DAD02E /* Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
-		DEF997811D1DC69400DAD02E /* WatchDataTranslator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchDataTranslator.swift; sourceTree = "<group>"; };
+		DEF997811D1DC69400DAD02E /* WatchCounterCoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchCounterCoder.swift; sourceTree = "<group>"; };
 		DEF997821D1DC69400DAD02E /* WatchCommunicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchCommunicator.swift; sourceTree = "<group>"; };
 		DEF997831D1DC69400DAD02E /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		DEF997841D1DC69400DAD02E /* HelpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelpViewController.swift; sourceTree = "<group>"; };
@@ -276,12 +276,13 @@
 		DED2F8352501AEB400BACD1C /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				DE4A3DE0252BA1A6001BD93F /* WatchCounter.swift */,
 				DE7EBB892522A1BD0061F38F /* Counter+CoreDataClass.swift */,
 				DE7EBB8A2522A1BD0061F38F /* Counter+CoreDataProperties.swift */,
 				DE0F99DB252254A5006079E1 /* DataController.swift */,
 				DEF997821D1DC69400DAD02E /* WatchCommunicator.swift */,
 				DE7A83AA2523EC4D005F75D4 /* LegacyDataController.swift */,
-				DEF997811D1DC69400DAD02E /* WatchDataTranslator.swift */,
+				DEF997811D1DC69400DAD02E /* WatchCounterCoder.swift */,
 				DEC0FA1A1D95B8BA0003C6F8 /* RateStatus.swift */,
 				DEF997851D1DC69400DAD02E /* Interval.swift */,
 				DEF997801D1DC69400DAD02E /* Colors.swift */,
@@ -367,7 +368,6 @@
 			isa = PBXGroup;
 			children = (
 				DEABF5D3252655FE0092F0F9 /* Model */,
-				DEB467A7252563C200BC8A74 /* TestDataController.swift */,
 				DEF28D081CADCDDE00D50DC1 /* Info.plist */,
 			);
 			path = IntervalTests;
@@ -746,9 +746,10 @@
 				DE2DED081F312C8000058A4A /* CounterDetailTableViewController.swift in Sources */,
 				DEF997891D1DC69400DAD02E /* Colors.swift in Sources */,
 				DEF9978E1D1DC69400DAD02E /* Interval.swift in Sources */,
+				DE4A3DE1252BA1A6001BD93F /* WatchCounter.swift in Sources */,
 				DE7EBB8B2522A1BD0061F38F /* Counter+CoreDataClass.swift in Sources */,
 				DE2DED021F311C6100058A4A /* CounterTableViewCell.swift in Sources */,
-				DEF9978A1D1DC69400DAD02E /* WatchDataTranslator.swift in Sources */,
+				DEF9978A1D1DC69400DAD02E /* WatchCounterCoder.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -757,7 +758,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				DEF28D071CADCDDE00D50DC1 /* IntervalTests.swift in Sources */,
-				DEB467A8252563C200BC8A74 /* TestDataController.swift in Sources */,
 				DEB467AD252565A200BC8A74 /* CounterTest.swift in Sources */,
 				DEABF5DE252657740092F0F9 /* DataControllerMock.swift in Sources */,
 				DEABF5EA252660440092F0F9 /* DataControllerTest.swift in Sources */,
@@ -777,8 +777,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				DEF28D311CADCDDE00D50DC1 /* NotificationController.swift in Sources */,
-				DE2DED101F324E0600058A4A /* WatchCounter.swift in Sources */,
 				DE2DED121F3270B700058A4A /* EditDateInterfaceController.swift in Sources */,
+				DE4A3DE8252BA1B2001BD93F /* WatchCounter.swift in Sources */,
 				DE2685D01CDE8ED900742BF7 /* ComplicationDataHelper.swift in Sources */,
 				DEF28D2F1CADCDDE00D50DC1 /* ExtensionDelegate.swift in Sources */,
 				DEF28D351CADCDDE00D50DC1 /* ComplicationController.swift in Sources */,

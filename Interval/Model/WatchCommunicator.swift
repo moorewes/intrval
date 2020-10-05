@@ -8,13 +8,14 @@
 
 import Foundation
 import WatchConnectivity
+import CoreData
 
 open class WatchCommunicator: NSObject, WCSessionDelegate {
     
     // MARK: - Types
     
     private enum Keys {
-        static let intervalData = "intervalData"
+        static let counterData = "counterData"
         public static let referenceDate = "referenceDate"
         public static let intervalUnit = "intervalUnit"
         public static let includeTime = "includeTime"
@@ -32,6 +33,8 @@ open class WatchCommunicator: NSObject, WCSessionDelegate {
     
     // MARK: Private properties
     
+    private let dataController = DataController.main
+    
     private let defaults = UserDefaults.standard
     
     private var session: WCSession?
@@ -45,25 +48,52 @@ open class WatchCommunicator: NSObject, WCSessionDelegate {
             session = WCSession.default
             session?.delegate = self
             session?.activate()
-//            print("session watch state(paired): ", session!.isPaired)
-//            print("session watch state(appInstalled): ", session!.isWatchAppInstalled)
-//            print("session watch state(complicationEnabled): ", session!.isComplicationEnabled)
-//            print("WCSession activated iOS")
-//            print("outstanding transfer count: \(WCSession.default().outstandingFileTransfers.count)")
         }
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(dataDidUpdate), name: .NSManagedObjectContextDidSave, object: nil)
+        
     }
     
     // MARK: - Methods
     
     // MARK: Internal Methods
     
-    func transferDataToWatch() {
+    @objc
+    private func dataDidUpdate() {
+        initiateTransfer()
+    }
+    
+    private func initiateTransfer() {
+        dataController.container.performBackgroundTask { (moc) in
+            let counters = self.fetchCounters(in: moc)
+            let watchCounters = counters.map { $0.asWatchCounter() }
+            let data = WatchCounterCoder.encode(watchCounters)
+            
+            self.transferDataToWatch(data)
+        }
+    }
+    
+    private func transferDataToWatch(_ data: Data) {
         guard session?.activationState == .activated else {
             print("Tried to transfer data to watch but session is not activated")
             return
         }
-        let data = WatchDataTranslator.data()
-        WCSession.default.transferCurrentComplicationUserInfo(data)
+        
+        let userInfo = [Keys.counterData: data]
+        WCSession.default.transferCurrentComplicationUserInfo(userInfo)
+    }
+    
+    private func fetchCounters(in moc: NSManagedObjectContext) -> [Counter] {
+        let fetchRequest: NSFetchRequest<Counter> = Counter.fetchRequest()
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
+        
+        var counters = [Counter]()
+        do {
+            counters = try moc.fetch(fetchRequest)
+        } catch {
+            fatalError("Failed to fetch entities: \(error)")
+        }
+        return counters
     }
     
     // MARK: WCSession Delegate

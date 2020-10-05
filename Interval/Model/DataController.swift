@@ -44,7 +44,27 @@ internal class DataController {
     
     // MARK: - Methods
     
-    func save() {
+    func newCounter() -> Counter {
+        let counter = Counter(context: container.viewContext)
+        counter.title = ""
+        counter.date = Date()
+        counter.includeTime = false
+        counter.id = UUID()
+        
+        return counter
+    }
+    
+    func newCounter(title: String, date: Date, includeTime: Bool) -> Counter {
+        let counter = Counter(context: container.viewContext)
+        counter.title = title
+        counter.date = date
+        counter.includeTime = includeTime
+        counter.id = UUID()
+        
+        return counter
+    }
+    
+    func saveCounters() {
         guard viewContext.hasChanges else { return }
         
         do {
@@ -52,17 +72,15 @@ internal class DataController {
         } catch {
             fatalError("Failed to save changes made to counter. Error: \(error)")
         }
-        
-        WatchCommunicator.main.transferDataToWatch()
-        
+                
     }
     
     func discardChanges() {
         viewContext.rollback()
     }
-    
+        
     private func allCounters() -> [Counter] {
-        let context = container.newBackgroundContext()
+        let context = container.viewContext
         let fetchRequest: NSFetchRequest<Counter> = Counter.fetchRequest()
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
         
@@ -72,21 +90,19 @@ internal class DataController {
         } catch {
             fatalError("Failed to fetch entities: \(error)")
         }
-        print(objects.first!.date, objects.first!.title)
         return objects
     }
         
     private func importLegacyDataIfNeeded() {
         guard let legacyCounters = LegacyDataController.counters() else { return }
         
-        let moc = container.viewContext
         for legacyCounter in legacyCounters {
-            let counter = Counter(context: moc)
-            counter.title = legacyCounter.title
-            counter.date = legacyCounter.date
-            counter.includeTime = legacyCounter.includeTime
+            let _ = newCounter(title: legacyCounter.title,
+                                     date: legacyCounter.date,
+                                     includeTime: legacyCounter.includeTime)
         }
         
+        let moc = container.viewContext
         do {
             try moc.save()
         } catch {

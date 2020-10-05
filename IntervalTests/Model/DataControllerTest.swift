@@ -6,17 +6,49 @@
 //  Copyright © 2020 Wes Moore. All rights reserved.
 //
 
+@testable import Interval
 import XCTest
 
 class DataControllerTest: XCTestCase {
+    
+    var sut: DataControllerMock!
 
     override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        sut = DataControllerMock()
     }
 
     override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        sut = nil
     }
-
+    
+    // MARK: - Tests
+    
+    func testNewCounter() {
+        let counter = sut.newCounter()
+        
+        XCTAssertNotNil(counter.date)
+        XCTAssertNotNil(counter.title)
+        XCTAssertNotNil(counter.includeTime)
+        XCTAssertNotNil(counter.id)
+    }
+    
+    func testSaveCounters() {
+        let _ = createCounters(10)
+        
+        sut.saveCounters()
+        
+        XCTAssert(sut.viewContext.hasChanges == false)
+    }
+    
+    // MARK: Helper Methods
+    
+    func createCounters(_ count: Int) -> [Counter] {
+        var counters = [Counter]()
+        while counters.count < count {
+            counters.append(sut.newCounter())
+        }
+        
+        return counters
+    }
 
 }

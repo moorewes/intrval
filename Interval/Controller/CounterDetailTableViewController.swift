@@ -52,7 +52,7 @@ class CounterDetailTableViewController: UITableViewController {
         let inputText = titleTextField.text!
         counter.title = inputText.isEmpty ? "Unnamed Counter" : inputText
         
-        dataController.save()
+        dataController.saveCounters()
 
         dismissView()
     }
