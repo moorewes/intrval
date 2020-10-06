@@ -15,6 +15,17 @@ public class Counter: NSManagedObject {
     
     static let modelName = "CounterDataModel"
     
+    // MARK: - Initializers
+    
+    public override func awakeFromInsert() {
+        super.awakeFromInsert()
+        
+        title = ""
+        date = Date()
+        includeTime = false
+        id = UUID()
+    }
+    
     // MARK: - Methods
     
     func asWatchCounter() -> WatchCounter {

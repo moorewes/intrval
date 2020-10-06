@@ -7,6 +7,11 @@
 //
 
 import UIKit
+import CoreData
+
+protocol CounterDetailDelegate {
+    func didFinish(viewController: CounterDetailTableViewController, didSave: Bool)
+}
 
 @IBDesignable
 class CounterDetailTableViewController: UITableViewController {
@@ -14,10 +19,9 @@ class CounterDetailTableViewController: UITableViewController {
     // MARK: - Properties
     
     var counter: Counter!
-    var dataController = DataController.main
-    
-    var onDoneBlock: (() -> Void)?
-    
+    var delegate: CounterDetailDelegate!
+    var moc: NSManagedObjectContext?
+        
     private var dateFormatter: DateFormatter!
     private var datePicker: UIDatePicker!
     
@@ -49,18 +53,13 @@ class CounterDetailTableViewController: UITableViewController {
     }
     
     @IBAction func userSaved() {
-        let inputText = titleTextField.text!
-        counter.title = inputText.isEmpty ? "Unnamed Counter" : inputText
+        titleTextField.resignFirstResponder()
         
-        dataController.saveCounters()
-
-        dismissView()
+        delegate.didFinish(viewController: self, didSave: true)
     }
     
     @IBAction private func userCanceled() {
-        dataController.discardChanges()
-        
-        dismissView()
+        delegate.didFinish(viewController: self, didSave: false)
     }
     
     // MARK: - Life Cycle
@@ -132,11 +131,7 @@ class CounterDetailTableViewController: UITableViewController {
         
         datePicker.isHidden = false
     }
-    
-    private func dismissView() {
-        dismiss(animated: true, completion: onDoneBlock)
-    }
-    
+        
 }
 
 extension CounterDetailTableViewController: UITextFieldDelegate {
@@ -149,6 +144,8 @@ extension CounterDetailTableViewController: UITextFieldDelegate {
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
+        let text = titleTextField.text!
+        counter.title = text.isEmpty ? "Unnamed Counter" : text
         counter.title = textField.text!
     }
     

@@ -60,18 +60,19 @@ class CounterListTableViewController: UITableViewController {
         if let vc = segue.destination as? CounterDetailTableViewController {
             let childMOC = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
             childMOC.parent = fetchedResultsController.managedObjectContext
-
-            if let indexPath = tableView.indexPathForSelectedRow {
-                vc.counter = fetchedResultsController.object(at: indexPath)
-            } else {
-                vc.counter = dataController.newCounter()
-            }
+            vc.moc = childMOC
+            vc.delegate = self
             
-            vc.onDoneBlock = startAutoUpdatingCellCounters
+            if let indexPath = tableView.indexPathForSelectedRow {
+                let id = fetchedResultsController.object(at: indexPath).objectID
+                vc.counter = childMOC.object(with: id) as? Counter
+            } else {
+                vc.counter = dataController.newCounter(in: childMOC)
+            }
         }
     }
     
-    // MARK: - Convenience
+    // MARK: - Helper Methods
     
     private func setupFetchedResultsController() {
         let moc = DataController.main.viewContext
@@ -194,6 +195,35 @@ extension CounterListTableViewController: NSFetchedResultsControllerDelegate {
         default: break
         }
         print(controller.managedObjectContext.hasChanges)
+    }
+    
+}
+
+// MARK: - Counter Detail Delegate
+
+extension CounterListTableViewController: CounterDetailDelegate {
+    
+    func didFinish(viewController: CounterDetailTableViewController, didSave: Bool) {
+        guard didSave,
+              let moc = viewController.moc,
+              moc.hasChanges else {
+            dismiss(animated: true)
+            return
+        }
+        
+        moc.perform {
+            do {
+                try moc.save()
+            } catch {
+                fatalError(error.localizedDescription)
+            }
+            
+            self.dataController.saveCounters()
+        }
+        
+        dismiss(animated: true)
+        
+        startAutoUpdatingCellCounters()
     }
     
 }

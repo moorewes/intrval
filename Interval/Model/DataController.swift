@@ -44,12 +44,12 @@ internal class DataController {
     
     // MARK: - Methods
     
-    func newCounter() -> Counter {
-        let counter = Counter(context: container.viewContext)
-        counter.title = ""
-        counter.date = Date()
-        counter.includeTime = false
-        counter.id = UUID()
+    func newCounter(in providedMOC: NSManagedObjectContext? = nil) -> Counter {
+        let moc: NSManagedObjectContext! = providedMOC == nil ?
+                                           container.viewContext :
+                                           providedMOC
+        
+        let counter = Counter(context: moc)
         
         return counter
     }
@@ -59,7 +59,6 @@ internal class DataController {
         counter.title = title
         counter.date = date
         counter.includeTime = includeTime
-        counter.id = UUID()
         
         return counter
     }

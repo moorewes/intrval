@@ -278,6 +278,9 @@
                                                     <rect key="frame" x="80" y="8" width="275" height="64"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <color key="tintColor" name="IntrvalGreen"/>
+                                                    <connections>
+                                                        <action selector="dateWasChanged:" destination="X8O-3b-efj" eventType="valueChanged" id="dWR-rH-ufY"/>
+                                                    </connections>
                                                 </datePicker>
                                             </subviews>
                                             <constraints>
@@ -529,7 +532,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="EdL-M5-AP6"/>
+        <segue reference="Y2u-ih-E9X"/>
     </inferredMetricsTieBreakers>
     <resources>
         <namedColor name="IntrvalCellBackground">
