@@ -38,50 +38,23 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
     
     func getCurrentTimelineEntry(for complication: CLKComplication, withHandler handler: (@escaping (CLKComplicationTimelineEntry?) -> Void)) {
         
-        // Ensure data exists & retrieve data
         print("getting current entry")
-        guard let interval = ComplicationDataHelper.currentInterval() else {
+        
+        guard let interval = DataController.main.complicationCounter else {
+            
             print("no values in userDefaults")
-            func returnWithTemplate(_ template: CLKComplicationTemplate) {
-                let entry = CLKComplicationTimelineEntry(date: Date(), complicationTemplate: template)
-                handler(entry)
-            }
-            switch complication.family {
-            case .modularSmall:
-                let template = CLKComplicationTemplateModularSmallStackText()
-                template.line1TextProvider = CLKSimpleTextProvider(text: "setup")
-                template.line2TextProvider = CLKSimpleTextProvider(text: "iOS")
-                returnWithTemplate(template)
-            case .modularLarge:
-                let template = CLKComplicationTemplateModularLargeStandardBody()
-                template.headerTextProvider = CLKSimpleTextProvider(text: "Setup with iOS app")
-                template.body1TextProvider = CLKSimpleTextProvider(text: "")
-                returnWithTemplate(template)
-            case .circularSmall:
-                let template = CLKComplicationTemplateCircularSmallSimpleText()
-                template.textProvider = CLKSimpleTextProvider(text: "setup")
-                returnWithTemplate(template)
-            case .utilitarianSmall:
-                let template = CLKComplicationTemplateUtilitarianSmallFlat()
-                template.textProvider = CLKSimpleTextProvider(text: "setup iOS")
-                returnWithTemplate(template)
-            case .utilitarianLarge:
-                let template = CLKComplicationTemplateUtilitarianLargeFlat()
-                template.textProvider = CLKSimpleTextProvider(text: "setup on iOS")
-                returnWithTemplate(template)
-            case .extraLarge:
-                let template = CLKComplicationTemplateExtraLargeSimpleText()
-                template.textProvider = CLKSimpleTextProvider(text: "setup on iOS")
-                returnWithTemplate(template)
-            default: break
-            }
+            
+            let template = self.template(for: complication.family)
+            let entry = CLKComplicationTimelineEntry(date: Date(), complicationTemplate: template)
+            handler(entry)
             return
         }
         
+        // TODO: fix when not including time, don't show hours?
         
         // Setup
-        let showSecondUnit = ComplicationDataHelper.showSecondUnit
-        var unit = NSCalendar.Unit.init(rawValue: interval.unit)
+        let showSecondUnit = !UserSettings.showOnlyOneUnit
+        var unit = NSCalendar.Unit.era // NSCalendar.Unit.init(rawValue: interval.unit)
         //Note: .Era represents Smart Auto
         if unit == .era {
             unit = smartAutoUnit(fromDate: interval.date)
@@ -103,7 +76,7 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
         if showSecondUnit {
             numberTextProvider.calendarUnits = displayUnitForBaseUnit(unit, date: interval.date, forFamily: complication.family)
         }
-        let useTopRowForTitle = ComplicationDataHelper.useTopRowForTitle
+        let useTopRowForTitle = UserSettings.useTopRowForTitle
         
         // Build entries and execute handler
         switch complication.family {
@@ -180,7 +153,7 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
             break
 
         case .graphicRectangular:
-            let text = interval.isBeforeNow ? "since" : "until"
+            let text = interval.inPast ? "since" : "until"
             let template = CLKComplicationTemplateGraphicRectangularStandardBody()
             template.headerTextProvider = numberTextProvider
             template.body1TextProvider = CLKSimpleTextProvider(text: text)
@@ -339,6 +312,39 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
         let count = components.value(for: component)!
         return abs(count)
     }
+    
+    private func template(for family: CLKComplicationFamily) -> CLKComplicationTemplate {
+        switch family {
+        case .modularSmall:
+            let template = CLKComplicationTemplateModularSmallStackText()
+            template.line1TextProvider = CLKSimpleTextProvider(text: "setup")
+            template.line2TextProvider = CLKSimpleTextProvider(text: "iOS")
+            return template
+        case .modularLarge:
+            let template = CLKComplicationTemplateModularLargeStandardBody()
+            template.headerTextProvider = CLKSimpleTextProvider(text: "Setup with iOS app")
+            template.body1TextProvider = CLKSimpleTextProvider(text: "")
+            return template
+        case .circularSmall:
+            let template = CLKComplicationTemplateCircularSmallSimpleText()
+            template.textProvider = CLKSimpleTextProvider(text: "setup")
+            return template
+        case .utilitarianSmall:
+            let template = CLKComplicationTemplateUtilitarianSmallFlat()
+            template.textProvider = CLKSimpleTextProvider(text: "setup iOS")
+            return template
+        case .utilitarianLarge:
+            let template = CLKComplicationTemplateUtilitarianLargeFlat()
+            template.textProvider = CLKSimpleTextProvider(text: "setup on iOS")
+            return template
+        case .extraLarge:
+            let template = CLKComplicationTemplateExtraLargeSimpleText()
+            template.textProvider = CLKSimpleTextProvider(text: "setup on iOS")
+            return template
+        default: return CLKComplicationTemplate() // TODO: Support all families
+        }
+    }
+    
 }
 extension Calendar.Component {
     init(unit: NSCalendar.Unit) {

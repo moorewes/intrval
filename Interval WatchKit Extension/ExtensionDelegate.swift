@@ -14,23 +14,18 @@ extension Notification.Name {
     static let watchIntervalDataUpdated = Notification.Name(rawValue: "watchIntervalDataUpdated")
 }
 
-class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionDelegate {
-    
-    private enum MessageKey {
-        static let counterData = "allIntervalData"
-        static let dataRequest = "initialLaunch"
-    }
+class ExtensionDelegate: NSObject, WKExtensionDelegate {
     
     var session: WCSession!
     var complicationController: ComplicationController?
     
+    var dataController = DataController.main
+
     // MARK: - Initializers
     
     override init() {
         super.init()
-        
-        ComplicationDataHelper.initializeDefaultsIfNeeded()
-        
+                
         if WCSession.isSupported() {
             session = WCSession.default
             session.delegate = self
@@ -42,8 +37,8 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionDelegate {
     
     func applicationDidFinishLaunching() {
 
-        if ComplicationDataHelper.allIntervals().isEmpty && session.isReachable {
-            let message: [String: Any] = [MessageKey.dataRequest: true]
+        if dataController.counters.isEmpty && session.isReachable {
+            let message: [String: Any] = [WCKeys.counterDataRequest: true]
             print("sending message for initial request")
             
             session.sendMessage(message, replyHandler: { (reply) in
@@ -57,19 +52,7 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionDelegate {
         
     }
 
-    // MARK: - WCSessionDelegate
-    
-    /** Called when the session has completed activation. If session state is WCSessionActivationStateNotActivated there will be an error with more details. */
-    public func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
-        if let e = error {
-            print(e.localizedDescription)
-        }
-    }
-    
-    func session(_ session: WCSession, didReceiveUserInfo userInfo: [String: Any]) {
-        print("received user info")
-        handle(userInfo)
-    }
+   
     
     // MARK: - Convenience Methods
     
@@ -79,16 +62,33 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionDelegate {
     }
     
     private func handle(_ message: [String: Any]) {
-        // Check if all interval data was sent
-        if let intervalTransferInfo = message[MessageKey.counterData] as? [[String: Any]] {
+        if let counterData = message[WCKeys.counterData] as? Data {
             print("message parsed successfully, processing now")
-            ComplicationDataHelper.importTransferData(intervalTransferInfo)
+            dataController.setCounters(counterData)
             updateComplication()
         } else {
+            // TODO: Case where user deleted all counters on iOS
             print("message was not parsed successfully")
         }
         
     }
     
+    
+}
+
+// MARK: - WCSessionDelegate
+
+extension ExtensionDelegate: WCSessionDelegate {
+
+    func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
+        if let e = error {
+            print(e.localizedDescription)
+        }
+    }
+    
+    func session(_ session: WCSession, didReceiveUserInfo userInfo: [String: Any]) {
+        print("received user info")
+        handle(userInfo)
+    }
     
 }

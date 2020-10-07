@@ -18,9 +18,15 @@ open class WatchCounterCoder {
         return data
     }
     
-    class func decode(_ jsonData: Data) -> [WatchCounter] {
+    class func decode(_ jsonData: Data) -> [WatchCounter]? {
         let decoder = JSONDecoder()
-        let counters = try! decoder.decode([WatchCounter].self, from: jsonData)
+        var counters = [WatchCounter]()
+        
+        do {
+            counters = try decoder.decode([WatchCounter].self, from: jsonData)
+        } catch {
+            return nil
+        }
         
         return counters
     }

@@ -13,6 +13,8 @@ class InterfaceController: WKInterfaceController {
 
     // MARK: - Properties
     
+    private var dataController = DataController.main
+    
     var timer: Timer?
     var intervals: [WatchCounter] = []
     var currentInterval: WatchCounter? {
@@ -20,9 +22,9 @@ class InterfaceController: WKInterfaceController {
             if let interval = currentInterval {
                 timerLabel.setDate(interval.date)
                 timerLabel.setHidden(false)
-                dateLabel.setText(interval.dateString)
+                dateLabel.setText(dateString(for: interval))
                 dateLabel.setHidden(false)
-                let text = interval.isBeforeNow ? "Since" : "Until"
+                let text = interval.inPast ? "Since" : "Until"
                 dateDescriptorLabel.setText(text)
                 dateDescriptorLabel.setHidden(false)
             } else {
@@ -62,7 +64,7 @@ class InterfaceController: WKInterfaceController {
     
     var counterSelectItems: [WKPickerItem] {
         var result = [WKPickerItem]()
-        intervals = ComplicationDataHelper.allIntervals()
+        intervals = dataController.counters
         for interval in intervals {
             let item = WKPickerItem()
             item.title = interval.title
@@ -73,7 +75,6 @@ class InterfaceController: WKInterfaceController {
             noneSelectedItem.title = "None, open app"
             result.append(noneSelectedItem)
             currentInterval = nil
-            ComplicationDataHelper.setCurrent(interval: nil)
         }
         return result
     }
@@ -90,7 +91,7 @@ class InterfaceController: WKInterfaceController {
     @IBAction func didSelectCounterItem(_ value: Int) {
         let interval = intervals[value]
         currentInterval = interval
-        ComplicationDataHelper.setCurrent(interval: interval)
+        dataController.complicationCounter = interval
         setTimerToUpdateComplication()
         print("updated current")
         
@@ -106,11 +107,11 @@ class InterfaceController: WKInterfaceController {
         }
     }
     @IBAction func didToggleSecondUnit(_ value: Bool) {
-        ComplicationDataHelper.showSecondUnit = value
+        UserSettings.showOnlyOneUnit = !value
         setTimerToUpdateComplication()
     }
     @IBAction func didToggleTopRowTitle(_ value: Bool) {
-        ComplicationDataHelper.useTopRowForTitle = value
+        UserSettings.useTopRowForTitle = value
         setTimerToUpdateComplication()
     }
     
@@ -148,7 +149,7 @@ class InterfaceController: WKInterfaceController {
     func updateUI() {
         // Set First Unit
         // Note: .Era is used for Smart Auto
-        let firstUnitRaw = ComplicationDataHelper.defaultUnit
+        let firstUnitRaw = UserSettings.defaultUnit
         var item = 0
         let unit = NSCalendar.Unit.init(rawValue: firstUnitRaw)
         switch unit {
@@ -163,17 +164,17 @@ class InterfaceController: WKInterfaceController {
         firstUnitPicker.setSelectedItemIndex(item)
         
         // Set Second Unit
-        let showSecondUnit = ComplicationDataHelper.showSecondUnit
+        let showSecondUnit = !UserSettings.showOnlyOneUnit
         secondUnitToggle.setOn(showSecondUnit)
         
         // Set top row title preference
-        let useTopRowForTitle = ComplicationDataHelper.useTopRowForTitle
+        let useTopRowForTitle = UserSettings.useTopRowForTitle
         topRowTitleToggle.setOn(useTopRowForTitle)
         
         // Setup counter select picker
         counterSelectPicker.setItems(counterSelectItems)
         // Set currentSelected
-        if let currentCounter = ComplicationDataHelper.currentInterval() {
+        if let currentCounter = dataController.complicationCounter {
             for i in 0..<intervals.count {
                 let interval = intervals[i]
                 if interval.id == currentCounter.id {
@@ -202,7 +203,7 @@ class InterfaceController: WKInterfaceController {
         default: unit = .era
         }
         let unitRaw = unit.rawValue
-        ComplicationDataHelper.defaultUnit = unitRaw
+        UserSettings.defaultUnit = unitRaw
         setTimerToUpdateComplication()
     }
     
@@ -227,6 +228,13 @@ class InterfaceController: WKInterfaceController {
             delegate.updateComplication()
         }
         
+    }
+    
+    func dateString(for counter: WatchCounter) -> String {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .short
+        formatter.timeStyle = .short
+        return formatter.string(from: counter.date)
     }
     
     

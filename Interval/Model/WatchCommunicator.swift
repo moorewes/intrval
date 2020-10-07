@@ -15,7 +15,6 @@ open class WatchCommunicator: NSObject, WCSessionDelegate {
     // MARK: - Types
     
     private enum Keys {
-        static let counterData = "counterData"
         public static let referenceDate = "referenceDate"
         public static let intervalUnit = "intervalUnit"
         public static let includeTime = "includeTime"
@@ -79,7 +78,7 @@ open class WatchCommunicator: NSObject, WCSessionDelegate {
             return
         }
         
-        let userInfo = [Keys.counterData: data]
+        let userInfo = [WCKeys.counterData: data]
         WCSession.default.transferCurrentComplicationUserInfo(userInfo)
     }
     
