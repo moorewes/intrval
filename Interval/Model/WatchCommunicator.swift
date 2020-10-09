@@ -12,18 +12,6 @@ import CoreData
 
 class WatchCommunicator: NSObject, WCSessionDelegate {
     
-    // MARK: - Types
-    
-    private enum Keys {
-        public static let referenceDate = "referenceDate"
-        public static let intervalUnit = "intervalUnit"
-        public static let includeTime = "includeTime"
-        public static let title = "title"
-        public static let hasSaved = "hasSaved"
-        public static let openCount = "openCount"
-        public static let rateStatus = "rateStatus"
-    }
-    
     // MARK: - Properties
     
     // MARK: Singleton Instance
