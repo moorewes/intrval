@@ -1,72 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="15705" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="17156" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
     <device id="watch38"/>
     <dependencies>
         <deployment identifier="watchOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="15501"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="17034"/>
     </dependencies>
     <scenes>
-        <!--Edit Date Interface Controller-->
-        <scene sceneID="Q2P-7V-bRG">
-            <objects>
-                <controller id="83v-vD-ajn" customClass="EditDateInterfaceController" customModule="Interval_WatchKit_Extension">
-                    <items>
-                        <table alignment="left" id="Ed5-hk-GLo"/>
-                        <label alignment="center" text="Please use Intrval iPhone app to edit your counter titles, dates, etc." textAlignment="center" numberOfLines="0" id="kCk-PQ-rWU"/>
-                        <button width="1" alignment="left" title="Return" id="Tsc-k1-B08">
-                            <connections>
-                                <action selector="returnToMain" destination="83v-vD-ajn" id="NUl-sD-jSO"/>
-                            </connections>
-                        </button>
-                    </items>
-                </controller>
-            </objects>
-            <point key="canvasLocation" x="512" y="347"/>
-        </scene>
         <!--Interface Controller-->
         <scene sceneID="aou-V4-d1y">
             <objects>
                 <controller id="AgC-eL-Hgc" customClass="InterfaceController" customModule="Interval_WatchKit_App" customModuleProvider="target">
                     <items>
-                        <label width="1" alignment="left" text="Intrval Complication Settings" textAlignment="center" numberOfLines="0" id="oyL-sN-EsP">
-                            <fontDescription key="font" style="UICTFontTextStyleHeadline"/>
-                        </label>
-                        <label height="10" alignment="left" id="Fp6-AO-B3S" userLabel="Spacer"/>
                         <label alignment="left" text="Current Counter:" textAlignment="left" id="dEB-Do-AIu"/>
                         <picker height="40" alignment="left" focusStyle="sequence" indicatorMode="shownWhileFocused" id="y7H-GA-AZ1">
                             <connections>
                                 <action selector="didSelectCounterItem:" destination="AgC-eL-Hgc" id="exE-ae-DUa"/>
                             </connections>
                         </picker>
-                        <timer alignment="center" textAlignment="center" numberOfLines="0" enabled="YES" format="abbreviated" previewedSeconds="553599" id="GMl-Ug-zGQ">
-                            <calendarUnit key="units" year="YES" month="YES" day="YES" hour="YES" minute="YES" second="YES" weekOfMonth="YES"/>
-                        </timer>
-                        <label alignment="center" text="Until" textAlignment="center" id="QKA-DL-GQq">
-                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <fontDescription key="font" style="UICTFontTextStyleFootnote"/>
-                        </label>
-                        <label alignment="center" text="12/07/2000 12:12PM" textAlignment="center" numberOfLines="0" id="WZj-w4-MRl"/>
-                        <button width="1" alignment="left" title="Edit Date" id="UMp-a5-KTx">
-                            <connections>
-                                <segue destination="83v-vD-ajn" kind="push" id="aLH-JF-JEr"/>
-                            </connections>
-                        </button>
-                        <label height="10" alignment="left" id="Pas-De-ecI" userLabel="Spacer"/>
-                        <label alignment="left" text="Display Unit:" textAlignment="left" id="rii-sX-AMV"/>
-                        <picker alignment="left" focusStyle="sequence" indicatorMode="shownWhileFocused" id="mCP-8R-Uar">
-                            <connections>
-                                <action selector="didSelectFirstUnit:" destination="AgC-eL-Hgc" id="q7c-Rb-UZm"/>
-                            </connections>
-                        </picker>
-                        <label width="1" alignment="left" textAlignment="center" numberOfLines="0" id="VRD-vb-mus">
-                            <fontDescription key="font" type="system" pointSize="12"/>
-                        </label>
-                        <label width="1" alignment="left" text="Smart Auto is recommended. It will adjust the unit automatically over time." textAlignment="center" numberOfLines="0" id="B8L-gc-NoW">
-                            <fontDescription key="font" type="system" pointSize="12"/>
-                        </label>
                         <label height="10" alignment="left" id="nrf-yj-bhF" userLabel="Spacer"/>
-                        <switch width="1" alignment="left" value="YES" title="Show 2 Units" id="VzQ-h4-MSz">
+                        <switch width="1" alignment="left" value="YES" title="Multiple Units" id="VzQ-h4-MSz">
                             <connections>
                                 <action selector="didToggleSecondUnit:" destination="AgC-eL-Hgc" id="x55-BE-BiY"/>
                             </connections>
@@ -74,29 +27,10 @@
                         <label width="1" alignment="left" text="(e.g. 2y 5m, shown in larger complications)" textAlignment="center" numberOfLines="0" id="wr4-Ai-5qi">
                             <fontDescription key="font" type="system" pointSize="12"/>
                         </label>
-                        <label height="10" alignment="left" id="eNt-kB-vbW" userLabel="Spacer"/>
-                        <switch width="1" alignment="left" title="Title on top row" id="a8m-9K-69p">
-                            <connections>
-                                <action selector="didToggleTopRowTitle:" destination="AgC-eL-Hgc" id="Je2-E4-N4u"/>
-                            </connections>
-                        </switch>
-                        <label width="1" alignment="left" text="Applies for two line complications" textAlignment="center" numberOfLines="0" id="njZ-U1-cHL">
-                            <fontDescription key="font" type="system" pointSize="12"/>
-                        </label>
-                        <label height="10" alignment="left" id="kbs-z8-yMp" userLabel="Spacer"/>
-                        <label alignment="left" text="Troubleshooting:" id="Dp6-hG-WCr"/>
-                        <label alignment="left" text="Ensure you have created counters on the Intrval iOS App. Transfers may take longer with low watch battery." numberOfLines="0" id="vaS-Nj-aeQ">
-                            <fontDescription key="font" style="UICTFontTextStyleFootnote"/>
-                        </label>
                     </items>
                     <connections>
                         <outlet property="counterSelectPicker" destination="y7H-GA-AZ1" id="AjE-M5-gVX"/>
-                        <outlet property="dateDescriptorLabel" destination="QKA-DL-GQq" id="Rxh-eh-qFP"/>
-                        <outlet property="dateLabel" destination="WZj-w4-MRl" id="A5v-9g-KAh"/>
-                        <outlet property="firstUnitPicker" destination="mCP-8R-Uar" id="kIH-3B-ljG"/>
                         <outlet property="secondUnitToggle" destination="VzQ-h4-MSz" id="IiN-2n-Npx"/>
-                        <outlet property="timerLabel" destination="GMl-Ug-zGQ" id="O56-Su-3vq"/>
-                        <outlet property="topRowTitleToggle" destination="a8m-9K-69p" id="cTP-lJ-fnV"/>
                     </connections>
                 </controller>
             </objects>

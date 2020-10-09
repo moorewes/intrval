@@ -15,229 +15,113 @@ class InterfaceController: WKInterfaceController {
     
     private var dataController = DataController.main
     
-    var timer: Timer?
-    var intervals: [WatchCounter] = []
-    var currentInterval: WatchCounter? {
-        didSet {
-            if let interval = currentInterval {
-                timerLabel.setDate(interval.date)
-                timerLabel.setHidden(false)
-                dateLabel.setText(dateString(for: interval))
-                dateLabel.setHidden(false)
-                let text = interval.inPast ? "Since" : "Until"
-                dateDescriptorLabel.setText(text)
-                dateDescriptorLabel.setHidden(false)
-            } else {
-                timerLabel.setHidden(true)
-                dateLabel.setHidden(true)
-                dateDescriptorLabel.setText("")
-                dateDescriptorLabel.setHidden(true)
-            }
-        }
-    }
-    @IBOutlet var timerLabel: WKInterfaceTimer!
-    @IBOutlet var dateLabel: WKInterfaceLabel!
-    @IBOutlet var dateDescriptorLabel: WKInterfaceLabel!
+    var counters: [WatchCounter] = []
     
-    let kSmartAuto = "SMART AUTO"
-    let kYear = "YEARS"
-    let kMonth = "MONTHS"
-    let kDay = "DAYS"
-    let kHour = "HOURS"
-    let kMinute = "MINUTES"
+    var currentInterval: WatchCounter?
     
-    var firstUnitItems: [WKPickerItem] {
-        let autoItem = WKPickerItem()
-        autoItem.title = kSmartAuto
-        let yearItem = WKPickerItem()
-        yearItem.title = kYear
-        let monthItem = WKPickerItem()
-        monthItem.title = kMonth
-        let dayItem = WKPickerItem()
-        dayItem.title = kDay
-        let hourItem = WKPickerItem()
-        hourItem.title = kHour
-        let minuteItem = WKPickerItem()
-        minuteItem.title = kMinute
-        return [autoItem, yearItem, monthItem, dayItem, hourItem, minuteItem]
-    }
-    
-    var counterSelectItems: [WKPickerItem] {
-        var result = [WKPickerItem]()
-        intervals = dataController.counters
-        for interval in intervals {
-            let item = WKPickerItem()
-            item.title = interval.title
-            result.append(item)
-        }
-        if result.isEmpty {
-            let noneSelectedItem = WKPickerItem()
-            noneSelectedItem.title = "None, open app"
-            result.append(noneSelectedItem)
-            currentInterval = nil
-        }
-        return result
-    }
     
     // MARK: - IBOutlets
     
     @IBOutlet var counterSelectPicker: WKInterfacePicker!
-    @IBOutlet var firstUnitPicker: WKInterfacePicker!
     @IBOutlet var secondUnitToggle: WKInterfaceSwitch!
-    @IBOutlet var topRowTitleToggle: WKInterfaceSwitch!
     
     // MARK: - IBActions
     
     @IBAction func didSelectCounterItem(_ value: Int) {
-        let interval = intervals[value]
-        currentInterval = interval
-        dataController.complicationCounter = interval
-        setTimerToUpdateComplication()
-        print("updated current")
+        let counter = counters[value]
+        currentInterval = counter
+        dataController.complicationCounter = counter
         
+        updateComplication()
     }
     
-    @IBAction func didSelectFirstUnit(_ value: Int) {
-        // print("selected first: ", value)
-        saveFirstUnitData(value)
-        // Auto enable 2 units for smart auto
-        if value == 0 {
-            secondUnitToggle.setOn(true)
-            didToggleSecondUnit(true)
-        }
-    }
     @IBAction func didToggleSecondUnit(_ value: Bool) {
         UserSettings.showOnlyOneUnit = !value
-        setTimerToUpdateComplication()
-    }
-    @IBAction func didToggleTopRowTitle(_ value: Bool) {
-        UserSettings.useTopRowForTitle = value
-        setTimerToUpdateComplication()
+        updateComplication()
     }
     
     // MARK: - Life Cycle
     
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
-        print("awake")
-            // NotificationCenter.default.addObserver(self, selector: #selector(updateUI), name: .watchIntervalDataUpdated, object: nil)
-        NotificationCenter.default.addObserver(forName: .watchIntervalDataUpdated, object: nil, queue: nil) { [unowned self] (notification) in
-            self.updateUI()
-        }
-        firstUnitPicker.setItems(firstUnitItems)
+        
+        setupView()
         updateUI()
-        print("done awakening")
-        // Configure interface objects here.
+        setupDataUpdateObserver()
     }
     
     override func willActivate() {
-        // This method is called when watch view controller is about to be visible to user
         super.willActivate()
         updateUI()
-        print("willActivate")
     }
     
-    override func didDeactivate() {
-        // This method is called when watch view controller is no longer visible
-        super.didDeactivate()
-        timer?.fire()
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
     
     // MARK: - Convenience
     
-
-    func updateUI() {
-        // Set First Unit
-        // Note: .Era is used for Smart Auto
-        let firstUnitRaw = UserSettings.defaultUnit
-        var item = 0
-        let unit = NSCalendar.Unit.init(rawValue: firstUnitRaw)
-        switch unit {
-        case NSCalendar.Unit.era: item = 0
-        case NSCalendar.Unit.year: item = 1
-        case NSCalendar.Unit.month: item = 2
-        case NSCalendar.Unit.day: item = 3
-        case NSCalendar.Unit.hour: item = 4
-        case NSCalendar.Unit.minute: item = 5
-        default: break
-        }
-        firstUnitPicker.setSelectedItemIndex(item)
-        
-        // Set Second Unit
+    private func updateUI() {
+        refreshCounterPickerItems()
+    }
+    
+    private func setupView() {
         let showSecondUnit = !UserSettings.showOnlyOneUnit
         secondUnitToggle.setOn(showSecondUnit)
-        
-        // Set top row title preference
-        let useTopRowForTitle = UserSettings.useTopRowForTitle
-        topRowTitleToggle.setOn(useTopRowForTitle)
-        
-        // Setup counter select picker
-        counterSelectPicker.setItems(counterSelectItems)
-        // Set currentSelected
-        if let currentCounter = dataController.complicationCounter {
-            for i in 0..<intervals.count {
-                let interval = intervals[i]
-                if interval.id == currentCounter.id {
-                    currentInterval = interval
-                    counterSelectPicker.setSelectedItemIndex(i)
-                }
-            }
-        } else {
-            counterSelectPicker.setSelectedItemIndex(0)
-            currentInterval = nil
-        }
-        
-        
+        refreshCounterPickerItems()
     }
     
-    func saveFirstUnitData(_ unitValue: Int) {
-        // Note: .Era is used for Smart Auto
-        var unit: NSCalendar.Unit!
-        switch unitValue {
-        case 0: unit = .era
-        case 1: unit = .year
-        case 2: unit = .month
-        case 3: unit = .day
-        case 4: unit = .hour
-        case 5: unit = .minute
-        default: unit = .era
-        }
-        let unitRaw = unit.rawValue
-        UserSettings.defaultUnit = unitRaw
-        setTimerToUpdateComplication()
-    }
-    
-    func setTimerToUpdateComplication() {
-        if let t = timer {
-            // print("timer exists")
-            t.fireDate = Date(timeIntervalSinceNow: 3)
-        } else {
-            // print("timer doesn't exist")
-//            timer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(updateComplication), userInfo: nil, repeats: false)
-            timer = Timer.scheduledTimer(withTimeInterval: 3, repeats: false, block: { _ in
-                self.updateComplication()
-            })
+    private func setupDataUpdateObserver() {
+        NotificationCenter.default.addObserver(forName: .counterDataDidUpdate,
+                                               object: nil,
+                                               queue: nil) { [unowned self] (notification) in
+            self.updateUI()
         }
     }
     
+    private func refreshCounterPickerItems() {
+        let items = counterPickerItems()
+        counterSelectPicker.setItems(items)
+        
+        if let index = selectedCounterPickerItemIndex() {
+            counterSelectPicker.setSelectedItemIndex(index)
+        }
+        
+    }
+    
+    private func counterPickerItems() -> [WKPickerItem] {
+        counters = dataController.counters
+        guard !counters.isEmpty else {
+            let item = WKPickerItem()
+            item.title = "add counter using iPhone"
+            return [item]
+        }
+        
+        var items = [WKPickerItem]()
+        for counter in counters {
+            let item = WKPickerItem()
+            item.title = counter.title
+            items.append(item)
+        }
+        
+        return items
+    }
+    
+    private func selectedCounterPickerItemIndex() -> Int? {
+        guard let complicationCounter = dataController.complicationCounter else {
+            return nil
+        }
+        
+        let counters = dataController.counters
+        
+        return counters.firstIndex(of: complicationCounter)
+    }
 
-    func updateComplication() {
-        timer = nil
-        print("updateComplication")
+    private func updateComplication() {
         if let delegate = WKExtension.shared().delegate as? ExtensionDelegate {
             delegate.updateComplication()
         }
-        
     }
-    
-    func dateString(for counter: WatchCounter) -> String {
-        let formatter = DateFormatter()
-        formatter.dateStyle = .short
-        formatter.timeStyle = .short
-        return formatter.string(from: counter.date)
-    }
-    
-    
 
 }
 

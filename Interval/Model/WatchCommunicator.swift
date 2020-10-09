@@ -10,7 +10,7 @@ import Foundation
 import WatchConnectivity
 import CoreData
 
-open class WatchCommunicator: NSObject, WCSessionDelegate {
+class WatchCommunicator: NSObject, WCSessionDelegate {
     
     // MARK: - Types
     
@@ -49,13 +49,36 @@ open class WatchCommunicator: NSObject, WCSessionDelegate {
             session?.activate()
         }
         
-        NotificationCenter.default.addObserver(self, selector: #selector(dataDidUpdate), name: .NSManagedObjectContextDidSave, object: nil)
-        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(dataDidUpdate),
+                                               name: .NSManagedObjectContextDidSave,
+                                               object: nil)
     }
     
     // MARK: - Methods
     
-    // MARK: Internal Methods
+    // MARK: WCSession Delegate
+
+    public func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
+        if let e = error {
+            print(e.localizedDescription)
+        }
+    }
+    
+    public func session(_ session: WCSession, didReceiveMessage message: [String : Any], replyHandler: @escaping ([String : Any]) -> Void) {
+        if let _ = message[WCKeys.counterDataRequest] as? Bool {
+            initiateTransfer()
+        }
+    }
+    
+    public func sessionDidDeactivate(_ session: WCSession) {
+        self.session = WCSession.default
+        session.activate()
+    }
+    
+    public func sessionDidBecomeInactive(_ session: WCSession) {}
+    
+    // MARK: Helper Methods
     
     @objc
     private func dataDidUpdate() {
@@ -63,23 +86,18 @@ open class WatchCommunicator: NSObject, WCSessionDelegate {
     }
     
     private func initiateTransfer() {
+        guard session?.activationState == .activated else {
+            return
+        }
+        
         dataController.container.performBackgroundTask { (moc) in
             let counters = self.fetchCounters(in: moc)
             let watchCounters = counters.map { $0.asWatchCounter() }
             let data = WatchCounterCoder.encode(watchCounters)
+            let userInfo = [WCKeys.counterData: data]
             
-            self.transferDataToWatch(data)
+            WCSession.default.transferCurrentComplicationUserInfo(userInfo)
         }
-    }
-    
-    private func transferDataToWatch(_ data: Data) {
-        guard session?.activationState == .activated else {
-            print("Tried to transfer data to watch but session is not activated")
-            return
-        }
-        
-        let userInfo = [WCKeys.counterData: data]
-        WCSession.default.transferCurrentComplicationUserInfo(userInfo)
     }
     
     private func fetchCounters(in moc: NSManagedObjectContext) -> [Counter] {
@@ -90,47 +108,9 @@ open class WatchCommunicator: NSObject, WCSessionDelegate {
         do {
             counters = try moc.fetch(fetchRequest)
         } catch {
-            fatalError("Failed to fetch entities: \(error)")
+            return []
         }
         return counters
-    }
-    
-    // MARK: WCSession Delegate
-
-    public func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
-        print("session activated")
-        if let e = error {
-            print(e.localizedDescription)
-        }
-    }
-    
-    public func sessionReachabilityDidChange(_ session: WCSession) {
-        //updateStatusLabel()
-    }
-    
-    public func session(_ session: WCSession, didReceiveMessage message: [String : Any], replyHandler: @escaping ([String : Any]) -> Void) {
-        print("received message")
-        if let _ = message["initialLaunch"] as? Bool {
-            // TODO
-            //let data = DataController.main.counters
-            //let reply = WatchDataTranslator.data(for: counters)
-            print("sent message back")
-            //replyHandler(reply)
-        }
-    }
-    
-    public func sessionDidBecomeInactive(_ session: WCSession) {
-        print("sessionDidBecomeInactive")
-    }
-    
-    public func sessionWatchStateDidChange(_ session: WCSession) {
-        print("session watch state(paired) changed: ", session.isPaired)
-        print("session watch state(appInstalled) changed: ", session.isWatchAppInstalled)
-        print("session watch state changed(complicationEnabled): ", session.isComplicationEnabled)
-    }
-    
-    public func sessionDidDeactivate(_ session: WCSession) {
-        print("session deactivated")
     }
     
 }

@@ -37,20 +37,19 @@ class UserSettings {
     
     class var userPrefersSpecificUnit: Bool {
         get {
-            return defaults.bool(forKey: Key.userPrefersSpecificUnit)
-        }
-        set {
-            defaults.set(newValue, forKey: Key.userPrefersSpecificUnit)
+            return defaultUnit == .era
         }
     }
     
     // Note: .era is used to represent smart auto unit
-    class var defaultUnit: UInt {
+    class var defaultUnit: NSCalendar.Unit {
         get {
-            return defaults.value(forKey: Key.defaultUnit) as? UInt ?? NSCalendar.Unit.era.rawValue
+            let rawValue = defaults.value(forKey: Key.defaultUnit) as? UInt ?? NSCalendar.Unit.era.rawValue
+            return NSCalendar.Unit(rawValue: rawValue)
         }
         set {
-            defaults.set(newValue, forKey: Key.defaultUnit)
+            let rawValue = newValue.rawValue
+            defaults.set(rawValue, forKey: Key.defaultUnit)
         }
     }
     

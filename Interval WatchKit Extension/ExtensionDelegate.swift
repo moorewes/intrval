@@ -11,14 +11,17 @@ import WatchKit
 import WatchConnectivity
 
 extension Notification.Name {
-    static let watchIntervalDataUpdated = Notification.Name(rawValue: "watchIntervalDataUpdated")
+    
+    static let counterDataDidUpdate = Notification.Name(rawValue: "counterDataDidUpdate")
+    
 }
+
+// MARK: -
 
 class ExtensionDelegate: NSObject, WKExtensionDelegate {
     
     var session: WCSession!
     var complicationController: ComplicationController?
-    
     var dataController = DataController.main
 
     // MARK: - Initializers
@@ -33,23 +36,6 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate {
         }
     }
     
-    // MARK: Lifecycle
-    
-    func applicationDidFinishLaunching() {
-
-        if dataController.counters.isEmpty && session.isReachable {
-            let message: [String: Any] = [WCKeys.counterDataRequest: true]
-            
-            session.sendMessage(message, replyHandler: { (reply) in
-                self.handle(reply)
-                }, errorHandler: { (error) in
-                     print(error.localizedDescription)
-            })
-        }
-    }
-
-   
-    
     // MARK: - Convenience Methods
     
     func updateComplication() {
@@ -59,9 +45,16 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate {
     
     private func handle(_ message: [String: Any]) {
         if let counterData = message[WCKeys.counterData] as? Data {
-            dataController.setCounters(counterData)
-            updateComplication()
+            handleCounterDataUpdate(data: counterData)
         }
+    }
+    
+    private func handleCounterDataUpdate(data: Data) {
+        dataController.setCounters(data)
+        
+        updateComplication()
+        
+        NotificationCenter.default.post(name: .counterDataDidUpdate, object: nil)
     }
     
 }
@@ -69,12 +62,16 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate {
 // MARK: - WCSessionDelegate
 
 extension ExtensionDelegate: WCSessionDelegate {
-
+    
     func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
-        if let e = error {
-            print(e.localizedDescription)
+        // Request data if there is no local data
+        if dataController.counters.isEmpty && session.isReachable {
+            let dataRequest: [String: Any] = [WCKeys.counterDataRequest: true]
+            session.sendMessage(dataRequest, replyHandler: nil)
         }
+        
     }
+    
     
     func session(_ session: WCSession, didReceiveUserInfo userInfo: [String: Any]) {
         handle(userInfo)
