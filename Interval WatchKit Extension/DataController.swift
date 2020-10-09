@@ -72,6 +72,10 @@ class DataController {
         storage.store(counters)
     }
     
+    func setComplicationCounter(_ counter: WatchCounter) {
+        complicationCounter = counter
+    }
+    
     private func updateComplicationCounter() {
         if let id = UserSettings.idForComplicationCounter,
             let _ = counter(matching: id) {

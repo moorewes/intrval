@@ -8,7 +8,7 @@
 
 import Foundation
 
-class WatchCounter: Codable {
+struct WatchCounter: Codable, Hashable, Identifiable {
     
     var date: Date
     var title: String

@@ -26,6 +26,8 @@
 		DE6386D4252E39CC00C79594 /* WatchCounterCoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF997811D1DC69400DAD02E /* WatchCounterCoder.swift */; };
 		DE6386DC252E53E400C79594 /* WatchCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2DED0F1F324E0500058A4A /* WatchCounter.swift */; };
 		DE676D091F423E5F0006CD11 /* Launch.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DE676D081F423E5F0006CD11 /* Launch.storyboard */; };
+		DE6DF29E2530BB940008DC61 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE6DF29D2530BB940008DC61 /* HomeView.swift */; };
+		DE6DF2AF2530D8FD0008DC61 /* HostingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE6DF2AE2530D8FD0008DC61 /* HostingController.swift */; };
 		DE7A83AB2523EC4D005F75D4 /* LegacyDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE7A83AA2523EC4D005F75D4 /* LegacyDataController.swift */; };
 		DE7EBB742522A11F0061F38F /* CounterDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DE7EBB722522A11F0061F38F /* CounterDataModel.xcdatamodeld */; };
 		DE7EBB8B2522A1BD0061F38F /* Counter+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE7EBB892522A1BD0061F38F /* Counter+CoreDataClass.swift */; };
@@ -168,6 +170,8 @@
 		DE6386C7252E2E1A00C79594 /* UserSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
 		DE6386CF252E383600C79594 /* WatchCounterStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchCounterStorage.swift; sourceTree = "<group>"; };
 		DE676D081F423E5F0006CD11 /* Launch.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Launch.storyboard; sourceTree = "<group>"; };
+		DE6DF29D2530BB940008DC61 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		DE6DF2AE2530D8FD0008DC61 /* HostingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostingController.swift; sourceTree = "<group>"; };
 		DE7A83AA2523EC4D005F75D4 /* LegacyDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegacyDataController.swift; sourceTree = "<group>"; };
 		DE7EBB732522A11F0061F38F /* CounterDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CounterDataModel.xcdatamodel; sourceTree = "<group>"; };
 		DE7EBB892522A1BD0061F38F /* Counter+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Counter+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
@@ -435,7 +439,9 @@
 				DE002C881CAF24D300FE65CE /* Interval WatchKit Extension.entitlements */,
 				DEF28D2C1CADCDDE00D50DC1 /* InterfaceController.swift */,
 				DE2DED111F3270B700058A4A /* EditDateInterfaceController.swift */,
+				DE6DF29D2530BB940008DC61 /* HomeView.swift */,
 				DEF28D2E1CADCDDE00D50DC1 /* ExtensionDelegate.swift */,
+				DE6DF2AE2530D8FD0008DC61 /* HostingController.swift */,
 				DE2685CF1CDE8ED900742BF7 /* DataController.swift */,
 				DE6386CF252E383600C79594 /* WatchCounterStorage.swift */,
 				DE6386C7252E2E1A00C79594 /* UserSettings.swift */,
@@ -821,6 +827,7 @@
 				DE6386C0252E2B9200C79594 /* WCKeys.swift in Sources */,
 				DE6386D4252E39CC00C79594 /* WatchCounterCoder.swift in Sources */,
 				DE9754B2252F7FC800A23619 /* IntervalCalculator.swift in Sources */,
+				DE6DF2AF2530D8FD0008DC61 /* HostingController.swift in Sources */,
 				DE0C04F5252FDB0B00685918 /* ComplicationTemplateBuilder.swift in Sources */,
 				DE9754DA252FCFA200A23619 /* StaticComplicationTemplates.swift in Sources */,
 				DE9754BB252FB10D00A23619 /* CounterComplicationTemplates.swift in Sources */,
@@ -831,6 +838,7 @@
 				DE2685D01CDE8ED900742BF7 /* DataController.swift in Sources */,
 				DEF28D2F1CADCDDE00D50DC1 /* ExtensionDelegate.swift in Sources */,
 				DEF28D351CADCDDE00D50DC1 /* ComplicationController.swift in Sources */,
+				DE6DF29E2530BB940008DC61 /* HomeView.swift in Sources */,
 				DE9754B6252F802000A23619 /* Interval.swift in Sources */,
 				DEF28D2D1CADCDDE00D50DC1 /* InterfaceController.swift in Sources */,
 			);
