@@ -12,16 +12,18 @@ class WatchCounter: Codable {
     
     var date: Date
     var title: String
+    var includeTime: Bool
     var id: UUID
     
     var inPast: Bool {
         return date < Date()
     }
     
-    init(date: Date, title: String, id: UUID) {
+    init(id: UUID, date: Date, title: String, includeTime: Bool) {
+        self.id = id
         self.date = date
         self.title = title
-        self.id = id
+        self.includeTime = includeTime
     }
 
 }

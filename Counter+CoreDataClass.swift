@@ -29,57 +29,13 @@ public class Counter: NSManagedObject {
     // MARK: - Methods
     
     func asWatchCounter() -> WatchCounter {
-        return WatchCounter(date: date, title: title, id: id)
+        return WatchCounter(id: id, date: date, title: title, includeTime: includeTime)
     }
     
     /// Returns an Interval object by automatically picking a relevant unit,
     /// e.g. 2 minutes instead of 120 seconds
     func scaledTimeInterval() -> Interval {
-        let unit = scaledTimeIntervalUnit()
-        return timeInterval(using: unit)
+        return Interval(date: date, includeTime: includeTime)
     }
     
-    private func timeInterval(using unit: Calendar.Component) -> Interval {
-        let component = unit
-        return Interval(date: date, unit: component)
-    }
-    
-    private func scaledTimeIntervalUnit() -> Calendar.Component {
-        let yearInterval = Interval(date: date, unit: .year).absValue
-        guard yearInterval < 1 else {
-            return .year
-        }
-        
-        let monthInterval = Interval(date: date, unit: .month).absValue
-        guard monthInterval < 1 else {
-            return .month
-        }
-        
-        let dayInterval = Interval(date: date, unit: .day).absValue
-        guard dayInterval < 1 && includeTime else {
-            return .day
-        }
-        
-        let hourInterval = Interval(date: date, unit: .hour).absValue
-        guard hourInterval < 1 else {
-            return .hour
-        }
-        
-        let secondInterval = Interval(date: date, unit: .second).absValue
-        guard secondInterval < 60 else {
-            return .minute
-        }
-        
-        return .second
-    }
-
 }
-
-//extension Counter: NSCoding {
-//
-//    public func encode(with coder: NSCoder) {
-//        <#code#>
-//    }
-//
-//
-//}

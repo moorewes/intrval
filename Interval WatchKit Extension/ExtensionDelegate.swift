@@ -39,17 +39,13 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate {
 
         if dataController.counters.isEmpty && session.isReachable {
             let message: [String: Any] = [WCKeys.counterDataRequest: true]
-            print("sending message for initial request")
             
             session.sendMessage(message, replyHandler: { (reply) in
-                print("received response for initial request")
                 self.handle(reply)
                 }, errorHandler: { (error) in
                      print(error.localizedDescription)
             })
         }
-        print("finished launching extension")
-        
     }
 
    
@@ -63,16 +59,10 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate {
     
     private func handle(_ message: [String: Any]) {
         if let counterData = message[WCKeys.counterData] as? Data {
-            print("message parsed successfully, processing now")
             dataController.setCounters(counterData)
             updateComplication()
-        } else {
-            // TODO: Case where user deleted all counters on iOS
-            print("message was not parsed successfully")
         }
-        
     }
-    
     
 }
 
@@ -87,7 +77,6 @@ extension ExtensionDelegate: WCSessionDelegate {
     }
     
     func session(_ session: WCSession, didReceiveUserInfo userInfo: [String: Any]) {
-        print("received user info")
         handle(userInfo)
     }
     
