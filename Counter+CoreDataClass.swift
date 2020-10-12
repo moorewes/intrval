@@ -21,7 +21,7 @@ public class Counter: NSManagedObject {
         super.awakeFromInsert()
         
         title = ""
-        date = Date()
+        date = Date().withTime(hour: 0, minute: 0, second: 0)
         includeTime = false
         id = UUID()
     }

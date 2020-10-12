@@ -22,23 +22,20 @@ class CounterDetailTableViewController: UITableViewController {
     var delegate: CounterDetailDelegate!
     var moc: NSManagedObjectContext?
         
-    private var dateFormatter: DateFormatter!
-    private var datePicker: UIDatePicker!
+    private var dateFormatter = DateFormatter()
     
     // MARK: - IBOutlets
 
     @IBOutlet weak private var titleTextField: UITextField!
-    @IBOutlet weak private var dateLabel: UILabel!
-    @IBOutlet weak private var dateCell: UITableViewCell!
-    @IBOutlet weak private var datePickerWheel: UIDatePicker!
+    @IBOutlet weak private var datePicker: UIDatePicker!
     @IBOutlet weak private var includeTimeSwitch: UISwitch!
-    @IBOutlet weak private var saveButton: UIBarButtonItem!
-    @IBOutlet weak private var datePickerInline: UIDatePicker!
     
     // MARK: - IBActions
     
     @IBAction func dateWasChanged(_ sender: UIDatePicker) {
-        counter.date = datePicker.date
+        let date = datePicker.date.withZeroSeconds
+        counter.date = counter.includeTime ? date : date.withTime(hour: 0, minute: 0)
+        print(counter.date)
     }
     
     @IBAction func includeTimeWasChanged(_ sender: UISwitch) {
@@ -47,9 +44,10 @@ class CounterDetailTableViewController: UITableViewController {
     }
     
     @IBAction func setDateToNow() {
-        let now = Date()
-        counter.date = now
-        datePicker.date = now
+        let now = Date().withZeroSeconds
+        counter.date = counter.includeTime ? now : now.withTime(hour: 0, minute: 0)
+        
+        refreshDatePicker()
     }
     
     @IBAction func userSaved() {
@@ -94,11 +92,8 @@ class CounterDetailTableViewController: UITableViewController {
     // MARK: - Convenience
     
     func refreshUI() {
-        dateFormatter.timeStyle = counter.includeTime ? .short : .none
-        dateLabel.text = dateFormatter.string(from: counter.date)
-        
         datePicker.datePickerMode = counter.includeTime ? .dateAndTime : .date
-        
+        refreshDatePicker()
         includeTimeSwitch.isOn = counter.includeTime
     }
     
@@ -107,7 +102,7 @@ class CounterDetailTableViewController: UITableViewController {
         
         setupDatePicker()
         
-        datePicker.date = counter.date
+        refreshDatePicker()
         
         titleTextField.text = counter.title
         
@@ -118,18 +113,14 @@ class CounterDetailTableViewController: UITableViewController {
     }
     
     private func setupDatePicker() {
-        // Enable pop-up date editing mode if possible as it's more user friendly
-        if #available(iOS 14, *) {
-            datePicker = datePickerInline
+        if #available(iOS 13.4, *) {
             datePicker.preferredDatePickerStyle = .compact
-            datePickerWheel.isHidden = true
-            dateLabel.isHidden = true
-        } else {
-            datePicker = datePickerWheel
-            datePickerInline.isHidden = true
         }
         
-        datePicker.isHidden = false
+    }
+    
+    private func refreshDatePicker() {
+        datePicker.date = counter.date
     }
         
 }

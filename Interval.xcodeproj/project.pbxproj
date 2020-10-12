@@ -19,13 +19,14 @@
 		DE4A3DE8252BA1B2001BD93F /* WatchCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2DED0F1F324E0500058A4A /* WatchCounter.swift */; };
 		DE4F8F2C1DC4567000E15F17 /* ClockKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE4F8F2B1DC4567000E15F17 /* ClockKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		DE5126481D527E750010DDC1 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = DE5126471D527E750010DDC1 /* .gitignore */; };
+		DE529CAD2534CC1900BE2014 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DE529CAC2534CC1900BE2014 /* Launch Screen.storyboard */; };
+		DE529CB52534D43600BE2014 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE529CB42534D43600BE2014 /* SettingsTableViewController.swift */; };
 		DE6386BF252E2B9200C79594 /* WCKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE6386BE252E2B9200C79594 /* WCKeys.swift */; };
 		DE6386C0252E2B9200C79594 /* WCKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE6386BE252E2B9200C79594 /* WCKeys.swift */; };
 		DE6386C8252E2E1A00C79594 /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE6386C7252E2E1A00C79594 /* UserSettings.swift */; };
 		DE6386D0252E383600C79594 /* WatchCounterStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE6386CF252E383600C79594 /* WatchCounterStorage.swift */; };
 		DE6386D4252E39CC00C79594 /* WatchCounterCoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF997811D1DC69400DAD02E /* WatchCounterCoder.swift */; };
 		DE6386DC252E53E400C79594 /* WatchCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2DED0F1F324E0500058A4A /* WatchCounter.swift */; };
-		DE676D091F423E5F0006CD11 /* Launch.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DE676D081F423E5F0006CD11 /* Launch.storyboard */; };
 		DE7A83AB2523EC4D005F75D4 /* LegacyDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE7A83AA2523EC4D005F75D4 /* LegacyDataController.swift */; };
 		DE7EBB742522A11F0061F38F /* CounterDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DE7EBB722522A11F0061F38F /* CounterDataModel.xcdatamodeld */; };
 		DE7EBB8B2522A1BD0061F38F /* Counter+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE7EBB892522A1BD0061F38F /* Counter+CoreDataClass.swift */; };
@@ -53,7 +54,6 @@
 		DEF28D351CADCDDE00D50DC1 /* ComplicationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF28D341CADCDDE00D50DC1 /* ComplicationController.swift */; };
 		DEF28D371CADCDDE00D50DC1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DEF28D361CADCDDE00D50DC1 /* Assets.xcassets */; };
 		DEF9977E1D1DC61E00DAD02E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF9977D1D1DC61E00DAD02E /* AppDelegate.swift */; };
-		DEF997881D1DC69400DAD02E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DEF9977F1D1DC69400DAD02E /* LaunchScreen.storyboard */; };
 		DEF997891D1DC69400DAD02E /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF997801D1DC69400DAD02E /* Colors.swift */; };
 		DEF9978A1D1DC69400DAD02E /* WatchCounterCoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF997811D1DC69400DAD02E /* WatchCounterCoder.swift */; };
 		DEF9978B1D1DC69400DAD02E /* WatchCommunicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF997821D1DC69400DAD02E /* WatchCommunicator.swift */; };
@@ -164,10 +164,11 @@
 		DE2DED111F3270B700058A4A /* EditDateInterfaceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditDateInterfaceController.swift; sourceTree = "<group>"; };
 		DE4F8F2B1DC4567000E15F17 /* ClockKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ClockKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS3.0.sdk/System/Library/Frameworks/ClockKit.framework; sourceTree = DEVELOPER_DIR; };
 		DE5126471D527E750010DDC1 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		DE529CAC2534CC1900BE2014 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
+		DE529CB42534D43600BE2014 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		DE6386BE252E2B9200C79594 /* WCKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WCKeys.swift; sourceTree = "<group>"; };
 		DE6386C7252E2E1A00C79594 /* UserSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
 		DE6386CF252E383600C79594 /* WatchCounterStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchCounterStorage.swift; sourceTree = "<group>"; };
-		DE676D081F423E5F0006CD11 /* Launch.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Launch.storyboard; sourceTree = "<group>"; };
 		DE7A83AA2523EC4D005F75D4 /* LegacyDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegacyDataController.swift; sourceTree = "<group>"; };
 		DE7EBB732522A11F0061F38F /* CounterDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CounterDataModel.xcdatamodel; sourceTree = "<group>"; };
 		DE7EBB892522A1BD0061F38F /* Counter+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Counter+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
@@ -201,7 +202,6 @@
 		DEF28D361CADCDDE00D50DC1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DEF28D381CADCDDE00D50DC1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DEF9977D1D1DC61E00DAD02E /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		DEF9977F1D1DC69400DAD02E /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DEF997801D1DC69400DAD02E /* Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		DEF997811D1DC69400DAD02E /* WatchCounterCoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchCounterCoder.swift; sourceTree = "<group>"; };
 		DEF997821D1DC69400DAD02E /* WatchCommunicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchCommunicator.swift; sourceTree = "<group>"; };
@@ -330,9 +330,8 @@
 			isa = PBXGroup;
 			children = (
 				DEF997931D1DC75C00DAD02E /* Main.storyboard */,
+				DE529CAC2534CC1900BE2014 /* Launch Screen.storyboard */,
 				DE2DED011F311C6100058A4A /* CounterTableViewCell.swift */,
-				DEF9977F1D1DC69400DAD02E /* LaunchScreen.storyboard */,
-				DE676D081F423E5F0006CD11 /* Launch.storyboard */,
 				DEAC75CF25097CC800062809 /* RoundedCornerView.swift */,
 				DE8DBD65252282CB008A75C3 /* RoundedCornerButton.swift */,
 			);
@@ -345,6 +344,7 @@
 				DE2DED031F311DD700058A4A /* CounterListTableViewController.swift */,
 				DE2DED071F312C8000058A4A /* CounterDetailTableViewController.swift */,
 				DEF997841D1DC69400DAD02E /* HelpViewController.swift */,
+				DE529CB42534D43600BE2014 /* SettingsTableViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -638,10 +638,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DE529CAD2534CC1900BE2014 /* Launch Screen.storyboard in Resources */,
 				DE5126481D527E750010DDC1 /* .gitignore in Resources */,
-				DE676D091F423E5F0006CD11 /* Launch.storyboard in Resources */,
 				DEF997941D1DC75C00DAD02E /* Main.storyboard in Resources */,
-				DEF997881D1DC69400DAD02E /* LaunchScreen.storyboard in Resources */,
 				DEF997921D1DC6B100DAD02E /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -784,6 +783,7 @@
 				DE2DED041F311DD700058A4A /* CounterListTableViewController.swift in Sources */,
 				DEF9977E1D1DC61E00DAD02E /* AppDelegate.swift in Sources */,
 				DEF9978B1D1DC69400DAD02E /* WatchCommunicator.swift in Sources */,
+				DE529CB52534D43600BE2014 /* SettingsTableViewController.swift in Sources */,
 				DEAC75D025097CC800062809 /* RoundedCornerView.swift in Sources */,
 				DE2DED081F312C8000058A4A /* CounterDetailTableViewController.swift in Sources */,
 				DEF997891D1DC69400DAD02E /* Colors.swift in Sources */,
@@ -988,7 +988,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CODE_SIGN_ENTITLEMENTS = "Interval WatchKit Extension/Interval WatchKit Extension.entitlements";
-				CURRENT_PROJECT_VERSION = 19;
+				CURRENT_PROJECT_VERSION = 20;
 				INFOPLIST_FILE = "Interval WatchKit Extension/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -996,7 +996,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2.1;
+				MARKETING_VERSION = 3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.WesMoore.Interval.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SDKROOT = watchos;
@@ -1013,7 +1013,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CODE_SIGN_ENTITLEMENTS = "Interval WatchKit Extension/Interval WatchKit Extension.entitlements";
-				CURRENT_PROJECT_VERSION = 19;
+				CURRENT_PROJECT_VERSION = 20;
 				INFOPLIST_FILE = "Interval WatchKit Extension/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1021,7 +1021,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2.1;
+				MARKETING_VERSION = 3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.WesMoore.Interval.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SDKROOT = watchos;
@@ -1039,10 +1039,10 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "Interval WatchKit App/Interval WatchKit App.entitlements";
-				CURRENT_PROJECT_VERSION = 19;
+				CURRENT_PROJECT_VERSION = 20;
 				IBSC_MODULE = Interval_WatchKit_Extension;
 				INFOPLIST_FILE = "Interval WatchKit App/Info.plist";
-				MARKETING_VERSION = 2.1;
+				MARKETING_VERSION = 3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.WesMoore.Interval.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
@@ -1059,10 +1059,10 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "Interval WatchKit App/Interval WatchKit App.entitlements";
-				CURRENT_PROJECT_VERSION = 19;
+				CURRENT_PROJECT_VERSION = 20;
 				IBSC_MODULE = Interval_WatchKit_Extension;
 				INFOPLIST_FILE = "Interval WatchKit App/Info.plist";
-				MARKETING_VERSION = 2.1;
+				MARKETING_VERSION = 3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.WesMoore.Interval.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
@@ -1079,14 +1079,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 19;
+				CURRENT_PROJECT_VERSION = 20;
 				INFOPLIST_FILE = Interval/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.1;
+				MARKETING_VERSION = 3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.WesMoore.Interval;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
@@ -1101,14 +1101,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 19;
+				CURRENT_PROJECT_VERSION = 20;
 				INFOPLIST_FILE = Interval/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.1;
+				MARKETING_VERSION = 3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.WesMoore.Interval;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;

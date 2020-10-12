@@ -34,7 +34,7 @@ class CounterListTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-                
+                        
         newIntervalButton.layer.cornerRadius = newIntervalButton.frame.height/2
 
         navigationItem.rightBarButtonItem = editButtonItem

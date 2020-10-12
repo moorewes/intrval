@@ -68,10 +68,14 @@ class CounterTableViewCell: UITableViewCell {
         let interval = timeInterval.value
         var intervalText = "\(abs(interval)) \(timeInterval.unit)"
         
-        if interval > 0 {
-            intervalText += interval == 1 ? " has passed" : "s have passed"
+        if interval == 0 && counter.includeTime {
+            intervalText = "Now"
+        } else if interval == 0 && !counter.includeTime {
+            intervalText = "Today"
+        } else if interval < 0 {
+            intervalText += interval == -1 ? " has passed" : "s have passed"
         } else {
-            intervalText += interval == -1 ? " remains" : "s remain"
+            intervalText += interval == 1 ? " remains" : "s remain"
         }
         
         return intervalText
