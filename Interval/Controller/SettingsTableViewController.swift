@@ -58,10 +58,9 @@ class SettingsTableViewController: UITableViewController {
         mailController.setSubject("Intrval Feedback")
         
         let version = (Bundle.main.releaseVersionNumber ?? "") + " " + (Bundle.main.buildVersionNumber ?? "")
-        let deviceModel = UIDevice.current.modelName
         let iOSVersion = UIDevice.current.systemVersion
         
-        let bodyText = "\n\n\nUseful Info:\nIntrval Version: \(version)\nDevice Model: \(deviceModel)\niOS Version: \(iOSVersion)"
+        let bodyText = "\n\n\nUseful Info:\nIntrval Version: \(version)\niOS Version: \(iOSVersion)"
         mailController.setMessageBody(bodyText, isHTML: false)
     }
     

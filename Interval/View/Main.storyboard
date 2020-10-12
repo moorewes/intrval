@@ -111,7 +111,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Counters" id="wA2-Vx-NPf">
-                        <barButtonItem key="leftBarButtonItem" image="gearshape" catalog="system" id="pFj-Pi-ulM">
+                        <barButtonItem key="leftBarButtonItem" title="Item" image="Gear_Icon" id="pFj-Pi-ulM">
                             <connections>
                                 <segue destination="vkL-MG-py0" kind="show" id="iIV-dJ-HAB"/>
                             </connections>
@@ -195,7 +195,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="343" height="60"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="100" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Name your counter" adjustsFontForContentSizeCategory="YES" minimumFontSize="22" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="3Ye-yV-3Z4">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="100" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Name your counter" minimumFontSize="22" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="3Ye-yV-3Z4">
                                                     <rect key="frame" x="20" y="15.666666666666664" width="303" height="29"/>
                                                     <fontDescription key="fontDescription" name="Futura-CondensedMedium" family="Futura" pointSize="22"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -223,7 +223,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="343" height="60"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Include Time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CsV-3m-VkD">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Include Time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CsV-3m-VkD">
                                                     <rect key="frame" x="19.999999999999993" y="20" width="88.333333333333314" height="20"/>
                                                     <fontDescription key="fontDescription" name="Futura-CondensedMedium" family="Futura" pointSize="22"/>
                                                     <color key="textColor" name="IntrvalGreen"/>
@@ -350,7 +350,7 @@
             </objects>
             <point key="canvasLocation" x="961" y="235"/>
         </scene>
-        <!--Welcome-->
+        <!--Support-->
         <scene sceneID="gPn-8k-vNk">
             <objects>
                 <tableViewController id="vkL-MG-py0" sceneMemberID="viewController">
@@ -453,7 +453,7 @@
                             <outlet property="delegate" destination="vkL-MG-py0" id="bOe-aw-WrO"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Welcome" id="GBA-tT-qMv"/>
+                    <navigationItem key="navigationItem" title="Support" id="GBA-tT-qMv"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Iox-Cb-oxN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -462,7 +462,7 @@
         <!--Help-->
         <scene sceneID="3FX-9H-5gk">
             <objects>
-                <viewController title="Help" id="bnr-Vs-h8F" customClass="HelpViewController" customModule="Interval" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Help" id="bnr-Vs-h8F" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Nyt-fw-3ic"/>
                         <viewControllerLayoutGuide type="bottom" id="QUK-to-If8"/>
@@ -533,12 +533,12 @@
         <segue reference="Y2u-ih-E9X"/>
     </inferredMetricsTieBreakers>
     <resources>
-        <image name="gearshape" catalog="system" width="128" height="121"/>
+        <image name="Gear_Icon" width="22" height="22"/>
         <namedColor name="ButtonBackground">
-            <color red="0.1770116135" green="0.51183109819999995" blue="0.71996212930000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.17700000107288361" green="0.51200002431869507" blue="0.72000002861022949" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="ButtonText">
-            <color red="1" green="1" blue="1" alpha="0.90000000000000002" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="1" green="1" blue="1" alpha="0.89999997615814209" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="CellBackground">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -547,7 +547,7 @@
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="IntrvalGreen">
-            <color red="0.17701161350581193" green="0.51183109823981077" blue="0.71996212929067482" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.17700000107288361" green="0.51200002431869507" blue="0.72000002861022949" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="NavBar">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

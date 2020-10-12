@@ -18,8 +18,7 @@
 		DE2DED121F3270B700058A4A /* EditDateInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2DED111F3270B700058A4A /* EditDateInterfaceController.swift */; };
 		DE4A3DE8252BA1B2001BD93F /* WatchCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2DED0F1F324E0500058A4A /* WatchCounter.swift */; };
 		DE4F8F2C1DC4567000E15F17 /* ClockKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE4F8F2B1DC4567000E15F17 /* ClockKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
-		DE5126481D527E750010DDC1 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = DE5126471D527E750010DDC1 /* .gitignore */; };
-		DE529CAD2534CC1900BE2014 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DE529CAC2534CC1900BE2014 /* Launch Screen.storyboard */; };
+		DE529CAD2534CC1900BE2014 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DE529CAC2534CC1900BE2014 /* LaunchScreen.storyboard */; };
 		DE529CB52534D43600BE2014 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE529CB42534D43600BE2014 /* SettingsTableViewController.swift */; };
 		DE6386BF252E2B9200C79594 /* WCKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE6386BE252E2B9200C79594 /* WCKeys.swift */; };
 		DE6386C0252E2B9200C79594 /* WCKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE6386BE252E2B9200C79594 /* WCKeys.swift */; };
@@ -58,7 +57,6 @@
 		DEF9978A1D1DC69400DAD02E /* WatchCounterCoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF997811D1DC69400DAD02E /* WatchCounterCoder.swift */; };
 		DEF9978B1D1DC69400DAD02E /* WatchCommunicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF997821D1DC69400DAD02E /* WatchCommunicator.swift */; };
 		DEF9978C1D1DC69400DAD02E /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF997831D1DC69400DAD02E /* Extensions.swift */; };
-		DEF9978D1D1DC69400DAD02E /* HelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF997841D1DC69400DAD02E /* HelpViewController.swift */; };
 		DEF9978E1D1DC69400DAD02E /* Interval.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF997851D1DC69400DAD02E /* Interval.swift */; };
 		DEF997921D1DC6B100DAD02E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DEF997911D1DC6B100DAD02E /* Assets.xcassets */; };
 		DEF997941D1DC75C00DAD02E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DEF997931D1DC75C00DAD02E /* Main.storyboard */; };
@@ -163,16 +161,15 @@
 		DE2DED0F1F324E0500058A4A /* WatchCounter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchCounter.swift; sourceTree = "<group>"; };
 		DE2DED111F3270B700058A4A /* EditDateInterfaceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditDateInterfaceController.swift; sourceTree = "<group>"; };
 		DE4F8F2B1DC4567000E15F17 /* ClockKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ClockKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS3.0.sdk/System/Library/Frameworks/ClockKit.framework; sourceTree = DEVELOPER_DIR; };
-		DE5126471D527E750010DDC1 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
-		DE529CAC2534CC1900BE2014 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
+		DE529CAC2534CC1900BE2014 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DE529CB42534D43600BE2014 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		DE6386BE252E2B9200C79594 /* WCKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WCKeys.swift; sourceTree = "<group>"; };
 		DE6386C7252E2E1A00C79594 /* UserSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
 		DE6386CF252E383600C79594 /* WatchCounterStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchCounterStorage.swift; sourceTree = "<group>"; };
 		DE7A83AA2523EC4D005F75D4 /* LegacyDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegacyDataController.swift; sourceTree = "<group>"; };
 		DE7EBB732522A11F0061F38F /* CounterDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CounterDataModel.xcdatamodel; sourceTree = "<group>"; };
-		DE7EBB892522A1BD0061F38F /* Counter+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Counter+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
-		DE7EBB8A2522A1BD0061F38F /* Counter+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Counter+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		DE7EBB892522A1BD0061F38F /* Counter+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Counter+CoreDataClass.swift"; sourceTree = "<group>"; };
+		DE7EBB8A2522A1BD0061F38F /* Counter+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Counter+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		DE8DBD65252282CB008A75C3 /* RoundedCornerButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedCornerButton.swift; sourceTree = "<group>"; };
 		DE9754B0252F7FC800A23619 /* IntervalCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntervalCalculator.swift; sourceTree = "<group>"; };
 		DE9754BA252FB10D00A23619 /* CounterComplicationTemplates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CounterComplicationTemplates.swift; sourceTree = "<group>"; };
@@ -206,7 +203,6 @@
 		DEF997811D1DC69400DAD02E /* WatchCounterCoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchCounterCoder.swift; sourceTree = "<group>"; };
 		DEF997821D1DC69400DAD02E /* WatchCommunicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchCommunicator.swift; sourceTree = "<group>"; };
 		DEF997831D1DC69400DAD02E /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
-		DEF997841D1DC69400DAD02E /* HelpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelpViewController.swift; sourceTree = "<group>"; };
 		DEF997851D1DC69400DAD02E /* Interval.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Interval.swift; sourceTree = "<group>"; };
 		DEF997911D1DC6B100DAD02E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DEF997931D1DC75C00DAD02E /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
@@ -314,9 +310,6 @@
 			children = (
 				DE7EBB892522A1BD0061F38F /* Counter+CoreDataClass.swift */,
 				DE7EBB8A2522A1BD0061F38F /* Counter+CoreDataProperties.swift */,
-				DE0F99DB252254A5006079E1 /* DataController.swift */,
-				DEF997821D1DC69400DAD02E /* WatchCommunicator.swift */,
-				DE7A83AA2523EC4D005F75D4 /* LegacyDataController.swift */,
 				DEF997811D1DC69400DAD02E /* WatchCounterCoder.swift */,
 				DEC0FA1A1D95B8BA0003C6F8 /* RateStatus.swift */,
 				DEF997801D1DC69400DAD02E /* Colors.swift */,
@@ -330,7 +323,7 @@
 			isa = PBXGroup;
 			children = (
 				DEF997931D1DC75C00DAD02E /* Main.storyboard */,
-				DE529CAC2534CC1900BE2014 /* Launch Screen.storyboard */,
+				DE529CAC2534CC1900BE2014 /* LaunchScreen.storyboard */,
 				DE2DED011F311C6100058A4A /* CounterTableViewCell.swift */,
 				DEAC75CF25097CC800062809 /* RoundedCornerView.swift */,
 				DE8DBD65252282CB008A75C3 /* RoundedCornerButton.swift */,
@@ -341,10 +334,12 @@
 		DED2F8372501AED500BACD1C /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				DE0F99DB252254A5006079E1 /* DataController.swift */,
+				DEF997821D1DC69400DAD02E /* WatchCommunicator.swift */,
 				DE2DED031F311DD700058A4A /* CounterListTableViewController.swift */,
 				DE2DED071F312C8000058A4A /* CounterDetailTableViewController.swift */,
-				DEF997841D1DC69400DAD02E /* HelpViewController.swift */,
 				DE529CB42534D43600BE2014 /* SettingsTableViewController.swift */,
+				DE7A83AA2523EC4D005F75D4 /* LegacyDataController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -389,7 +384,6 @@
 			isa = PBXGroup;
 			children = (
 				DEF9977D1D1DC61E00DAD02E /* AppDelegate.swift */,
-				DE5126471D527E750010DDC1 /* .gitignore */,
 				DED2F8372501AED500BACD1C /* Controller */,
 				DED2F8362501AECD00BACD1C /* View */,
 				DED2F8352501AEB400BACD1C /* Model */,
@@ -638,8 +632,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DE529CAD2534CC1900BE2014 /* Launch Screen.storyboard in Resources */,
-				DE5126481D527E750010DDC1 /* .gitignore in Resources */,
+				DE529CAD2534CC1900BE2014 /* LaunchScreen.storyboard in Resources */,
 				DEF997941D1DC75C00DAD02E /* Main.storyboard in Resources */,
 				DEF997921D1DC6B100DAD02E /* Assets.xcassets in Resources */,
 			);
@@ -775,7 +768,6 @@
 				DE7A83AB2523EC4D005F75D4 /* LegacyDataController.swift in Sources */,
 				DE8DBD66252282CB008A75C3 /* RoundedCornerButton.swift in Sources */,
 				DE6386BF252E2B9200C79594 /* WCKeys.swift in Sources */,
-				DEF9978D1D1DC69400DAD02E /* HelpViewController.swift in Sources */,
 				DE0F99DC252254A5006079E1 /* DataController.swift in Sources */,
 				DE7EBB8C2522A1BD0061F38F /* Counter+CoreDataProperties.swift in Sources */,
 				DEC0FA1B1D95B8BA0003C6F8 /* RateStatus.swift in Sources */,

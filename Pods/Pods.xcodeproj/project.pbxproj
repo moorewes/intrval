@@ -35,21 +35,21 @@
 		3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		33F40E01DCACDF5A6ADD34E0214ADA08 /* Pods-Interval-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-Interval-umbrella.h"; sourceTree = "<group>"; };
 		364AD68650236C8CD8166C2578071D9C /* Pods-Interval-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Interval-Info.plist"; sourceTree = "<group>"; };
-		38B9171864BD765EA21F3948626590A1 /* Pods_Interval_IntervalUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_Interval_IntervalUITests.framework; path = "Pods-Interval-IntervalUITests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		38B9171864BD765EA21F3948626590A1 /* Pods_Interval_IntervalUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Interval_IntervalUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		44BBB6F7EAA59E5D1D7CD4248CDCC068 /* Pods-IntervalTests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-IntervalTests-acknowledgements.markdown"; sourceTree = "<group>"; };
-		508A0025496275DFA4667E79A4A746AE /* Pods_IntervalTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_IntervalTests.framework; path = "Pods-IntervalTests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		508A0025496275DFA4667E79A4A746AE /* Pods_IntervalTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_IntervalTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		574868E6CA641B55353E79175C7CB2BB /* Pods-Interval-IntervalUITests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Interval-IntervalUITests-dummy.m"; sourceTree = "<group>"; };
 		6462B44A33A69D2106AE688FB035B746 /* Pods-IntervalTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-IntervalTests.debug.xcconfig"; sourceTree = "<group>"; };
 		6E737083CC29F4D484D88FE884BC5994 /* Pods-Interval-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Interval-dummy.m"; sourceTree = "<group>"; };
 		8173C4491CE50426724D7AB076BFE033 /* Pods-IntervalTests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-IntervalTests-dummy.m"; sourceTree = "<group>"; };
 		846C9225DFED7670AB0B1CCDC1DDBEE2 /* Pods-Interval-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Interval-acknowledgements.plist"; sourceTree = "<group>"; };
 		87DFF306B87D47ED554C28B4F0694DB9 /* Pods-Interval-IntervalUITests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Interval-IntervalUITests-acknowledgements.plist"; sourceTree = "<group>"; };
-		87E0E08A00B834643673B65ED0B60055 /* Pods_Interval.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_Interval.framework; path = "Pods-Interval.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		87E0E08A00B834643673B65ED0B60055 /* Pods_Interval.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Interval.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8C5E961415AA42D86E2BB6C690B2DAFE /* Pods-Interval-IntervalUITests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-Interval-IntervalUITests-umbrella.h"; sourceTree = "<group>"; };
 		92B15AAB77CAFB1350D53411AC3F42E5 /* Pods-IntervalTests-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-IntervalTests-Info.plist"; sourceTree = "<group>"; };
 		930A545D64437B724AF623DAC945863E /* Pods-Interval-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Interval-acknowledgements.markdown"; sourceTree = "<group>"; };
 		98F7A7CEEB264389B8DBB5A4416793A3 /* Pods-Interval-IntervalUITests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-Interval-IntervalUITests.modulemap"; sourceTree = "<group>"; };
-		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		A480A5A7C4E7757A0DAD0D60E05B801C /* Pods-IntervalTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-IntervalTests.release.xcconfig"; sourceTree = "<group>"; };
 		AD6925D42D36876533D082CF837FD61E /* Pods-IntervalTests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-IntervalTests.modulemap"; sourceTree = "<group>"; };
 		B53F68D81ECC48BFF353B686032E76FF /* Pods-Interval-IntervalUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Interval-IntervalUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -274,7 +274,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1100;
-				LastUpgradeCheck = 1100;
+				LastUpgradeCheck = 1200;
 			};
 			buildConfigurationList = 4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 10.0";
@@ -383,6 +383,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -640,6 +641,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
