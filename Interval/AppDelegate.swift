@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         if let customFont = UIFont(name: "Futura-CondensedMedium", size: 20.0) {
             UIBarButtonItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: customFont], for: .normal)
-            UINavigationBar.appearance().tintColor = UIColor.init(named: "NavBarItems")
+            UINavigationBar.appearance().tintColor = UIColor.init(named: "IntrvalGreen")
         }
         
         return true

@@ -13,7 +13,7 @@
                 <controller id="AgC-eL-Hgc" customClass="InterfaceController" customModule="Interval_WatchKit_App" customModuleProvider="target">
                     <items>
                         <label alignment="left" text="Current Counter:" textAlignment="left" id="dEB-Do-AIu"/>
-                        <picker height="40" alignment="left" focusStyle="sequence" indicatorMode="shownWhileFocused" id="y7H-GA-AZ1">
+                        <picker height="60" alignment="left" focusStyle="sequence" indicatorMode="shownWhileFocused" id="y7H-GA-AZ1">
                             <connections>
                                 <action selector="didSelectCounterItem:" destination="AgC-eL-Hgc" id="exE-ae-DUa"/>
                             </connections>

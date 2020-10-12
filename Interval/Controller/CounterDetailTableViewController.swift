@@ -35,7 +35,6 @@ class CounterDetailTableViewController: UITableViewController {
     @IBAction func dateWasChanged(_ sender: UIDatePicker) {
         let date = datePicker.date.withZeroSeconds
         counter.date = counter.includeTime ? date : date.withTime(hour: 0, minute: 0)
-        print(counter.date)
     }
     
     @IBAction func includeTimeWasChanged(_ sender: UISwitch) {
