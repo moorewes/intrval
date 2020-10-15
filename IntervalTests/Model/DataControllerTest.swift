@@ -32,6 +32,20 @@ class DataControllerTest: XCTestCase {
         XCTAssertNotNil(counter.id)
     }
     
+    func testNewCounterInMOC() {
+        let moc = sut.container.newBackgroundContext()
+        moc.perform {
+            let counter = self.sut.newCounter(in: moc)
+            
+            XCTAssertNotNil(counter.date)
+            XCTAssertNotNil(counter.title)
+            XCTAssertNotNil(counter.includeTime)
+            XCTAssertNotNil(counter.id)
+            XCTAssert(counter.managedObjectContext!.hasChanges)
+        }
+        
+    }
+    
     func testSaveCounters() {
         let _ = createCounters(10)
         

@@ -30,18 +30,14 @@
 		DE7EBB742522A11F0061F38F /* CounterDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DE7EBB722522A11F0061F38F /* CounterDataModel.xcdatamodeld */; };
 		DE7EBB8B2522A1BD0061F38F /* Counter+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE7EBB892522A1BD0061F38F /* Counter+CoreDataClass.swift */; };
 		DE7EBB8C2522A1BD0061F38F /* Counter+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE7EBB8A2522A1BD0061F38F /* Counter+CoreDataProperties.swift */; };
-		DE8DBD66252282CB008A75C3 /* RoundedCornerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE8DBD65252282CB008A75C3 /* RoundedCornerButton.swift */; };
 		DE9754B1252F7FC800A23619 /* IntervalCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE9754B0252F7FC800A23619 /* IntervalCalculator.swift */; };
 		DE9754B2252F7FC800A23619 /* IntervalCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE9754B0252F7FC800A23619 /* IntervalCalculator.swift */; };
 		DE9754B6252F802000A23619 /* Interval.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF997851D1DC69400DAD02E /* Interval.swift */; };
 		DE9754BB252FB10D00A23619 /* CounterComplicationTemplates.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE9754BA252FB10D00A23619 /* CounterComplicationTemplates.swift */; };
-		DE9754C1252FC4DC00A23619 /* ComplicationTemplateBuilderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE9754C0252FC4DC00A23619 /* ComplicationTemplateBuilderTests.swift */; };
 		DE9754DA252FCFA200A23619 /* StaticComplicationTemplates.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE9754D9252FCFA200A23619 /* StaticComplicationTemplates.swift */; };
 		DEABF5DE252657740092F0F9 /* DataControllerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEABF5DD252657740092F0F9 /* DataControllerMock.swift */; };
 		DEABF5EA252660440092F0F9 /* DataControllerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEABF5E9252660440092F0F9 /* DataControllerTest.swift */; };
-		DEAC75D025097CC800062809 /* RoundedCornerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEAC75CF25097CC800062809 /* RoundedCornerView.swift */; };
 		DEB467AD252565A200BC8A74 /* CounterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEB467AC252565A200BC8A74 /* CounterTest.swift */; };
-		DEC0FA1B1D95B8BA0003C6F8 /* RateStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEC0FA1A1D95B8BA0003C6F8 /* RateStatus.swift */; };
 		DEF28D071CADCDDE00D50DC1 /* IntervalTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF28D061CADCDDE00D50DC1 /* IntervalTests.swift */; };
 		DEF28D121CADCDDE00D50DC1 /* IntervalUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF28D111CADCDDE00D50DC1 /* IntervalUITests.swift */; };
 		DEF28D171CADCDDE00D50DC1 /* Interval WatchKit App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = DEF28D161CADCDDE00D50DC1 /* Interval WatchKit App.app */; };
@@ -53,7 +49,6 @@
 		DEF28D351CADCDDE00D50DC1 /* ComplicationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF28D341CADCDDE00D50DC1 /* ComplicationController.swift */; };
 		DEF28D371CADCDDE00D50DC1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DEF28D361CADCDDE00D50DC1 /* Assets.xcassets */; };
 		DEF9977E1D1DC61E00DAD02E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF9977D1D1DC61E00DAD02E /* AppDelegate.swift */; };
-		DEF997891D1DC69400DAD02E /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF997801D1DC69400DAD02E /* Colors.swift */; };
 		DEF9978A1D1DC69400DAD02E /* WatchCounterCoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF997811D1DC69400DAD02E /* WatchCounterCoder.swift */; };
 		DEF9978B1D1DC69400DAD02E /* WatchCommunicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF997821D1DC69400DAD02E /* WatchCommunicator.swift */; };
 		DEF9978C1D1DC69400DAD02E /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF997831D1DC69400DAD02E /* Extensions.swift */; };
@@ -170,16 +165,12 @@
 		DE7EBB732522A11F0061F38F /* CounterDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CounterDataModel.xcdatamodel; sourceTree = "<group>"; };
 		DE7EBB892522A1BD0061F38F /* Counter+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Counter+CoreDataClass.swift"; sourceTree = "<group>"; };
 		DE7EBB8A2522A1BD0061F38F /* Counter+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Counter+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		DE8DBD65252282CB008A75C3 /* RoundedCornerButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedCornerButton.swift; sourceTree = "<group>"; };
 		DE9754B0252F7FC800A23619 /* IntervalCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntervalCalculator.swift; sourceTree = "<group>"; };
 		DE9754BA252FB10D00A23619 /* CounterComplicationTemplates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CounterComplicationTemplates.swift; sourceTree = "<group>"; };
-		DE9754C0252FC4DC00A23619 /* ComplicationTemplateBuilderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplicationTemplateBuilderTests.swift; sourceTree = "<group>"; };
 		DE9754D9252FCFA200A23619 /* StaticComplicationTemplates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaticComplicationTemplates.swift; sourceTree = "<group>"; };
 		DEABF5DD252657740092F0F9 /* DataControllerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataControllerMock.swift; sourceTree = "<group>"; };
 		DEABF5E9252660440092F0F9 /* DataControllerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataControllerTest.swift; sourceTree = "<group>"; };
-		DEAC75CF25097CC800062809 /* RoundedCornerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedCornerView.swift; sourceTree = "<group>"; };
 		DEB467AC252565A200BC8A74 /* CounterTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CounterTest.swift; sourceTree = "<group>"; };
-		DEC0FA1A1D95B8BA0003C6F8 /* RateStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RateStatus.swift; sourceTree = "<group>"; };
 		DEF28CEE1CADCDDE00D50DC1 /* Interval.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Interval.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DEF28CFD1CADCDDE00D50DC1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DEF28D021CADCDDE00D50DC1 /* IntervalTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IntervalTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -199,7 +190,6 @@
 		DEF28D361CADCDDE00D50DC1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DEF28D381CADCDDE00D50DC1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DEF9977D1D1DC61E00DAD02E /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		DEF997801D1DC69400DAD02E /* Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		DEF997811D1DC69400DAD02E /* WatchCounterCoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchCounterCoder.swift; sourceTree = "<group>"; };
 		DEF997821D1DC69400DAD02E /* WatchCommunicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchCommunicator.swift; sourceTree = "<group>"; };
 		DEF997831D1DC69400DAD02E /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
@@ -279,19 +269,13 @@
 			isa = PBXGroup;
 			children = (
 				DE2DED0F1F324E0500058A4A /* WatchCounter.swift */,
+				DEF997811D1DC69400DAD02E /* WatchCounterCoder.swift */,
 				DE6386BE252E2B9200C79594 /* WCKeys.swift */,
 				DE9754B0252F7FC800A23619 /* IntervalCalculator.swift */,
 				DEF997851D1DC69400DAD02E /* Interval.swift */,
+				DEF997831D1DC69400DAD02E /* Extensions.swift */,
 			);
 			path = Shared;
-			sourceTree = "<group>";
-		};
-		DE9754BF252FC4B200A23619 /* Watch */ = {
-			isa = PBXGroup;
-			children = (
-				DE9754C0252FC4DC00A23619 /* ComplicationTemplateBuilderTests.swift */,
-			);
-			path = Watch;
 			sourceTree = "<group>";
 		};
 		DEABF5D3252655FE0092F0F9 /* Model */ = {
@@ -310,10 +294,6 @@
 			children = (
 				DE7EBB892522A1BD0061F38F /* Counter+CoreDataClass.swift */,
 				DE7EBB8A2522A1BD0061F38F /* Counter+CoreDataProperties.swift */,
-				DEF997811D1DC69400DAD02E /* WatchCounterCoder.swift */,
-				DEC0FA1A1D95B8BA0003C6F8 /* RateStatus.swift */,
-				DEF997801D1DC69400DAD02E /* Colors.swift */,
-				DEF997831D1DC69400DAD02E /* Extensions.swift */,
 				DE7EBB722522A11F0061F38F /* CounterDataModel.xcdatamodeld */,
 			);
 			path = Model;
@@ -325,8 +305,6 @@
 				DEF997931D1DC75C00DAD02E /* Main.storyboard */,
 				DE529CAC2534CC1900BE2014 /* LaunchScreen.storyboard */,
 				DE2DED011F311C6100058A4A /* CounterTableViewCell.swift */,
-				DEAC75CF25097CC800062809 /* RoundedCornerView.swift */,
-				DE8DBD65252282CB008A75C3 /* RoundedCornerButton.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -396,7 +374,6 @@
 		DEF28D051CADCDDE00D50DC1 /* IntervalTests */ = {
 			isa = PBXGroup;
 			children = (
-				DE9754BF252FC4B200A23619 /* Watch */,
 				DEABF5D3252655FE0092F0F9 /* Model */,
 				DEF28D081CADCDDE00D50DC1 /* Info.plist */,
 			);
@@ -766,19 +743,15 @@
 				DE7EBB742522A11F0061F38F /* CounterDataModel.xcdatamodeld in Sources */,
 				DEF9978C1D1DC69400DAD02E /* Extensions.swift in Sources */,
 				DE7A83AB2523EC4D005F75D4 /* LegacyDataController.swift in Sources */,
-				DE8DBD66252282CB008A75C3 /* RoundedCornerButton.swift in Sources */,
 				DE6386BF252E2B9200C79594 /* WCKeys.swift in Sources */,
 				DE0F99DC252254A5006079E1 /* DataController.swift in Sources */,
 				DE7EBB8C2522A1BD0061F38F /* Counter+CoreDataProperties.swift in Sources */,
-				DEC0FA1B1D95B8BA0003C6F8 /* RateStatus.swift in Sources */,
 				DE6386DC252E53E400C79594 /* WatchCounter.swift in Sources */,
 				DE2DED041F311DD700058A4A /* CounterListTableViewController.swift in Sources */,
 				DEF9977E1D1DC61E00DAD02E /* AppDelegate.swift in Sources */,
 				DEF9978B1D1DC69400DAD02E /* WatchCommunicator.swift in Sources */,
 				DE529CB52534D43600BE2014 /* SettingsTableViewController.swift in Sources */,
-				DEAC75D025097CC800062809 /* RoundedCornerView.swift in Sources */,
 				DE2DED081F312C8000058A4A /* CounterDetailTableViewController.swift in Sources */,
-				DEF997891D1DC69400DAD02E /* Colors.swift in Sources */,
 				DEF9978E1D1DC69400DAD02E /* Interval.swift in Sources */,
 				DE7EBB8B2522A1BD0061F38F /* Counter+CoreDataClass.swift in Sources */,
 				DE2DED021F311C6100058A4A /* CounterTableViewCell.swift in Sources */,
@@ -792,7 +765,6 @@
 			files = (
 				DEF28D071CADCDDE00D50DC1 /* IntervalTests.swift in Sources */,
 				DEB467AD252565A200BC8A74 /* CounterTest.swift in Sources */,
-				DE9754C1252FC4DC00A23619 /* ComplicationTemplateBuilderTests.swift in Sources */,
 				DEABF5DE252657740092F0F9 /* DataControllerMock.swift in Sources */,
 				DEABF5EA252660440092F0F9 /* DataControllerTest.swift in Sources */,
 			);
