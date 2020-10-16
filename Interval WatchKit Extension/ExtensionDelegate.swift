@@ -11,9 +11,7 @@ import WatchKit
 import WatchConnectivity
 
 extension Notification.Name {
-    
     static let counterDataDidUpdate = Notification.Name(rawValue: "counterDataDidUpdate")
-    
 }
 
 // MARK: -
@@ -22,7 +20,9 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate {
     
     var session: WCSession!
     var complicationController: ComplicationController?
-    var dataController = DataController.main
+    var dataController: DataController { return DataController.main }
+    
+    private var dataTransferPending = false
 
     // MARK: - Initializers
     
@@ -41,6 +41,18 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate {
     func updateComplication() {
         let server = CLKComplicationServer.sharedInstance()
         server.activeComplications?.forEach { server.reloadTimeline(for: $0) }
+    }
+    
+    func requestCounterDataFromIOS() {
+        guard session.isReachable else {
+            dataTransferPending = true
+            return
+        }
+        
+        dataTransferPending = false
+        
+        let dataRequest: [String: Any] = [WCKeys.counterDataRequest: true]
+        session.sendMessage(dataRequest, replyHandler: nil)
     }
     
     private func handle(_ message: [String: Any]) {
@@ -63,13 +75,12 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate {
 
 extension ExtensionDelegate: WCSessionDelegate {
     
-    func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
-        // Request data if there is no local data
-        if dataController.counters.isEmpty && session.isReachable {
-            let dataRequest: [String: Any] = [WCKeys.counterDataRequest: true]
-            session.sendMessage(dataRequest, replyHandler: nil)
+    func session(_ session: WCSession,
+                 activationDidCompleteWith activationState: WCSessionActivationState,
+                 error: Error?) {
+        if dataController.counters.isEmpty || dataTransferPending {
+            requestCounterDataFromIOS()
         }
-        
     }
     
     func session(_ session: WCSession, didReceiveUserInfo userInfo: [String: Any]) {

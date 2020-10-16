@@ -11,6 +11,10 @@
 import Foundation
 import CoreData
 
+extension Notification.Name {
+    static let counterDataDidUpdate = Notification.Name(rawValue: "counterDataDidUpdate")
+}
+
 internal class DataController {
     
     // MARK: - Types
@@ -34,12 +38,16 @@ internal class DataController {
     // MARK: - Init
     
     init() {
+        WatchCommunicator.main.activateSession()
+        
         self.container = NSPersistentContainer(name: Counter.modelName)
         container.loadPersistentStores { (_, error) in
             if let error = error {
                 fatalError("Unable to load persistent stores: \(error)")
             }
         }
+        
+        importLegacyDataIfNeeded()
     }
     
     // MARK: - Methods
@@ -71,7 +79,8 @@ internal class DataController {
         } catch {
             fatalError("Failed to save changes made to counter. Error: \(error)")
         }
-                
+        
+        NotificationCenter.default.post(name: .counterDataDidUpdate, object: nil)
     }
     
     func discardChanges() {
@@ -101,14 +110,7 @@ internal class DataController {
                                      includeTime: legacyCounter.includeTime)
         }
         
-        let moc = container.viewContext
-        do {
-            try moc.save()
-        } catch {
-            return
-        }
-        
-        moc.reset()
+        saveCounters()
         
         LegacyDataController.removeAllData()
     }

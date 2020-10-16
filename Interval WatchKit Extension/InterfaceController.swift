@@ -46,6 +46,7 @@ class InterfaceController: WKInterfaceController {
         
         setupView()
         updateUI()
+        
         setupDataUpdateObserver()
     }
     
@@ -87,7 +88,7 @@ class InterfaceController: WKInterfaceController {
         counters = dataController.counters
         guard !counters.isEmpty else {
             let item = WKPickerItem()
-            item.title = "add counter using iPhone"
+            item.title = "add on iPhone"
             return [item]
         }
         

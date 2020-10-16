@@ -52,6 +52,10 @@ class CounterDetailTableViewController: UITableViewController {
     @IBAction func userSaved() {
         titleTextField.resignFirstResponder()
         
+        if titleTextField.text == "" {
+            counter.title = "Unnamed Counter"
+        }
+        
         delegate.didFinish(viewController: self, didSave: true)
     }
     

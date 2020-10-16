@@ -14,9 +14,7 @@ class CounterListTableViewController: UITableViewController {
     // MARK: - Types
         
     private enum SegueID {
-        
         static let EditCounter = "editCounter"
-        
     }
     
     // MARK: - Properties
@@ -115,11 +113,7 @@ class CounterListTableViewController: UITableViewController {
     }
     
     private func saveData() {
-        do {
-            try fetchedResultsController.managedObjectContext.save()
-        } catch {
-            fatalError("Failed to save changes, \(error)")
-        }
+        dataController.saveCounters()
     }
     
 }

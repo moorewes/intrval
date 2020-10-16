@@ -20,12 +20,14 @@ class WatchCommunicator: NSObject, WCSessionDelegate {
     
     // MARK: Private properties
     
-    private let dataController = DataController.main
+    private var dataController: DataController { return  DataController.main }
     
     private let defaults = UserDefaults.standard
     
     private var session: WCSession?
     
+    private var dataTransferPending = false
+        
     // MARK: - Initializers
     
     private override init() {
@@ -33,25 +35,25 @@ class WatchCommunicator: NSObject, WCSessionDelegate {
         
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(dataDidUpdate),
-                                               name: .NSManagedObjectContextDidSave,
+                                               name: .counterDataDidUpdate,
                                                object: nil)
     }
     
     // MARK: - Methods
     
     func activateSession() {
-        if WCSession.isSupported() {
-            session = WCSession.default
-            session?.delegate = self
-            session?.activate()
-        }
+        guard WCSession.isSupported() else { return }
+        
+        session = WCSession.default
+        session?.delegate = self
+        session?.activate()
     }
     
     // MARK: WCSession Delegate
 
     public func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
-        if let e = error {
-            print(e.localizedDescription)
+        if dataTransferPending {
+            initiateTransfer()
         }
     }
     
@@ -77,8 +79,11 @@ class WatchCommunicator: NSObject, WCSessionDelegate {
     
     private func initiateTransfer() {
         guard session?.activationState == .activated else {
+            dataTransferPending = true
             return
         }
+        
+        dataTransferPending = false
         
         dataController.container.performBackgroundTask { (moc) in
             let counters = self.fetchCounters(in: moc)
