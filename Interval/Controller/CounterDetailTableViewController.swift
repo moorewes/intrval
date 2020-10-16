@@ -11,6 +11,7 @@ import CoreData
 
 protocol CounterDetailDelegate: class {
     func didFinish(viewController: CounterDetailTableViewController, didSave: Bool)
+    func didDismiss()
 }
 
 @IBDesignable
@@ -82,6 +83,12 @@ class CounterDetailTableViewController: UITableViewController {
         if counter.title.isEmpty {
             titleTextField.becomeFirstResponder()
         }
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(true)
+        
+        delegate.didDismiss()
     }
 
     // MARK: - Navigation

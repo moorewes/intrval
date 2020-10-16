@@ -32,9 +32,9 @@ class DataController {
     
     // MARK: - Properties
     
-    private static let defaults = UserDefaults.standard
+    weak var delegate: ExtensionDelegate?
     
-    var counters = [WatchCounter]()
+    var hasData: Bool { return !counters.isEmpty }
     
     var complicationCounter: WatchCounter? {
         get {
@@ -50,6 +50,10 @@ class DataController {
         
     }
     
+    private static let defaults = UserDefaults.standard
+    
+    private var counters = [WatchCounter]()
+    
     private var storage = WatchCounterStorage()
     
     // MARK: - Initializers
@@ -59,6 +63,15 @@ class DataController {
     }
     
     // MARK: - Methods
+    
+    func allCounters() -> [WatchCounter]? {
+        if counters.isEmpty {
+            delegate?.requestCounterDataFromIOS()
+            return nil
+        }
+        
+        return counters
+    }
     
     func setCounters(_ data: Data) {
         guard let counters = WatchCounterCoder.decode(data) else {

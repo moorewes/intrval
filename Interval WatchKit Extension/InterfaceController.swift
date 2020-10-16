@@ -15,7 +15,7 @@ class InterfaceController: WKInterfaceController {
     
     private var dataController = DataController.main
     
-    var counters: [WatchCounter] = []
+    var counters: [WatchCounter]?
     
     var currentInterval: WatchCounter?
     
@@ -27,6 +27,8 @@ class InterfaceController: WKInterfaceController {
     // MARK: - IBActions
     
     @IBAction func didSelectCounterItem(_ value: Int) {
+        guard let counters = counters else { return }
+        
         let counter = counters[value]
         currentInterval = counter
         dataController.complicationCounter = counter
@@ -45,6 +47,7 @@ class InterfaceController: WKInterfaceController {
         super.awake(withContext: context)
         
         setupView()
+        
         updateUI()
         
         setupDataUpdateObserver()
@@ -57,8 +60,13 @@ class InterfaceController: WKInterfaceController {
 
     // MARK: - Convenience
     
-    @objc private func updateUI() {
+    private func updateUI() {
+        counters = dataController.allCounters()
         refreshCounterPickerItems()
+    }
+    
+    @objc private func dataDidUpdate() {
+        updateUI()
     }
     
     private func setupView() {
@@ -69,7 +77,7 @@ class InterfaceController: WKInterfaceController {
     
     private func setupDataUpdateObserver() {
         NotificationCenter.default.addObserver(self,
-                                               selector: #selector(updateUI),
+                                               selector: #selector(dataDidUpdate),
                                                name: .counterDataDidUpdate,
                                                object: nil)
     }
@@ -85,8 +93,7 @@ class InterfaceController: WKInterfaceController {
     }
     
     private func counterPickerItems() -> [WKPickerItem] {
-        counters = dataController.counters
-        guard !counters.isEmpty else {
+        guard let counters = counters else {
             let item = WKPickerItem()
             item.title = "add on iPhone"
             return [item]
@@ -103,11 +110,10 @@ class InterfaceController: WKInterfaceController {
     }
     
     private func selectedCounterPickerItemIndex() -> Int? {
-        guard let complicationCounter = dataController.complicationCounter else {
+        guard let counters = counters,
+              let complicationCounter = dataController.complicationCounter else {
             return nil
         }
-        
-        let counters = dataController.counters
         
         return counters.firstIndex(of: complicationCounter)
     }

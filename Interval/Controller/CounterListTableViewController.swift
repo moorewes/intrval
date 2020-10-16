@@ -45,7 +45,7 @@ class CounterListTableViewController: UITableViewController {
         
         startAutoUpdatingCellCounters()
     }
-        
+            
     deinit {
         stopAutoUpdatingCellCounters()
     }
@@ -188,7 +188,6 @@ extension CounterListTableViewController: NSFetchedResultsControllerDelegate {
             tableView.reloadRows(at: [indexPath!], with: .fade)
         default: break
         }
-        print(controller.managedObjectContext.hasChanges)
     }
     
 }
@@ -198,10 +197,13 @@ extension CounterListTableViewController: NSFetchedResultsControllerDelegate {
 extension CounterListTableViewController: CounterDetailDelegate {
     
     func didFinish(viewController: CounterDetailTableViewController, didSave: Bool) {
+        defer {
+            dismiss(animated: true)
+        }
+        
         guard didSave,
               let moc = viewController.moc,
               moc.hasChanges else {
-            dismiss(animated: true)
             return
         }
         
@@ -214,9 +216,9 @@ extension CounterListTableViewController: CounterDetailDelegate {
             
             self.dataController.saveCounters()
         }
-        
-        dismiss(animated: true)
-        
+    }
+    
+    func didDismiss() {
         startAutoUpdatingCellCounters()
     }
     

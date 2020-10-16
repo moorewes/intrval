@@ -52,7 +52,7 @@ class WatchCommunicator: NSObject, WCSessionDelegate {
     // MARK: WCSession Delegate
 
     public func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
-        if dataTransferPending {
+        if dataTransferPending && activationState == .activated {
             initiateTransfer()
         }
     }
@@ -105,6 +105,7 @@ class WatchCommunicator: NSObject, WCSessionDelegate {
         } catch {
             return []
         }
+        
         return counters
     }
     

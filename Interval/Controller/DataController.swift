@@ -46,8 +46,6 @@ internal class DataController {
                 fatalError("Unable to load persistent stores: \(error)")
             }
         }
-        
-        importLegacyDataIfNeeded()
     }
     
     // MARK: - Methods
@@ -101,7 +99,7 @@ internal class DataController {
         return objects
     }
         
-    private func importLegacyDataIfNeeded() {
+    func importLegacyDataIfNeeded() {
         guard let legacyCounters = LegacyDataController.counters() else { return }
         
         for legacyCounter in legacyCounters {
