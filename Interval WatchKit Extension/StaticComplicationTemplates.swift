@@ -29,7 +29,7 @@ struct StaticComplicationTemplates {
     }
 
     private func staticTemplate(type: TemplateType,
-                  for family: CLKComplicationFamily) -> CLKComplicationTemplate? {
+                                for family: CLKComplicationFamily) -> CLKComplicationTemplate? {
         setupTextProviders(for: type)
         
         switch family {

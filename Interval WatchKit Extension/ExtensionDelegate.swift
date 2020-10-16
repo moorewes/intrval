@@ -72,7 +72,6 @@ extension ExtensionDelegate: WCSessionDelegate {
         
     }
     
-    
     func session(_ session: WCSession, didReceiveUserInfo userInfo: [String: Any]) {
         handle(userInfo)
     }

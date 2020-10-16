@@ -47,7 +47,7 @@ class DataControllerTest: XCTestCase {
     }
     
     func testSaveCounters() {
-        let _ = createCounters(10)
+        createCounters(10)
         
         sut.saveCounters()
         
@@ -56,13 +56,10 @@ class DataControllerTest: XCTestCase {
     
     // MARK: Helper Methods
     
-    func createCounters(_ count: Int) -> [Counter] {
-        var counters = [Counter]()
-        while counters.count < count {
-            counters.append(sut.newCounter())
+    func createCounters(_ count: Int) {
+        for _ in 0..<count {
+            _ = sut.newCounter()
         }
-        
-        return counters
     }
 
 }

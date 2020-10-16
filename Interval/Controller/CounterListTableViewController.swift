@@ -80,7 +80,7 @@ class CounterListTableViewController: UITableViewController {
         let fetchRequest: NSFetchRequest<Counter> = Counter.fetchRequest()
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
         
-        let controller = NSFetchedResultsController (
+        let controller = NSFetchedResultsController(
             fetchRequest: fetchRequest,
             managedObjectContext: moc,
             sectionNameKeyPath: nil,

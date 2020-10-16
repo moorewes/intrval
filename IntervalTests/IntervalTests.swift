@@ -62,6 +62,4 @@ class IntervalTests: XCTestCase {
         XCTAssertEqual(sut.unit, .second)
     }
     
-    
-    
 }

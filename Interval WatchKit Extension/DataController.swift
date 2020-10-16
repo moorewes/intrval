@@ -82,8 +82,8 @@ class DataController {
     }
     
     private func counter(matching id: UUID) -> WatchCounter? {
-        for counter in counters {
-            if counter.id == id { return counter }
+        for counter in counters where counter.id == id {
+            return counter
         }
         
         return nil

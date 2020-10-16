@@ -19,7 +19,6 @@ class InterfaceController: WKInterfaceController {
     
     var currentInterval: WatchCounter?
     
-    
     // MARK: - IBOutlets
     
     @IBOutlet var counterSelectPicker: WKInterfacePicker!
@@ -54,14 +53,10 @@ class InterfaceController: WKInterfaceController {
         super.willActivate()
         updateUI()
     }
-    
-    deinit {
-        NotificationCenter.default.removeObserver(self)
-    }
-    
+
     // MARK: - Convenience
     
-    private func updateUI() {
+    @objc private func updateUI() {
         refreshCounterPickerItems()
     }
     
@@ -72,11 +67,10 @@ class InterfaceController: WKInterfaceController {
     }
     
     private func setupDataUpdateObserver() {
-        NotificationCenter.default.addObserver(forName: .counterDataDidUpdate,
-                                               object: nil,
-                                               queue: nil) { [unowned self] (notification) in
-            self.updateUI()
-        }
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(updateUI),
+                                               name: .counterDataDidUpdate,
+                                               object: nil)
     }
     
     private func refreshCounterPickerItems() {
@@ -124,4 +118,3 @@ class InterfaceController: WKInterfaceController {
     }
 
 }
-

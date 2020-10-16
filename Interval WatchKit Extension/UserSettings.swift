@@ -36,9 +36,7 @@ class UserSettings {
     }
     
     class var userPrefersSpecificUnit: Bool {
-        get {
-            return defaultUnit == .era
-        }
+        return defaultUnit == .era
     }
     
     // Note: .era is used to represent smart auto unit

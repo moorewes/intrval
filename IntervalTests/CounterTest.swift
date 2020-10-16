@@ -13,11 +13,11 @@ import CoreData
 class CounterTest: XCTestCase {
     
     var now: Date { return Date() }
+    
+    var dataController: DataControllerMock!
     var moc: NSManagedObjectContext { return dataController.container.viewContext }
 
     var sut: Counter!
-    var dataController: DataControllerMock!
-    
     
     override func setUp() {
         super.setUp()

@@ -15,15 +15,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        WatchCommunicator.main.activateSession()
         
-        let _ = WatchCommunicator.main
+        setupNavigationBar()
         
+        return true
+    }
+    
+    private func setupNavigationBar() {
         if let customFont = UIFont(name: "Futura-CondensedMedium", size: 20.0) {
             UIBarButtonItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: customFont], for: .normal)
             UINavigationBar.appearance().tintColor = UIColor.init(named: "IntrvalGreen")
         }
-        
-        return true
     }
     
 }

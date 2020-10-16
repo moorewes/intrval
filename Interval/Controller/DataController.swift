@@ -96,7 +96,7 @@ internal class DataController {
         guard let legacyCounters = LegacyDataController.counters() else { return }
         
         for legacyCounter in legacyCounters {
-            let _ = newCounter(title: legacyCounter.title,
+            _ = newCounter(title: legacyCounter.title,
                                      date: legacyCounter.date,
                                      includeTime: legacyCounter.includeTime)
         }

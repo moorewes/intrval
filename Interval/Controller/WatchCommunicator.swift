@@ -31,12 +31,6 @@ class WatchCommunicator: NSObject, WCSessionDelegate {
     private override init() {
         super.init()
         
-        if WCSession.isSupported() {
-            session = WCSession.default
-            session?.delegate = self
-            session?.activate()
-        }
-        
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(dataDidUpdate),
                                                name: .NSManagedObjectContextDidSave,
@@ -44,6 +38,14 @@ class WatchCommunicator: NSObject, WCSessionDelegate {
     }
     
     // MARK: - Methods
+    
+    func activateSession() {
+        if WCSession.isSupported() {
+            session = WCSession.default
+            session?.delegate = self
+            session?.activate()
+        }
+    }
     
     // MARK: WCSession Delegate
 
@@ -53,7 +55,7 @@ class WatchCommunicator: NSObject, WCSessionDelegate {
         }
     }
     
-    public func session(_ session: WCSession, didReceiveMessage message: [String : Any], replyHandler: @escaping ([String : Any]) -> Void) {
+    public func session(_ session: WCSession, didReceiveMessage message: [String: Any], replyHandler: @escaping ([String: Any]) -> Void) {
         if let _ = message[WCKeys.counterDataRequest] as? Bool {
             initiateTransfer()
         }

@@ -74,7 +74,9 @@ class SettingsTableViewController: UITableViewController {
     }
     
     private func presentMailFailureAlert() {
-        let alert = UIAlertController(title: "Email Failed To Send", message: "Please try again or use your own email client and send to wesmooredesign@gmail.com", preferredStyle: UIAlertController.Style.alert )
+        let alert = UIAlertController(title: "Email Failed To Send",
+                                      message: "Please try again or send an email to wesmooredesign@gmail.com",
+                                      preferredStyle: UIAlertController.Style.alert )
         self.present(alert, animated: true, completion: { () -> Void in
             self.dismiss(animated: true, completion: nil)
         })

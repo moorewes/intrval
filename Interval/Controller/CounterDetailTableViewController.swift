@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-protocol CounterDetailDelegate {
+protocol CounterDetailDelegate: class {
     func didFinish(viewController: CounterDetailTableViewController, didSave: Bool)
 }
 
@@ -19,7 +19,7 @@ class CounterDetailTableViewController: UITableViewController {
     // MARK: - Properties
     
     var counter: Counter!
-    var delegate: CounterDetailDelegate!
+    weak var delegate: CounterDetailDelegate!
     var moc: NSManagedObjectContext?
         
     private var dateFormatter = DateFormatter()

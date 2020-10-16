@@ -278,17 +278,6 @@
 			path = Shared;
 			sourceTree = "<group>";
 		};
-		DEABF5D3252655FE0092F0F9 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				DEB467AC252565A200BC8A74 /* CounterTest.swift */,
-				DEABF5DD252657740092F0F9 /* DataControllerMock.swift */,
-				DEABF5E9252660440092F0F9 /* DataControllerTest.swift */,
-				DEF28D061CADCDDE00D50DC1 /* IntervalTests.swift */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
 		DED2F8352501AEB400BACD1C /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -374,7 +363,10 @@
 		DEF28D051CADCDDE00D50DC1 /* IntervalTests */ = {
 			isa = PBXGroup;
 			children = (
-				DEABF5D3252655FE0092F0F9 /* Model */,
+				DEB467AC252565A200BC8A74 /* CounterTest.swift */,
+				DEABF5DD252657740092F0F9 /* DataControllerMock.swift */,
+				DEABF5E9252660440092F0F9 /* DataControllerTest.swift */,
+				DEF28D061CADCDDE00D50DC1 /* IntervalTests.swift */,
 				DEF28D081CADCDDE00D50DC1 /* Info.plist */,
 			);
 			path = IntervalTests;

@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "Interval_Icon_07_48.png",
+      "filename" : "Interval_Icon_08_48.png",
       "idiom" : "watch",
       "role" : "notificationCenter",
       "scale" : "2x",
@@ -9,7 +9,7 @@
       "subtype" : "38mm"
     },
     {
-      "filename" : "Interval_Icon_07_55.png",
+      "filename" : "Interval_Icon_08_55.png",
       "idiom" : "watch",
       "role" : "notificationCenter",
       "scale" : "2x",
@@ -17,21 +17,21 @@
       "subtype" : "42mm"
     },
     {
-      "filename" : "Interval_Icon_07_58.png",
+      "filename" : "Interval_Icon_08_58.png",
       "idiom" : "watch",
       "role" : "companionSettings",
       "scale" : "2x",
       "size" : "29x29"
     },
     {
-      "filename" : "Interval_Icon_07_87.png",
+      "filename" : "Interval_Icon_08_87.png",
       "idiom" : "watch",
       "role" : "companionSettings",
       "scale" : "3x",
       "size" : "29x29"
     },
     {
-      "filename" : "Interval_Icon_07_80.png",
+      "filename" : "Interval_Icon_08_80.png",
       "idiom" : "watch",
       "role" : "appLauncher",
       "scale" : "2x",
@@ -39,6 +39,7 @@
       "subtype" : "38mm"
     },
     {
+      "filename" : "Interval_Icon_08_88.png",
       "idiom" : "watch",
       "role" : "appLauncher",
       "scale" : "2x",
@@ -46,6 +47,7 @@
       "subtype" : "40mm"
     },
     {
+      "filename" : "Interval_Icon_08_100.png",
       "idiom" : "watch",
       "role" : "appLauncher",
       "scale" : "2x",
@@ -53,7 +55,7 @@
       "subtype" : "44mm"
     },
     {
-      "filename" : "Interval_Icon_07_172.png",
+      "filename" : "Interval_Icon_08_172.png",
       "idiom" : "watch",
       "role" : "quickLook",
       "scale" : "2x",
@@ -61,7 +63,7 @@
       "subtype" : "38mm"
     },
     {
-      "filename" : "Interval_Icon_07_196.png",
+      "filename" : "Interval_Icon_08_196.png",
       "idiom" : "watch",
       "role" : "quickLook",
       "scale" : "2x",
@@ -69,6 +71,7 @@
       "subtype" : "42mm"
     },
     {
+      "filename" : "Interval_Icon_08_216.png",
       "idiom" : "watch",
       "role" : "quickLook",
       "scale" : "2x",
@@ -76,7 +79,7 @@
       "subtype" : "44mm"
     },
     {
-      "filename" : "Interval_Icon_07_1024.png",
+      "filename" : "Interval_Icon_08_1024.png",
       "idiom" : "watch-marketing",
       "scale" : "1x",
       "size" : "1024x1024"
